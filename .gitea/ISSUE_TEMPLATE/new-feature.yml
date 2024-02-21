@@ -1,0 +1,42 @@
+name: 新功能
+about: 创建一个新功能工单，用于发放给开发者进行功能开发
+title: "[FEAT] "
+labels: ["功能/新的", "优先级/低"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 注意事项
+        
+        请在右侧选择好标签，项目选择 **服务外包「绿链碳账本」** ，指派成员务必带上你自己和 @XiaoLFeng
+        否则我将无法及时收到消息进行功能开发！
+        
+        标题请按需求填写！
+        
+        ---
+  - type: input
+    id: feature-name
+    attributes:
+      label: 功能名称
+      description: 请输入新功能的名称。
+      placeholder: 例如：用户登录页面
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: 功能描述详情
+      description: 请详细描述该功能的业务逻辑和用户交互流程。
+      placeholder: 详细描述功能实现的业务逻辑、用户界面交互等。
+    validations:
+      required: true
+
+  - type: input
+    id: apifox-interface
+    attributes:
+      label: Apifox接口名称
+      description: 请输入与此功能相关的Apifox接口名称。
+      placeholder: userAuthLogin接口
+    validations:
+      required: true
