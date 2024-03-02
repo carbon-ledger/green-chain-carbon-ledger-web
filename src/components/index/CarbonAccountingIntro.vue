@@ -7,16 +7,9 @@
     <div class="images-container">
       <div class="row">
         <!-- 第一行图片及描述 -->
-        <div class="image-container" v-for="n in 3" :key="`image-${n}-1`">
+        <div class="image-container">
           <img class="image" src="/favicon.ico" alt="描述1" />
           <div class="image-description">图片描述1</div>
-        </div>
-      </div>
-      <div class="row">
-        <!-- 第二行图片及描述 -->
-        <div class="image-container" v-for="n in 3" :key="`image-${n}-2`">
-          <img class="image" src="/favicon.ico" alt="描述2" />
-          <div class="image-description">图片描述2</div>
         </div>
       </div>
     </div>
