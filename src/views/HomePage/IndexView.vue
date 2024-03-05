@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import Navbar from '@/components/index/Navbar.vue';
-import CarbonAccountingIntro from '@/components/index/CarbonAccountingIntro.vue';
-import CarbonTradingIntro from '@/components/index/CarbonTradingIntro.vue';
-import Footer from '@/components/index/Footer.vue';
-import Carousel from "@/components/index/Carousel.vue";
-import ProductFeatures from "@/components/index/ProductFeatures.vue";
-import IndustrySolutions from "@/components/index/IndustrySolutions.vue";
-import OurService from "@/components/index/OurService.vue";
+import Navbar from '@/components/HomeComponents/Navbar.vue';
+import CarbonAccountingIntro from '@/components/HomeComponents/CarbonAccountingIntro.vue';
+import CarbonTradingIntro from '@/components/HomeComponents/CarbonTradingIntro.vue';
+import Footer from '@/components/HomeComponents/Footer.vue';
+import Carousel from "@/components/HomeComponents/Carousel.vue";
+import ProductFeatures from "@/components/HomeComponents/ProductFeatures.vue";
+import IndustrySolutions from "@/components/HomeComponents/IndustrySolutions.vue";
+import OurService from "@/components/HomeComponents/OurService.vue";
 
 export default {
   name: 'IndexView',

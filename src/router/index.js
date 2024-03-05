@@ -37,7 +37,12 @@ const router = createRouter({
       path:'/CarbonTrading',
       name:'CarbonTrading',
       component:() => import('../views/HomePage/CarbonTradingView.vue')
-    }
+    },
+    {
+      path:'/backpage/main',
+      name:'backpagemain',
+      component:()=>import('../views/BackPage/main.vue')
+    },
   ]
 })
 
