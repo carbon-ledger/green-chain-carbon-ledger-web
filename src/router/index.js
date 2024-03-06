@@ -29,6 +29,11 @@ const router = createRouter({
       component:() => import('../views/AuthPage/ForgetPasswordView.vue')
     },
     {
+      path:'/alterpassword',
+      name:'alterpassword',
+      component:()=>import('../views/AuthPage/AlterPasswordView.vue')
+    },
+    {
       path:'/backpage/main',
       name:'backpagemain',
       component:() => import('../views/BackPage/main.vue')
@@ -60,8 +65,18 @@ const router = createRouter({
         },
         {
           path:'/backpage/analysis',
-          name:'backanalysis',
+          name:'backpageanalysis',
           component:()=>import('../views/BackPage/analysis.vue')
+        },
+        {
+          path:'/backpage/monitor',
+          name:'backpagemonitor',
+          component:()=>import('../views/BackPage/monitor.vue')
+        },
+        {
+          path:'/backpage/user',
+          name:'backpageuser',
+          component:()=>import('../views/BackPage/user.vue')
         }
       ]
     },

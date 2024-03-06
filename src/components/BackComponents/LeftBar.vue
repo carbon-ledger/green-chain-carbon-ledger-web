@@ -60,13 +60,19 @@ const handleClick = (e) => {
   console.log(e.key);
   switch (key) {
     case '0':
-      router.push('/BackPage/main');
+      router.push('/backpage/main');
       break;
     case '1':
-      router.push('/BackPage/console');
+      router.push('/backpage/console');
       break;
     case '2':
-      router.push('/BackPage/analysis');
+      router.push('/backpage/analysis');
+      break;
+    case '3':
+      router.push('/backpage/monitor');
+      break;
+    case '4':
+      router.push('/backpage/user');
       break;
     default:
       break;

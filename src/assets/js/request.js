@@ -1,5 +1,5 @@
 import axios from "axios";
-import getCurrentTimestamp from "@/js/methods.js";
+import getCurrentTimestamp from "@/assets/js/methods.js";
 const api = 'https://nbxt.oa.x-lf.cn'
 
 /**
