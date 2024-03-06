@@ -44,20 +44,27 @@ const router = createRouter({
       component:() => import('../views/HomePage/CarbonTradingView.vue')
     },
     {
-      path:'/backpage/main',
-      name:'backpagemain',
-      component:()=>import('../views/BackPage/main.vue')
+      path:'/backpage',
+      name:'backpage',
+      component:()=>import('../views/BackPage/backpage.vue'),
+      children:[
+        {
+          path:'/backpage/main',
+          name:'backpagemain',
+          component:()=>import('../views/BackPage/main.vue')
+        },
+        {
+          path:'/backpage/console',
+          name:'backpageconsole',
+          component:()=>import('../views/BackPage/console.vue')
+        },
+        {
+          path:'/backpage/analysis',
+          name:'backanalysis',
+          component:()=>import('../views/BackPage/analysis.vue')
+        }
+      ]
     },
-    {
-      path:'/backpage/console',
-      name:'backpageconsole',
-      component:()=>import('../views/BackPage/console.vue')
-    },
-    {
-      path:'/backpage/analysis',
-      name:'backanalysis',
-      component:()=>import('../views/BackPage/analysis.vue')
-    }
   ]
 })
 

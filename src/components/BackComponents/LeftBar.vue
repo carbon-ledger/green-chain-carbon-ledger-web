@@ -1,20 +1,20 @@
 <template>
   <a-menu
-      :default-selected-keys="state.selectedKeys"
-      :open-keys="state.openKeys"
-      style="width: 256px"
+      v-model:openKeys="openKeys"
+      v-model:selectedKeys="selectedKeys"
+      class="h-full w-[280px]"
       mode="inline"
       :items="items"
       @click="handleClick"
-      @openChange="onOpenChange"
   ></a-menu>
 </template>
 <script setup>
 import { reactive, ref, watch, h } from 'vue';
-import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons-vue';
+import {HomeOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons-vue';
 import {useRouter} from 'vue-router';
 
 const router = useRouter();
+const selectedKeys = ref(['1']);
 const openKeys = ref(['sub1']);
 function getItem(label, key, icon, children, type) {
   return {
@@ -26,7 +26,7 @@ function getItem(label, key, icon, children, type) {
   };
 }
 const items = reactive([
-  getItem('首页',0),
+  getItem('首页', '0', () => h(HomeOutlined)),
   {
     type: 'divider',
   },
@@ -45,13 +45,6 @@ const items = reactive([
     getItem('日志管理', '7'),
   ]),
 ]);
-
-
-const state = reactive({
-  rootSubmenuKeys: ['sub1', 'sub2'],
-  openKeys: ['sub1'],
-  selectedKeys: [],
-});
 
 const onOpenChange = (openKeys) => {
   const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
