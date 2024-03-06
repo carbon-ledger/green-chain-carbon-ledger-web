@@ -10,7 +10,7 @@
       <a-menu-item key="trading" @click="$router.push('/CarbonTrading')">碳交易平台</a-menu-item>
     </a-menu>
     <a-button type="link" @click="$router.push('/login')">登录</a-button>
-    <a-button type="link" style="margin-right: 2vw" @click="$router.push('/register')">注册</a-button>
+    <a-button type="link" style="margin-right: 2vw" @click="$router.push('/organizeregister')">注册</a-button>
   </div>
 </template>
 

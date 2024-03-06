@@ -1,7 +1,7 @@
 <template>
 <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
   <a-card style="width: 20vw; display: flex; justify-content: center;  background-color: white">
-    <h1 style="margin-top: 2vh">欢迎使用绿链碳系统</h1>
+    <h1 class="my-5 font-bold text-xl flex justify-center">欢迎使用绿链碳系统</h1>
     <a-form
           :model="formState"
           name="basic"
@@ -30,10 +30,10 @@
         <a-form-item name="remember" >
           <a-checkbox v-model:checked="formState.remember">记住我</a-checkbox>
           <a class="login-form-forgot" @click="$router.push('/forgetpassword')" style="margin-left: 2vw">忘记密码？ | </a>
-          <a class="login-form-forgot" @click="$router.push('/register')">立即注册</a>
+          <a class="login-form-forgot" @click="$router.push('/organizeregister')">立即注册</a>
         </a-form-item>
-        <a-form-item :wrapper-col="{ offset: 4, span: 16 }">
-          <a-button type="primary" style="color: white; width: 10vw" html-type="submit">登录</a-button>
+        <a-form-item class="flex justify-center items-center">
+          <a-button type="primary" class="w-48 bg-blue-500" html-type="submit">登录</a-button>
         </a-form-item>
       </a-form>
   </a-card>

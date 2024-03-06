@@ -14,9 +14,14 @@ const router = createRouter({
       component:() => import('../views/AuthPage/LoginView.vue')
     },
     {
-      path:'/register',
-      name:'register',
-      component:() => import('../views/AuthPage/RegisterView.vue')
+      path:'/organizeregister',
+      name:'organizeregister',
+      component:() => import('../views/AuthPage/OrganizeRegisterView.vue')
+    },
+    {
+      path:'/manageregister',
+      name:'manageregister',
+      component:()=>import('../views/AuthPage/MangeRegisterView.vue')
     },
     {
       path:'/forgetpassword',
@@ -43,6 +48,16 @@ const router = createRouter({
       name:'backpagemain',
       component:()=>import('../views/BackPage/main.vue')
     },
+    {
+      path:'/backpage/console',
+      name:'backpageconsole',
+      component:()=>import('../views/BackPage/console.vue')
+    },
+    {
+      path:'/backpage/analysis',
+      name:'backanalysis',
+      component:()=>import('../views/BackPage/analysis.vue')
+    }
   ]
 })
 

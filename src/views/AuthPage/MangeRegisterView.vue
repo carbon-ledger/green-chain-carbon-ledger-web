@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <a-card style="width: 20vw; display: flex; justify-content: center;  background-color: white">
-      <h1 style="margin-top: 2vh; margin-bottom: 2vh">欢迎使用绿链碳系统</h1>
+    <a-card class="flex justify-center items-center w-1/4">
+      <h1 class="my-5 font-bold text-xl flex justify-center">欢迎使用绿链碳系统</h1>
       <a-form
           :model="formState"
           name="basic"
@@ -12,16 +12,16 @@
           @finishFailed="onFinishFailed"
       >
         <a-form-item
-            :rules="[{ required: true, message: '请输入您的公司名称！' }]"
+            :rules="[{ required: true, message: '请输入管理员用户名！' }]"
         >
-          <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="请输入您的公司名称" v-model:value="formState.username">
+          <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="管理员用户名" v-model:value="formState.username">
             <template #prefix><HomeOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
           </a-input>
         </a-form-item>
         <a-form-item
-            :rules="[{ required: true, message: '请输入您的姓名！' }]"
+            :rules="[{ required: true, message: '请输入您的真实姓名！' }]"
         >
-          <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="请输入您的姓名" v-model:value="formState.password">
+          <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="真实姓名" v-model:value="formState.password">
             <template #prefix><UserAddOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
           </a-input>
         </a-form-item>
@@ -33,6 +33,13 @@
           </a-input>
         </a-form-item>
         <a-form-item
+            :rules="[{ required: true, message: '请输入您的邮箱！' }]"
+        >
+          <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="邮箱" v-model:value="formState.password">
+            <template #prefix><MailOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
             :rules="[{ required: true, message: '请输入验证码！' }]"
         >
           <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="请输入验证码" v-model:value="formState.password">
@@ -40,13 +47,6 @@
             <template #suffix>
               <a-button size="small" @click="getVerificationCode" type="link">获取</a-button>
             </template>
-          </a-input>
-        </a-form-item>
-        <a-form-item
-            :rules="[{ required: true, message: '请输入邀请码！' }]"
-        >
-          <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="请输入六位数邀请码" v-model:value="formState.password">
-            <template #prefix><UsergroupAddOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
           </a-input>
         </a-form-item>
         <a-form-item
@@ -69,8 +69,8 @@
           <a-checkbox v-model:checked="formState.remember">记住我</a-checkbox>
           <a class="login-form-forgot" style="margin-left: 2.7vw" @click="$router.push('/login')">已有账号？立即登录</a>
         </a-form-item>
-        <a-form-item :wrapper-col="{ offset: 4, span: 16 }">
-          <a-button type="primary" style="color: white; width: 10vw" html-type="submit" @click="$router.push('/login')">注册</a-button>
+        <a-form-item class="flex justify-center items-center">
+          <a-button type="primary" class="w-48 bg-blue-500" html-type="submit" @click="$router.push('/login')">注册</a-button>
         </a-form-item>
       </a-form>
     </a-card>
@@ -84,7 +84,7 @@ import {
   UserAddOutlined,
   PhoneOutlined,
   CheckOutlined,
-  UsergroupAddOutlined,
+  MailOutlined,
   LockOutlined
 } from '@ant-design/icons-vue';
 
