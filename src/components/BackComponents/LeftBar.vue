@@ -74,6 +74,12 @@ const handleClick = (e) => {
     case '4':
       router.push('/backpage/user');
       break;
+    case '5':
+      router.push('/backpage/role');
+      break;
+    case '6':
+      router.push('/backpage/authority');
+      break;
     default:
       break;
   }

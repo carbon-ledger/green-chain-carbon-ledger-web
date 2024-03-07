@@ -1,45 +1,31 @@
 <template>
-  <a-layout-footer class="footer">
-    <div class="footer-left">
-      <div>&copy; 2023-{{ year }} <a href="https://www.frontleaves.com/" target="_blank">锋楪技术（深圳）有限公司</a>. All Rights Reserved. 版权所有</div>
-      <div><hr/></div>
-      <div><a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">粤ICP备2023097009号</a></div>
-      <div>粤公网安备 44030702003207号</div>
+  <div class="p-6 w-full bg-gray-800">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+        <img src="/favicon.ico" class="h-8" alt="Flowbite Logo" />
+        <span class="text-white self-center text-2xl font-semibold whitespace-nowrap">绿链碳账本</span>
+      </a>
+      <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
+        <li>
+          <a href="#" class="hover:underline me-4 md:me-6">About</a>
+        </li>
+        <li>
+          <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+        </li>
+        <li>
+          <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+        </li>
+        <li>
+          <a href="#" class="hover:underline">Contact</a>
+        </li>
+      </ul>
     </div>
-    <div class="footer-right">
-      <div>其他</div>
-    </div>
-  </a-layout-footer>
+    <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+    <span class="block text-sm text-gray-500 sm:text-center">©️ 2023-2024 锋楪技术团队. All Rights Reserved.</span>
+  </div>
+
+
 </template>
 
 <script setup>
-let year = new Date().getFullYear();
 </script>
-
-<script>
-export default {
-  name: 'Footer',
-};
-</script>
-
-<style scoped>
-.footer {
-  background-color: #001529;
-  color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 40px 100px;
-}
-
-.footer-left,
-.footer-right {
-  display: flex;
-  flex-direction: column; /* Stack children vertically */
-}
-
-.footer-left > div,
-.footer-right > div {
-  padding: 2px 0; /* Add padding if needed */
-}
-</style>

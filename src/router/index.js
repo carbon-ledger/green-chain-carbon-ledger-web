@@ -77,7 +77,17 @@ const router = createRouter({
           path:'/backpage/user',
           name:'backpageuser',
           component:()=>import('../views/BackPage/user.vue')
-        }
+        },
+        {
+          path:'/backpage/role',
+          name:'backpagerole',
+          component:()=>import('../views/BackPage/role.vue')
+        },
+        {
+          path:'/backpage/authority',
+          name:'backpageauthority',
+          component:()=>import('../views/BackPage/authority.vue')
+        },
       ]
     },
   ]
