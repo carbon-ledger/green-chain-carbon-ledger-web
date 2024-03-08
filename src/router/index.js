@@ -34,6 +34,11 @@ const router = createRouter({
       component:()=>import('../views/AuthPage/AlterPasswordView.vue')
     },
     {
+      path:'/AboutUsView',
+      name:'AboutUsView',
+      component:()=>import('../views/HomePage/AboutUsView.vue')
+    },
+    {
       path:'/CarbonAccountingView',
       name:'CarbonAccountingView',
       component:() => import('../views/HomePage/CarbonAccountingView.vue')
