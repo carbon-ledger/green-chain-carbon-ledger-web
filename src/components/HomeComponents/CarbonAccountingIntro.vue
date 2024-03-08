@@ -1,5 +1,5 @@
 <template>
-  <div class="carbon-accounting-container">
+  <div class="carbon-accounting-container" @click="$router.push('/CarbonAccounting')">
     <h1 class="title">碳核算服务</h1>
     <div class="description">
       提供全面的碳排放核算，帮助企业准确计算和管理其碳足迹。

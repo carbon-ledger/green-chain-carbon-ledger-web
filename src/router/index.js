@@ -34,19 +34,34 @@ const router = createRouter({
       component:()=>import('../views/AuthPage/AlterPasswordView.vue')
     },
     {
-      path:'/backpage/main',
-      name:'backpagemain',
-      component:() => import('../views/BackPage/main.vue')
-    },
-    {
-      path:'/CarbonAccounting',
-      name:'CarbonAccounting',
+      path:'/CarbonAccountingView',
+      name:'CarbonAccountingView',
       component:() => import('../views/HomePage/CarbonAccountingView.vue')
     },
     {
-      path:'/CarbonTrading',
-      name:'CarbonTrading',
+      path:'/CarbonTradingView',
+      name:'CarbonTradingView',
       component:() => import('../views/HomePage/CarbonTradingView.vue')
+    },
+    {
+      path:'/ProductFeaturesView',
+      name:'ProductFeaturesView',
+      component:() =>import('../views/HomePage/ProductFeaturesView.vue')
+    },
+    {
+      path:'/IndustrySolutionView',
+      name:'IndustrySolutionView',
+      component:()=>import('../views/HomePage/IndustrySolutionView.vue')
+    },
+    {
+      path:'/OurServiceView',
+      name:'OurServiceView',
+      component:()=>import('../views/HomePage/OurServiceView.vue')
+    },
+    {
+      path:'/backpage/main',
+      name:'backpagemain',
+      component:() => import('../views/BackPage/main.vue')
     },
     {
       path:'/backpage',

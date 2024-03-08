@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <div class="flex bg-white h-24 ml-6 mr-6 mt-8 rounded-none">
+  <div class="w-full px-6">
+    <div class="flex mx-auto w-full bg-white h-24 mt-8 rounded-none">
       <div class="flex items-center ml-6">
         <a-avatar class="bg-blue-500 flex justify-center items-center" :size="64">
           <template #icon><UserOutlined /></template>
         </a-avatar>
         <p class="text-lg font-medium ml-6">早安，管理员，开启您一天的工作吧！</p>
       </div>
-      <div class="flex mt-6">
+      <div class="flex mt-6 ml-44">
         <svg class="ml-[700px] w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 4h3c.6 0 1 .4 1 1v15c0 .6-.4 1-1 1H6a1 1 0 0 1-1-1V5c0-.6.4-1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z"/>
         </svg>项目数
@@ -19,43 +19,43 @@
         </svg>消息数
       </div>
     </div>
-    <div class="flex">
-      <a-card @click="$router.push('/backpage/user')" class="hover:shadow-md mt-4 ml-6 w-48 h-32 flex flex-col justify-center items-center rounded-none">
+    <div class="flex w-full mx-auto justify-between gap-4">
+      <a-card @click="$router.push('/backpage/user')" class="hover:shadow-md mt-4 w-56 h-32 flex flex-col justify-center items-center rounded-none">
         <UserOutlined class="text-4xl ml-4 text-blue-500"/>
         <p class="text-lg mt-2">系统用户</p>
       </a-card>
-      <a-card class="hover:shadow-md mt-4 ml-5 w-48 h-32 flex flex-col justify-center items-center rounded-none">
+      <a-card class="hover:shadow-md mt-4 w-56 h-32 flex flex-col justify-center items-center rounded-none">
         <AntDesignOutlined class="text-4xl ml-4 text-emerald-400"/>
         <p class="text-lg mt-2">菜单管理</p>
       </a-card>
-      <a-card @click="$router.push('/backpage/role')" class="hover:shadow-md mt-4 ml-5 w-48 h-32 flex flex-col justify-center items-center rounded-none">
+      <a-card @click="$router.push('/backpage/role')" class="hover:shadow-md mt-4 w-56 h-32 flex flex-col justify-center items-center rounded-none">
         <svg class="w-12 h-12 ml-2 mt-2 text-sky-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
         </svg>
         <p class="text-lg">角色管理</p>
       </a-card>
-      <a-card class="hover:shadow-md mt-4 ml-5 w-48 h-32 flex flex-col justify-center items-center rounded-none">
+      <a-card class="hover:shadow-md mt-4 w-56 h-32 flex flex-col justify-center items-center rounded-none">
         <BankOutlined class="text-4xl ml-4 text-violet-500"/>
         <p class="text-lg mt-2">部门管理</p>
       </a-card>
-      <a-card class="hover:shadow-md mt-4 ml-5 w-48 h-32 flex flex-col justify-center items-center rounded-none">
+      <a-card class="hover:shadow-md mt-4 w-56 h-32 flex flex-col justify-center items-center rounded-none">
         <PaperClipOutlined class="text-4xl ml-4 text-pink-400"/>
         <p class="text-lg mt-2">友情链接</p>
       </a-card>
-      <a-card class="hover:shadow-md mt-4 ml-5 w-48 h-32 flex flex-col justify-center items-center rounded-none">
+      <a-card class="hover:shadow-md mt-4 w-56 h-32 flex flex-col justify-center items-center rounded-none">
         <SettingOutlined class="text-4xl ml-4 text-yellow-200"/>
         <p class="text-lg mt-2">系统配置</p>
       </a-card>
-      <a-card @click="$router.push('/backpage/authority')" class="hover:shadow-md mt-4 ml-5 w-48 h-32 flex flex-col justify-center items-center rounded-none">
+      <a-card @click="$router.push('/backpage/authority')" class="hover:shadow-md mt-4 w-56 h-32 flex flex-col justify-center items-center rounded-none">
         <UnlockOutlined class="text-4xl ml-4 text-fuchsia-500"/>
         <p class="text-lg mt-2">权限管理</p>
       </a-card>
     </div>
-    <div class="flex">
-      <a-card title="本月目标" class="w-96 ml-6 mt-4 rounded-none">
+    <div class="flex mx-auto w-full justify-between gap-4">
+      <a-card title="本月目标" class="w-1/4 mt-4 rounded-none">
         <a-progress type="dashboard" :percent="75" class="ml-[110px]" />
       </a-card>
-      <a-card title="我的任务" class="w-[650px] ml-6 mt-4 rounded-none">
+      <a-card title="我的任务" class="w-1/2 mt-4 rounded-none">
         <a-table :columns="columns" :row-key="record => record.key" :data-source="data" :pagination="false">
           <template #bodyCell="{ column, record }">
             <template v-if="column.key === 'enabled'">
@@ -71,7 +71,7 @@
           </template>
         </a-table>
       </a-card>
-      <a-card title="个人资料" class="w-[382px] ml-6 mt-4 rounded-none">
+      <a-card title="个人资料" class="w-1/4  mt-4 rounded-none">
         <div class="flex justify-center">
           <img class="w-16 h-16 rounded-full" src="">
         </div>
@@ -97,7 +97,7 @@
         </div>
       </a-card>
     </div>
-    <div class="ml-6 mr-6 mt-4">
+    <div class="mr-6 mt-4 w-full">
       <a-card class="rounded-none">
         <ol class="items-center sm:flex">
           <li class="relative mb-6 sm:mb-0">

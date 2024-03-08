@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align:left; padding:20px;">
+  <div @click="$router.push('/OurServiceView')" style="text-align:left; padding:20px;">
     <h1 style="text-align: center; margin-top: 2vh">我们的服务</h1>
     <div  style="text-align: center">
       助力企业完成碳中和

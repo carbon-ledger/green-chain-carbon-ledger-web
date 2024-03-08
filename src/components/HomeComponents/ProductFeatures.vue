@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align:left; padding:20px; background-color: #04cc97">
+  <div style="text-align:left; padding:20px; background-color: #04cc97" @click="$router.push('/ProductFeatures')">
     <h1 style="text-align: center; margin-top: 2vh">产品特色</h1>
     <div  style="text-align: center">
     助力企业完成碳中和

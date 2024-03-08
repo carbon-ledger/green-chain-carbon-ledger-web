@@ -1,5 +1,5 @@
 <template>
-  <div class="carbon-accounting-container">
+  <div class="carbon-accounting-container" @click="$router.push('/CarbonTrading')">
     <h1 class="title">碳交易平台</h1>
     <div class="description">
       提供一个透明、安全的碳交易市场，促进碳排放权的有效分配和交易。
