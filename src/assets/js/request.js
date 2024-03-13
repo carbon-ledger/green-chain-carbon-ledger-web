@@ -1,6 +1,43 @@
 import axios from "axios";
 import getCurrentTimestamp from "@/assets/js/methods.js";
-const api = 'https://nbxt.oa.x-lf.cn'
+const api = 'http://192.168.5.234:8081/api/v1'
+const authorization = document.cookie.match(/(?:^|;)\s*Authorization=([^;]+)/)[1];
+const userUuid = document.cookie.match(/(?:^|;)\s*X-Auth-UUID=([^;]+)/)[1];
+/**
+ * 组织账号注册
+ * @param data (organize,username,phone,email,code,invite,password)
+ * @return{*}
+ */
+const OrganizeRegister = (data) =>{
+    return axios({
+        url:api + "/auth/organize/register",
+        method:"post",
+        data:data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp()
+        }
+    })
+}
+
+/**
+ * 获取邮箱验证码
+ * @params data (email, template)
+ * @return{*}
+ */
+const GetCode = (data) =>{
+    return axios({
+        url:api + "/mail/send/code",
+        method:"post",
+        data:data,
+        headers:{
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp()
+        }
+    })
+}
+
+
 
 /**
  * 登录
@@ -9,12 +46,32 @@ const api = 'https://nbxt.oa.x-lf.cn'
  */
 const login = (data) => {
     return axios({
-        url: api+"/auth/login",
+        url: api + "/auth/login",
         method: "post",
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'Timestamp': getCurrentTimestamp()
+            'X-Timestamp': getCurrentTimestamp()
         },
     })
+}
+
+const getUserCurrent = () => {
+    return axios({
+        url: api + "/user/current",
+        method: "get",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': authorization,
+            'X-Auth-UUID': userUuid,
+        }
+    })
+}
+
+export default {
+    OrganizeRegister,
+    login,
+    GetCode,
+    getUserCurrent
 }

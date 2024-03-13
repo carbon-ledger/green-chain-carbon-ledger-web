@@ -54,59 +54,59 @@ const router = createRouter({
       component:() =>import('../views/HomePage/ProductFeaturesView.vue')
     },
     {
-      path:'/IndustrySolutionView',
+      path:'/industry-solution-view',
       name:'IndustrySolutionView',
       component:()=>import('../views/HomePage/IndustrySolutionView.vue')
     },
     {
-      path:'/OurServiceView',
+      path:'/our-service-view',
       name:'OurServiceView',
       component:()=>import('../views/HomePage/OurServiceView.vue')
     },
     {
-      path:'/backpage/main',
-      name:'backpagemain',
-      component:() => import('../views/BackPage/main.vue')
+      path:'/dashboard/main',
+      name:'dashboard-main',
+      component:() => import('@/views/Dashboard/main.vue')
     },
     {
-      path:'/backpage',
-      name:'backpage',
-      component:()=>import('../views/BackPage/backpage.vue'),
+      path:'/dashboard',
+      name:'dashboard',
+      component:()=>import('@/views/Dashboard/dashboard.vue'),
       children:[
         {
-          path:'/backpage/main',
-          name:'backpagemain',
-          component:()=>import('../views/BackPage/main.vue')
+          path:'/dashboard/main',
+          name:'dashboard-main',
+          component:()=>import('@/views/Dashboard/main.vue')
         },
         {
-          path:'/backpage/console',
-          name:'backpageconsole',
-          component:()=>import('../views/BackPage/console.vue')
+          path:'/dashboard/console',
+          name:'dashboard-console',
+          component:()=>import('@/views/Dashboard/console.vue')
         },
         {
-          path:'/backpage/analysis',
-          name:'backpageanalysis',
-          component:()=>import('../views/BackPage/analysis.vue')
+          path:'/dashboard/analysis',
+          name:'dashboard-analysis',
+          component:()=>import('@/views/Dashboard/analysis.vue')
         },
         {
-          path:'/backpage/monitor',
-          name:'backpagemonitor',
-          component:()=>import('../views/BackPage/monitor.vue')
+          path:'/dashboard/monitor',
+          name:'dashboard-monitor',
+          component:()=>import('@/views/Dashboard/monitor.vue')
         },
         {
-          path:'/backpage/user',
-          name:'backpageuser',
-          component:()=>import('../views/BackPage/user.vue')
+          path:'/dashboard/user',
+          name:'dashboard-user',
+          component:()=>import('@/views/Dashboard/user.vue')
         },
         {
-          path:'/backpage/role',
-          name:'backpagerole',
-          component:()=>import('../views/BackPage/role.vue')
+          path:'/dashboard/role',
+          name:'dashboard-role',
+          component:()=>import('@/views/Dashboard/role.vue')
         },
         {
-          path:'/backpage/authority',
-          name:'backpageauthority',
-          component:()=>import('../views/BackPage/authority.vue')
+          path:'/dashboard/authority',
+          name:'dashboard-authority',
+          component:()=>import('@/views/Dashboard/authority.vue')
         },
       ]
     },
