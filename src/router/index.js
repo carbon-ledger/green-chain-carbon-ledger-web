@@ -51,6 +51,7 @@ const router = createRouter({
       // 登陆相关路由表
       path: "/auth",
       name: "Auth",
+      component: () => import("@/views/AuthPage/Auth.vue"),
       children: [
         {
           // 登陆

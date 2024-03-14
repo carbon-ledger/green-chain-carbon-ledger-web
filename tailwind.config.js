@@ -6,6 +6,13 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
+    colors: {
+      'uranian': '#B3D3F9',
+      'aspargus': '#337155',
+      'spring': '#337155',
+      'beaver': '#AA9488',
+      'mount-pink': '#7F7382',
+    },
     extend: {},
   },
   plugins: [ require('flowbite/plugin')],
