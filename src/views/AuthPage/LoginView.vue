@@ -5,11 +5,12 @@
     >
       <div class="container">
         <div class="row-auto">
-          <div class="row-span-1 mb-5 text-center font-bold text-2xl">
+          <div class="row-span-1 my-4 text-center font-bold text-2xl">
             绿链碳账本 - 登陆
           </div>
           <div class="row-span-1">
             <a-form
+                :label-col="{ span: 5 }"
                 :model="loginForm"
                 class="login-form"
                 name="normal_login"
@@ -29,7 +30,7 @@
               </a-form-item>
               <a-form-item
                   :rules="[{ required: true, message: '请输入密码' }]"
-                  label="用户名"
+                  label="密码"
                   name="user"
               >
                 <a-input-password v-model:value="loginForm.password">
@@ -39,7 +40,7 @@
                 </a-input-password>
               </a-form-item>
               <div class=" text-end mb-3">
-                还没有账户? <a class="text-spring" @click="router.push('/auth/register/organize')">注册</a>
+                还没有账户? <a class="text-spring hover:text-green-500" @click="router.push('/auth/register/organize')">注册</a>
               </div>
               <div class="text-center">
                 <a-button :disabled="false" class="bg-aspargus" html-type="submit" type="primary"

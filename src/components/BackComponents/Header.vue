@@ -1,9 +1,9 @@
 <template>
-  <div class="relative flex justify-between items-center bg-blue-400 h-16">
+  <div class="relative flex justify-between items-center shadow-sm h-16">
     <a @click="$router.push('/')">
       <img src="/favicon.ico" alt="LOGO" class="ml-6 w-12"/>
     </a>
-    <div class="text-3xl mt-3 text-white">绿链碳系统管理界面</div>
+    <div class="text-3xl mt-3 text-black">绿链碳系统管理界面</div>
     <div class="relative mr-12">
       <button @click="$toggleDropdown()" id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="mr-6 flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300">
         <img class="w-10 h-10 rounded-full" src="" alt="user photo">
