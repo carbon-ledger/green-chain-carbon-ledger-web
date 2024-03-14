@@ -21,9 +21,9 @@
         </ul>
       </div>
       <div class="w-48 gap-1 flex justify-center items-center">
-        <button class="text-blue-500 hover:text-blue-800" @click="$router.push('/login')">登录</button>
+        <button class="text-blue-500 hover:text-blue-800" @click="$router.push('/auth/login')">登录</button>
         <span class="text-blue-500 mx-1">|</span>
-        <button class="text-blue-500 hover:text-blue-800" @click="$router.push('/organizeregister')">注册</button>
+        <button class="text-blue-500 hover:text-blue-800" @click="$router.push('/auth/register/organize')">注册</button>
       </div>
     </div>
   </nav>

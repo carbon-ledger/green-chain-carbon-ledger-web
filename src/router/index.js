@@ -4,108 +4,139 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      // 首页相关路由表
       path: '/',
-      name: 'home',
-      component: import('@/views/HomePage/IndexView.vue')
+      name: 'Home',
+      component: import('@/views/HomePage/IndexView.vue'),
+      children:[
+        {
+          // 关于我
+          path:'/about',
+          name:'AboutUsView',
+          component:()=>import('@/views/HomePage/AboutUsView.vue')
+        },
+        {
+          // 碳核算
+          path:'/accounting',
+          name:'CarbonAccountingView',
+          component:() => import('@/views/HomePage/CarbonAccountingView.vue')
+        },
+        {
+          // 碳交易
+          path:'/trade',
+          name:'CarbonTradingView',
+          component:() => import('@/views/HomePage/CarbonTradingView.vue')
+        },
+        {
+          // 产品特性
+          path:'/product',
+          name:'ProductFeaturesView',
+          component:() =>import('@/views/HomePage/ProductFeaturesView.vue')
+        },
+        {
+          // 行业解决方案
+          path:'/solution',
+          name:'IndustrySolutionView',
+          component:()=>import('@/views/HomePage/IndustrySolutionView.vue')
+        },
+        {
+          // 服务
+          path:'/service',
+          name:'OurServiceView',
+          component:()=>import('@/views/HomePage/OurServiceView.vue')
+        },
+      ]
     },
     {
-      path:'/login',
-      name:'login',
-      component:() => import('../views/AuthPage/LoginView.vue')
+      // 登陆相关路由表
+      path: "/auth",
+      name: "Auth",
+      children: [
+        {
+          // 登陆
+          path: "/auth/login",
+          name: "LoginAccount",
+          component: () => import("@/views/AuthPage/LoginView.vue")
+        },
+        {
+          // 注册
+          path: "/auth/register",
+          name: "Register",
+          children: [
+            {
+              // 组织注册
+              path:'/auth/register/organize',
+              name:'OrganizeRegister',
+              component:() => import('@/views/AuthPage/OrganizeRegisterView.vue')
+            },
+            {
+              // 管理注册
+              path:'/auth/register/manager',
+              name:'ManagerRegister',
+              component:()=>import('@/views/AuthPage/MangeRegisterView.vue')
+            }
+          ]
+        },
+        {
+          // 忘记密码
+          path:'/auth/forget',
+          name:'ForgetPassword',
+          component:() => import('@/views/AuthPage/ForgetPasswordView.vue')
+        },
+      ]
     },
     {
-      path:'/organizeregister',
-      name:'organizeregister',
-      component:() => import('../views/AuthPage/OrganizeRegisterView.vue')
+      path: "/user",
+      name: "User",
+      children: [
+        {
+          "path": "/user/profile",
+          name: "UserProfile",
+            //component: () => import("@/views/UserPage/UserProfileView.vue")
+        }
+      ]
     },
     {
-      path:'/manageregister',
-      name:'manageregister',
-      component:()=>import('../views/AuthPage/MangeRegisterView.vue')
-    },
-    {
-      path:'/forgetpassword',
-      name:'forgetpassword',
-      component:() => import('../views/AuthPage/ForgetPasswordView.vue')
-    },
-    {
-      path:'/alterpassword',
-      name:'alterpassword',
-      component:()=>import('../views/AuthPage/AlterPasswordView.vue')
-    },
-    {
-      path:'/AboutUsView',
-      name:'AboutUsView',
-      component:()=>import('../views/HomePage/AboutUsView.vue')
-    },
-    {
-      path:'/CarbonAccountingView',
-      name:'CarbonAccountingView',
-      component:() => import('../views/HomePage/CarbonAccountingView.vue')
-    },
-    {
-      path:'/CarbonTradingView',
-      name:'CarbonTradingView',
-      component:() => import('../views/HomePage/CarbonTradingView.vue')
-    },
-    {
-      path:'/ProductFeaturesView',
-      name:'ProductFeaturesView',
-      component:() =>import('../views/HomePage/ProductFeaturesView.vue')
-    },
-    {
-      path:'/industry-solution-view',
-      name:'IndustrySolutionView',
-      component:()=>import('../views/HomePage/IndustrySolutionView.vue')
-    },
-    {
-      path:'/our-service-view',
-      name:'OurServiceView',
-      component:()=>import('../views/HomePage/OurServiceView.vue')
-    },
-    {
-      path:'/dashboard/main',
-      name:'dashboard-main',
-      component:() => import('@/views/Dashboard/main.vue')
-    },
-    {
+      // 仪表盘相关路由表
       path:'/dashboard',
-      name:'dashboard',
+      name:'Dashboard',
       component:()=>import('@/views/Dashboard/dashboard.vue'),
       children:[
         {
+          // 仪表盘主页
           path:'/dashboard/main',
-          name:'dashboard-main',
+          name:'DashboardMain',
           component:()=>import('@/views/Dashboard/main.vue')
         },
         {
+          //
           path:'/dashboard/console',
-          name:'dashboard-console',
+          name:'DashboardConsole',
           component:()=>import('@/views/Dashboard/console.vue')
         },
         {
           path:'/dashboard/analysis',
-          name:'dashboard-analysis',
+          name:'DashboardAnalysis',
           component:()=>import('@/views/Dashboard/analysis.vue')
         },
         {
           path:'/dashboard/monitor',
-          name:'dashboard-monitor',
+          name:'DashboardMonitor',
           component:()=>import('@/views/Dashboard/monitor.vue')
         },
         {
           path:'/dashboard/user',
-          name:'dashboard-user',
+          name:'DashboardUser',
           component:()=>import('@/views/Dashboard/user.vue')
         },
         {
           path:'/dashboard/role',
-          name:'dashboard-role',
+          name:'DashboardRole',
           component:()=>import('@/views/Dashboard/role.vue')
         },
         {
           path:'/dashboard/authority',
-          name:'dashboard-authority',
+          name:'DashboardAuthority',
           component:()=>import('@/views/Dashboard/authority.vue')
         },
       ]

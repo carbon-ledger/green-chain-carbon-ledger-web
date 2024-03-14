@@ -59,8 +59,8 @@ const formState = reactive({
 function LoginUser() {
   console.log("formState:", formState)
   requests.login(formState).then((res) => {
-    document.cookie = "Authorization = Bearer " + res.data.data.token
-    document.cookie = "X-Auth-UUID = " + res.data.data.user.uuid
+    localStorage.setItem("AuthorizationToken", "Bearer " + res.data.data.token);
+    localStorage.setItem("X-Auth-UUID", res.data.data.user.uuid);
     message.success('你好 ' + res.data.data.user.email + ' 用户')
     router.push("/dashboard")
   }).catch((err) => {

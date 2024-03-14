@@ -1,8 +1,6 @@
 import axios from "axios";
 import getCurrentTimestamp from "@/assets/js/methods.js";
 const api = 'http://192.168.5.234:8081/api/v1'
-const authorization = document.cookie.match(/(?:^|;)\s*Authorization=([^;]+)/)[1];
-const userUuid = document.cookie.match(/(?:^|;)\s*X-Auth-UUID=([^;]+)/)[1];
 /**
  * 组织账号注册
  * @param data (organize,username,phone,email,code,invite,password)
@@ -63,8 +61,8 @@ const getUserCurrent = () => {
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
-            'Authorization': authorization,
-            'X-Auth-UUID': userUuid,
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
     })
 }
