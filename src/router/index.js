@@ -49,7 +49,6 @@ const router = createRouter({
     },
     {
       // 登陆相关路由表
-      path: "/auth",
       name: "Auth",
       component: () => import("@/views/AuthPage/Auth.vue"),
       children: [
@@ -99,20 +98,19 @@ const router = createRouter({
     },
     {
       // 仪表盘相关路由表
-      path:'/dashboard',
-      name:'Dashboard',
-      component:()=>import('@/views/Dashboard/DashboardView.vue'),
+      component:()=>import('@/views/Dashboard/DashboardFrame.vue'),
       children:[
         {
           // 仪表盘主页
-          path:'/dashboard/main',
-          name:'DashboardMain',
-          component:()=>import('@/views/Dashboard/main.vue')
+          path:'/dashboard/console',
+          name:'DashboardConsole',
+          breadcrumbName: '管理首页',
+          component:()=>import('@/views/Dashboard/ConsoleView.vue')
         },
         {
           //
-          path:'/dashboard/console',
-          name:'DashboardConsole',
+          path:'/dashboard/con',
+          name:'DashboardC',
           component:()=>import('@/views/Dashboard/console.vue')
         },
         {

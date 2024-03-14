@@ -73,7 +73,7 @@
       </a-card>
       <a-card title="个人资料" class="w-1/4  mt-4 rounded-none">
         <div class="flex justify-center">
-          <img class="w-16 h-16 rounded-full" src="">
+          <img class="w-16 h-16 rounded-full" src="" alt="UserAvatar">
         </div>
         <div class="flex flex-col mt-8">
           <div class="flex text-lg">

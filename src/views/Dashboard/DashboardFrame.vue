@@ -1,27 +1,43 @@
-<template >
-  <div class="flex flex-col bg-gray-100 h-screen">
-    <Header></Header>
-    <MainSection></MainSection>
-  </div>
+<template>
+  <a-layout has-sider>
+    <a-layout-sider
+        :style="{
+          overflow: 'auto',
+          position: 'fixed',
+          left: 0, top: 0, bottom: 0,
+          theme: 'dark'
+        }"
+    >
+      <LeftBar/>
+    </a-layout-sider>
+    <a-layout :style="{ marginLeft: '200px' }">
+      <a-layout-header :style="{ background: '#fff' }" class="shadow">
+        <DashboardHeader/>
+      </a-layout-header>
+      <a-layout-content>
+        <RouterView/>
+      </a-layout-content>
+      <a-layout-footer>
+        <DashboardFooter/>
+      </a-layout-footer>
+    </a-layout>
+  </a-layout>
 </template>
+
 <script setup>
-import Header from "@/components/BackComponents/Header.vue";
-import MainSection from "@/components/BackComponents/Mainsection.vue";
 import {onMounted} from "vue";
 import request from "@/assets/js/request.js";
 import router from "@/router/index.js";
 import {message} from "ant-design-vue";
+import LeftBar from "@/components/BackComponents/DashboardLeftBar.vue";
+import DashboardHeader from "@/components/BackComponents/DashboardHeader.vue";
+import DashboardFooter from "@/components/BackComponents/DashboardFooter.vue";
 
 onMounted(() => {
   request.getUserCurrent().then((res) => {
     switch (res.data.output) {
       case "Success": {
         console.log("[Dashboard] 登陆用户 " + res.data.data.user.userName)
-        break
-      }
-      case "TokenVerifyError": {
-        console.warn("[Dashboard] 用户未登录")
-        router.push("/login")
         break
       }
       default: {

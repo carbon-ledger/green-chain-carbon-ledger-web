@@ -1,21 +1,25 @@
 <template>
+  <div class="flex justify-center my-3">
+    <img class="rounded-full w-auto h-[40px]" src="/favicon.ico" alt="UserAvatar">
+  </div>
   <a-menu
       v-model:openKeys="openKeys"
       v-model:selectedKeys="selectedKeys"
-      class="h-full w-[280px]"
-      mode="inline"
       :items="items"
+      mode="inline"
       @click="handleClick"
-  ></a-menu>
+      theme="dark"
+  />
 </template>
 <script setup>
-import { reactive, ref, watch, h } from 'vue';
-import {HomeOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons-vue';
+import {h, reactive, ref, watch} from 'vue';
+import {AppstoreOutlined, HomeOutlined, SettingOutlined} from '@ant-design/icons-vue';
 import {useRouter} from 'vue-router';
 
 const router = useRouter();
-const selectedKeys = ref(['1']);
+const selectedKeys = ref(['0']);
 const openKeys = ref(['sub1']);
+
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -25,6 +29,7 @@ function getItem(label, key, icon, children, type) {
     type,
   };
 }
+
 const items = reactive([
   getItem('首页', '0', () => h(HomeOutlined)),
   {
@@ -45,25 +50,15 @@ const items = reactive([
     getItem('日志管理', '7'),
   ]),
 ]);
-
-const onOpenChange = (openKeys) => {
-  const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
-  if (state.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-    state.openKeys = openKeys;
-  } else {
-    state.openKeys = latestOpenKey ? [latestOpenKey] : [];
-  }
-};
-
 const handleClick = (e) => {
   const key = e.key;
   console.log(e.key);
   switch (key) {
     case '0':
-      router.push('/dashboard/main');
+      router.push('/dashboard/console');
       break;
     case '1':
-      router.push('/dashboard/console');
+      router.push('/dashboard/con');
       break;
     case '2':
       router.push('/dashboard/analysis');

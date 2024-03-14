@@ -76,7 +76,21 @@ function UserLogin() {
       localStorage.setItem("AuthorizationToken", "Bearer " + res.data.data.token);
       localStorage.setItem("X-Auth-UUID", res.data.data.user.uuid);
       message.success('你好 ' + res.data.data.user.userName + ' 用户')
-      router.push("/dashboard")
+      setTimeout(() => {
+        switch (res.data.data.role.name) {
+          case "console":
+            router.push("/dashboard/console")
+            break
+          case "admin":
+            router.push("/dashboard/admin")
+            break
+          case "organize":
+            router.push("/dashboard/organize")
+            break
+          default:
+            router.push("/dashboard/default")
+        }
+      }, 1000)
     }).catch((err) => {
       console.warn("[LoginView] 用户登录失败，失败缘由 " + err.response.data.output)
       switch (err.response.data.output) {
@@ -104,20 +118,22 @@ onMounted(() => {
   requests.getUserCurrent().then((res) => {
     if (res.data.data.uuid !== null) {
       message.success("您已登陆，正在为您跳转至控制台")
-      // 检查登陆用户组
-      switch (res.data.data.role) {
-        case "console":
-          router.push("/dashboard/console")
-          break
-        case "admin":
-          router.push("/dashboard/admin")
-          break
-        case "organize":
-          router.push("/dashboard/organize")
-          break
-        default:
-          router.push("/dashboard/default")
-      }
+      setTimeout(() => {
+        // 检查登陆用户组
+        switch (res.data.data.role) {
+          case "console":
+            router.push("/dashboard/console")
+            break
+          case "admin":
+            router.push("/dashboard/admin")
+            break
+          case "organize":
+            router.push("/dashboard/organize")
+            break
+          default:
+            router.push("/dashboard/default")
+        }
+      }, 1000)
     }
   }).catch((err) => {
     console.warn("[LoginView] 用户未登录，失败缘由 " + err.response.data.output)
