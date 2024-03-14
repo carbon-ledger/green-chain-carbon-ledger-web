@@ -74,7 +74,7 @@ const router = createRouter({
               // 管理注册
               path:'/auth/register/manager',
               name:'ManagerRegister',
-              component:()=>import('@/views/AuthPage/MangeRegisterView.vue')
+              component:()=>import('@/views/AuthPage/RegisterManageView.vue')
             }
           ]
         },
@@ -101,7 +101,7 @@ const router = createRouter({
       // 仪表盘相关路由表
       path:'/dashboard',
       name:'Dashboard',
-      component:()=>import('@/views/Dashboard/dashboard.vue'),
+      component:()=>import('@/views/Dashboard/DashboardView.vue'),
       children:[
         {
           // 仪表盘主页

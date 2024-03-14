@@ -4,13 +4,13 @@
       <div class="container">
         <div class="row-auto">
           <div  class="row-span-1 my-4 text-center font-bold text-2xl">
-            绿链碳系统 - 管理账号注册
+            绿链碳系统 - 监管账号注册
           </div>
           <div class="row-span-1 flex justify-center">
             <a-form
                 :model="formState"
                 name="basic"
-                :label-col="{ span: 6}"
+                :label-col="{ span: 6 }"
                 :wrapper-col="{ span: 24 }"
                 autocomplete="off"
                 @finish="onFinish"
