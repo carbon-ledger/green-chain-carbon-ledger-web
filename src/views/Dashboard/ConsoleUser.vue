@@ -1,7 +1,11 @@
 <template>
-  <div class="container p-3">
+  <a-page-header
+      title="用户管理"
+      sub-title="用户的添加、修改、删除等操作"
+  />
+  <div class="container px-3">
     <!--头部-->
-    <div class="flex">
+    <div class="flex w-full justify-end">
       <div class="w-36 ml-4 mt-4 flex">
         <a-input  class="h-8 border-gray-300 rounded-md"  placeholder="请输入用户id"/>
       </div>
