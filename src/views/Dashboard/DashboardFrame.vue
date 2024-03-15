@@ -7,6 +7,7 @@
           left: 0, top: 0, bottom: 0,
           background: '#fff',
         }"
+        class="shadow"
     >
       <LeftBar/>
     </a-layout-sider>
@@ -23,6 +24,12 @@
     </a-layout>
   </a-layout>
 </template>
+
+<style>
+body {
+  background: #F5F5F5;
+}
+</style>
 
 <script setup>
 import {onMounted} from "vue";

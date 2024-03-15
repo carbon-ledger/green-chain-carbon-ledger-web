@@ -122,16 +122,16 @@ onMounted(() => {
         // 检查登陆用户组
         switch (res.data.data.role) {
           case "console":
-            router.push("/dashboard/console")
+            window.location.replace("/dashboard/console")
             break
           case "admin":
-            router.push("/dashboard/admin")
+            window.location.replace("/dashboard/admin")
             break
           case "organize":
-            router.push("/dashboard/organize")
+            window.location.replace("/dashboard/organize")
             break
           default:
-            router.push("/dashboard/default")
+            window.location.replace("/dashboard/default")
         }
       }, 1000)
     }

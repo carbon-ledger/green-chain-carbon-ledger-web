@@ -1,20 +1,23 @@
 <template>
   <a-page-header
-      title="用户管理"
+      :breadcrumb="{ routes }"
       sub-title="用户的添加、修改、删除等操作"
+      title="用户管理"
+      @back="() => $router.go(-1)"
   />
-  <div class="container px-3">
+  <div class="container px-3 h-full">
     <!--头部-->
     <div class="flex w-full justify-end">
       <div class="w-36 ml-4 mt-4 flex">
-        <a-input  class="h-8 border-gray-300 rounded-md"  placeholder="请输入用户id"/>
+        <a-input class="h-8 border-gray-300 rounded-md" placeholder="请输入用户id"/>
       </div>
       <div class="mt-4 flex">
-        <a-button class="ml-4 mr-4 flex justify-center items-center" >
+        <a-button class="ml-4 mr-4 flex justify-center items-center">
           <SearchOutlined/>
           查询
         </a-button>
-        <a-button @click="showAddDiaLog" class="text-blue-50 bg-blue-500 flex justify-center items-center" type="primary">
+        <a-button class="text-blue-50 bg-blue-500 flex justify-center items-center" type="primary"
+                  @click="showAddDiaLog">
           <PlusOutlined/>
           新增用户
         </a-button>
@@ -22,7 +25,7 @@
     </div>
     <!--表格内容-->
     <div class="w-full h-auto mt-6">
-      <a-table :columns="columns"   :rowKey="record => record.id">
+      <a-table :columns="columns" :rowKey="record => record.id">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key==='id'">
             {{ record.id }}
@@ -51,12 +54,21 @@
     </div>
 
     <!--新增用户对话框-->
-    <a-modal v-model:open="AddDiaLog" :okButtonProps="{ style: { backgroundColor: '#347def',color: 'white'} }" cancel-text="取消" ok-text="确认" title="新增角色" >
+    <a-modal v-model:open="AddDiaLog" :okButtonProps="{ style: { backgroundColor: '#347def',color: 'white'} }"
+             cancel-text="取消" ok-text="确认" title="新增角色">
       <div>
-        <div class="ml-3 mt-6">用户名：<a-input v-model:value="addData.username" class="ml-[14px] h-8 w-1/2 border-gray-300 rounded-md"/></div>
-        <div class="ml-3 mt-6">真实姓名：<a-input v-model:value="addData.realname" class="h-8 w-1/2 border-gray-300 rounded-md"/></div>
-        <div class="ml-3 mt-6">手机号：<a-input v-model:value="addData.phone" class="ml-[14px] h-8 w-1/2 border-gray-300 rounded-md"/></div>
-        <div class="ml-3 mt-6 mb-8">邮箱：<a-input v-model:value="addData.email" class="ml-[28px] h-8 w-1/2 border-gray-300 rounded-md"/></div>
+        <div class="ml-3 mt-6">用户名：
+          <a-input v-model:value="addData.username" class="ml-[14px] h-8 w-1/2 border-gray-300 rounded-md"/>
+        </div>
+        <div class="ml-3 mt-6">真实姓名：
+          <a-input v-model:value="addData.realname" class="h-8 w-1/2 border-gray-300 rounded-md"/>
+        </div>
+        <div class="ml-3 mt-6">手机号：
+          <a-input v-model:value="addData.phone" class="ml-[14px] h-8 w-1/2 border-gray-300 rounded-md"/>
+        </div>
+        <div class="ml-3 mt-6 mb-8">邮箱：
+          <a-input v-model:value="addData.email" class="ml-[28px] h-8 w-1/2 border-gray-300 rounded-md"/>
+        </div>
       </div>
     </a-modal>
   </div>
@@ -65,16 +77,26 @@
 <script setup>
 import {SearchOutlined, PlusOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons-vue";
 import {reactive, ref} from 'vue';
+import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
+
+breadcrumbs.push({breadcrumbName: '网站管理'});
+breadcrumbs.push({path: '/user', breadcrumbName: '用户管理'});
+const routes = breadcrumbs
+setTimeout(() => {
+  breadcrumbs.pop();
+  breadcrumbs.pop();
+}, 1)
 
 //新增用户对话框
 const AddDiaLog = ref(false);
 const addData = reactive({
-  username:'',
-  realname:'',
-  phone:'',
-  email:''
+  username: '',
+  realname: '',
+  phone: '',
+  email: ''
 })
-function showAddDiaLog(){
+
+function showAddDiaLog() {
   AddDiaLog.value = true;
   addData.name = '';
   addData.displayName = '';
