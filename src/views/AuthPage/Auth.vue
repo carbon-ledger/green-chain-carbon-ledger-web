@@ -8,6 +8,6 @@
 
 <style>
 body {
-  background: url("@/assets/images/img2.jpg") center center no-repeat;
+  background: url("@/assets/images/img1.jpg") center center no-repeat;
 }
 </style>

@@ -6,7 +6,7 @@
       <div class="container p-3">
         <div class="row-auto">
           <div class="row-span-1 mb-8 text-center font-bold text-2xl">
-            绿链碳账本 - 登陆
+            绿链碳账本 - 登录
           </div>
           <div class="row-span-1">
             <a-form

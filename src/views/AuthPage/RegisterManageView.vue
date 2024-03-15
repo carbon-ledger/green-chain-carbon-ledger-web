@@ -1,17 +1,16 @@
 <template>
-  <div class="md:flex md:h-screen items-center md:justify-end sm:justify-center md:content-around bg-[url('@/assets/images/img2.jpg')]">
+  <div class="md:flex md:h-screen items-center md:justify-end sm:justify-center md:content-around bg-[url('@/assets/images/img1.jpg')]">
     <a-card class="shadow-xl md:w-[calc(65%-5rem)] lg:w-[450px] mx-5 md:mx-10 lg:mx-28 mt-20 md:mt-0">
-      <div class="container">
+      <div class="container p-3">
         <div class="row-auto">
-          <div  class="row-span-1 my-4 text-center font-bold text-2xl">
+          <div  class="row-span-1 mb-8 text-center font-bold text-2xl">
             绿链碳系统 - 监管账号注册
           </div>
           <div class="row-span-1 flex justify-center">
             <a-form
                 :model="formState"
                 name="basic"
-                :label-col="{ span: 6 }"
-                :wrapper-col="{ span: 24 }"
+                :label-col="{ span: 5 }"
                 autocomplete="off"
                 @finish="onFinish"
                 @finishFailed="onFinishFailed"
@@ -68,8 +67,7 @@
                   <template #prefix><LockOutlined/></template>
                 </a-input-password>
               </a-form-item>
-              <a-form-item class="ml-16" name="remember" >
-                <a-checkbox v-model:checked="formState.remember">记住我</a-checkbox>
+              <a-form-item class="text-end">
                 <a class="ml-10 text-spring hover:text-green-500" @click="$router.push('/auth/login')">登录</a>
                 <span class="text-spring mx-1">|</span>
                 <a class="text-spring hover:text-green-500" @click="$router.push('/auth/register/organize')">注册组织账号</a>
@@ -93,7 +91,7 @@ import {
   PhoneOutlined,
   CheckOutlined,
   MailOutlined,
-  LockOutlined, UsergroupAddOutlined
+  LockOutlined
 } from '@ant-design/icons-vue';
 
 const formState = reactive({
