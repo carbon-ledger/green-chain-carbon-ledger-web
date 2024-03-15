@@ -54,6 +54,12 @@ const login = (data) => {
     })
 }
 
+
+/**
+ * 查询当前用户信息
+ *
+ * @return {Promise<AxiosResponse<any>> | *}
+ */
 const getUserCurrent = () => {
     return axios({
         url: api + "/user/current",
@@ -66,6 +72,30 @@ const getUserCurrent = () => {
         }
     })
 }
+
+
+/**
+ * 查询用户信息
+ * @param data
+ * @param token
+ * @return {Promise<AxiosResponse<any>> | *}
+ */
+const getUserList = (data) => {
+    return axios({
+        url:api + "/user/list",
+        method:"get",
+        params:data,
+        headers:{
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+
+
 
 const userLogout = () => {
     return axios({
@@ -85,5 +115,6 @@ export default {
     login,
     GetCode,
     getUserCurrent,
+    getUserList,
     userLogout
 }

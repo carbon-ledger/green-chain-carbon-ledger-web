@@ -14,7 +14,7 @@
           <SearchOutlined/>
           查询
         </a-button>
-        <a-button @click="showAddDiaLog" class="text-blue-50 bg-blue-500 flex justify-center items-center" type="primary">
+        <a-button @click="showAddDiaLog" class="bg-aspargus flex justify-center items-center" type="primary">
           <PlusOutlined/>
           新增用户
         </a-button>
@@ -22,23 +22,19 @@
     </div>
     <!--表格内容-->
     <div class="w-full h-auto mt-6">
-      <a-table :columns="columns"   :rowKey="record => record.id">
+      <a-table :columns="columns" :data-source="UserList.value"  :rowKey="record => record.id">
         <template #bodyCell="{ column, record }">
-          <template v-if="column.key==='id'">
-            {{ record.id }}
+          <template v-if="column.key==='uuid'">
+            {{ record.uuid }}
           </template>
-          <template v-else-if="column.key === 'enabled'">
-            <a-tag v-if="record.enabled === true" :bordered="false" color="success">启用</a-tag>
-            <a-tag v-if="record.enabled === false" :bordered="false" color="error">禁用</a-tag>
+          <template v-else-if="column.key==='username'">
+            {{ record.username }}
           </template>
-          <template v-else-if="column.key==='createdAt'">
-            {{ record.createdAt }}
+          <template v-else-if="column.key==='realname'">
+            {{ record.realname }}
           </template>
-          <template v-else-if="column.key==='updateAt'">
-            {{ record.updatedAt }}
-          </template>
-          <template v-else-if="column.key === 'isDelete'">
-            {{ record.isDelete }}
+          <template v-else-if="column.key==='email'">
+            {{ record.email }}
           </template>
           <template v-else-if="column.key==='action'">
             <span style="margin-left: 10px; display: flex">
@@ -51,7 +47,7 @@
     </div>
 
     <!--新增用户对话框-->
-    <a-modal v-model:open="AddDiaLog" :okButtonProps="{ style: { backgroundColor: '#347def',color: 'white'} }" cancel-text="取消" ok-text="确认" title="新增角色" >
+    <a-modal v-model:open="AddDiaLog" :okButtonProps="{ style: { backgroundColor: '#77AD78'}}" cancel-text="取消" ok-text="确认" title="新增角色" >
       <div>
         <div class="ml-3 mt-6">用户名：<a-input v-model:value="addData.username" class="ml-[14px] h-8 w-1/2 border-gray-300 rounded-md"/></div>
         <div class="ml-3 mt-6">真实姓名：<a-input v-model:value="addData.realname" class="h-8 w-1/2 border-gray-300 rounded-md"/></div>
@@ -64,7 +60,8 @@
 
 <script setup>
 import {SearchOutlined, PlusOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons-vue";
-import {reactive, ref} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
+import request from "@/assets/js/request.js";
 
 //新增用户对话框
 const AddDiaLog = ref(false);
@@ -80,13 +77,29 @@ function showAddDiaLog(){
   addData.displayName = '';
 }
 
+//获取用户
+const data = {
+  type: 'all',
+}
+const UserList = ref([]);
+
+onMounted(() => {
+  request.getUserList(data).then((res) => {
+      UserList.value = res.date.data
+    console.log(UserList.value)
+  })
+})
+
+
+
+
 
 //表格栏目
 const columns = [
   {
     title: '序号',
-    dataIndex: 'id',
-    key: 'id',
+    dataIndex: 'uuid',
+    key: 'uuid',
   },
   {
     title: '用户名',
@@ -94,29 +107,14 @@ const columns = [
     key: 'username',
   },
   {
-    title: '电话',
-    key: 'phone',
-    dataIndex: 'phone',
+    title: '真实姓名',
+    dataIndex: 'realname',
+    key: 'realname',
   },
   {
-    title: '用户状态',
-    dataIndex: 'enabled',
-    key: 'enabled',
-  },
-  {
-    title: '创建时间',
-    key: 'createdAt',
-    dataIndex: 'createdAt',
-  },
-  {
-    title: '更新时间',
-    key: 'updatedAt',
-    dataIndex: 'updatedAt'
-  },
-  {
-    title: '是否已被删除',
-    key: 'isDelete',
-    dataIndex: 'isDelete'
+    title: '邮箱',
+    key: 'email',
+    dataIndex: 'email',
   },
   {
     title: '操作',
