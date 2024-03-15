@@ -105,7 +105,7 @@ const router = createRouter({
           path:'/dashboard/console',
           name:'DashboardConsole',
           breadcrumbName: '管理首页',
-          component:()=>import('@/views/Dashboard/ConsoleView.vue')
+          component:()=>import('@/views/Dashboard/ConsoleDashboard.vue')
         },
         {
           //
@@ -126,12 +126,12 @@ const router = createRouter({
         {
           path:'/dashboard/user',
           name:'DashboardUser',
-          component:()=>import('@/views/Dashboard/user.vue')
+          component:()=>import('@/views/Dashboard/ConsoleUser.vue')
         },
         {
           path:'/dashboard/role',
           name:'DashboardRole',
-          component:()=>import('@/views/Dashboard/role.vue')
+          component:()=>import('@/views/Dashboard/ConsoleRole.vue')
         },
         {
           path:'/dashboard/authority',

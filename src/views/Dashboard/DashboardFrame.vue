@@ -5,7 +5,7 @@
           overflow: 'auto',
           position: 'fixed',
           left: 0, top: 0, bottom: 0,
-          theme: 'dark'
+          background: '#fff',
         }"
     >
       <LeftBar/>

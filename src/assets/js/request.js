@@ -1,6 +1,6 @@
 import axios from "axios";
 import getCurrentTimestamp from "@/assets/js/methods.js";
-const api = 'http://localhost:8081/api/v1'
+const api = 'http://192.168.5.234:8081/api/v1'
 /**
  * 组织账号注册
  * @param data (organize,username,phone,email,code,invite,password)
@@ -67,9 +67,23 @@ const getUserCurrent = () => {
     })
 }
 
+const userLogout = () => {
+    return axios({
+        url: api + "/auth/logout",
+        method: "get",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     login,
     GetCode,
-    getUserCurrent
+    getUserCurrent,
+    userLogout
 }

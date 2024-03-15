@@ -3,48 +3,83 @@
     <div class="flex flex-1 items-center">
       <a-breadcrumb :routes="routes">
         <a-breadcrumb-item href="">
-          <HomeOutlined />
+          <HomeOutlined/>
         </a-breadcrumb-item>
         <template #itemRender="{ route, paths }">
-        <span v-if="routes.indexOf(route) === routes.length - 1">
-          {{ route.breadcrumbName }}
-        </span>
+          <span v-if="routes.indexOf(route) === routes.length - 1">
+            {{ route.breadcrumbName }}
+          </span>
           <RouterLink v-else :to="`${basePath}/${paths.join('/')}`">
             {{ route.breadcrumbName }}
           </RouterLink>
         </template>
       </a-breadcrumb>
     </div>
-    <div class="flex flex-1 justify-end">
-      <a-dropdown>
-        <a class="ant-dropdown-link" @click.prevent>
-          <img class="rounded-full w-auto h-full" src="https://api.x-lf.cn/avatar/?uid=1" alt="UserAvatar">
-        </a>
-        <template #overlay>
-          <a-menu @click="onClick">
-            <a-menu-item key="1">1st menu item</a-menu-item>
-            <a-menu-item key="2">2nd menu item</a-menu-item>
-            <a-menu-item key="3">3rd menu item</a-menu-item>
-          </a-menu>
-        </template>
-      </a-dropdown>
+    <div class="flex flex-1">
+      <div class="flex">
+        <div class="flex flex-1 justify-end items-center">
+          暂放
+        </div>
+        <div class="flex flex-1 justify-end">
+          <a-dropdown placement="bottomRight" :arrow="{ pointAtCenter: true }">
+            <a class="ant-dropdown-link" @click.prevent>
+              <img alt="UserAvatar" class="rounded-full w-auto h-full" src="https://api.x-lf.cn/avatar/?uid=1">
+            </a>
+            <template #overlay>
+              <a-menu @click="onClick">
+                <a-menu-item key="1"><UserOutlined /> 个人信息</a-menu-item>
+                <a-menu-item key="2"><SettingOutlined /> 系统设置</a-menu-item>
+                <a-menu-divider/>
+                <a-menu-item @click="UserLogout()"><LogoutOutlined /> 账号登出</a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { HomeOutlined } from '@ant-design/icons-vue';
-import { ref } from 'vue';
+import {HomeOutlined, LogoutOutlined, UserOutlined, SettingOutlined} from '@ant-design/icons-vue';
+import {ref} from 'vue';
+import request from "@/assets/js/request.js";
+import {message} from "ant-design-vue";
+import router from "@/router/index.js";
 
 const basePath = '/dashboard';
 const routes = ref([
   {
     path: 'console',
-    breadcrumbName: '管理首页',
+    breadcrumbName: '管理',
   },
   {
-    path: 'person',
-    breadcrumbName: '个人中心',
+    path: 'dashboard',
+    breadcrumbName: '仪表盘',
   }
 ]);
+
+// 账号登出
+function UserLogout() {
+  console.log("[DashboardHeader] 账号 " + " 登出")
+  request.userLogout().then((res) => {
+    switch (res.data.output) {
+      case "Success": {
+        console.log("[DashboardHeader] " + res.data.output)
+        message.success("账号登出成功")
+        localStorage.removeItem("AuthorizationToken")
+        localStorage.removeItem("X-Auth-UUID")
+        router.push("/auth/login")
+        break
+      }
+      default: {
+        console.log("[DashboardHeader] " + res.data.output)
+        message.warn("其他错误：" + res.data.message)
+      }
+    }
+  }).catch((err) => {
+    console.warn("[DashboardHeader] " + err.response.data.output)
+    message.error(err.response.data.message)
+  })
+}
 </script>

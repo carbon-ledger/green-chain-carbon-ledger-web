@@ -159,6 +159,9 @@ import {
   SettingOutlined,
  UnlockOutlined
 } from "@ant-design/icons-vue";
+import {ref} from "vue";
+
+localStorage.setItem("DashboardLeftBarKey", ref(["2"]));
 
 const columns = [
   {

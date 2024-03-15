@@ -1,85 +1,149 @@
 <template>
   <div class="flex justify-center my-3">
-    <img class="rounded-full w-auto h-[40px]" src="/favicon.ico" alt="UserAvatar">
+    <img alt="UserAvatar" class="rounded-full w-auto h-[40px]" src="/favicon.ico">
   </div>
-  <a-menu
-      v-model:openKeys="openKeys"
-      v-model:selectedKeys="selectedKeys"
-      :items="items"
-      mode="inline"
-      @click="handleClick"
-      theme="dark"
-  />
+  <a-menu v-model:openKeys="openKey" v-model:selectedKeys="leftBarKey" mode="inline">
+    <a-menu-item key="1" @click="pushTo()">
+      <DashboardOutlined/>
+      <span class="nav-text">仪表盘</span>
+    </a-menu-item>
+    <a-sub-menu key="sub1">
+      <template #title>
+        <span>
+          <ApartmentOutlined/>
+          <span>网站管理</span>
+        </span>
+      </template>
+      <a-menu-item key="2" @click="router.push('/dashboard/user')">
+        <span>
+          <UserOutlined/>
+          <span class="nav-text">用户管理</span>
+        </span>
+      </a-menu-item>
+      <a-menu-item key="3" @click="router.push('/dashboard/role')">
+        <span>
+          <UserSwitchOutlined/>
+          <span class="nav-text">角色管理</span>
+        </span>
+      </a-menu-item>
+      <a-menu-item key="4">
+        <span>
+          <KeyOutlined/>
+          <span class="nav-text">权限管理</span>
+        </span>
+      </a-menu-item>
+    </a-sub-menu>
+    <a-sub-menu key="sub2">
+      <template #title>
+        <span>
+          <SettingOutlined/>
+          <span>系统设置</span>
+        </span>
+      </template>
+      <a-menu-item key="5">
+        <span>
+          <LayoutOutlined/>
+          <span class="nav-text">网站设置</span>
+        </span>
+      </a-menu-item>
+      <a-menu-item key="6">
+        <span>
+          <IssuesCloseOutlined/>
+          <span class="nav-text">测试管理</span>
+        </span>
+      </a-menu-item>
+      <a-menu-item key="7">
+        <span>
+          <CopyrightCircleOutlined/>
+          <span class="nav-text">版权页面</span>
+        </span>
+      </a-menu-item>
+    </a-sub-menu>
+    <a-sub-menu key="sub3">
+      <template #title>
+        <span>
+          <BarChartOutlined/>
+          <span>系统分析</span>
+        </span>
+      </template>
+      <a-menu-item key="8">
+        <span>
+          <span class="nav-text">系统信息</span>
+        </span>
+      </a-menu-item>
+      <a-menu-item key="9">
+        <span>
+          <span class="nav-text">系统信息获取</span>
+        </span>
+      </a-menu-item>
+    </a-sub-menu>
+  </a-menu>
 </template>
 <script setup>
-import {h, reactive, ref, watch} from 'vue';
-import {AppstoreOutlined, HomeOutlined, SettingOutlined} from '@ant-design/icons-vue';
-import {useRouter} from 'vue-router';
+import {onMounted, ref} from 'vue';
+import {
+  IssuesCloseOutlined,
+  DashboardOutlined,
+  SettingOutlined,
+  CopyrightCircleOutlined,
+  LayoutOutlined,
+  BarChartOutlined,
+  UserOutlined,
+  UserSwitchOutlined,
+  KeyOutlined,
+  ApartmentOutlined
+} from '@ant-design/icons-vue';
+import router from "@/router/index.js";
+import request from "@/assets/js/request.js";
 
-const router = useRouter();
-const selectedKeys = ref(['0']);
-const openKeys = ref(['sub1']);
+// 服务挂载
+onMounted(() => {
+  getUserCurrent()
+})
 
-function getItem(label, key, icon, children, type) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  };
+let userRole = null;
+
+/**
+ * 获取用户信息
+ */
+function getUserCurrent() {
+  console.log("[DashboardLeftBar] 获取用户权限")
+  // 权限获取
+  request.getUserCurrent().then((res) => {
+    userRole = res.data.data.role
+  }).catch((err) => {
+    console.warn("获取用户权限失败")
+  })
 }
 
-const items = reactive([
-  getItem('首页', '0', () => h(HomeOutlined)),
-  {
-    type: 'divider',
-  },
-  getItem('控制面板', 'sub1', () => h(AppstoreOutlined), [
-    getItem('控制台', '1'),
-    getItem('分析页', '2'),
-    getItem('监控页', '3'),
-  ]),
-  {
-    type: 'divider',
-  },
-  getItem('系统管理', 'sub2', () => h(SettingOutlined), [
-    getItem('用户管理', '4'),
-    getItem('角色管理', '5'),
-    getItem('权限管理', '6'),
-    getItem('日志管理', '7'),
-  ]),
-]);
-const handleClick = (e) => {
-  const key = e.key;
-  console.log(e.key);
-  switch (key) {
-    case '0':
-      router.push('/dashboard/console');
-      break;
-    case '1':
-      router.push('/dashboard/con');
-      break;
-    case '2':
-      router.push('/dashboard/analysis');
-      break;
-    case '3':
-      router.push('/dashboard/monitor');
-      break;
-    case '4':
-      router.push('/dashboard/user');
-      break;
-    case '5':
-      router.push('/dashboard/role');
-      break;
-    case '6':
-      router.push('/dashboard/authority');
-      break;
-    default:
-      break;
+/**
+ * 跳转到对应页面
+ */
+function pushTo() {
+  if (userRole === null) {
+    router.push("/auth/login")
+  } else {
+    router.push("/dashboard/" + userRole)
   }
-};
-watch(openKeys, val => {
-  console.log('openKeys', val);
-});
+}
+
+let leftBarKey
+let openKey
+
+switch (router.currentRoute.value.name) {
+  case "DashboardConsole":
+    leftBarKey = ref(["1"])
+    openKey = ref([""])
+    break
+  case "DashboardUser":
+    leftBarKey = ref(["2"])
+    openKey = ref(["sub1"])
+    break
+  case "DashboardRole":
+    leftBarKey = ref(["3"])
+    openKey = ref(["sub1"])
+    break
+  default:
+    leftBarKey = ref(["1"])
+}
 </script>

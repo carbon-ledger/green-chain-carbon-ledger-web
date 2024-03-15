@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full h-auto">
+  <div class="container p-3">
     <!--头部-->
     <div class="flex">
       <div class="w-36 ml-4 mt-4 flex">
