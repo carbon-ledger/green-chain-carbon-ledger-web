@@ -17,7 +17,7 @@
       <a-menu-item key="2" @click="router.push('/dashboard/user')">
         <span>
           <UserOutlined/>
-          <span class="nav-text">用户管理</span>
+          <span class="nav-text">账户管理</span>
         </span>
       </a-menu-item>
       <a-menu-item key="3" @click="router.push('/dashboard/role')">
@@ -26,7 +26,7 @@
           <span class="nav-text">角色管理</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="4">
+      <a-menu-item key="4" @click="router.push('/dashboard/permission')">
         <span>
           <KeyOutlined/>
           <span class="nav-text">权限管理</span>
@@ -111,7 +111,7 @@ function getUserCurrent() {
   // 权限获取
   request.getUserCurrent().then((res) => {
     userRole = res.data.data.role
-  }).catch((err) => {
+  }).catch(() => {
     console.warn("获取用户权限失败")
   })
 }
@@ -141,6 +141,10 @@ switch (router.currentRoute.value.name) {
     break
   case "DashboardRole":
     leftBarKey = ref(["3"])
+    openKey = ref(["sub1"])
+    break
+  case "DashboardPermission":
+    leftBarKey = ref(["4"])
     openKey = ref(["sub1"])
     break
   default:

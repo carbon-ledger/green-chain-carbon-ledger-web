@@ -1,17 +1,12 @@
 <template>
   <a-page-header
       :breadcrumb="{ routes }"
-      sub-title="用户的添加、修改、删除等操作"
-      title="用户管理"
-      @back="() => $router.go(-1)"
-  />
-  <div class="container px-3 h-full">
-    <!--头部-->
-    <div class="flex w-full justify-end">
-      <div class="w-36 ml-4 mt-4 flex">
-        <a-input class="h-8 border-gray-300 rounded-md" placeholder="请输入用户id"/>
-      </div>
-      <div class="mt-4 flex">
+      title="账户管理"
+  >
+    <template #extra>
+      <!--头部-->
+      <div class="flex w-full justify-end">
+        <a-input class="h-8 border-gray-300 rounded-md" placeholder="输入账户信息"/>
         <a-button class="ml-4 mr-4 flex justify-center items-center">
           <SearchOutlined/>
           查询
@@ -22,7 +17,14 @@
           新增用户
         </a-button>
       </div>
-    </div>
+    </template>
+    <a-descriptions-item>
+      <div class="text-mount-pink">
+        账户管理，包括账户的增删改查，账户的状态，账户的创建时间，账户的更新时间，账户是否已被删除等。
+      </div>
+    </a-descriptions-item>
+  </a-page-header>
+  <div class="px-3">
     <!--表格内容-->
     <div class="w-full h-auto mt-6">
       <a-table :columns="columns" :rowKey="record => record.id">

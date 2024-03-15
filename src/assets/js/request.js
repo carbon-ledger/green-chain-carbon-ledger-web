@@ -1,16 +1,34 @@
 import axios from "axios";
 import getCurrentTimestamp from "@/assets/js/methods.js";
+
 const api = 'http://192.168.5.234:8081/api/v1'
 /**
  * 组织账号注册
  * @param data (organize,username,phone,email,code,invite,password)
  * @return{*}
  */
-const OrganizeRegister = (data) =>{
+const OrganizeRegister = (data) => {
     return axios({
-        url:api + "/auth/organize/register",
-        method:"post",
-        data:data,
+        url: api + "/auth/organize/register",
+        method: "post",
+        data: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp()
+        }
+    })
+}
+
+/**
+ * 管理员账号注册
+ * @param data (organize,username,phone,email,code,invite,password)
+ * @return{*}
+ */
+const ManagerRegister = (data) => {
+    return axios({
+        url: api + "/auth/admin/register",
+        method: "post",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp()
@@ -23,18 +41,17 @@ const OrganizeRegister = (data) =>{
  * @params data (email, template)
  * @return{*}
  */
-const GetCode = (data) =>{
+const GetCode = (data) => {
     return axios({
-        url:api + "/mail/send/code",
-        method:"post",
-        data:data,
-        headers:{
+        url: api + "/mail/send/code",
+        method: "post",
+        data: data,
+        headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp()
         }
     })
 }
-
 
 
 /**
@@ -85,5 +102,6 @@ export default {
     login,
     GetCode,
     getUserCurrent,
-    userLogout
+    userLogout,
+    ManagerRegister
 }
