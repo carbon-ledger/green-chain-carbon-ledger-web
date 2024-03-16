@@ -1,7 +1,7 @@
 <template>
-  <div class="md:flex md:h-screen items-center md:justify-end sm:justify-center md:content-around">
+  <div class="md:flex md:h-screen items-center md:justify-end sm:justify-center md:content-around pb-20">
     <a-card
-        class="shadow-xl md:w-[calc(60%-5rem)] lg:w-[400px] mx-5 md:mx-10 lg:mx-28 mt-20 md:mt-0"
+        class="shadow-xl md:w-[calc(60%-5rem)] lg:w-[450px] mx-5 md:mx-10 lg:mx-36 mt-20 md:mt-0"
     >
       <div class="container p-3">
         <div class="row-auto">
@@ -10,7 +10,7 @@
           </div>
           <div class="row-span-1">
             <a-form
-                :label-col="{ span: 5 }"
+                :label-col="{ span: 4 }"
                 :model="loginForm"
                 class="login-form"
                 name="normal_login"
@@ -79,16 +79,16 @@ function UserLogin() {
       setTimeout(() => {
         switch (res.data.data.role.name) {
           case "console":
-            router.push("/dashboard/console")
+            window.location.replace("/dashboard/console")
             break
           case "admin":
-            router.push("/dashboard/admin")
+            window.location.replace("/dashboard/admin")
             break
           case "organize":
-            router.push("/dashboard/organize")
+            window.location.replace("/dashboard/organize")
             break
           default:
-            router.push("/dashboard/default")
+            window.location.replace("/dashboard/default")
         }
       }, 1000)
     }).catch((err) => {
@@ -122,16 +122,16 @@ onMounted(() => {
         // 检查登陆用户组
         switch (res.data.data.role) {
           case "console":
-            router.push("/dashboard/console")
+            window.location.replace("/dashboard/console")
             break
           case "admin":
-            router.push("/dashboard/admin")
+            window.location.replace("/dashboard/admin")
             break
           case "organize":
-            router.push("/dashboard/organize")
+            window.location.replace("/dashboard/organize")
             break
           default:
-            router.push("/dashboard/default")
+            window.location.replace("/dashboard/default")
         }
       }, 1000)
     }

@@ -1,21 +1,30 @@
 <template>
-  <div class="container p-3">
-    <!--头部-->
-    <div class="flex">
-      <div class="w-36 ml-4 mt-4 flex">
-        <a-input  class="h-8 border-gray-300 rounded-md"  placeholder="请输入角色id"/>
-      </div>
-      <div class="mt-4 flex">
-        <a-button class="ml-4 mr-4 flex justify-center items-center" >
+  <a-page-header
+      :breadcrumb="{ routes }"
+      title="角色管理"
+  >
+    <template #extra>
+      <!--头部-->
+      <div class="flex w-full justify-end">
+        <a-input class="h-8 border-gray-300 rounded-md" placeholder="请输入角色信息"/>
+        <a-button class="ml-4 mr-4 flex justify-center items-center">
           <SearchOutlined/>
           查询
         </a-button>
-        <a-button @click="showAddDiaLog" class="text-blue-50 bg-blue-500 flex justify-center items-center" type="primary">
+        <a-button class="text-blue-50 bg-blue-500 flex justify-center items-center" type="primary"
+                  @click="showAddDiaLog">
           <PlusOutlined/>
           新增角色
         </a-button>
       </div>
-    </div>
+    </template>
+    <a-descriptions-item>
+      <div class="text-mount-pink">
+        角色管理，包括角色的增删改查，角色的状态，角色的创建时间，角色的更新时间，角色是否已被删除等。
+      </div>
+    </a-descriptions-item>
+  </a-page-header>
+  <div class="px-3">
     <!--表格内容-->
     <div class="w-full h-auto mt-6">
       <a-table :columns="columns"   :rowKey="record => record.id">
@@ -61,6 +70,15 @@
 <script setup>
 import {SearchOutlined, PlusOutlined, EditOutlined,DeleteOutlined} from "@ant-design/icons-vue";
 import {reactive, ref} from 'vue';
+import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
+
+breadcrumbs.push({breadcrumbName: '网站管理'});
+breadcrumbs.push({path: '/user', breadcrumbName: '角色管理'});
+const routes = breadcrumbs
+setTimeout(() => {
+  breadcrumbs.pop();
+  breadcrumbs.pop();
+}, 1)
 
 //新增角色对话框
 const AddDiaLog = ref(false);

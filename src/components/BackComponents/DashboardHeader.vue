@@ -1,36 +1,27 @@
 <template>
   <div class="flex h-full py-3">
-    <div class="flex flex-1 items-center">
-      <a-breadcrumb :routes="routes">
-        <a-breadcrumb-item href="">
-          <HomeOutlined/>
-        </a-breadcrumb-item>
-        <template #itemRender="{ route, paths }">
-          <span v-if="routes.indexOf(route) === routes.length - 1">
-            {{ route.breadcrumbName }}
-          </span>
-          <RouterLink v-else :to="`${basePath}/${paths.join('/')}`">
-            {{ route.breadcrumbName }}
-          </RouterLink>
-        </template>
-      </a-breadcrumb>
-    </div>
     <div class="flex flex-1">
       <div class="flex">
-        <div class="flex flex-1 justify-end items-center">
-          暂放
-        </div>
         <div class="flex flex-1 justify-end">
-          <a-dropdown placement="bottomRight" :arrow="{ pointAtCenter: true }">
+          <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
             <a class="ant-dropdown-link" @click.prevent>
               <img alt="UserAvatar" class="rounded-full w-auto h-full" src="https://api.x-lf.cn/avatar/?uid=1">
             </a>
             <template #overlay>
-              <a-menu @click="onClick">
-                <a-menu-item key="1"><UserOutlined /> 个人信息</a-menu-item>
-                <a-menu-item key="2"><SettingOutlined /> 系统设置</a-menu-item>
+              <a-menu>
+                <a-menu-item>
+                  <UserOutlined/>
+                  个人信息
+                </a-menu-item>
+                <a-menu-item>
+                  <SettingOutlined/>
+                  系统设置
+                </a-menu-item>
                 <a-menu-divider/>
-                <a-menu-item @click="UserLogout()"><LogoutOutlined /> 账号登出</a-menu-item>
+                <a-menu-item @click="UserLogout()">
+                  <LogoutOutlined/>
+                  账号登出
+                </a-menu-item>
               </a-menu>
             </template>
           </a-dropdown>
@@ -41,23 +32,9 @@
 </template>
 
 <script setup>
-import {HomeOutlined, LogoutOutlined, UserOutlined, SettingOutlined} from '@ant-design/icons-vue';
-import {ref} from 'vue';
+import {LogoutOutlined, UserOutlined, SettingOutlined} from '@ant-design/icons-vue';
 import request from "@/assets/js/request.js";
 import {message} from "ant-design-vue";
-import router from "@/router/index.js";
-
-const basePath = '/dashboard';
-const routes = ref([
-  {
-    path: 'console',
-    breadcrumbName: '管理',
-  },
-  {
-    path: 'dashboard',
-    breadcrumbName: '仪表盘',
-  }
-]);
 
 // 账号登出
 function UserLogout() {
@@ -69,7 +46,7 @@ function UserLogout() {
         message.success("账号登出成功")
         localStorage.removeItem("AuthorizationToken")
         localStorage.removeItem("X-Auth-UUID")
-        router.push("/auth/login")
+        window.location.replace("/auth/login")
         break
       }
       default: {
