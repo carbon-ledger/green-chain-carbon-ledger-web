@@ -72,7 +72,8 @@
 
 <script setup>
 import {SearchOutlined, PlusOutlined, EditOutlined, DeleteOutlined} from "@ant-design/icons-vue";
-import {reactive, ref} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
+import request from "@/assets/js/request.js";
 import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});
@@ -82,8 +83,6 @@ setTimeout(() => {
   breadcrumbs.pop();
   breadcrumbs.pop();
 }, 1)
-import {onMounted, reactive, ref} from 'vue';
-import request from "@/assets/js/request.js";
 
 //新增用户对话框
 const AddDiaLog = ref(false);

@@ -10,7 +10,7 @@
           </div>
           <div class="row-span-1">
             <a-form
-                :label-col="{ span: 5 }"
+                :label-col="{ span: 4 }"
                 :model="loginForm"
                 class="login-form"
                 name="normal_login"
