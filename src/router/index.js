@@ -6,9 +6,12 @@ const router = createRouter({
         {
             // 首页相关路由表
             path: '/',
-            name: 'Home',
-            component: import('@/views/HomePage/IndexView.vue'),
             children: [
+                {
+                    path: '/',
+                    name: 'Home',
+                    component: () => import('@/views/HomePage/IndexView.vue'),
+                },
                 {
                     // 关于我
                     path: '/about',
@@ -49,6 +52,7 @@ const router = createRouter({
         },
         {
             // 登陆相关路由表
+            path: "/auth",
             name: "Auth",
             component: () => import("@/views/AuthPage/AuthFrame.vue"),
             children: [
@@ -98,6 +102,7 @@ const router = createRouter({
         },
         {
             // 仪表盘相关路由表
+            path: '/dashboard',
             component: () => import('@/views/Dashboard/DashboardFrame.vue'),
             children: [
                 {
