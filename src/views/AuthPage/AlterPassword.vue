@@ -1,60 +1,75 @@
 <template>
-  <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <a-card style="width: 20vw; display: flex; justify-content: center;  background-color: white">
-      <h1 class="my-5 font-bold text-xl flex justify-center">欢迎使用绿链碳系统</h1>
-      <a-form
-          :model="formState"
-          name="basic"
-          :label-col="{ span: 8 }"
-          :wrapper-col="{ span: 24 }"
-          autocomplete="off"
-          @finish="onFinish"
-          @finishFailed="onFinishFailed"
-      >
-        <a-form-item
-            name="CurrentPassword"
-            :rules="[{ required: true, message: '请输入您的当前密码！' }]"
-        >
-          <a-input style="width: 14vw; border-radius: 0 !important;" placeholder="当前密码" v-model:value="formState.CurrentPassword">
-            <template #prefix><UserOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-          </a-input>
-        </a-form-item>
-        <a-form-item
-            name="NewPassword"
-            :rules="[{ required: true, message: '请输入您的新密码！' }]"
-        >
-          <a-input-password style="width: 14vw; border-radius: 0 !important;" placeholder="新密码" v-model:value="formState.NewPassword">
-            <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-          </a-input-password>
-        </a-form-item>
-        <a-form-item
-            name="NewPassword"
-            :rules="[{ required: true, message: '请再次输入您的新密码！' }]"
-        >
-          <a-input-password style="width: 14vw; border-radius: 0 !important;" placeholder="再次输入新密码" v-model:value="formState.NewPassword">
-            <template #prefix><LockOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-          </a-input-password>
-        </a-form-item>
-        <a-form-item name="remember" >
-          <a-checkbox v-model:checked="formState.remember">记住我</a-checkbox>
-          <a class="ml-28" @click="$router.push('/organizeregister')">立即注册</a>
-        </a-form-item>
-        <a-form-item class="flex justify-center items-center">
-          <a-button @click="$router.push('/')" type="primary" class="w-48 bg-blue-500" html-type="submit">确认修改</a-button>
-        </a-form-item>
-      </a-form>
+  <div class="md:flex md:h-screen items-center md:justify-end sm:justify-center md:content-around pb-20">
+    <a-card
+        class="shadow-xl md:w-[calc(60%-5rem)] lg:w-[450px] mx-5 md:mx-10 lg:mx-36 mt-20 md:mt-0"
+    >
+      <div class="container p-3">
+        <div class="row-auto">
+          <div class="row-span-1 mb-8 text-center font-bold text-2xl">
+            绿链碳账本 - 修改密码
+          </div>
+          <div class="row-span-1">
+            <a-form
+                :label-col="{ span: 5 }"
+                :model="alterForm"
+                @finish="onFinish"
+                @finishFailed="onFinishFailed"
+            >
+              <a-form-item
+                  :rules="[{ required: true, message: '请输入当前密码' }]"
+                  label="当前密码"
+                  name="password"
+              >
+                <a-input-password v-model:value="alterForm.currentPassword">
+                  <template #prefix>
+                    <KeyOutlined class="site-form-item-icon"/>
+                  </template>
+                </a-input-password>
+              </a-form-item>
+              <a-form-item
+                  :rules="[{ required: true, message: '请输入新密码' }]"
+                  label="新密码"
+                  name="newPassword"
+              >
+                <a-input-password v-model:value="alterForm.newPassword">
+                  <template #prefix>
+                    <KeyOutlined class="site-form-item-icon"/>
+                  </template>
+                </a-input-password>
+              </a-form-item>
+              <a-form-item
+                  :rules="[{ required: true, message: '请确认密码' }]"
+                  label="确认密码"
+                  name="confirmPassword"
+              >
+                <a-input-password v-model:value="alterForm. confirmPassword">
+                  <template #prefix>
+                    <KeyOutlined class="site-form-item-icon"/>
+                  </template>
+                </a-input-password>
+              </a-form-item>
+              <div class="text-center">
+                <a-button :disabled="false" class="bg-aspargus" html-type="submit" type="primary">
+                  <div class="mx-10">确认修改</div>
+                </a-button>
+              </div>
+            </a-form>
+          </div>
+        </div>
+      </div>
     </a-card>
   </div>
 </template>
 
 <script setup>
 import { reactive } from 'vue';
-import {UserOutlined, LockOutlined} from '@ant-design/icons-vue';
+import { KeyOutlined } from '@ant-design/icons-vue';
+import router from "@/router/index.js";
 
-const formState = reactive({
-  CurrentPassword: '',
-  NewPassword: '',
-  remember: true,
+const alterForm = reactive({
+  currentPassword: '',
+  newPassword: '',
+  newPasswordConfirm: ''
 });
 const onFinish = values => {
   console.log('Success:', values);

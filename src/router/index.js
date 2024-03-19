@@ -87,6 +87,12 @@ const router = createRouter({
                     name: 'ForgetPassword',
                     component: () => import('@/views/AuthPage/ForgetPassword.vue')
                 },
+                {
+                    //修改密码
+                    path: '/auth/alter',
+                    name: 'AlterPassword',
+                    component:() => import('@/views/AuthPage/AlterPassword.vue')
+                }
             ]
         },
         {
@@ -125,7 +131,14 @@ const router = createRouter({
                 {
                     path: '/dashboard/role',
                     name: 'DashboardRole',
-                    component: () => import('@/views/Dashboard/ConsoleRole.vue')
+                    component: () => import('@/views/Dashboard/ConsoleRole.vue'),
+                    children: [
+                        {
+                            path: '/dashboard/search-role',
+                            name:'SearchRole',
+                            component:() => import('@/views/Dashboard/SearchRole.vue')
+                        }
+                    ]
                 },
             ]
         },
