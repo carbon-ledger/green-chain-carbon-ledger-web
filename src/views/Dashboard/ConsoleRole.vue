@@ -61,7 +61,7 @@
     </div>
 
     <!--新增角色对话框-->
-    <a-modal width="450px" v-model:open="addDiaLog" title="新增角色" >
+    <a-modal width="900px" v-model:open="addDiaLog" title="新增角色" >
       <a-form
           :label-col="{ span: 5}"
           class="p-4 flex-col justify-center"
@@ -89,11 +89,33 @@
             :rules="[{ required: true }]"
             label="权限组"
         >
-          <a-input v-model:value="addData.permission">
-            <template #prefix>
-              <SettingOutlined class="site-form-item-icon"/>
+          <a-transfer
+              v-model:target-keys="targetKeys"
+              :data-source="permissionList.permissionList_data"
+              :list-style="{width: '300px',height: '300px',}"
+              @change="handleChange"
+          >
+            <template #render="item">
+              <span class="custom-item" style="color: red">{{ item.name }}</span>
             </template>
-          </a-input>
+          </a-transfer>
+          <a-transfer
+              v-model:target-keys="targetKeys"
+              v-model:selected-keys="selectedKeys"
+              :data-source="mockData"
+              :titles="['Source', 'Target']"
+              :render="item => item.title"
+              :disabled="disabled"
+              @change="handleChange"
+              @selectChange="handleSelectChange"
+              @scroll="handleScroll"
+          />
+          <a-switch
+              v-model:checked="disabled"
+              un-checked-children="enabled"
+              checked-children="disabled"
+              style="margin-top: 16px"
+          />
         </a-form-item>
       </a-form>
       <template #footer>
@@ -237,6 +259,49 @@ const deleteData = ref({
   uuid:''
 })
 
+//权限列表
+const permission_data = reactive({
+  limit:'',
+  page:'',
+  order:'asc'
+})
+
+const permissionList = reactive({
+  permissionList_data:[]
+})
+
+//获取权限列表
+function PermissionList(){
+  request.getPermissionList(permission_data).then((res) => {
+    permissionList.permissionList_data = res.data.data
+  })
+}
+
+
+const mockData = [];
+for (let i = 0; i < 20; i++) {
+  mockData.push({
+    key: i.toString(),
+    title: `content${i + 1}`,
+  });
+}
+const oriTargetKeys = mockData.filter(item => +item.key % 3 > 0).map(item => item.key);
+const disabled = ref(false);
+const targetKeys = ref(oriTargetKeys);
+const selectedKeys = ref(['1', '4']);
+const handleChange = (nextTargetKeys, direction, moveKeys) => {
+  console.log('targetKeys: ', nextTargetKeys);
+  console.log('direction: ', direction);
+  console.log('moveKeys: ', moveKeys);
+};
+const handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
+  console.log('sourceSelectedKeys: ', sourceSelectedKeys);
+  console.log('targetSelectedKeys: ', targetSelectedKeys);
+};
+const handleScroll = (direction, e) => {
+  console.log('direction:', direction);
+  console.log('target:', e.target);
+};
 onMounted(() => {
   RoleList()
 })
@@ -281,6 +346,7 @@ function showAddDiaLog(){
   addDiaLog.value = true;
   addData.name = '';
   addData.displayName = '';
+  PermissionList();
 }
 
 function OkAddRole() {
@@ -346,5 +412,6 @@ function OkDeleteRole() {
 function CancelDeleteRole() {
   deleteDiaLog.value = false;
 }
+
 
 </script>

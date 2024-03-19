@@ -125,11 +125,6 @@
             :rules="[{ required: true }]"
             label="角色"
         >
-          <a-input v-model:value="addData.role">
-            <template #prefix>
-              <SolutionOutlined class="site-form-item-icon"/>
-            </template>
-          </a-input>
         </a-form-item>
       </a-form>
       <template #footer>
@@ -234,6 +229,9 @@
 </template>
 
 <script setup>
+const value1 = ref('lucy');
+
+
 import {
   AuditOutlined,
   DeleteOutlined,
@@ -295,6 +293,18 @@ const columns = [
   },
 ];
 
+//获取角色列表
+const role_data = reactive({
+  type:'all',
+  search:'',
+  limit:'',
+  page:'',
+  order:'asc'
+})
+
+const rolelist_datas = ref([]);
+
+
 //获取账户
 const data = reactive({
   type: 'all',
@@ -344,8 +354,22 @@ const banData = reactive({
 })
 
 onMounted(() => {
-  UserList()
+  UserList();
+  RoleList();
 })
+
+//获取角色列表
+function RoleList() {
+  request.getRoleList(role_data).then((res) => {
+    switch (data.type) {
+      case 'all':
+        rolelist_datas.value = res.data.data
+        break
+      default:
+        rolelist_datas.value = res.data.data
+    }
+  })
+}
 
 
 //默认获取全部账户
@@ -418,6 +442,7 @@ function showAddDiaLog() {
   addData.phone = '';
   addData.email = '';
   addData.role = '';
+
 }
 
 function OkAddUser() {

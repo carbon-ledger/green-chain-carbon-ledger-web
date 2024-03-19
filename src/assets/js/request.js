@@ -326,6 +326,24 @@ const RoleDelete = (uuid) => {
     })
 }
 
+/**
+ * 获取权限列表
+ * @params data
+ */
+const getPermissionList = (data) => {
+    return axios({
+        url:api+"/permission/list",
+        methods:"get",
+        params:data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     login,
@@ -346,6 +364,8 @@ export default {
     RoleAdd,
     RoleEdit,
     RoleDelete,
+
+    getPermissionList,
 
     ManagerRegister
 }
