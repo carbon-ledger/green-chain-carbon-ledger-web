@@ -33,7 +33,7 @@
 
 <script setup>
 import {LogoutOutlined, UserOutlined, SettingOutlined} from '@ant-design/icons-vue';
-import request from "@/assets/js/request.js";
+import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 
 function JumpToPersonal() {

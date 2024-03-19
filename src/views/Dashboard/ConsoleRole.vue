@@ -165,7 +165,7 @@ import {
   SettingOutlined
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
-import request from "@/assets/js/request.js";
+import request from "@/assets/js/Request.js";
 import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
 import {message} from "ant-design-vue";
 

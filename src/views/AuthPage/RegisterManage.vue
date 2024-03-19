@@ -120,7 +120,7 @@ import {
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import {message} from "ant-design-vue";
-import requests from "@/assets/js/request.js";
+import requests from "@/assets/js/Request.js";
 
 const organizeRegisterForm = reactive({
   username: '',

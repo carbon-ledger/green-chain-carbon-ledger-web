@@ -1,18 +1,37 @@
-import {reactive} from "vue";
-
-export function getUserProfileVO(getData) {
-    return reactive({
-        user: {
-            uuid: getData.data.user.uuid,
-            userName: getData.data.user.userName,
-            realName: getData.data.user.realName,
-            email: getData.data.user.email,
-            phone: getData.data.phone
-        },
-        role: getData.data.role,
-        permission: {
-            rolePermission: getData.data.permission.rolePermission,
-            userPermission: getData.data.permission.userPermission
-        }
-    })
+export let getUserProfileVO = {
+    user: {
+        uuid: '',
+        userName: '',
+        realName: '',
+        email: '',
+        phone: ''
+    },
+    role: '',
+    permission: {
+        rolePermission: [],
+        userPermission: []
+    }
 }
+
+export let getLoginInfoVO = [
+    {
+        userIp: '',
+        deviceType: '',
+        browserType: '',
+        loginTime: '',
+        expireTime: ''
+    }
+]
+
+export let getRoleCurrentVO = {
+    uuid: '',
+    name: '',
+    displayName: '',
+    permission: []
+}
+
+export let permissionVO = {
+    name: '',
+    description: ''
+}
+

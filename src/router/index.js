@@ -109,6 +109,26 @@ const router = createRouter({
                     path: "/user/verify",
                     name: "UserVerify",
                     component: () => import("@/views/UserPage/UserVerify.vue")
+                },
+                {
+                    path: "/user/connect",
+                    name: "UserConnect",
+                    component: () => import("@/views/UserPage/UserConnect.vue")
+                },
+                {
+                    path: "/user/password",
+                    name: "UserPassword",
+                    component: () => import("@/views/UserPage/UserPassword.vue")
+                },
+                {
+                    path: "/user/edit",
+                    name: "UserEdit",
+                    component: () => import("@/views/UserPage/UserEdit.vue")
+                },
+                {
+                    path: "/user/delete",
+                    name: "UserDelete",
+                    component: () => import("@/views/UserPage/UserDelete.vue")
                 }
             ]
         },

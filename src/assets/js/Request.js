@@ -326,6 +326,46 @@ const RoleDelete = (uuid) => {
     })
 }
 
+const getLoginInfo = () => {
+    return axios({
+        url: api + "/auth/login-info",
+        method: "get",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+const getRoleCurrent = () => {
+    return axios({
+        url: api + "/role/current",
+        method: "get",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+const getPermissionList = (data) => {
+    return axios({
+        url: api + "/permission/list",
+        method: "get",
+        params: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     login,
@@ -347,5 +387,8 @@ export default {
     RoleEdit,
     RoleDelete,
 
-    ManagerRegister
+    ManagerRegister,
+    getLoginInfo,
+    getRoleCurrent,
+    getPermissionList
 }

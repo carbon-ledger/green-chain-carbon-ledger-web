@@ -94,7 +94,7 @@ import {
   ApartmentOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
-import request from "@/assets/js/request.js";
+import request from "@/assets/js/Request.js";
 
 // 服务挂载
 onMounted(() => {
