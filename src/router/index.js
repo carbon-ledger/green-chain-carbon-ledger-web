@@ -92,11 +92,17 @@ const router = createRouter({
         {
             path: "/user",
             name: "User",
+            component: () => import("@/views/UserPage/IndexFrame.vue"),
             children: [
                 {
-                    "path": "/user/profile",
+                    path: "/user/profile",
                     name: "UserProfile",
-                    //component: () => import("@/views/UserPage/UserProfileView.vue")
+                    component: () => import("@/views/UserPage/UserProfile.vue")
+                },
+                {
+                    path: "/user/verify",
+                    name: "UserVerify",
+                    component: () => import("@/views/UserPage/UserVerify.vue")
                 }
             ]
         },

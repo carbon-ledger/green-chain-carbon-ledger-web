@@ -9,16 +9,16 @@
             </a>
             <template #overlay>
               <a-menu>
-                <a-menu-item>
+                <a-menu-item @click="JumpToPersonal">
                   <UserOutlined/>
                   个人信息
                 </a-menu-item>
-                <a-menu-item>
+                <a-menu-item @click="JumpToSystemSetting">
                   <SettingOutlined/>
                   系统设置
                 </a-menu-item>
                 <a-menu-divider/>
-                <a-menu-item @click="UserLogout()">
+                <a-menu-item @click="UserLogout">
                   <LogoutOutlined/>
                   账号登出
                 </a-menu-item>
@@ -35,6 +35,14 @@
 import {LogoutOutlined, UserOutlined, SettingOutlined} from '@ant-design/icons-vue';
 import request from "@/assets/js/request.js";
 import {message} from "ant-design-vue";
+
+function JumpToPersonal() {
+  window.location.replace("/user/profile")
+}
+
+function JumpToSystemSetting() {
+  window.location.replace("/setting")
+}
 
 // 账号登出
 function UserLogout() {
