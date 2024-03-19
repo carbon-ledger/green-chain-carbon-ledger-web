@@ -39,8 +39,17 @@
                   </template>
                 </a-input-password>
               </a-form-item>
-              <div class=" text-end mb-3">
-                还没有账户? <a class="text-aspargus hover:text-spring" @click="router.push('/auth/register/organize')">注册</a>
+              <div class="flex text-end mb-3">
+                <div>
+                  还没有账户?
+                  <a class="text-aspargus hover:text-spring" @click="router.push('/auth/register/organize')">
+                    注册
+                  </a>
+                </div>
+                <div class="text-aspargus mx-2">|</div>
+                <div>
+                  <a class="text-aspargus hover:text-spring" @click="$router.push('/auth/forget')">忘记密码？</a>
+                </div>
               </div>
               <div class="text-center">
                 <a-button :disabled="false" class="bg-aspargus" html-type="submit" type="primary"
