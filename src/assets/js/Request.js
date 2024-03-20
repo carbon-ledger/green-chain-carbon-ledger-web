@@ -366,6 +366,20 @@ const getPermissionList = (data) => {
     })
 }
 
+const getAuthDelete = (data) => {
+    return axios({
+        url: api + "/auth/delete",
+        method: "delete",
+        data: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     login,
@@ -390,5 +404,6 @@ export default {
     ManagerRegister,
     getLoginInfo,
     getRoleCurrent,
-    getPermissionList
+    getPermissionList,
+    getAuthDelete,
 }

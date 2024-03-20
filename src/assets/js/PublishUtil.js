@@ -98,3 +98,25 @@ export function getPermissionList() {
     });
     return getPermissionList;
 }
+
+/**
+ * 发送邮箱验证码
+ *
+ * @param {Object} data
+ */
+export function sendMailCode(data) {
+    let getData = ref([])
+    request.GetCode(data).then(res => {
+        getData.value = res.data;
+        switch (res.data.output) {
+            case "Success":
+                message.success("验证码发送成功！")
+                break
+            default:
+                message.warn(res.data.message)
+        }
+    }).catch(err => {
+        message.warn(err.response.data.message)
+    })
+    return getData;
+}
