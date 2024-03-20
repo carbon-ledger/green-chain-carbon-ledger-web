@@ -121,7 +121,7 @@
 
 <script setup>
 import {reactive} from 'vue';
-import requests from '@/assets/js/request.js'
+import requests from '@/assets/js/Request.js'
 import {message} from "ant-design-vue";
 import {
   UserOutlined,

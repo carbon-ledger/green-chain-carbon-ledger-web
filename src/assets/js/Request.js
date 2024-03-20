@@ -326,15 +326,51 @@ const RoleDelete = (uuid) => {
     })
 }
 
-/**
- * 获取权限列表
- * @params data
- */
+const getLoginInfo = () => {
+    return axios({
+        url: api + "/auth/login-info",
+        method: "get",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+const getRoleCurrent = () => {
+    return axios({
+        url: api + "/role/current",
+        method: "get",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 const getPermissionList = (data) => {
     return axios({
-        url:api+"/permission/list",
-        methods:"get",
-        params:data,
+        url: api + "/permission/list",
+        method: "get",
+        params: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+const getAuthDelete = (data) => {
+    return axios({
+        url: api + "/auth/delete",
+        method: "delete",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -365,7 +401,9 @@ export default {
     RoleEdit,
     RoleDelete,
 
+    ManagerRegister,
+    getLoginInfo,
+    getRoleCurrent,
     getPermissionList,
-
-    ManagerRegister
+    getAuthDelete,
 }

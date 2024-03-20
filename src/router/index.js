@@ -98,11 +98,37 @@ const router = createRouter({
         {
             path: "/user",
             name: "User",
+            component: () => import("@/views/UserPage/IndexFrame.vue"),
             children: [
                 {
-                    "path": "/user/profile",
+                    path: "/user/profile",
                     name: "UserProfile",
-                    //component: () => import("@/views/UserPage/UserProfileView.vue")
+                    component: () => import("@/views/UserPage/UserProfile.vue")
+                },
+                {
+                    path: "/user/verify",
+                    name: "UserVerify",
+                    component: () => import("@/views/UserPage/UserVerify.vue")
+                },
+                {
+                    path: "/user/connect",
+                    name: "UserConnect",
+                    component: () => import("@/views/UserPage/UserConnect.vue")
+                },
+                {
+                    path: "/user/password",
+                    name: "UserPassword",
+                    component: () => import("@/views/UserPage/UserPassword.vue")
+                },
+                {
+                    path: "/user/edit",
+                    name: "UserEdit",
+                    component: () => import("@/views/UserPage/UserEdit.vue")
+                },
+                {
+                    path: "/user/delete",
+                    name: "UserDelete",
+                    component: () => import("@/views/UserPage/UserDelete.vue")
                 }
             ]
         },

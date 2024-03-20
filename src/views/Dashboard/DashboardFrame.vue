@@ -33,7 +33,7 @@ body {
 
 <script setup>
 import {onMounted} from "vue";
-import request from "@/assets/js/request.js";
+import request from "@/assets/js/Request.js";
 import router from "@/router/index.js";
 import {message} from "ant-design-vue";
 import LeftBar from "@/components/BackComponents/DashboardLeftBar.vue";
