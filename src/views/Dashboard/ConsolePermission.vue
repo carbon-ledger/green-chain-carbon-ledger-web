@@ -26,9 +26,8 @@
 </template>
 
 <script setup>
-import {DeleteOutlined, EditOutlined, SearchOutlined} from "@ant-design/icons-vue";
 import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import request from "@/assets/js/request.js";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});
