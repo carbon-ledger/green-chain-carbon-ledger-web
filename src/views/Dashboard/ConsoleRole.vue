@@ -91,12 +91,13 @@
         >
           <a-transfer
               v-model:target-keys="targetKeys"
+              v-model:selected-keys="selectedKeys"
+              :titles:="['所有权限', '拥有权限']"
               :data-source="permissionList.permissionList_data"
               :list-style="{width: '300px',height: '300px',}"
-              @change="handleChange"
           >
             <template #render="item">
-              <span class="custom-item" style="color: red">{{ item.name }}</span>
+              <span>{{ item.name }}</span>
             </template>
           </a-transfer>
           <a-transfer
@@ -105,16 +106,6 @@
               :data-source="mockData"
               :titles="['Source', 'Target']"
               :render="item => item.title"
-              :disabled="disabled"
-              @change="handleChange"
-              @selectChange="handleSelectChange"
-              @scroll="handleScroll"
-          />
-          <a-switch
-              v-model:checked="disabled"
-              un-checked-children="enabled"
-              checked-children="disabled"
-              style="margin-top: 16px"
           />
         </a-form-item>
       </a-form>
@@ -286,22 +277,9 @@ for (let i = 0; i < 20; i++) {
   });
 }
 const oriTargetKeys = mockData.filter(item => +item.key % 3 > 0).map(item => item.key);
-const disabled = ref(false);
 const targetKeys = ref(oriTargetKeys);
-const selectedKeys = ref(['1', '4']);
-const handleChange = (nextTargetKeys, direction, moveKeys) => {
-  console.log('targetKeys: ', nextTargetKeys);
-  console.log('direction: ', direction);
-  console.log('moveKeys: ', moveKeys);
-};
-const handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-  console.log('sourceSelectedKeys: ', sourceSelectedKeys);
-  console.log('targetSelectedKeys: ', targetSelectedKeys);
-};
-const handleScroll = (direction, e) => {
-  console.log('direction:', direction);
-  console.log('target:', e.target);
-};
+const selectedKeys = ref([]);
+
 onMounted(() => {
   RoleList()
 })
