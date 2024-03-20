@@ -58,7 +58,7 @@
             </a-tag>
           </template>
           <template v-else-if="column.key==='action'">
-            <span style="margin-left: 10px; display: flex">
+            <span class="flex" v-if="record.deletedAt === null">
               <a-button class="text-aspargus flex justify-center items-center" size="small"
                         type="text" @click="showManagerEditDiaLog(record)">
                 <EditOutlined/>
@@ -66,6 +66,18 @@
               </a-button>
               <a-button class="text-aspargus flex justify-center items-center" size="small"
                         type="text" @click="showDeleteDiaLog(record)">
+                <DeleteOutlined/>
+                注销
+              </a-button>
+            </span>
+            <span class="flex" v-else>
+              <a-button class="text-mount-pink flex justify-center items-center" size="small"
+                        type="text" disabled>
+                <EditOutlined/>
+                修改
+              </a-button>
+              <a-button class="text-mount-pink flex justify-center items-center" size="small"
+                        type="text" disabled>
                 <DeleteOutlined/>
                 注销
               </a-button>
@@ -125,11 +137,16 @@
             :rules="[{ required: true }]"
             label="角色"
         >
-          <a-input v-model:value="addData.role">
-            <template #prefix>
-              <SolutionOutlined class="site-form-item-icon"/>
-            </template>
-          </a-input>
+          <a-select
+              ref="select"
+              v-model:value="addData.role"
+              style="width: 293px"
+              @focus="focus"
+          >
+            <a-select-option v-for="(rolelistData, index) in rolelistDatas" :key="index" :value="rolelistData.name">
+             <span>{{rolelistData.name}}</span> - <span class="text-gray-400">{{rolelistData.displayName}}</span>
+            </a-select-option>
+          </a-select>
         </a-form-item>
       </a-form>
       <template #footer>
@@ -234,6 +251,7 @@
 </template>
 
 <script setup>
+
 import {
   AuditOutlined,
   DeleteOutlined,
@@ -243,7 +261,6 @@ import {
   PhoneOutlined,
   PlusOutlined,
   SearchOutlined,
-  SolutionOutlined,
   UserOutlined,
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
@@ -295,6 +312,17 @@ const columns = [
   },
 ];
 
+//获取角色列表
+const role_data = reactive({
+  type:'all',
+  search:'',
+  limit:'',
+  page:'',
+  order:'asc'
+})
+
+const rolelistDatas = ref([]);
+
 //获取账户
 const data = reactive({
   type: 'all',
@@ -344,8 +372,22 @@ const banData = reactive({
 })
 
 onMounted(() => {
-  UserList()
+  UserList();
+  RoleList();
 })
+
+//获取角色列表
+function RoleList() {
+  request.getRoleList(role_data).then((res) => {
+    switch (data.type) {
+      case 'all':
+        rolelistDatas.value = res.data.data
+        break
+      default:
+        rolelistDatas.value = res.data.data
+    }
+  })
+}
 
 
 //默认获取全部账户
@@ -418,6 +460,7 @@ function showAddDiaLog() {
   addData.phone = '';
   addData.email = '';
   addData.role = '';
+
 }
 
 function OkAddUser() {
