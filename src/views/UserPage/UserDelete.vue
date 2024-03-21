@@ -144,6 +144,9 @@ const handleOk = () => {
       case "RequestBodyError":
         message.error(err.response.data.data[0])
         break
+      case "UserCannotBeOperate":
+        message.error(err.response.data.data.errorMessage)
+        break
       default:
         message.warn(err.response.data.message)
     }
