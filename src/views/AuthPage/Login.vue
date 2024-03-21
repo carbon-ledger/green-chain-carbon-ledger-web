@@ -84,7 +84,11 @@ function UserLogin() {
     requests.login(loginForm).then((res) => {
       localStorage.setItem("AuthorizationToken", "Bearer " + res.data.data.token);
       localStorage.setItem("X-Auth-UUID", res.data.data.user.uuid);
-      message.success('你好 ' + res.data.data.user.userName + ' 用户')
+      if (res.data.data.recover) {
+        message.success('你好 ' + res.data.data.user.userName + ' 用户, 账户已取消注销')
+      } else {
+        message.success('你好 ' + res.data.data.user.userName + ' 用户')
+      }
       setTimeout(() => {
         switch (res.data.data.role.name) {
           case "console":

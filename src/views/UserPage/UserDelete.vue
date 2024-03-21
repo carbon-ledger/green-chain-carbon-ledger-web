@@ -54,7 +54,7 @@
           <a-typography-text>您确认您的账户需要进行注销，请务必查阅账户注销说明书后再进行！</a-typography-text>
           <div class="grid gap-1">
             <a-typography-text>
-              <KeyOutlined/>
+              <MailOutlined/>
               邮箱 <span class="text-red-600">*</span></a-typography-text>
             <a-input v-model:value="sendCodeData.email" disabled>
               <template #suffix/>
@@ -64,17 +64,17 @@
             <a-typography-text>
               <KeyOutlined/>
               密码 <span class="text-red-600">*</span></a-typography-text>
-            <a-input id="inputPassword" v-model:value="getData.password" placeholder="您的密码">
-              <template #suffix/>
-            </a-input>
+            <a-input-password id="inputPassword" v-model:value="getData.password" placeholder="您的密码"/>
           </div>
           <div class="grid gap-1">
             <a-typography-text>
-              <MailOutlined/>
+              <NumberOutlined/>
               邮箱验证码 <span class="text-red-600">*</span></a-typography-text>
             <a-input v-model:value="getData.code" placeholder="验证码">
               <template #suffix>
-                <a-button id="inputCode" class="text-aspargus hover:text-spring" size="small" type="link" @click="sendMailCode(sendCodeData)">发送验证码</a-button>
+                <a-button id="inputCode" class="text-aspargus hover:text-spring" size="small" type="link"
+                          @click="sendMail(sendCodeData)">发送验证码
+                </a-button>
               </template>
             </a-input>
           </div>
@@ -92,8 +92,9 @@
 import {ref} from 'vue';
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
-import {KeyOutlined, MailOutlined} from "@ant-design/icons-vue";
+import {KeyOutlined, MailOutlined, NumberOutlined} from "@ant-design/icons-vue";
 import {getUserCurrent, sendMailCode} from "@/assets/js/PublishUtil.js";
+
 
 const open = ref(false);
 
@@ -104,12 +105,14 @@ let getData = ref({
 
 let getUserInfo = getUserCurrent()
 
-let sendCodeData = ref({
-  email: getUserInfo.value.user.email,
+let sendCodeData = {
+  email: '',
   template: 'user-register'
-})
+}
+console.log(getUserInfo)
 
 const showModal = () => {
+  sendCodeData.email = getUserInfo.value.user.email;
   open.value = true;
 };
 
@@ -124,10 +127,14 @@ const handleOk = () => {
   request.getAuthDelete(getData.value).then(res => {
     switch (res.data.output) {
       case "Success":
-        message.success("账户注销成功！")
-        setTimeout(() => {
-          window.location.href = "/"
-        }, 1000)
+        message.success("账户注销成功！");
+        request.userLoginOut().then(_ => {
+          localStorage.removeItem("AuthorizationToken");
+          localStorage.removeItem("X-Auth-UUID");
+          setTimeout(() => {
+            window.location.href = "/"
+          }, 1000)
+        })
         break
       default:
         message.warn(res.data.message)
@@ -147,4 +154,29 @@ const handleOk = () => {
     }, 100)
   })
 };
+
+function sendMail(sendCodeData) {
+  sendMailCode(sendCodeData)
+  countDown(new Date().getTime() + 120000)
+  document.getElementById('inputCode').disabled = true;
+}
+
+function addZero(i) {
+  return i < 10 ? "0" + i : i + "";
+}
+
+async function countDown(endTime) {
+  const now = new Date().getTime();
+  const leftTime = parseInt((endTime - now) / 1000);
+
+  if (leftTime > 0) {
+    document.getElementById('inputCode').innerText = addZero(leftTime) + '秒后重发';
+  } else {
+    document.getElementById('inputCode').disabled = false;
+    document.getElementById('inputCode').innerText = '获取验证码';
+  }
+  setTimeout(function () {
+    countDown(endTime);
+  }, 1000);
+}
 </script>

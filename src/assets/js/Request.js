@@ -380,6 +380,19 @@ const getAuthDelete = (data) => {
     })
 }
 
+const userLoginOut = () => {
+    return axios({
+        url: api + "/auth/logout",
+        method: "get",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     login,
@@ -406,4 +419,5 @@ export default {
     getRoleCurrent,
     getPermissionList,
     getAuthDelete,
+    userLoginOut
 }

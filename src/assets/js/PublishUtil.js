@@ -23,8 +23,8 @@ export function getUserCurrent() {
             default:
                 message.warn(err.response.data.message)
         }
-    });
-    return getUserVO;
+    })
+    return getUserVO
 }
 
 export function getLoginInfo() {
