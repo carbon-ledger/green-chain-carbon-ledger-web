@@ -69,6 +69,11 @@
                 <DeleteOutlined/>
                 注销
               </a-button>
+              <a-button class="text-aspargus flex justify-center items-center" size="small"
+                        type="text" @click="showResetDiaLog(record)">
+                <UndoOutlined />
+                重置密码
+              </a-button>
             </span>
             <span class="flex" v-else>
               <a-button class="text-mount-pink flex justify-center items-center" size="small"
@@ -80,6 +85,11 @@
                         type="text" disabled>
                 <DeleteOutlined/>
                 注销
+              </a-button>
+              <a-button class="text-aspargus flex justify-center items-center" size="small"
+                        type="text" disabled>
+                <UndoOutlined />
+                重置密码
               </a-button>
             </span>
           </template>
@@ -247,6 +257,14 @@
         <a-button @click="CancelBanUser">取消</a-button>
       </template>
     </a-modal>
+    <!--管理员重置密码对话框-->
+    <a-modal v-model:open="resetDiaLog" title="重置密码" width="450px">
+      <p>确认要重置密码吗？</p>
+      <template #footer>
+        <a-button class="mt-4" danger @click="OkResetUser">确认</a-button>
+        <a-button @click="CancelResetUser">取消</a-button>
+      </template>
+    </a-modal>
   </div>
 </template>
 
@@ -261,6 +279,7 @@ import {
   PhoneOutlined,
   PlusOutlined,
   SearchOutlined,
+  UndoOutlined,
   UserOutlined,
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
@@ -368,6 +387,11 @@ const deleteData = reactive({
 //封禁账户
 const banDiaLog = ref(false);
 const banData = reactive({
+  uuid:''
+})
+
+const resetDiaLog = ref(false);
+const resetData = reactive({
   uuid:''
 })
 
@@ -545,5 +569,25 @@ function OkBanUser(){
 //取消封禁账户
 function CancelBanUser(){
   banDiaLog.value = false;
+}
+
+//重置账户密码
+function showResetDiaLog(record){
+  resetDiaLog.value = true;
+  resetData.uuid = record.uuid;
+}
+
+function OkResetUser(){
+  request.UserReset(resetData).then((res) => {
+    message.success(((res.data.message)))
+    GetAll()
+  }).catch((err) => {
+    message.error(err.response.data.message)
+  })
+}
+
+//取消重置
+function CancelResetUser(){
+  resetDiaLog.value = false;
 }
 </script>

@@ -54,7 +54,7 @@
           <a-typography-text>您确认您的账户需要进行注销，请务必查阅账户注销说明书后再进行！</a-typography-text>
           <div class="grid gap-1">
             <a-typography-text>
-              <KeyOutlined/>
+              <MailOutlined />
               邮箱 <span class="text-red-600">*</span></a-typography-text>
             <a-input v-model:value="sendCodeData.email" disabled>
               <template #suffix/>
@@ -70,7 +70,7 @@
           </div>
           <div class="grid gap-1">
             <a-typography-text>
-              <MailOutlined/>
+              <SafetyCertificateOutlined />
               邮箱验证码 <span class="text-red-600">*</span></a-typography-text>
             <a-input v-model:value="getData.code" placeholder="验证码">
               <template #suffix>
@@ -92,7 +92,7 @@
 import {ref} from 'vue';
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
-import {KeyOutlined, MailOutlined} from "@ant-design/icons-vue";
+import {KeyOutlined, MailOutlined, SafetyCertificateOutlined} from "@ant-design/icons-vue";
 import {getUserCurrent, sendMailCode} from "@/assets/js/PublishUtil.js";
 
 const open = ref(false);

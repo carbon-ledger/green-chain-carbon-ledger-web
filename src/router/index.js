@@ -158,14 +158,17 @@ const router = createRouter({
                     path: '/dashboard/role',
                     name: 'DashboardRole',
                     component: () => import('@/views/Dashboard/ConsoleRole.vue'),
-                    children: [
-                        {
-                            path: '/dashboard/search-role',
-                            name:'SearchRole',
-                            component:() => import('@/views/Dashboard/SearchRole.vue')
-                        }
-                    ]
                 },
+                {
+                    path:'/dashboard/verify-realname',
+                    name:'DashboardVerifyRealname',
+                    component:() => import('@/views/Dashboard/ConsoleVerifyRealname.vue')
+                },
+                {
+                    path: '/dashboard/verify',
+                    name:'DashboardVerify',
+                    component:() => import('@/views/Dashboard/VerifyRealname.vue')
+                }
             ]
         },
     ]

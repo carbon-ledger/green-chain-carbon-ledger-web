@@ -238,6 +238,22 @@ const UserBan = (uuid) => {
     })
 }
 
+/**
+ * 重置账户密码
+ */
+const UserReset = (data) => {
+    return axios({
+        url:api + "/admin/user/reset/password",
+        method:"PATCH",
+        data:data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
 
 const userLogout = () => {
     return axios({
@@ -352,6 +368,10 @@ const getRoleCurrent = () => {
     })
 }
 
+/**
+ * 获取权限列表
+ * @param data
+ */
 const getPermissionList = (data) => {
     return axios({
         url: api + "/permission/list",
@@ -380,6 +400,130 @@ const getAuthDelete = (data) => {
     })
 }
 
+/**
+ * 获取实名信息待审列表
+ * @param data (type)
+ */
+const getReviewList = (data) => {
+    return axios({
+        url:api + "/review/list",
+        method:"get",
+        params:data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+        }
+    })
+}
+
+/**
+ * 审核管理实名信息
+ * @param checkId
+ */
+const ReviewCheckAdmin = (checkId) => {
+    return axios({
+        url:api + "/review/check/admin/" + checkId,
+        method:"PATCH",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+        }
+    })
+}
+
+/**
+ *审核组织实名信息
+ * @param checkId
+ */
+const ReviewCheckOrganize = (checkId) => {
+    return axios({
+        url:api + "/review/check/organize/" + checkId,
+        method:"PATCH",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+        }
+    })
+}
+
+/**
+ * 监管账户发起审核
+ */
+const ReviewAddAdmin = () => {
+    return axios({
+        url:api + "/review/add/admin",
+        method:"POST",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 组织账户发起审核
+ */
+const ReviewAddOrganize = () => {
+    return axios({
+        url:api + "/review/add/organize",
+        method:"POST",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 重新申请组织用户发起审核
+ * @param checkId
+ */
+const ReviewResendOrganize = (checkId) => {
+    return axios({
+        url:"/review/re-send/organize/" + checkId,
+        method:"PUT",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+        }
+    })
+}
+
+/**
+ * 重新申请监管账户发起审核
+ * @param checkId
+ */
+const ReviewResendAdmin = (checkId) => {
+    return axios({
+        url:"/review/re-send/admin/" + checkId,
+        method:"PUT",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+        }
+    })
+}
+
+/**
+ * 获取审核结果信息
+ */
+const ReviewGet = () => {
+    return axios({
+        url:"/review/get",
+        method:"GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     login,
@@ -394,6 +538,7 @@ export default {
     UserEdit,
     UserDelete,
     UserBan,
+    UserReset,
     userLogout,
 
     getRoleList,
@@ -406,4 +551,15 @@ export default {
     getRoleCurrent,
     getPermissionList,
     getAuthDelete,
+
+    ManagerRegister,
+
+    getReviewList,
+    ReviewCheckAdmin,
+    ReviewCheckOrganize,
+    ReviewAddAdmin,
+    ReviewAddOrganize,
+    ReviewResendOrganize,
+    ReviewResendAdmin,
+    ReviewGet
 }
