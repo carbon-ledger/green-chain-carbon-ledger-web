@@ -28,7 +28,7 @@
 <script setup>
 import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
 import {onMounted, reactive} from "vue";
-import request from "@/assets/js/request.js";
+import request from "@/assets/js/Request.js";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});
 breadcrumbs.push({path: '/user', breadcrumbName: '权限管理'});

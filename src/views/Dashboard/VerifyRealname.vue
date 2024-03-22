@@ -1,7 +1,6 @@
 
 <template>
   <a-page-header
-      style="border: 1px solid rgb(235, 237, 240)"
       sub-title="This is a subtitle"
       @back="() => router.replace('/dashboard/verify-realname/')"
       title="实名审核"
@@ -34,7 +33,10 @@
           <br />
         </a-descriptions-item>
       </a-descriptions>
-
+      <div class="justify-center flex space-x-5 mt-6">
+        <a-button class="bg-aspargus" type="primary">审核通过</a-button>
+        <a-button>审核无效</a-button>
+      </div>
   </div>
 </template>
 

@@ -243,7 +243,7 @@
     </a-modal>
     <!--管理员删除账户对话框-->
     <a-modal v-model:open="deleteDiaLog" title="注销账户" width="450px">
-      <p>确认要注销该账户吗？</p>
+      <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要注销该账户吗？</p>
       <template #footer>
         <a-button class="mt-4" danger @click="OkDeleteUser">确认</a-button>
         <a-button @click="CancelDeleteUser">取消</a-button>
@@ -259,7 +259,7 @@
     </a-modal>
     <!--管理员重置密码对话框-->
     <a-modal v-model:open="resetDiaLog" title="重置密码" width="450px">
-      <p>确认要重置密码吗？</p>
+      <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要重置密码吗？</p>
       <template #footer>
         <a-button class="mt-4" danger @click="OkResetUser">确认</a-button>
         <a-button @click="CancelResetUser">取消</a-button>
@@ -281,6 +281,7 @@ import {
   SearchOutlined,
   UndoOutlined,
   UserOutlined,
+  ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
 import request from "@/assets/js/Request.js";
