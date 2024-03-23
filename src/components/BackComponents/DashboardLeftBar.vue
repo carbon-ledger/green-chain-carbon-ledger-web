@@ -77,6 +77,12 @@
         </span>
       </a-menu-item>
     </a-sub-menu>
+    <a-menu-item key="sub4" @click="router.push('/dashboard/verify-realname')">
+      <span>
+        <SafetyOutlined />
+        <span class="nav-text">实名审核</span>
+      </span>
+    </a-menu-item>
   </a-menu>
 </template>
 <script setup>
@@ -91,7 +97,8 @@ import {
   UserOutlined,
   UserSwitchOutlined,
   KeyOutlined,
-  ApartmentOutlined
+  ApartmentOutlined,
+  SafetyOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import request from "@/assets/js/Request.js";
@@ -146,6 +153,10 @@ switch (router.currentRoute.value.name) {
   case "DashboardPermission":
     leftBarKey = ref(["4"])
     openKey = ref(["sub1"])
+    break
+  case "DashboardVerifyRealname":
+    leftBarKey = ref(["10"])
+    openKey = ref([""])
     break
   default:
     leftBarKey = ref(["1"])

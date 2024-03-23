@@ -157,7 +157,7 @@
     </a-modal>
     <!--删除角色对话框-->
     <a-modal v-model:open="deleteDiaLog" title="删除角色" width="450px">
-      <p>确认要删除该角色吗？</p>
+      <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要删除该角色吗？</p>
       <template #footer>
         <a-button class="mt-4" danger @click="OkDeleteRole">确认</a-button>
         <a-button @click="CancelDeleteRole">取消</a-button>
@@ -175,7 +175,7 @@ import {
   DeleteOutlined,
   UserOutlined,
   ProfileOutlined,
-  SettingOutlined
+  SettingOutlined, ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
 import request from "@/assets/js/Request.js";
@@ -390,6 +390,5 @@ function OkDeleteRole() {
 function CancelDeleteRole() {
   deleteDiaLog.value = false;
 }
-
 
 </script>

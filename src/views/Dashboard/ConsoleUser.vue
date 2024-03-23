@@ -69,6 +69,11 @@
                 <DeleteOutlined/>
                 注销
               </a-button>
+              <a-button class="text-aspargus flex justify-center items-center" size="small"
+                        type="text" @click="showResetDiaLog(record)">
+                <UndoOutlined />
+                重置密码
+              </a-button>
             </span>
             <span class="flex" v-else>
               <a-button class="text-mount-pink flex justify-center items-center" size="small"
@@ -80,6 +85,11 @@
                         type="text" disabled>
                 <DeleteOutlined/>
                 注销
+              </a-button>
+              <a-button class="text-aspargus flex justify-center items-center" size="small"
+                        type="text" disabled>
+                <UndoOutlined />
+                重置密码
               </a-button>
             </span>
           </template>
@@ -233,7 +243,7 @@
     </a-modal>
     <!--管理员删除账户对话框-->
     <a-modal v-model:open="deleteDiaLog" title="注销账户" width="450px">
-      <p>确认要注销该账户吗？</p>
+      <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要注销该账户吗？</p>
       <template #footer>
         <a-button class="mt-4" danger @click="OkDeleteUser">确认</a-button>
         <a-button @click="CancelDeleteUser">取消</a-button>
@@ -245,6 +255,14 @@
       <template #footer>
         <a-button class="mt-4" danger @click="OkBanUser">确认</a-button>
         <a-button @click="CancelBanUser">取消</a-button>
+      </template>
+    </a-modal>
+    <!--管理员重置密码对话框-->
+    <a-modal v-model:open="resetDiaLog" title="重置密码" width="450px">
+      <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要重置密码吗？</p>
+      <template #footer>
+        <a-button class="mt-4" danger @click="OkResetUser">确认</a-button>
+        <a-button @click="CancelResetUser">取消</a-button>
       </template>
     </a-modal>
   </div>
@@ -261,7 +279,9 @@ import {
   PhoneOutlined,
   PlusOutlined,
   SearchOutlined,
+  UndoOutlined,
   UserOutlined,
+  ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
 import request from "@/assets/js/Request.js";
@@ -368,6 +388,11 @@ const deleteData = reactive({
 //封禁账户
 const banDiaLog = ref(false);
 const banData = reactive({
+  uuid:''
+})
+
+const resetDiaLog = ref(false);
+const resetData = reactive({
   uuid:''
 })
 
@@ -545,5 +570,25 @@ function OkBanUser(){
 //取消封禁账户
 function CancelBanUser(){
   banDiaLog.value = false;
+}
+
+//重置账户密码
+function showResetDiaLog(record){
+  resetDiaLog.value = true;
+  resetData.uuid = record.uuid;
+}
+
+function OkResetUser(){
+  request.UserReset(resetData).then((res) => {
+    message.success(((res.data.message)))
+    GetAll()
+  }).catch((err) => {
+    message.error(err.response.data.message)
+  })
+}
+
+//取消重置
+function CancelResetUser(){
+  resetDiaLog.value = false;
 }
 </script>

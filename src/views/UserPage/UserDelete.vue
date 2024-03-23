@@ -54,7 +54,7 @@
           <a-typography-text>您确认您的账户需要进行注销，请务必查阅账户注销说明书后再进行！</a-typography-text>
           <div class="grid gap-1">
             <a-typography-text>
-              <MailOutlined/>
+              <MailOutlined />
               邮箱 <span class="text-red-600">*</span></a-typography-text>
             <a-input v-model:value="sendCodeData.email" disabled>
               <template #suffix/>
