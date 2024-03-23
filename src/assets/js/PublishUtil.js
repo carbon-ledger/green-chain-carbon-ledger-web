@@ -3,6 +3,13 @@ import {getLoginInfoVO, getRoleCurrentVO, getUserProfileVO, permissionVO} from "
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 
+/**
+ * 获取用户的信息
+ *
+ * 会根据用户的登陆信息访问，返回当前登陆用户的数据内容
+ *
+ * @return {Ref<UnwrapRef<{role: string, permission: {rolePermission: [], userPermission: []}, user: {realName: string, phone: string, userName: string, uuid: string, email: string}}>>}
+ */
 export function getUserCurrent() {
     let getUserVO = ref(getUserProfileVO)
     request.getUserCurrent().then(res => {
