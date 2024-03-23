@@ -73,7 +73,7 @@ const login = (data) => {
 
 /**
  * 忘记密码
- *
+ *@param data
  */
 const Forget = (data) => {
     return axios({
@@ -89,8 +89,9 @@ const Forget = (data) => {
 
 /**
  * 修改密码
+ * @param data
  */
-const Alter = (data) => {
+const Change = (data) => {
     return axios({
         url:api + "/auth/change",
         method:"patch",
@@ -541,7 +542,7 @@ export default {
     OrganizeRegister,
     login,
     Forget,
-    Alter,
+    Change,
     GetCode,
     getUserCurrent,
     getUserList,
