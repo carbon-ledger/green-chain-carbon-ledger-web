@@ -7,13 +7,13 @@
       <!--头部-->
       <div class="flex w-full justify-end">
         <a-input class="h-8 border-gray-300 rounded-md" placeholder="输入账户信息"/>
-        <a-button @click="data.search = true" class="ml-4 mr-4 flex justify-center items-center">
+        <a-button class="ml-4 mr-4 flex justify-center items-center" @click="data.search = true">
           <SearchOutlined/>
           查询
         </a-button>
         <a-button class="bg-aspargus flex justify-center items-center" type="primary">
-          <SafetyOutlined />
-            审核
+          <SafetyOutlined/>
+          审核
         </a-button>
       </div>
     </template>
@@ -32,9 +32,10 @@
   </div>
 </template>
 <script setup>
-import {onMounted, reactive, ref} from 'vue';
+import {reactive} from 'vue';
 import {SafetyOutlined, SearchOutlined} from "@ant-design/icons-vue";
 import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
+
 breadcrumbs.push({breadcrumbName: '系统分析'});
 breadcrumbs.push({path: '/user', breadcrumbName: '实名审核'});
 
@@ -69,6 +70,6 @@ const columns = [
 ]
 
 const data = reactive({
-  search:false,
+  search: false,
 })
 </script>

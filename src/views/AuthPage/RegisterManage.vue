@@ -206,7 +206,7 @@ function getEmailVerifyCode() {
     email: organizeRegisterForm.email,
     template: "user-register"
   };
-  requests.GetCode(requestData).then(response => {
+  requests.getCode(requestData).then(response => {
     countDown(new Date().getTime() + 120000);
     switch (response.data.output) {
       case "Success":

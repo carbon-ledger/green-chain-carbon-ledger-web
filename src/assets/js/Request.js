@@ -41,7 +41,7 @@ const ManagerRegister = (data) => {
  * @params data (email, template)
  * @return{*}
  */
-const GetCode = (data) => {
+const getCode = (data) => {
     return axios({
         url: api + "/mail/send/code",
         method: "post",
@@ -78,8 +78,8 @@ const login = (data) => {
 const Forget = (data) => {
     return axios({
         url: api + "/auth/forget",
-        method:"put",
-        data:data,
+        method: "put",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp()
@@ -93,9 +93,9 @@ const Forget = (data) => {
  */
 const Change = (data) => {
     return axios({
-        url:api + "/auth/change",
-        method:"patch",
-        data:data,
+        url: api + "/auth/change",
+        method: "patch",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -227,9 +227,9 @@ const UserDelete = (uuid) => {
  * @return {Promise<AxiosResponse<any>> | *}
  */
 const UserBan = (uuid) => {
-    return  axios({
-        url:api + "/user/ban/" + uuid,
-        method:"PATCH",
+    return axios({
+        url: api + "/user/ban/" + uuid,
+        method: "PATCH",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -244,9 +244,9 @@ const UserBan = (uuid) => {
  */
 const UserReset = (data) => {
     return axios({
-        url:api + "/admin/user/reset/password",
-        method:"PATCH",
-        data:data,
+        url: api + "/admin/user/reset/password",
+        method: "PATCH",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -277,11 +277,11 @@ const userLogout = () => {
  */
 const getRoleList = (data) => {
     return axios({
-        url:api + "/role/list",
-        method:"get",
-        params:data,
+        url: api + "/role/list",
+        method: "get",
+        params: data,
         headers: {
-        'content-type': 'application/json;charset=utf-8',
+            'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
@@ -295,9 +295,9 @@ const getRoleList = (data) => {
  */
 const RoleAdd = (data) => {
     return axios({
-        url:api + "/role/add",
-        method:"post",
-        data:data,
+        url: api + "/role/add",
+        method: "post",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -314,9 +314,9 @@ const RoleAdd = (data) => {
  */
 const RoleEdit = (uuid, data) => {
     return axios({
-        url:api + "/role/edit/" + uuid,
-        method:"put",
-        data:data,
+        url: api + "/role/edit/" + uuid,
+        method: "put",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -332,8 +332,8 @@ const RoleEdit = (uuid, data) => {
  */
 const RoleDelete = (uuid) => {
     return axios({
-        url:api + "/role/delete/" + uuid,
-        method:"delete",
+        url: api + "/role/delete/" + uuid,
+        method: "delete",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -420,9 +420,9 @@ const userLoginOut = () => {
  */
 const getReviewList = (data) => {
     return axios({
-        url:api + "/review/list",
-        method:"get",
-        params:data,
+        url: api + "/review/list",
+        method: "get",
+        params: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -436,8 +436,8 @@ const getReviewList = (data) => {
  */
 const ReviewCheckAdmin = (checkId) => {
     return axios({
-        url:api + "/review/check/admin/" + checkId,
-        method:"PATCH",
+        url: api + "/review/check/admin/" + checkId,
+        method: "PATCH",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -451,8 +451,8 @@ const ReviewCheckAdmin = (checkId) => {
  */
 const ReviewCheckOrganize = (checkId) => {
     return axios({
-        url:api + "/review/check/organize/" + checkId,
-        method:"PATCH",
+        url: api + "/review/check/organize/" + checkId,
+        method: "PATCH",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -465,8 +465,8 @@ const ReviewCheckOrganize = (checkId) => {
  */
 const ReviewAddAdmin = () => {
     return axios({
-        url:api + "/review/add/admin",
-        method:"POST",
+        url: api + "/review/add/admin",
+        method: "POST",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -481,8 +481,8 @@ const ReviewAddAdmin = () => {
  */
 const ReviewAddOrganize = () => {
     return axios({
-        url:api + "/review/add/organize",
-        method:"POST",
+        url: api + "/review/add/organize",
+        method: "POST",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -498,8 +498,8 @@ const ReviewAddOrganize = () => {
  */
 const ReviewResendOrganize = (checkId) => {
     return axios({
-        url:"/review/re-send/organize/" + checkId,
-        method:"PUT",
+        url: api + "/review/re-send/organize/" + checkId,
+        method: "PUT",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -513,8 +513,8 @@ const ReviewResendOrganize = (checkId) => {
  */
 const ReviewResendAdmin = (checkId) => {
     return axios({
-        url:"/review/re-send/admin/" + checkId,
-        method:"PUT",
+        url: api + "/review/re-send/admin/" + checkId,
+        method: "PUT",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -525,10 +525,10 @@ const ReviewResendAdmin = (checkId) => {
 /**
  * 获取审核结果信息
  */
-const ReviewGet = () => {
+const reviewGet = () => {
     return axios({
-        url:"/review/get",
-        method:"GET",
+        url: api + "/review/get",
+        method: "GET",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -538,12 +538,35 @@ const ReviewGet = () => {
     })
 }
 
+/**
+ * 重新发送审核
+ *
+ * 该接口用于支持用户重新申请组织用户发起审核的功能。用户可以通过此接口提交自己的申请信息，包括但不限于个人信息、组织信息以及申请理由等，系统将对提交的信息进行审核处理。
+ *
+ * @param data
+ * @param checkId
+ */
+const reviewReSend = (data, checkId) => {
+    return axios({
+        url: api + "/review/re-send/organize/" + checkId,
+        method: "PUT",
+        data: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+
+}
+
 export default {
     OrganizeRegister,
     login,
     Forget,
     Change,
-    GetCode,
+    getCode,
     getUserCurrent,
     getUserList,
     UserAdd,
@@ -569,6 +592,7 @@ export default {
     ReviewAddOrganize,
     ReviewResendOrganize,
     ReviewResendAdmin,
-    ReviewGet,
-    userLoginOut
+    reviewGet,
+    userLoginOut,
+    reviewReSend
 }

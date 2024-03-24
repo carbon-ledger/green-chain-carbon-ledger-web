@@ -1,7 +1,14 @@
 import {ref} from "vue";
-import {getLoginInfoVO, getRoleCurrentVO, getUserProfileVO, permissionVO} from "@/assets/js/VoModel.js";
+import {
+    getLoginInfoVO,
+    getRoleCurrentVO,
+    getUserProfileVO,
+    getVerifyInfoDO,
+    permissionVO
+} from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
+import {UserVerifyVO} from "@/assets/js/VoModel.js";
 
 /**
  * 获取用户的信息
@@ -113,17 +120,61 @@ export function getPermissionList() {
  */
 export function sendMailCode(data) {
     let getData = ref([])
-    request.GetCode(data).then(res => {
-        getData.value = res.data;
+    request.getCode(data).then(res => {
         switch (res.data.output) {
             case "Success":
-                message.success("验证码发送成功！")
+                getData.value = res.data.data;
+                message.success("验证码已发送，有效期15分钟").then()
                 break
             default:
-                message.warn(res.data.message)
+                message.warn(res.data.message).then()
         }
     }).catch(err => {
-        message.warn(err.response.data.message)
+        message.warn(err.response.data.message).then()
     })
+    console.log(getData)
+    return getData;
+}
+
+export function reviewGet() {
+    let getData = ref(getVerifyInfoDO)
+    request.reviewGet().then(res => {
+        switch (res.data.output) {
+            case "Success":
+                getData.value = res.data.data
+                break
+            default:
+                message.warn(res.data.message).then()
+        }
+    }).catch(err => {
+        message.warn(err.response.data.message).then()
+    })
+    console.debug(getData)
+    return getData;
+}
+
+/**
+ * 重新发送审核
+ *
+ * 重新发送审核请求, 会根据传入的数据重新发送审核请求, 并返回审核结果, 如果审核成功则返回审核结果, 如果审核失败则返回失败原因
+ *
+ * @param {Object} data
+ * @param {String} projectId
+ */
+export function reviewReSend(data, projectId) {
+    let getData = ref(UserVerifyVO)
+    request.reviewReSend(data, projectId).then(res => {
+        switch (res.data.output) {
+            case "Success":
+                getData.value = res.data.data
+                message.success("成功发送审核").then()
+                break
+            default:
+                message.warn(res.data.message).then()
+        }
+    }).catch(err => {
+        message.warn(err.response.data.message).then()
+    })
+    console.debug(getData)
     return getData;
 }

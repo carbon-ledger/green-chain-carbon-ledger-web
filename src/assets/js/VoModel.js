@@ -1,37 +1,14 @@
-export let getUserProfileVO = {
-    user: {
-        uuid: '',
-        userName: '',
-        realName: '',
-        email: '',
-        phone: ''
-    },
-    role: '',
-    permission: {
-        rolePermission: [],
-        userPermission: []
-    }
-}
+import {reactive} from "vue";
 
-export let getLoginInfoVO = [
-    {
-        userIp: '',
-        deviceType: '',
-        browserType: '',
-        loginTime: '',
-        expireTime: ''
-    }
-]
-
-export let getRoleCurrentVO = {
-    uuid: '',
-    name: '',
-    displayName: '',
-    permission: []
-}
-
-export let permissionVO = {
-    name: '',
-    description: ''
-}
-
+export const UserVerifyVO = reactive({
+    organizeName: '',
+    creditCode: '',
+    license: '',
+    registeredCapital: '',
+    establishmentDate: '',
+    legalRepresentativeName: '',
+    legalRepresentativeId: '',
+    legalIdCardFront: '',
+    legalIdCardBack: '',
+    remark: '',
+})

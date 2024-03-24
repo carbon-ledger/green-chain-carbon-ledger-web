@@ -6,12 +6,12 @@
           <ToolTwoTone/>
           修改密码
         </div>
-        <div class="col-span-12 px-3 md:px-10 lg:px-20 xl:px-40">
+        <div class="col-span-12 px-3 sm:px-6 md:px-10 lg:px-25 xl:px-40">
           <div class="container p-3">
             <div class="row-auto">
               <div class="row-span-1">
                 <a-form
-                    :label-col="{ span: 4 }"
+                    :label-col="{ span: 5 }"
                     :model="data"
                 >
                   <a-form-item
@@ -40,8 +40,7 @@
                   <a-form-item
                       :rules="[{ required: true, message: '请再输入一次' }]"
                       label="请再输一次"
-                      name="newPassword"
-                      extra="必须包含大小写字母和数字的组合，可以使用特殊字符，长度在6-30之间"
+                      name="newPasswordConfirm"
                   >
                     <a-input-password v-model:value="data.newPasswordConfirm">
                       <template #prefix>
