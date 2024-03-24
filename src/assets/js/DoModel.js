@@ -48,7 +48,7 @@ export let getVerifyInfoDO = {
     legalRepresentativeId: '',
     legalIdCardFrontUrl: '',
     legalIdCardBackUrl: '',
-    certificationStatus: 0,
+    certificationStatus: -1,
     applyTime: '',
     approveTime: '',
     updatedAt: '',
@@ -57,3 +57,14 @@ export let getVerifyInfoDO = {
     approveRemarks: ''
 }
 
+export let getVerifyListVO = {
+    id: 0,
+    type: false,
+    account: {
+        userName: '',
+        email: ''
+    },
+    organizeName: '',
+    legalRepresentativeName: '',
+    applyTime: ''
+}

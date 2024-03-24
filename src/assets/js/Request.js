@@ -1,7 +1,7 @@
 import axios from "axios";
 import getCurrentTimestamp from "@/assets/js/methods.js";
 
-const api = 'http://192.168.5.234:8081/api/v1'
+const api = 'http://localhost:8081/api/v1'
 /**
  * 组织账号注册
  * @param data (organize,username,phone,email,code,invite,password)
@@ -426,6 +426,8 @@ const getReviewList = (data) => {
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
     })
 }
@@ -479,10 +481,11 @@ const ReviewAddAdmin = () => {
 /**
  * 组织账户发起审核
  */
-const ReviewAddOrganize = () => {
+const reviewAddOrganize = (data) => {
     return axios({
         url: api + "/review/add/organize",
         method: "POST",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -493,28 +496,37 @@ const ReviewAddOrganize = () => {
 }
 
 /**
- * 重新申请组织用户发起审核
+ * 重新发送审核
+ *
+ * 该接口用于支持用户重新申请组织用户发起审核的功能。用户可以通过此接口提交自己的申请信息，包括但不限于个人信息、组织信息以及申请理由等，系统将对提交的信息进行审核处理。
+ *
+ * @param data
  * @param checkId
  */
-const ReviewResendOrganize = (checkId) => {
+const ReviewResendOrganize = (data, checkId) => {
     return axios({
         url: api + "/review/re-send/organize/" + checkId,
         method: "PUT",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
     })
 }
 
 /**
  * 重新申请监管账户发起审核
+ * @param data
  * @param checkId
  */
-const ReviewResendAdmin = (checkId) => {
+const ReviewResendAdmin = (data, checkId) => {
     return axios({
         url: api + "/review/re-send/admin/" + checkId,
         method: "PUT",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -538,27 +550,15 @@ const reviewGet = () => {
     })
 }
 
-/**
- * 重新发送审核
- *
- * 该接口用于支持用户重新申请组织用户发起审核的功能。用户可以通过此接口提交自己的申请信息，包括但不限于个人信息、组织信息以及申请理由等，系统将对提交的信息进行审核处理。
- *
- * @param data
- * @param checkId
- */
-const reviewReSend = (data, checkId) => {
+const reviewGetAdmin = () => {
     return axios({
-        url: api + "/review/re-send/organize/" + checkId,
-        method: "PUT",
-        data: data,
+        url: api + "/review/check",
+        method: "GET",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
-            'Authorization': localStorage.getItem("AuthorizationToken"),
-            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
     })
-
 }
 
 export default {
@@ -589,10 +589,9 @@ export default {
     ReviewCheckAdmin,
     ReviewCheckOrganize,
     ReviewAddAdmin,
-    ReviewAddOrganize,
+    reviewAddOrganize,
     ReviewResendOrganize,
     ReviewResendAdmin,
     reviewGet,
     userLoginOut,
-    reviewReSend
 }

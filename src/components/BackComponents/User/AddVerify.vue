@@ -39,6 +39,9 @@
         <template #prefix>
           <DollarCircleOutlined class="site-form-item-icon"/>
         </template>
+        <template #suffix>
+          <a-space>万元</a-space>
+        </template>
       </a-input>
     </a-form-item>
     <a-form-item
@@ -47,11 +50,7 @@
         label="成立日期"
         name="establishmentDate"
     >
-      <a-input v-model:value="form.establishmentDate">
-        <template #prefix>
-          <CalendarOutlined class="site-form-item-icon"/>
-        </template>
-      </a-input>
+      <a-date-picker v-model:value="form.establishmentDate" class="w-full"/>
     </a-form-item>
     <a-form-item
         :rules="[{ required: true, message: '法人姓名不可缺少' }]"
@@ -83,9 +82,9 @@
         label="组织营业执照"
     >
       <input
-          id="ledge"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
-          type="file">
+          id="file_license" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
+          name="file_license"
+          required type="file">
     </a-form-item>
     <a-form-item
         :rules="[{ required: true, message: '法人身份证正面照不可缺少' }]"
@@ -93,9 +92,9 @@
         label="法人身份证正"
     >
       <input
-          id="ledge"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
-          type="file">
+          id="file_ledge_front" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
+          name="file_ledge_front"
+          required type="file">
     </a-form-item>
     <a-form-item
         :rules="[{ required: true, message: '法人身份证反面照不可缺少' }]"
@@ -103,9 +102,9 @@
         label="法人身份证反"
     >
       <input
-          id="ledge"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
-          type="file">
+          id="file_ledge_back" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
+          name="file_ledge_back"
+          required type="file">
     </a-form-item>
     <a-form-item
         :rules="[{ required: false }]"
@@ -116,7 +115,7 @@
       <a-textarea v-model:value="form.remark" :rows="4"/>
     </a-form-item>
     <a-form-item class="col-span-12 text-center">
-      <a-button class="bg-aspargus" type="primary">提交</a-button>
+      <a-button class="bg-aspargus" type="primary" @click="upload()">提交</a-button>
     </a-form-item>
   </a-form>
 </template>
@@ -130,7 +129,53 @@ import {
   CalendarOutlined
 } from "@ant-design/icons-vue";
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
+import {reactive} from "vue";
+import {message} from "ant-design-vue";
+import {reviewAddOrganize} from "@/assets/js/PublishUtil.js";
+import moment from "moment";
 
 // 获取表单信息
 const form = UserVerifyVO
+
+function upload() {
+  if (document.getElementById('file_license').files[0] !== undefined) {
+    const imgFileLicense = reactive(new FileReader());
+    imgFileLicense.readAsDataURL(document.getElementById('file_license').files[0]);
+    imgFileLicense.onload = () => {
+      form.license = imgFileLicense.result;
+      console.debug("OrganizeLicense: ", form.license)
+    };
+  } else {
+    message.error('组织营业执照不可缺少');
+    return;
+  }
+  if (document.getElementById('file_ledge_front').files[0] !== undefined) {
+    const imgFileLedgeFront = reactive(new FileReader());
+    imgFileLedgeFront.readAsDataURL(document.getElementById('file_ledge_front').files[0]);
+    imgFileLedgeFront.onload = () => {
+      form.legalIdCardFront = imgFileLedgeFront.result;
+      console.debug("LegalIdCardFront: ", form.legalIdCardFront)
+    };
+  } else {
+    message.error('法人身份证正面照不可缺少');
+    return;
+  }
+  if (document.getElementById('file_ledge_back').files[0] !== undefined) {
+    const imgFileLedgeBack = reactive(new FileReader());
+    imgFileLedgeBack.readAsDataURL(document.getElementById('file_ledge_back').files[0]);
+    imgFileLedgeBack.onload = () => {
+      form.legalIdCardBack = imgFileLedgeBack.result;
+      console.debug("LegalIdCardBack: ", form.legalIdCardBack)
+    };
+  } else {
+    message.error('法人身份证反面照不可缺少');
+    return;
+  }
+  // 时间格式化
+  form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
+  // 发送数据
+  setTimeout(() => {
+    reviewAddOrganize(form);
+  }, 1);
+}
 </script>

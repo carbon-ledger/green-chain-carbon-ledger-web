@@ -160,14 +160,14 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard/ConsoleRole.vue'),
                 },
                 {
-                    path:'/dashboard/verify-realname',
-                    name:'DashboardVerifyRealname',
-                    component:() => import('@/views/Dashboard/ConsoleVerifyRealname.vue')
+                    path:'/dashboard/verify',
+                    name:'DashboardVerify',
+                    component:() => import('@/views/Dashboard/ConsoleUserVerify.vue')
                 },
                 {
-                    path: '/dashboard/verify',
-                    name:'DashboardVerify',
-                    component:() => import('@/views/Dashboard/VerifyRealname.vue')
+                    path: '/dashboard/verify/check',
+                    name:'DashboardVerifyCheck',
+                    component:() => import('@/views/Dashboard/ConsoleUserVerifyCheck.vue')
                 }
             ]
         },

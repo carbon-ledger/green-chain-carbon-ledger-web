@@ -3,12 +3,13 @@ import {
     getLoginInfoVO,
     getRoleCurrentVO,
     getUserProfileVO,
-    getVerifyInfoDO,
+    getVerifyInfoDO, getVerifyListVO,
     permissionVO
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
+import router from "@/router/index.js";
 
 /**
  * 获取用户的信息
@@ -147,7 +148,12 @@ export function reviewGet() {
                 message.warn(res.data.message).then()
         }
     }).catch(err => {
-        message.warn(err.response.data.message).then()
+        switch (err.response.data.output) {
+            case "ReviewError":
+                break
+            default:
+                message.warn(err.response.data.message).then()
+        }
     })
     console.debug(getData)
     return getData;
@@ -161,9 +167,9 @@ export function reviewGet() {
  * @param {Object} data
  * @param {String} projectId
  */
-export function reviewReSend(data, projectId) {
+export function reviewResendOrganize(data, projectId) {
     let getData = ref(UserVerifyVO)
-    request.reviewReSend(data, projectId).then(res => {
+    request.ReviewResendOrganize(data, projectId).then(res => {
         switch (res.data.output) {
             case "Success":
                 getData.value = res.data.data
@@ -177,4 +183,38 @@ export function reviewReSend(data, projectId) {
     })
     console.debug(getData)
     return getData;
+}
+
+export function getReviewList() {
+    let getData = ref([getVerifyListVO])
+    request.getReviewList().then(res => {
+        switch (res.data.output) {
+            case "Success":
+                getData.value = res.data.data
+                break
+            default:
+                message.warn(res.data.message).then()
+        }
+    }).catch(err => {
+        message.warn(err.response.data.message).then()
+    })
+    console.debug(getData)
+    return getData;
+}
+
+export function reviewAddOrganize(data) {
+    request.reviewAddOrganize(data).then(res => {
+        switch (res.data.output) {
+            case "Success":
+                message.success("成功发送审核").then()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000)
+                break
+            default:
+                message.warn(res.data.message).then()
+        }
+    }).catch(err => {
+        message.warn(err.response.data.message).then()
+    })
 }

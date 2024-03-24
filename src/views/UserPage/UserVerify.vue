@@ -9,11 +9,11 @@
         <div class="col-span-12 px-3">
           <div class="container p-3">
             <div class="row-auto">
-              <div class="" v-if="getQuery.edit === 'true'">
+              <div class="" v-if="getQuery.edit === 'true' || getVerifyInfoVO.certificationStatus === 2">
                 <EditVerify/>
               </div>
               <div class="div" v-else>
-                <AddVerify v-if="getVerifyInfoVO.certificationStatus === null || getVerifyInfoVO.certificationStatus === '2'"/>
+                <AddVerify v-if="getVerifyInfoVO.certificationStatus === -1"/>
                 <VerifyInspection v-else-if="getVerifyInfoVO.certificationStatus === 0"/>
                 <VerifyInfo v-else/>
               </div>

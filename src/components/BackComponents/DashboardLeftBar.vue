@@ -77,7 +77,7 @@
         </span>
       </a-menu-item>
     </a-sub-menu>
-    <a-menu-item key="sub4" @click="router.push('/dashboard/verify-realname')">
+    <a-menu-item key="10" @click="router.push('/dashboard/verify')">
       <span>
         <SafetyOutlined />
         <span class="nav-text">实名审核</span>
@@ -154,9 +154,13 @@ switch (router.currentRoute.value.name) {
     leftBarKey = ref(["4"])
     openKey = ref(["sub1"])
     break
-  case "DashboardVerifyRealname":
+  case "DashboardVerify":
     leftBarKey = ref(["10"])
-    openKey = ref([""])
+    openKey = ref(["sub4"])
+    break
+  case "DashboardVerifyCheck":
+    leftBarKey = ref(["10"])
+    openKey = ref(["sub4"])
     break
   default:
     leftBarKey = ref(["1"])

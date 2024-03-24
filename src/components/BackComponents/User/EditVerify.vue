@@ -132,7 +132,7 @@ import {
 
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
 import {reactive, watch} from "vue";
-import {reviewGet, reviewReSend} from "@/assets/js/PublishUtil.js";
+import {reviewGet, reviewResendOrganize} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {message} from "ant-design-vue";
 
@@ -188,7 +188,7 @@ function reUpload() {
   form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
   // 发送数据
   setTimeout(() => {
-    reviewReSend(form, getVerifyInfo.value.id);
+    reviewResendOrganize(form, getVerifyInfo.value.id);
   }, 1);
 }
 
