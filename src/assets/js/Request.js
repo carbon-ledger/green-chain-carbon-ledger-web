@@ -418,12 +418,14 @@ const getReviewList = (data) => {
 
 /**
  * 审核管理实名信息
+ * @param data
  * @param checkId
  */
-const ReviewCheckAdmin = (checkId) => {
+const ReviewCheckAdmin = (data,checkId) => {
     return axios({
         url:api + "/review/check/admin/" + checkId,
         method:"PATCH",
+        data:data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -433,12 +435,14 @@ const ReviewCheckAdmin = (checkId) => {
 
 /**
  *审核组织实名信息
+ * @param data (remark, allow)
  * @param checkId
  */
-const ReviewCheckOrganize = (checkId) => {
+const ReviewCheckOrganize = (data,checkId) => {
     return axios({
         url:api + "/review/check/organize/" + checkId,
         method:"PATCH",
+        data:data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -448,11 +452,14 @@ const ReviewCheckOrganize = (checkId) => {
 
 /**
  * 监管账户发起审核
+ * @param data (type, organizeName, organizeAuthorize, legalRepresentativeName,
+ * legalRepresentativeId, legalIdCardFront, legalIdCardBack, remarks)
  */
-const ReviewAddAdmin = () => {
+const ReviewAddAdmin = (data) => {
     return axios({
         url:api + "/review/add/admin",
         method:"POST",
+        data:data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -464,11 +471,14 @@ const ReviewAddAdmin = () => {
 
 /**
  * 组织账户发起审核
+ * @param data (organizeName, creditCode, license, registeredCapital, establishmentDate,
+ * legalRepresentativeName, legalRepresentativeId, legalIdCardFront, legalIdCardBack, remark)
  */
-const ReviewAddOrganize = () => {
+const ReviewAddOrganize = (data) => {
     return axios({
         url:api + "/review/add/organize",
         method:"POST",
+        data:data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -480,12 +490,15 @@ const ReviewAddOrganize = () => {
 
 /**
  * 重新申请组织用户发起审核
+ * @param data (organizeName, creditCode, license, registeredCapital, establishmentDate,
+ * legalRepresentativeName, legalRepresentativeId, legalIdCardFront, legalIdCardBack, remark)
  * @param checkId
  */
-const ReviewResendOrganize = (checkId) => {
+const ReviewResendOrganize = (data, checkId) => {
     return axios({
         url:"/review/re-send/organize/" + checkId,
         method:"PUT",
+        data:data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -496,11 +509,14 @@ const ReviewResendOrganize = (checkId) => {
 /**
  * 重新申请监管账户发起审核
  * @param checkId
+ * @param data (type, organizeName, organizeAuthorize, legalRepresentativeName,
+ * legalRepresentativeId, legalIdCardFront, legalIdCardBack, remarks)
  */
-const ReviewResendAdmin = (checkId) => {
+const ReviewResendAdmin = (data,checkId) => {
     return axios({
         url:"/review/re-send/admin/" + checkId,
         method:"PUT",
+        data:data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -552,7 +568,6 @@ export default {
     getPermissionList,
     getAuthDelete,
 
-    ManagerRegister,
 
     getReviewList,
     ReviewCheckAdmin,
