@@ -1,8 +1,7 @@
 const basePath = '/dashboard';
-let breadcrumbs  = [
+export let breadcrumbs  = [
     {
         path: basePath + '/console',
         breadcrumbName: '管理',
     }
 ]
-export default breadcrumbs

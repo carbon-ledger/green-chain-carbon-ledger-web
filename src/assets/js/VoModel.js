@@ -1,6 +1,9 @@
-import {reactive} from "vue";
+export let ReviewCheckVO = {
+    remark: '',
+    allow: false
+}
 
-export const UserVerifyVO = reactive({
+export let UserVerifyVO = {
     organizeName: '',
     creditCode: '',
     license: '',
@@ -10,5 +13,5 @@ export const UserVerifyVO = reactive({
     legalRepresentativeId: '',
     legalIdCardFront: '',
     legalIdCardBack: '',
-    remark: '',
-})
+    remark: ''
+}

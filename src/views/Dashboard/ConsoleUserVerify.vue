@@ -32,7 +32,7 @@
 /*
  * 引入区
  */
-import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
+import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
 import {getReviewList} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import router from "@/router/index.js";
@@ -41,14 +41,8 @@ import router from "@/router/index.js";
  * 数据初始化区
  */
 const routes = breadcrumbs
-setTimeout(() => {
-  breadcrumbs.pop();
-  breadcrumbs.pop();
-}, 1)
 const getReview = getReviewList()
-setTimeout(() => {
-  console.log(getReview)
-}, 1)
+
 const columns = [
   {
     title: '账户邮箱',
@@ -88,6 +82,10 @@ const columns = [
 
 // 面包屑导航
 breadcrumbs.push({breadcrumbName: '实名审核'});
+setTimeout(() => {
+  breadcrumbs.pop();
+  breadcrumbs.pop();
+}, 1)
 
 function applyTimeArrange(applyTime) {
   return moment(applyTime).format('YYYY年MM月DD日')

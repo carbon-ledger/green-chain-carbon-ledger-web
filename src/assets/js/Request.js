@@ -1,7 +1,7 @@
 import axios from "axios";
 import getCurrentTimestamp from "@/assets/js/methods.js";
 
-const api = 'http://localhost:8081/api/v1'
+export const api = 'http://192.168.5.234:8081/api/v1'
 /**
  * 组织账号注册
  * @param data (organize,username,phone,email,code,invite,password)
@@ -435,11 +435,13 @@ const getReviewList = (data) => {
 /**
  * 审核管理实名信息
  * @param checkId
+ * @param data
  */
-const ReviewCheckAdmin = (checkId) => {
+const ReviewCheckAdmin = (checkId, data) => {
     return axios({
         url: api + "/review/check/admin/" + checkId,
         method: "PATCH",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -450,14 +452,18 @@ const ReviewCheckAdmin = (checkId) => {
 /**
  *审核组织实名信息
  * @param checkId
+ * @param data
  */
-const ReviewCheckOrganize = (checkId) => {
+const ReviewCheckOrganize = (checkId, data) => {
     return axios({
         url: api + "/review/check/organize/" + checkId,
         method: "PATCH",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
     })
 }
@@ -530,6 +536,8 @@ const ReviewResendAdmin = (data, checkId) => {
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
     })
 }
@@ -550,13 +558,19 @@ const reviewGet = () => {
     })
 }
 
-const reviewGetAdmin = () => {
+const reviewGetAdmin = (id, type) => {
     return axios({
         url: api + "/review/check",
         method: "GET",
+        params: {
+            id: id,
+            type: type
+        },
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
     })
 }
@@ -594,4 +608,5 @@ export default {
     ReviewResendAdmin,
     reviewGet,
     userLoginOut,
+    reviewGetAdmin
 }

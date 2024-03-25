@@ -126,16 +126,15 @@ import {
   HomeOutlined,
   CheckCircleOutlined,
   DollarCircleOutlined,
-  CalendarOutlined
 } from "@ant-design/icons-vue";
-import {UserVerifyVO} from "@/assets/js/VoModel.js";
 import {reactive} from "vue";
 import {message} from "ant-design-vue";
-import {reviewAddOrganize} from "@/assets/js/PublishUtil.js";
+import {reviewResendOrganize} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
+import {UserVerifyVO} from "@/assets/js/VoModel.js";
 
 // 获取表单信息
-const form = UserVerifyVO
+const form = reactive(UserVerifyVO)
 
 function upload() {
   if (document.getElementById('file_license').files[0] !== undefined) {
@@ -174,8 +173,13 @@ function upload() {
   // 时间格式化
   form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
   // 发送数据
-  setTimeout(() => {
-    reviewAddOrganize(form);
-  }, 1);
+  // 发送数据
+  const getReturnData = reviewResendOrganize(form, getVerifyInfo.value.data.id);
+  if (getReturnData.value.output === "Success") {
+    message.success("提交成功");
+    setTimeout(() => {
+      window.location.replace('?edit=false')
+    }, 500)
+  }
 }
 </script>

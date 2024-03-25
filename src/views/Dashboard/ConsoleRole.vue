@@ -179,7 +179,7 @@ import {
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
 import request from "@/assets/js/Request.js";
-import breadcrumbs from "@/assets/js/DashboardBreadCrumb.js";
+import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
 import {message} from "ant-design-vue";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});

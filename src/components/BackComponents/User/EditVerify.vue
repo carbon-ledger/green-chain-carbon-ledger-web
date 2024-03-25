@@ -92,7 +92,8 @@
         label="法人身份证正"
     >
       <input
-          id="file_ledge_front" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
+          id="file_ledge_front"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
           name="file_ledge_front"
           required type="file">
     </a-form-item>
@@ -102,7 +103,8 @@
         label="法人身份证反"
     >
       <input
-          id="file_ledge_back" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
+          id="file_ledge_back"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
           name="file_ledge_back"
           required type="file">
     </a-form-item>
@@ -130,25 +132,16 @@ import {
   DollarCircleOutlined,
 } from "@ant-design/icons-vue";
 
-import {UserVerifyVO} from "@/assets/js/VoModel.js";
 import {reactive, watch} from "vue";
 import {reviewGet, reviewResendOrganize} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {message} from "ant-design-vue";
+import {UserVerifyVO} from "@/assets/js/VoModel.js";
 
 // 获取表单信息
-const form = UserVerifyVO
+const form = reactive(UserVerifyVO)
 let getVerifyInfo = reviewGet();
-
-watch(getVerifyInfo, (value) => {
-  form.organizeName = value.organizeName;
-  form.creditCode = value.organizeCreditCode;
-  form.registeredCapital = value.organizeRegisteredCapital;
-  form.establishmentDate = reactive(moment(value.organizeEstablishmentDate + "00:00:00", 'yyyy-MM-DD HH:ii:ss').utc());
-  form.legalRepresentativeName = value.legalRepresentativeName;
-  form.legalRepresentativeId = value.legalRepresentativeId;
-  form.remark = value.remarks;
-}, {immediate: true})
+let getReturnData = undefined;
 
 function reUpload() {
   if (document.getElementById('file_license').files[0] !== undefined) {
@@ -186,13 +179,33 @@ function reUpload() {
   }
   // 时间格式化
   form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
+  console.log('[EditVerify] 准备提交 `form` 内容:', form)
   // 发送数据
   setTimeout(() => {
-    reviewResendOrganize(form, getVerifyInfo.value.id);
-  }, 1);
+    getReturnData = reviewResendOrganize(form, getVerifyInfo.value.data.id);
+    console.debug('[EditVerify] 触发器 `getReturnData`:', getReturnData)
+    if (getReturnData.value.output === "Success") {
+      message.success("提交成功");
+      setTimeout(() => {
+        window.location.replace('?edit=false')
+      }, 500)
+    }
+  }, 100)
 }
 
 function clickLocation() {
   window.location.replace('?edit=false')
 }
+
+watch(getVerifyInfo, (value) => {
+  console.debug('[EditVerify] 数据获取 `getVerifyInfo`:', getVerifyInfo)
+  form.organizeName = value.data.organizeName;
+  form.creditCode = value.data.organizeCreditCode;
+  form.registeredCapital = value.data.organizeRegisteredCapital;
+  form.establishmentDate = reactive(moment(value.data.organizeEstablishmentDate + "00:00:00", 'yyyy-MM-DD HH:ii:ss').utc());
+  form.legalRepresentativeName = value.data.legalRepresentativeName;
+  form.legalRepresentativeId = value.data.legalRepresentativeId;
+  form.remark = value.data.remarks;
+  console.debug('[EditVerify] 赋值 `form` 内容:', form)
+}, {immediate: true})
 </script>

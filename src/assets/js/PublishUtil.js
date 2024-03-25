@@ -1,15 +1,15 @@
 import {ref} from "vue";
 import {
+    getBaseResponseDO,
     getLoginInfoVO,
     getRoleCurrentVO,
     getUserProfileVO,
-    getVerifyInfoDO, getVerifyListVO,
-    permissionVO
+    getVerifyInfoDO,
+    getVerifyListDO,
+    permissionVO, reviewGetOrganizeDO
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
-import {UserVerifyVO} from "@/assets/js/VoModel.js";
-import router from "@/router/index.js";
 
 /**
  * 获取用户的信息
@@ -142,7 +142,7 @@ export function reviewGet() {
     request.reviewGet().then(res => {
         switch (res.data.output) {
             case "Success":
-                getData.value = res.data.data
+                getData.value = res.data
                 break
             default:
                 message.warn(res.data.message).then()
@@ -168,11 +168,11 @@ export function reviewGet() {
  * @param {String} projectId
  */
 export function reviewResendOrganize(data, projectId) {
-    let getData = ref(UserVerifyVO)
+    let getData = ref(getBaseResponseDO)
     request.ReviewResendOrganize(data, projectId).then(res => {
         switch (res.data.output) {
             case "Success":
-                getData.value = res.data.data
+                getData.value = res.data
                 message.success("成功发送审核").then()
                 break
             default:
@@ -186,7 +186,7 @@ export function reviewResendOrganize(data, projectId) {
 }
 
 export function getReviewList() {
-    let getData = ref([getVerifyListVO])
+    let getData = ref([getVerifyListDO])
     request.getReviewList().then(res => {
         switch (res.data.output) {
             case "Success":
@@ -217,4 +217,49 @@ export function reviewAddOrganize(data) {
     }).catch(err => {
         message.warn(err.response.data.message).then()
     })
+}
+
+export function reviewGetAdmin(id, type) {
+    let getData = ref(reviewGetOrganizeDO)
+    request.reviewGetAdmin(id, type).then(res => {
+        getData.value = res.data
+        switch (res.data.output) {
+            case "Success":
+                break
+            default:
+                message.warn(res.data.message).then()
+        }
+    }).catch(err => {
+        getData.value = err.response.data
+        switch (err.response.data.output) {
+            case "ReviewError":
+                break
+            default:
+                message.warn(err.response.data.message).then()
+        }
+    })
+    console.debug(getData)
+    return getData;
+}
+
+export function reviewCheckOrganize(id, data) {
+    let getData = ref(reviewGetOrganizeDO)
+    request.ReviewCheckOrganize(id, data).then(res => {
+        switch (res.data.output) {
+            case "Success":
+                getData.value = res.data
+                break
+            default:
+                message.warn(res.data.message).then()
+        }
+    }).catch(err => {
+        switch (err.response.data.output) {
+            case "ReviewError":
+                break
+            default:
+                message.warn(err.response.data.message).then()
+        }
+    })
+    console.debug(getData)
+    return getData;
 }
