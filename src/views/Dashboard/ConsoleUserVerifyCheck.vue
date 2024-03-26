@@ -126,7 +126,7 @@ function organizationalReview(check) {
   console.debug('[ConsoleUserVerifyCheck] `getReturnData`:', getReturnData)
 }
 
-watch(getReturnData, (newValue) => {
+watch(getReturnData, (newValue) => {c
   console.log('[ConsoleUserVerifyCheck] 监听器 `getReturnData`:', newValue);
   switch (newValue.value.output) {
     case "Success":

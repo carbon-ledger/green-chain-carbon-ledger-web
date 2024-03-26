@@ -6,13 +6,13 @@
     <template #extra>
       <!--头部-->
       <div class="flex w-full justify-end">
-        <a-input v-model:value="data.search" class="h-8 border-gray-300 rounded-md" placeholder="请输入角色信息"/>
-        <a-button class="ml-4 mr-4 flex justify-center items-center" @click="SearchRole">
+        <a-input v-model:value="getRoleListVO.search" class="h-8 border-gray-300 rounded-md" placeholder="请输入角色信息"/>
+        <a-button class="ml-4 mr-4 flex justify-center items-center">
           <SearchOutlined/>
           查询
         </a-button>
         <a-button class="text-blue-50 bg-aspargus flex justify-center items-center" type="primary"
-                  @click="showAddDiaLog">
+                  @click="showAddDiaLog()">
           <PlusOutlined/>
           新增角色
         </a-button>
@@ -23,15 +23,15 @@
         角色管理，包括角色的增删改查，角色的状态，角色的创建时间，角色的更新时间，角色是否已被删除等。
       </div>
     </a-descriptions-item>
-    <a-radio-group :value="data.type" button-style="solid" class="mt-6">
-      <a-radio-button value="all" @click="GetAll">全部</a-radio-button>
-      <a-radio-button value="search" @click="$router.push('/dashboard/search-role')">查询</a-radio-button>
+    <a-radio-group :value="getRoleEditVO.type" button-style="solid" class="mt-6">
+      <a-radio-button value="all" @click="dataRole">全部</a-radio-button>
+      <a-radio-button value="search">查询</a-radio-button>
     </a-radio-group>
   </a-page-header>
   <div class="px-3">
     <!--表格内容-->
     <div class="w-full h-auto mt-6">
-      <a-table :columns="columns" :data-source="rolelist.rolelist_data" :rowKey="record => record.id">
+      <a-table :columns="columns" :data-source="dataRole.data" :rowKey="record => record.id">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key==='uuid'">
             {{ record.uuid }}
@@ -70,7 +70,7 @@
             :rules="[{ required: true }]"
             label="角色名"
         >
-          <a-input v-model:value="addData.name">
+          <a-input v-model:value=" getRoleAddVO.name">
             <template #prefix>
               <UserOutlined class="site-form-item-icon"/>
             </template>
@@ -79,7 +79,7 @@
         <a-form-item
             label="展示名字"
         >
-          <a-input v-model:value="addData.displayName">
+          <a-input v-model:value=" getRoleAddVO.displayName">
             <template #prefix>
               <ProfileOutlined class="site-form-item-icon"/>
             </template>
@@ -111,11 +111,11 @@
       </a-form>
       <template #footer>
         <a-button @click="CancelAddRole">取消</a-button>
-        <a-button class="bg-aspargus mt-4" type="primary" @click="OkAddRole">确认</a-button>
+        <a-button class="bg-aspargus mt-4" type="primary" @click="okAddRole()">确认</a-button>
       </template>
     </a-modal>
     <!--修改角色对话框-->
-    <a-modal width="450px" v-model:open="editDiaLog" title="新增角色" >
+    <a-modal width="450px" v-model:open="editDiaLog" title="修改角色" >
       <a-form
           :label-col="{ span: 5}"
           class="p-4 flex-col justify-center"
@@ -124,7 +124,7 @@
             :rules="[{ required: true }]"
             label="角色名"
         >
-          <a-input v-model:value="addData.name">
+          <a-input v-model:value="getRoleAddVO.name">
             <template #prefix>
               <UserOutlined class="site-form-item-icon"/>
             </template>
@@ -133,7 +133,7 @@
         <a-form-item
             label="展示名字"
         >
-          <a-input v-model:value="addData.displayName">
+          <a-input v-model:value="getRoleAddVO.displayName">
             <template #prefix>
               <ProfileOutlined class="site-form-item-icon"/>
             </template>
@@ -143,7 +143,7 @@
             :rules="[{ required: true }]"
             label="权限组"
         >
-          <a-input v-model:value="addData.permission">
+          <a-input v-model:value="getRoleAddVO.permission">
             <template #prefix>
               <SettingOutlined class="site-form-item-icon"/>
             </template>
@@ -151,15 +151,15 @@
         </a-form-item>
       </a-form>
       <template #footer>
-        <a-button @click="CancelEditRole">取消</a-button>
-        <a-button class="bg-aspargus mt-4" type="primary" @click="OkEditRole">确认</a-button>
+        <a-button @click="CancelRoleEdit">取消</a-button>
+        <a-button class="bg-aspargus mt-4" type="primary" @click=" OkRoleEdit()">确认</a-button>
       </template>
     </a-modal>
     <!--删除角色对话框-->
     <a-modal v-model:open="deleteDiaLog" title="删除角色" width="450px">
       <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要删除该角色吗？</p>
       <template #footer>
-        <a-button class="mt-4" danger @click="OkDeleteRole">确认</a-button>
+        <a-button class="mt-4" danger @click="OkDeleteRole()">确认</a-button>
         <a-button @click="CancelDeleteRole">取消</a-button>
       </template>
     </a-modal>
@@ -177,10 +177,11 @@ import {
   ProfileOutlined,
   SettingOutlined, ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
-import {onMounted, reactive, ref} from 'vue';
+import { reactive, ref} from 'vue';
 import request from "@/assets/js/Request.js";
-import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
-import {message} from "ant-design-vue";
+import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";;
+import {roleAddVO, roleDeleteVO, roleEditVO, roleListVO} from "@/assets/js/VoModel.js";
+import {getRoleList, roleDelete, roleEdit, userAdd} from "@/assets/js/PublishUtil.js";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});
 breadcrumbs.push({path: '/user', breadcrumbName: '角色管理'});
@@ -215,40 +216,70 @@ const columns = [
 ];
 
 //获取角色列表
-const data = reactive({
-  type:'all',
-  search:'',
-  limit:'',
-  page:'',
-  order:'asc'
-})
-
-const rolelist = reactive({
-  rolelist_data: []
-});
+let getRoleListVO = reactive(roleListVO);
+let  dataRole = getRoleList(getRoleListVO);
 
 
-//新增角色对话框
+//新增角色
 const addDiaLog = ref(false);
-const addData = reactive({
-  name:'',
-  displayName:'',
-  permission:''
-})
+let getRoleAddVO = reactive(roleAddVO);
+function showAddDiaLog(){
+  addDiaLog.value = true;
+  getRoleAddVO.name = '';
+  getRoleAddVO.displayName = '';
+}
 
-//修改角色对话框
-const editDiaLog = ref(false);
-const editData = ref({
-  name:'',
-  displayName:'',
-  permission:''
-})
+function okAddRole() {
+  const getReturnData1 = userAdd(getRoleAddVO)
+  if (getReturnData1.value.output === "Success") {
+    addDiaLog.value = false
+    dataRole = getRoleList(getRoleAddVO);
+  }
+}
 
-//删除角色对话框
+//取消新增
+const CancelAddRole = () => addDiaLog.value = false;
+
+//修改角色
+const editDiaLog =ref(false);
+let getRoleEditVO = reactive(roleEditVO);
+function showEditDiaLog(record) {
+  editDiaLog.value = true;
+  getRoleEditVO.name = record.name;
+  getRoleEditVO.displayName = record.displayName;
+  getRoleEditVO.permission = record.permission;
+  getRoleEditVO.uuid = record.uuid;
+}
+
+function  OkRoleEdit() {
+  const getReturnData2 = roleEdit( getRoleEditVO .uuid,  getRoleEditVO )
+  if (getReturnData2.value.output === "Success") {
+    editDiaLog.value = false
+    dataRole = getRoleList(getRoleListVO);
+  }
+}
+
+//取消修改
+const CancelRoleEdit = () => editDiaLog.value = false;
+
+
+//删除角色
 const deleteDiaLog = ref(false);
-const deleteData = ref({
-  uuid:''
-})
+let getroleDeleteVO = reactive(roleDeleteVO);
+function showDeleteDiaLog(record) {
+  deleteDiaLog.value = true;
+  getroleDeleteVO.uuid = record.uuid
+}
+function OkDeleteRole() {
+  const getReturnData3 = roleDelete( getroleDeleteVO.uuid )
+  if (getReturnData3.value.output === "Success") {
+    deleteDiaLog.value = false
+    dataRole = getRoleList(getRoleListVO);
+  }
+}
+
+//取消删除
+const CancelDeleteRole = () => deleteDiaLog.value = false;
 
 //权限列表
 const permission_data = reactive({
@@ -280,115 +311,10 @@ const oriTargetKeys = mockData.filter(item => +item.key % 3 > 0).map(item => ite
 const targetKeys = ref(oriTargetKeys);
 const selectedKeys = ref([]);
 
-onMounted(() => {
-  RoleList()
-})
 
-//获取角色列表
-function RoleList() {
-  request.getRoleList(data).then((res) => {
-    switch (data.type) {
-      case 'all':
-        rolelist.rolelist_data = res.data.data
-        break
-      default:
-        rolelist.rolelist_data = res.data.data
-    }
-  })
-}
 
-//获取全部角色
-function GetAll() {
-  data.type = 'all'
-  request.getRoleList(data).then((res) => {
-    rolelist.rolelist_data = []
-    rolelist.rolelist_data = res.data.data
-  })
-}
 
-//查询角色
-function SearchRole() {
-  data.type = 'search'
-  request.getRoleList(data).then((res) => {
-    if (data.search === '') {
-        RoleList()
-    } else {
-      rolelist.rolelist_data = []
-      rolelist.rolelist_data = res.data.data
-    }
-  })
-}
 
-//新增角色
-function showAddDiaLog(){
-  addDiaLog.value = true;
-  addData.name = '';
-  addData.displayName = '';
-  PermissionList();
-}
 
-function OkAddRole() {
-  request.RoleAdd(addData).then((res) => {
-    if (res.data.code === 200) {
-      addDiaLog.value = false;
-      message.success('新增成功')
-      GetAll()
-    } else {
-      addDiaLog.value = false;
-      message.error('新增失败')
-    }
-  })
-}
-
-//取消新增角色
-function CancelAddRole() {
-  addDiaLog.value = false;
-}
-
-//修改角色
-function showEditDiaLog(record) {
-  editDiaLog.value = true;
-  editData.userName = record.username;
-  editData.realName = record.realname;
-  editData.email = record.email;
-  editData.uuid = record.uuid;
-}
-
-function OkEditRole() {
-  request.UserManagerEdit(editData.uuid, editData).then((res) => {
-    editDiaLog.value = false;
-    message.success(res.data.message)
-    GetAll()
-  }).catch((err) => {
-    message.error(err.response.data.message)
-  })
-}
-
-//取消修改角色
-function CancelEditRole() {
-  editDiaLog.value = false;
-}
-
-//删除角色
-function showDeleteDiaLog(record) {
-  deleteDiaLog.value = true;
-  deleteData.uuid = record.uuid
-}
-
-function OkDeleteRole() {
-  request.RoleDelete(deleteData.uuid).then((res) => {
-    deleteDiaLog.value = false;
-    message.success(res.data.message)
-    GetAll()
-  }).catch((err) => {
-    deleteDiaLog.value = true;
-    message.error(err.response.data.message)
-  })
-}
-
-//取消删除角色
-function CancelDeleteRole() {
-  deleteDiaLog.value = false;
-}
 
 </script>

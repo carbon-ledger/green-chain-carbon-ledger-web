@@ -121,15 +121,10 @@ import {
 import router from "@/router/index.js";
 import {message} from "ant-design-vue";
 import requests from "@/assets/js/Request.js";
+import {managerUserRegisterVO} from "@/assets/js/VoModel.js";
+import {managerUserRegister} from "@/assets/js/PublishUtil.js";
 
-const organizeRegisterForm = reactive({
-  username: '',
-  realname: '',
-  phone: '',
-  email: '',
-  code: '',
-  password: '',
-});
+const organizeRegisterForm = reactive(managerUserRegisterVO);
 
 function addZero(i) {
   return i < 10 ? "0" + i : i + "";
@@ -163,31 +158,8 @@ function UserRegister() {
       && organizeRegisterForm.code !== ''
       && organizeRegisterForm.password !== '') {
     // 准备调用 OrganizeRegister 函数所需的参数
-    requests.ManagerRegister(organizeRegisterForm).then((res) => {
-      switch (res.data.output) {
-        case "Success":
-          message.success('注册成功，请登录');
-          router.push("/auth/login");
-          break;
-        default:
-          console.log(res.data.message);
-      }
-    }).catch((err) => {
-      switch (err.response.data.output) {
-        case "RequestBodyError":
-          message.error(err.response.data.data[0]);
-          break;
-        case "OrganizeRegisterFailed":
-          message.error(err.response.data.data.errorMessage);
-          break;
-        case "UsernameExisted":
-          message.error(err.response.data.data.errorMessage);
-          break;
-        default:
-          console.warn(err.response.data);
-          message.error(err.response.data.message);
-      }
-    });
+
+    managerUserRegister(organizeRegisterForm);
   } else {
     message.warn("必填项不可缺")
   }

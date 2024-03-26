@@ -101,3 +101,150 @@ export let reviewGetOrganizeDO = {
         remarks: ''
     }
 }
+
+/**
+ * 获取用户列表
+ */
+export let getUserListDO = {
+    getBaseResponseDO,
+    data: {
+        uid: '',
+        uuid: '',
+        username: '',
+        nickname: '',
+        realname: '',
+        email: '',
+        avatar: '',
+        role: '',
+        createAt: '',
+        updateAt:'',
+        ban:'',
+        invite:'',
+    }
+}
+
+/**
+ * 添加账户
+ */
+export let userAddDO = {
+    getBaseResponseDO,
+    data: {
+        name: '',
+        displayName: '',
+        permission: '',
+    }
+}
+
+/**
+ * 修改账户
+ *
+ */
+export let userEditDO = {
+    getBaseResponseDO,
+    data:{
+        uuid: '',
+        userName: '',
+        nickName:  '',
+        realName:  '',
+        email:  '',
+        phone: '',
+        createdAt: '',
+        updatedAt: '',
+    }
+}
+
+/**
+ * 注销账户
+ * @type {{getBaseResponseDO: {output: string, code: number, message: string}, data: {realName: string, createdAt: string, phone: string, nickName: string, userName: string, uuid: string, email: string, updatedAt: string}}}
+ */
+export let userDeleteDO = {
+    getBaseResponseDO,
+    data:{
+        uuid: '',
+        userName: '',
+        nickName:'' ,
+        realName: '',
+        email: '',
+        phone: '',
+        createdAt: '',
+        updatedAt: '',
+    }
+}
+
+/**
+ * 封禁账户
+ */
+export let userBanDO = {
+    getBaseResponseDO,
+    data:{
+        uuid: '',
+        userName: '',
+        nickName: '',
+        realName: '',
+        email: '',
+        phone: '',
+        createdAt: '',
+        updatedAt: ''
+    }
+}
+
+/**
+ * 账户密码重置
+ */
+export let userResetDO = {
+    getBaseResponseDO,
+    data:{
+
+    }
+}
+
+/**
+ * 获取角色列表
+ */
+
+export let roleListDO = {
+    getBaseResponseDO,
+    data: {
+        uuid: '',
+        name:'',
+        displayName: '',
+        permission: '',
+    }
+}
+
+/**
+ * 修改角色
+ */
+export let roleEditDO = {
+    getBaseResponseDO,
+    data:{
+        uuid: '',
+        name: '',
+        displayName: '',
+        permission: []
+    }
+}
+
+/**
+ * 新增角色
+ */
+export let roleAddDO= {
+    getBaseResponseDO,
+    data:{
+        name: '',
+        displayName: '',
+        permission: []
+    }
+}
+
+/**
+ * 删除角色
+ */
+export let roleDeleteDO = {
+    getBaseResponseDO,
+    data:{
+        name: '',
+        displayName: '',
+        permission: []
+    }
+}
