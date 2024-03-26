@@ -6,7 +6,8 @@
     <template #extra>
       <!--头部-->
       <div class="flex w-full justify-end">
-        <a-input v-model:value=" getUserListVO.search" class="h-8 border-gray-300 rounded-md" placeholder="输入账户信息"/>
+        <a-input v-model:value="getUserListVO.search" class="h-8 border-gray-300 rounded-md"
+                 placeholder="输入账户信息"/>
         <a-button class="ml-4 mr-4 flex justify-center items-center">
           <SearchOutlined/>
           查询
@@ -22,17 +23,17 @@
         账户管理，包括账户的增删改查，账户的状态，账户的创建时间，账户的更新时间，账户是否已被删除等。
       </div>
     </a-descriptions-item>
-    <a-radio-group :value=" getUserListVO.type" button-style="solid" class="mt-6">
-      <a-radio-button value="all" @click="GetAll">全部</a-radio-button>
-      <a-radio-button value="available" @click="GetAvailable">可用</a-radio-button>
-      <a-radio-button value="banlist" @click="GetBanList">封禁</a-radio-button>
-      <a-radio-button value="unbanlist">未封禁</a-radio-button>
+    <a-radio-group :value="getUserListVO.type" button-style="solid" class="mt-6">
+      <a-radio-button value="all" @click="getUserType('all')">全部</a-radio-button>
+      <a-radio-button value="available" @click="getUserType('available')">可用</a-radio-button>
+      <a-radio-button value="banlist" @click="getUserType('banlist')">封禁</a-radio-button>
+      <a-radio-button value="unbanlist" @click="getUserType('unbanlist')">未封禁</a-radio-button>
     </a-radio-group>
   </a-page-header>
   <div class="px-3">
     <!--表格内容-->
     <div class="w-full h-auto mt-6">
-      <a-table :columns="columns" :data-source="dataUser.data" :loading="loading">
+      <a-table :columns="columns" :data-source="getUser.data">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key==='uuid'">
             {{ record.uuid }}
@@ -57,38 +58,38 @@
               正常
             </a-tag>
           </template>
-          <template v-else-if="column.key==='action'">
-            <span class="flex" v-if="record.deletedAt === null">
+          <template v-else-if="column.key === 'action'">
+            <span v-if="record.deletedAt === null" class="flex">
               <a-button class="text-aspargus flex justify-center items-center" size="small"
-                        type="text" @click="showManagerEditDiaLog(record)">
+                        type="text" @click="showDialogWithEditUser(record)">
                 <EditOutlined/>
                 修改
               </a-button>
               <a-button class="text-aspargus flex justify-center items-center" size="small"
-                        type="text" @click="showDeleteDiaLog(record)">
+                        type="text" @click="showDialogWithDeleteUser(record)">
                 <DeleteOutlined/>
                 注销
               </a-button>
               <a-button class="text-aspargus flex justify-center items-center" size="small"
-                        type="text" @click="showResetDiaLog(record)">
-                <UndoOutlined />
+                        type="text" @click="showDialogWithResetUser(record)">
+                <UndoOutlined/>
                 重置密码
               </a-button>
             </span>
-            <span class="flex" v-else>
-              <a-button class="text-mount-pink flex justify-center items-center" size="small"
-                        type="text" disabled>
+            <span v-else class="flex">
+              <a-button class="text-mount-pink flex justify-center items-center" disabled
+                        size="small" type="text">
                 <EditOutlined/>
                 修改
               </a-button>
-              <a-button class="text-mount-pink flex justify-center items-center" size="small"
-                        type="text" disabled>
+              <a-button class="text-mount-pink flex justify-center items-center" disabled
+                        size="small" type="text">
                 <DeleteOutlined/>
                 注销
               </a-button>
-              <a-button class="text-aspargus flex justify-center items-center" size="small"
-                        type="text" disabled>
-                <UndoOutlined />
+              <a-button class="text-aspargus flex justify-center items-center" disabled
+                        size="small" type="text">
+                <UndoOutlined/>
                 重置密码
               </a-button>
             </span>
@@ -98,16 +99,16 @@
     </div>
 
     <!--新增账户对话框-->
-    <a-modal v-model:open="addDiaLog" title="新增账户" width="450px">
+    <a-modal v-model:open="addUserDialog" title="新增账户" width="450px">
       <a-form
-          :label-col="{ span: 5}"
+          :label-col="{ span: 5 }"
           class="p-4 flex-col justify-center"
       >
         <a-form-item
             :rules="[{ required: true }]"
             label="账户名"
         >
-          <a-input v-model:value="addUser.username">
+          <a-input v-model:value="addUserAddVO.username">
             <template #prefix>
               <UserOutlined class="site-form-item-icon"/>
             </template>
@@ -117,7 +118,7 @@
             :rules="[{ required: true }]"
             label="真实姓名"
         >
-          <a-input v-model:value="addUser.realname">
+          <a-input v-model:value="addUserAddVO.realname">
             <template #prefix>
               <IdcardOutlined class="site-form-item-icon"/>
             </template>
@@ -127,7 +128,7 @@
             :rules="[{ required: true }]"
             label="手机号"
         >
-          <a-input v-model:value="addUser.phone">
+          <a-input v-model:value="addUserAddVO.phone">
             <template #prefix>
               <PhoneOutlined class="site-form-item-icon"/>
             </template>
@@ -137,7 +138,7 @@
             :rules="[{ required: true }]"
             label="邮箱"
         >
-          <a-input v-model:value="addUser.email">
+          <a-input v-model:value="addUserAddVO.email">
             <template #prefix>
               <MailOutlined class="site-form-item-icon"/>
             </template>
@@ -149,24 +150,24 @@
         >
           <a-select
               ref="select"
-              v-model:value="addUser.role"
+              v-model:value="addUserAddVO.role"
               style="width: 293px"
               @focus="focus"
           >
             <a-select-option v-for="(dataRole, index) in dataRole.data" :key="index" :value="dataRole.name">
-             <span>{{dataRole.name}}</span> - <span class="text-gray-400">{{dataRole.displayName}}</span>
+              <span>{{ dataRole.name }}</span> - <span class="text-gray-400">{{ dataRole.displayName }}</span>
             </a-select-option>
           </a-select>
         </a-form-item>
       </a-form>
       <template #footer>
-        <a-button @click="CancelAddUser">取消</a-button>
-        <a-button class="bg-aspargus mt-4" type="primary" @click="okAddUser()">确认</a-button>
+        <a-button @click="closeDialogAddUser()">取消</a-button>
+        <a-button class="bg-aspargus mt-4" type="primary" @click="consoleAddUser()">确认</a-button>
       </template>
     </a-modal>
 
     <!--管理员修改账户对话框-->
-    <a-modal v-model:open="manager_editDiaLog" title="修改账户"
+    <a-modal v-model:open="editUserDialog" title="修改账户"
              width="550px">
       <a-form
           :label-col="{ span: 9}"
@@ -236,41 +237,45 @@
         </div>
       </a-form>
       <template #footer>
-        <a-button type="dashed" danger @click="showBanDiaLog(record)">封禁</a-button>
-        <a-button @click="CancelManagerEditUser">取消</a-button>
-        <a-button class="bg-aspargus mt-4" type="primary" @click="OkManagerEditUser()">确认</a-button>
+        <a-button danger type="dashed" @click="showDialogWithBanUser(record)">封禁</a-button>
+        <a-button @click="closeDialogManagerEditUser">取消</a-button>
+        <a-button class="bg-aspargus mt-4" type="primary" @click="consoleEditUser()">确认</a-button>
       </template>
     </a-modal>
     <!--管理员注销账户对话框-->
-    <a-modal v-model:open="deleteDiaLog" title="注销账户" width="450px">
-      <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要注销该账户吗？</p>
+    <a-modal v-model:open="deleteUserDialog" title="注销账户" width="450px">
+      <p>
+        <ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>
+        确认要注销该账户吗？
+      </p>
       <template #footer>
-        <a-button class="mt-4" danger @click="OkDeleteUser()">确认</a-button>
-        <a-button @click="CancelDeleteUser">取消</a-button>
+        <a-button class="mt-4" danger @click="consoleDeleteUser()">确认</a-button>
+        <a-button @click="closeDialogDeleteUser">取消</a-button>
       </template>
     </a-modal>
     <!--封禁账户对话框-->
-    <a-modal v-model:open="banDiaLog" title="封禁账户" width="450px">
+    <a-modal v-model:open="banUserDialog" title="封禁账户" width="450px">
       <p>确认要封禁该账户吗？</p>
       <template #footer>
-        <a-button class="mt-4" danger @click="OkBanUser">确认</a-button>
-        <a-button @click="CancelBanUser">取消</a-button>
+        <a-button class="mt-4" danger @click="consoleBanUser">确认</a-button>
+        <a-button @click="closeDialogBanUser">取消</a-button>
       </template>
     </a-modal>
     <!--管理员重置密码对话框-->
-    <a-modal v-model:open="resetDiaLog" title="重置密码" width="450px">
-      <p><ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>确认要重置密码吗？</p>
+    <a-modal v-model:open="resetUserPasswordDialog" title="重置密码" width="450px">
+      <p>
+        <ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>
+        确认要重置密码吗？
+      </p>
       <template #footer>
-        <a-button class="mt-4" danger @click="OkResetUser">确认</a-button>
-        <a-button @click="CancelResetUser">取消</a-button>
+        <a-button class="mt-4" danger @click="consoleResetUser">确认</a-button>
+        <a-button @click="closeDialogResetUser">取消</a-button>
       </template>
     </a-modal>
   </div>
 </template>
 
 <script setup>
-
-//引入区
 import {
   AuditOutlined,
   DeleteOutlined,
@@ -284,25 +289,162 @@ import {
   UserOutlined,
   ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
-import { reactive, ref } from 'vue';
-import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
+import {reactive, ref} from 'vue';
 import {
   getUserList,
-  getRoleList,
   userAdd,
   userManageEdit,
   userDelete,
   userBan,
-  getAll, getAvailable, getBanList,
 } from "@/assets/js/PublishUtil.js";
 import {
   userDeleteVO,
   userManageEditVO,
   userBanVO,
-  roleListVO,
   userAddVO, userListVO, userResetVO
 } from "@/assets/js/VoModel.js"
 
+
+let getUserListVO = reactive(userListVO);
+let addUserAddVO = reactive(userAddVO);
+let getUserManageEditVO = reactive(userManageEditVO);
+let getUserBanVO = reactive(userBanVO);
+let getUserDeleteVO = reactive(userDeleteVO);
+let getUserResetVO = reactive(userResetVO);
+
+let getUser = getUserList('all', getUserListVO);
+
+// Dialog相关
+const addUserDialog = ref(false);
+const editUserDialog = ref(false);
+const banUserDialog = ref(false);
+const resetUserPasswordDialog = ref(false);
+const deleteUserDialog = ref(false);
+
+
+// 处理 Dialog
+/**
+ * 添加用户模态框
+ */
+function showAddDiaLog() {
+  addUserDialog.value = true;
+}
+
+/**
+ * 编辑用户模态框
+ *
+ * @param record 映射用户信息
+ */
+function showDialogWithEditUser(record) {
+  editUserDialog.value = true;
+  getUserManageEditVO.userName = record.username;
+  getUserManageEditVO.realName = record.realname;
+  getUserManageEditVO.email = record.email;
+  getUserManageEditVO.uuid = record.uuid;
+}
+
+/**
+ * 强制注销用户模态框
+ *
+ * @param record 映射用户信息
+ */
+function showDialogWithDeleteUser(record) {
+  deleteUserDialog.value = true;
+  getUserDeleteVO.uuid = record.uuid;
+}
+
+/**
+ * 封禁用户模态框
+ *
+ * @param record
+ */
+function showDialogWithBanUser(record) {
+  banUserDialog.value = true;
+  getUserBanVO.uuid = record.uuid;
+}
+
+/**
+ * 重制密码模态框
+ *
+ * @param record
+ */
+function showDialogWithResetUser(record) {
+  resetUserPasswordDialog.value = true;
+  getUserResetVO.uuid = record.uuid;
+}
+
+const closeDialogResetUser = () => resetUserPasswordDialog.value = false;
+const closeDialogDeleteUser = () => deleteUserDialog.value = false;
+const closeDialogBanUser = () => banUserDialog.value = false;
+const closeDialogManagerEditUser = () => editUserDialog.value = false;
+const closeDialogAddUser = () => addUserDialog.value = false;
+
+/**
+ * 添加用户接口
+ */
+function consoleAddUser() {
+  const getReturnData = userAdd(addUserAddVO)
+  if (getReturnData.value.output === "Success") {
+    addUserDialog.value = false
+    getUser = getUserList('all', getUserListVO);
+  }
+}
+
+/**
+ * 编辑用户接口
+ */
+function consoleEditUser() {
+  const getReturnData = userManageEdit(getUserManageEditVO.uuid, getUserManageEditVO)
+  if (getReturnData.value.output === "Success") {
+    editUserDialog.value = false
+    getUser = getUserList('all', getUserListVO);
+  }
+}
+
+/**
+ * 注销用户接口
+ */
+function consoleDeleteUser() {
+  const getReturnData = userDelete(getUserDeleteVO.uuid)
+  if (getReturnData.value.output === "Success") {
+    deleteUserDialog.value = true
+    getUser = getUserList('all', getUserListVO);
+  }
+}
+
+/**
+ * 封禁用户接口
+ */
+function consoleBanUser() {
+  const getReturnData = userBan(getUserBanVO.uuid)
+  if (getReturnData.value.output === "Success") {
+    banUserDialog.value = true
+    getUser = getUserList('all', getUserListVO);
+  }
+}
+
+/**
+ * 重制用户密码接口
+ */
+function consoleResetUser() {
+  const getReturnData = userBan(getUserResetVO.uuid)
+  if (getReturnData.value.output === "Success") {
+    resetUserPasswordDialog.value = true
+    getUser = getUserList('all', getUserListVO);
+  }
+}
+
+/**
+ * 动态更新数据
+ *
+ * @param type
+ * @return {Ref<UnwrapRef<{getBaseResponseDO: {output: string, code: number, message: string}, data: [{role: string, updateAt: string, avatar: string, uuid: string, createAt: string, ban: boolean, realname: string, uid: number, deletedAt: string, nickname: string, invite: string, email: string, username: string}]}>>}
+ */
+const getUserType = (type) => getUser = getUserList(type, getUserListVO);
+</script>
+
+<script>
+import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});
 breadcrumbs.push({path: '/user', breadcrumbName: '账户管理'});
@@ -345,121 +487,4 @@ const columns = [
     dataIndex: 'action'
   },
 ];
-
-
-
-//账户列表
-let getUserListVO = reactive( userListVO);
-let dataUser =  getUserList(getUserListVO);
-
-//获取全部账户
-let GetAll = getAll(getUserListVO);
-
-//获取可用账户
-let GetAvailable = getAvailable(getUserListVO);
-
-//获取封禁的账户
-let GetBanList = getBanList(getUserListVO);
-
-//增加账户
-let addDiaLog = ref(false);
-let getUserAddVO = reactive(userAddVO);
-let addUser = userAdd(getUserAddVO);
-
-function showAddDiaLog(){
-  addDiaLog.value = true;
-}
-function okAddUser() {
-  const getReturnData1 = userAdd(getUserAddVO)
-  if (getReturnData1.value.output === "Success") {
-    addDiaLog.value = false
-    dataUser = getUserList(getUserListVO);
-  }
-}
-
-//取消新增
-const CancelAddUser = () => addDiaLog.value = false;
-
-//修改账户
-const manager_editDiaLog = ref(false);
-
-let getUserManageEditVO = reactive(userManageEditVO);
-function showManagerEditDiaLog(record) {
-  manager_editDiaLog.value = true;
-  getUserManageEditVO.userName = record.username;
-  getUserManageEditVO.realName = record.realname;
-  getUserManageEditVO.email = record.email;
-  getUserManageEditVO.uuid = record.uuid;
-}
-function OkManagerEditUser() {
-  const getReturnData2 = userManageEdit(getUserManageEditVO.uuid, getUserManageEditVO)
-  if (getReturnData2.value.output === "Success") {
-    manager_editDiaLog.value = false
-    dataUser = getUserList(getUserListVO);
-  }
-}
-
-//取消修改
-const CancelManagerEditUser = () => manager_editDiaLog.value = false;
-
-// 注销账户
-const deleteDiaLog = ref(false);
-let getUserDeleteVO = reactive(userDeleteVO);
-
-function showDeleteDiaLog(record) {
-  deleteDiaLog.value = true;
-  getUserDeleteVO.uuid = record.uuid;
-}
-
-function  OkDeleteUser() {
-  const getReturnData3 = userDelete(getUserDeleteVO.uuid)
-  if (getReturnData3.value.output === "Success") {
-    deleteDiaLog.value = true
-    dataUser = getUserList(getUserListVO);
-  }
-}
-
-//取消注销
-const CancelDeleteUser = () => deleteDiaLog.value = false;
-
-//封禁账户
-const banDiaLog = ref(false);
-let getUserBanVO = reactive( userBanVO);
-
-function showBanDiaLog(record) {
-  banDiaLog.value = true;
-  getUserBanVO.uuid = record.uuid;
-}
-function  OkBanUser() {
-  const getReturnData4 = userBan(getUserBanVO.uuid)
-  if (getReturnData4.value.output === "Success") {
-    banDiaLog.value = true
-    dataUser = getUserList(getUserListVO);
-  }
-}
-
-//取消封禁
-const CancelBanUser = () => banDiaLog.value = false;
-
-//账户密码重置
-const resetDiaLog = ref(false);
-let getUserResetVO = reactive(userResetVO);
-function showResetDiaLog(record) {
-  resetDiaLog.value = true;
-  getUserResetVO.uuid = record.uuid;
-}
-function  OkResetUser() {
-  const getReturnData5 = userBan(getUserResetVO.uuid)
-  if (getReturnData5.value.output === "Success") {
-    resetDiaLog.value = true
-    dataUser = getUserList(getUserListVO);
-  }
-}
-
-//取消账户密码重置
-const CancelResetUser = () => resetDiaLog.value = false;
-
-//获取角色列表
-let getroleListVO = reactive(roleListVO);
-let dataRole =  getRoleList(getroleListVO);
 </script>

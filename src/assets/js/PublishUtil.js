@@ -15,7 +15,6 @@ import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import requests from "@/assets/js/Request.js";
 import router from "@/router/index.js";
-import {roleDeleteVO, roleEditVO, userListVO} from "@/assets/js/VoModel.js";
 
 /**
  * 获取用户的信息
@@ -273,13 +272,13 @@ export function reviewCheckOrganize(id, data) {
 /**
  * 获取用户列表
  */
-export function getUserList(data){
+export function getUserList(type, data){
     let getUserList = ref( getUserListDO)
+    data.type = type;
     request.getUserList(data).then(res => {
         getUserList.value = res.data
         switch (res.data.output) {
             case "Success":
-                message.success("操作成功").then()
                 break
             default:
                 message.warn(res.data.message).then()
@@ -296,28 +295,6 @@ export function getUserList(data){
         }
     });
     return getUserList;
-}
-
-/**
- * 获取全部用户
- */
-export function getAll(data) {
-    userListVO.type = 'all';
-    getUserList(data);
-}
-
-//获取可用账户
-export function getAvailable(data) {
-    userListVO.type = 'available';
-    getUserList(data);
-}
-
-/**
- *获取封禁的账户
- */
-export function getBanList(data) {
-    userListVO.type = 'banlist';
-    getUserList(data);
 }
 
 /**
@@ -467,6 +444,7 @@ export function roleAdd(data) {
 
 /**
  * 修改角色
+ * @param uuid
  * @param data
  */
 export function roleEdit(uuid, data) {

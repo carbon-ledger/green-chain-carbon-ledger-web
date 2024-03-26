@@ -107,20 +107,23 @@ export let reviewGetOrganizeDO = {
  */
 export let getUserListDO = {
     getBaseResponseDO,
-    data: {
-        uid: '',
-        uuid: '',
-        username: '',
-        nickname: '',
-        realname: '',
-        email: '',
-        avatar: '',
-        role: '',
-        createAt: '',
-        updateAt:'',
-        ban:'',
-        invite:'',
-    }
+    data: [
+        {
+            uid: 0,
+            uuid: '',
+            username: '',
+            nickname: '',
+            realname: '',
+            email: '',
+            avatar: '',
+            role: '',
+            createAt: '',
+            updateAt: '',
+            ban: false,
+            invite: '',
+            deletedAt: ''
+        }
+    ]
 }
 
 /**
@@ -141,12 +144,12 @@ export let userAddDO = {
  */
 export let userEditDO = {
     getBaseResponseDO,
-    data:{
+    data: {
         uuid: '',
         userName: '',
-        nickName:  '',
-        realName:  '',
-        email:  '',
+        nickName: '',
+        realName: '',
+        email: '',
         phone: '',
         createdAt: '',
         updatedAt: '',
@@ -159,10 +162,10 @@ export let userEditDO = {
  */
 export let userDeleteDO = {
     getBaseResponseDO,
-    data:{
+    data: {
         uuid: '',
         userName: '',
-        nickName:'' ,
+        nickName: '',
         realName: '',
         email: '',
         phone: '',
@@ -176,7 +179,7 @@ export let userDeleteDO = {
  */
 export let userBanDO = {
     getBaseResponseDO,
-    data:{
+    data: {
         uuid: '',
         userName: '',
         nickName: '',
@@ -193,9 +196,7 @@ export let userBanDO = {
  */
 export let userResetDO = {
     getBaseResponseDO,
-    data:{
-
-    }
+    data: {}
 }
 
 /**
@@ -204,12 +205,14 @@ export let userResetDO = {
 
 export let roleListDO = {
     getBaseResponseDO,
-    data: {
-        uuid: '',
-        name:'',
-        displayName: '',
-        permission: '',
-    }
+    data: [
+        {
+            uuid: '',
+            name: '',
+            displayName: '',
+            permission: '',
+        }
+    ]
 }
 
 /**
@@ -217,7 +220,7 @@ export let roleListDO = {
  */
 export let roleEditDO = {
     getBaseResponseDO,
-    data:{
+    data: {
         uuid: '',
         name: '',
         displayName: '',
@@ -228,9 +231,9 @@ export let roleEditDO = {
 /**
  * 新增角色
  */
-export let roleAddDO= {
+export let roleAddDO = {
     getBaseResponseDO,
-    data:{
+    data: {
         name: '',
         displayName: '',
         permission: []
@@ -242,7 +245,7 @@ export let roleAddDO= {
  */
 export let roleDeleteDO = {
     getBaseResponseDO,
-    data:{
+    data: {
         name: '',
         displayName: '',
         permission: []

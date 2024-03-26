@@ -1,5 +1,3 @@
-import {userManageEdit} from "@/assets/js/PublishUtil.js";
-
 export let ReviewCheckVO = {
     remark: '',
     allow: false
@@ -21,12 +19,12 @@ export let UserVerifyVO = {
 /**
  * 获取账户列表
  */
-export let  userListVO = {
-    type: 'all',
+export let userListVO = {
+    type: '',
     search: '',
     limit: '',
     page: '',
-    order: 'asc',
+    order: '',
 }
 
 
@@ -58,28 +56,28 @@ export let userManageEditVO = {
  * 注销账户
  */
 export let userDeleteVO = {
-    uuid:'',
+    uuid: '',
 }
 
 /**
  * 封禁账户
  */
 export let userBanVO = {
-    uuid:'',
+    uuid: '',
 }
 
 /**
  * 账户密码重置
  */
 export let userResetVO = {
-    uuid:'',
+    uuid: '',
 }
 
 /**
  * 获取角色列表
  * @type {{search: string, limit: string, page: string, type: string, order: string}}
  */
-export let  roleListVO = {
+export let roleListVO = {
     type: 'all',
     search: '',
     limit: '',

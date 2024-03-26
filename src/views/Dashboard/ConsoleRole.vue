@@ -179,7 +179,7 @@ import {
 } from "@ant-design/icons-vue";
 import { reactive, ref} from 'vue';
 import request from "@/assets/js/Request.js";
-import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";;
+import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
 import {roleAddVO, roleDeleteVO, roleEditVO, roleListVO} from "@/assets/js/VoModel.js";
 import {getRoleList, roleDelete, roleEdit, userAdd} from "@/assets/js/PublishUtil.js";
 
