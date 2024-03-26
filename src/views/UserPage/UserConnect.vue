@@ -37,7 +37,7 @@
 
 <script setup>
 import {PhoneTwoTone} from "@ant-design/icons-vue";
-import {getLoginInfo} from "@/assets/js/PublishUtil.js";
+import {getLoginInfoRequest} from "@/assets/js/PublishUtil.js";
 
-const data = getLoginInfo()
+const data = getLoginInfoRequest()
 </script>

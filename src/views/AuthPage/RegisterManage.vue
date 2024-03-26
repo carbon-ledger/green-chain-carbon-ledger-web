@@ -122,7 +122,7 @@ import router from "@/router/index.js";
 import {message} from "ant-design-vue";
 import requests from "@/assets/js/Request.js";
 import {managerUserRegisterVO} from "@/assets/js/VoModel.js";
-import {managerUserRegister} from "@/assets/js/PublishUtil.js";
+import {managerUserRegisterRequest} from "@/assets/js/PublishUtil.js";
 
 const organizeRegisterForm = reactive(managerUserRegisterVO);
 
@@ -159,7 +159,7 @@ function UserRegister() {
       && organizeRegisterForm.password !== '') {
     // 准备调用 OrganizeRegister 函数所需的参数
 
-    managerUserRegister(organizeRegisterForm);
+    managerUserRegisterRequest(organizeRegisterForm);
   } else {
     message.warn("必填项不可缺")
   }

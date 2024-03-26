@@ -6,15 +6,16 @@ import {
     getUserProfileVO,
     getVerifyInfoDO,
     getVerifyListDO,
-    permissionVO,
+    permissionDO,
     reviewGetOrganizeDO,
     getUserListDO,
-    userAddDO, userEditDO, userDeleteDO, userBanDO, roleListDO, userResetDO, roleAddDO, roleEditDO, roleDeleteDO
+    userAddDO, userEditDO, userDeleteDO, userBanDO, roleListDO, userResetDO, roleDeleteDO
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import requests from "@/assets/js/Request.js";
 import router from "@/router/index.js";
+import {roleAddVO, roleEditVO} from "@/assets/js/VoModel.js";
 
 /**
  * 获取用户的信息
@@ -23,7 +24,7 @@ import router from "@/router/index.js";
  *
  * @return {Ref<UnwrapRef<{role: string, permission: {rolePermission: [], userPermission: []}, user: {realName: string, phone: string, userName: string, uuid: string, email: string}}>>}
  */
-export function getUserCurrent() {
+export function getUserCurrentRequest() {
     let getUserVO = ref(getUserProfileVO)
     request.getUserCurrent().then(res => {
         switch (res.data.output) {
@@ -47,7 +48,7 @@ export function getUserCurrent() {
     return getUserVO
 }
 
-export function getLoginInfo() {
+export function getLoginInfoRequest() {
     let getLoginInfo = ref(getLoginInfoVO)
     request.getLoginInfo().then(res => {
         switch (res.data.output) {
@@ -71,7 +72,7 @@ export function getLoginInfo() {
     return getLoginInfo;
 }
 
-export function getRoleCurrent() {
+export function getRoleCurrentRequest() {
     let getRoleCurrent = ref(getRoleCurrentVO)
     request.getRoleCurrent().then(res => {
         switch (res.data.output) {
@@ -95,12 +96,12 @@ export function getRoleCurrent() {
     return getRoleCurrent;
 }
 
-export function getPermissionList() {
-    let getPermissionList = ref([permissionVO])
+export function getPermissionListRequest() {
+    let getPermissionList = ref(permissionDO)
     request.getPermissionList().then(res => {
+        getPermissionList.value = res.data;
         switch (res.data.output) {
             case "Success":
-                getPermissionList.value = res.data.data;
                 break
             default:
                 message.warn(res.data.message)
@@ -109,7 +110,6 @@ export function getPermissionList() {
         switch (err.response.data.output) {
             case "TokenVerifyError": {
                 message.warn(err.response.data.data.errorMessage)
-                window.location.replace("/auth/login")
                 break;
             }
             default:
@@ -124,7 +124,7 @@ export function getPermissionList() {
  *
  * @param {Object} data
  */
-export function sendMailCode(data) {
+export function sendMailCodeRequest(data) {
     let getData = ref([])
     request.getCode(data).then(res => {
         switch (res.data.output) {
@@ -142,7 +142,7 @@ export function sendMailCode(data) {
     return getData;
 }
 
-export function reviewGet() {
+export function reviewGetRequest() {
     let getData = ref(getVerifyInfoDO)
     request.reviewGet().then(res => {
         switch (res.data.output) {
@@ -172,7 +172,7 @@ export function reviewGet() {
  * @param {Object} data
  * @param {String} projectId
  */
-export function reviewResendOrganize(data, projectId) {
+export function reviewResendOrganizeRequest(data, projectId) {
     let getData = ref(getBaseResponseDO)
     request.ReviewResendOrganize(data, projectId).then(res => {
         switch (res.data.output) {
@@ -190,7 +190,7 @@ export function reviewResendOrganize(data, projectId) {
     return getData;
 }
 
-export function getReviewList() {
+export function getReviewListRequest() {
     let getData = ref([getVerifyListDO])
     request.getReviewList().then(res => {
         switch (res.data.output) {
@@ -207,7 +207,7 @@ export function getReviewList() {
     return getData;
 }
 
-export function reviewAddOrganize(data) {
+export function reviewAddOrganizeRequest(data) {
     request.reviewAddOrganize(data).then(res => {
         switch (res.data.output) {
             case "Success":
@@ -224,7 +224,7 @@ export function reviewAddOrganize(data) {
     })
 }
 
-export function reviewGetAdmin(id, type) {
+export function reviewGetAdminRequest(id, type) {
     let getData = ref(reviewGetOrganizeDO)
     request.reviewGetAdmin(id, type).then(res => {
         getData.value = res.data
@@ -247,7 +247,7 @@ export function reviewGetAdmin(id, type) {
     return getData;
 }
 
-export function reviewCheckOrganize(id, data) {
+export function reviewCheckOrganizeRequest(id, data) {
     let getData = ref(reviewGetOrganizeDO)
     request.ReviewCheckOrganize(id, data).then(res => {
         switch (res.data.output) {
@@ -272,7 +272,7 @@ export function reviewCheckOrganize(id, data) {
 /**
  * 获取用户列表
  */
-export function getUserList(type, data){
+export function getUserListRequest(type, data){
     let getUserList = ref( getUserListDO)
     data.type = type;
     request.getUserList(data).then(res => {
@@ -300,7 +300,7 @@ export function getUserList(type, data){
 /**
  * 增加账户
  */
-export function userAdd(data) {
+export function userAddRequest(data) {
     let  userAdd = ref(userAddDO)
     request.UserAdd(data).then(res => {
         userAdd.value = res.data
@@ -311,7 +311,7 @@ export function userAdd(data) {
 /**
  * 修改账户
  */
-export function userManageEdit(uuid,data) {
+export function userManageEditRequest(uuid, data) {
     let userEdit = ref(userEditDO)
     request. UserManagerEdit(uuid,data).then(res => {
         userEdit.value = res.data
@@ -332,7 +332,7 @@ export function userManageEdit(uuid,data) {
 /**
  * 注销账户
  */
-export function userDelete(uuid) {
+export function userDeleteRequest(uuid) {
     let userDelete = ref(userDeleteDO)
     request.UserDelete(uuid).then(res => {
         userDelete.value = res.data
@@ -353,7 +353,7 @@ export function userDelete(uuid) {
 /**
  * 封禁账户
  */
-export function userBan(uuid) {
+export function userBanRequest(uuid) {
     let userBan = ref(userBanDO)
     request.UserBan(uuid).then(res => {
         userBan.value = res.data
@@ -374,7 +374,7 @@ export function userBan(uuid) {
 /**
  * 账户密码重置
  */
-export function userReset(uuid) {
+export function userResetRequest(uuid) {
     let userReset = ref(userResetDO)
     request.UserReset(uuid).then(res => {
         userReset.value = res.data
@@ -395,13 +395,13 @@ export function userReset(uuid) {
 /**
  * 获取角色列表
  */
-export function getRoleList(data){
+export function getRoleListRequest(type, data){
     let roleList = ref(roleListDO)
+    data.type = type;
     request.getRoleList(data).then(res => {
         roleList.value = res.data
         switch (res.data.output) {
             case "Success":
-                message.success("操作成功").then()
                 break;
             default:
                 message.warn(res.data.message).then()
@@ -424,8 +424,8 @@ export function getRoleList(data){
  * 新增角色
  * @param data
  */
-export function roleAdd(data) {
-    let roleAdd = ref(roleAddDO)
+export function roleAddRequest(data) {
+    let roleAdd = ref(roleAddVO)
     request.RoleAdd(data).then(res => {
         roleAdd.value = res.data
         switch (res.data.output) {
@@ -447,8 +447,8 @@ export function roleAdd(data) {
  * @param uuid
  * @param data
  */
-export function roleEdit(uuid, data) {
-    let roleEdit = ref(roleEditDO)
+export function roleEditRequest(uuid, data) {
+    let roleEdit = ref(roleEditVO)
     request.RoleEdit(uuid, data).then(res => {
         roleEdit.value = res.data
         switch (res.data.output) {
@@ -469,10 +469,10 @@ export function roleEdit(uuid, data) {
  * 删除角色
  * @param uuid
  */
-export function roleDelete(uuid) {
+export function roleDeleteRequest(uuid) {
     let roleDelete = ref(roleDeleteDO)
     request.RoleDelete(uuid).then(res => {
-        roleEdit.value = res.data
+        roleEditRequest.value = res.data
         switch (res.data.output) {
             case "Success":
                 message.success("操作成功").then()
@@ -487,7 +487,7 @@ export function roleDelete(uuid) {
     return  roleDelete;
 }
 
-export function managerUserRegister(data) {
+export function managerUserRegisterRequest(data) {
     requests.ManagerRegister(data).then((res) => {
         switch (res.data.output) {
             case "Success":

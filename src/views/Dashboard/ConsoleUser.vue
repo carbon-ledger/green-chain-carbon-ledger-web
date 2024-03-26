@@ -48,13 +48,13 @@
             {{ record.email }}
           </template>
           <template v-else-if="column.key === 'state'">
-            <a-tag v-if="record.ban === true" :bordered="false" color="error">
+            <a-tag v-if="record.ban === true" color="error">
               封禁
             </a-tag>
-            <a-tag v-if="record.deletedAt !== null" :bordered="false" color="volcano">
+            <a-tag v-if="record.deletedAt !== null" color="volcano">
               注销
             </a-tag>
-            <a-tag v-if="record.ban === false && record.deletedAt === null" :bordered="false" color="success">
+            <a-tag v-if="record.ban === false && record.deletedAt === null" color="success">
               正常
             </a-tag>
           </template>
@@ -291,11 +291,11 @@ import {
 } from "@ant-design/icons-vue";
 import {reactive, ref} from 'vue';
 import {
-  getUserList,
-  userAdd,
-  userManageEdit,
-  userDelete,
-  userBan,
+  getUserListRequest,
+  userAddRequest,
+  userManageEditRequest,
+  userDeleteRequest,
+  userBanRequest,
 } from "@/assets/js/PublishUtil.js";
 import {
   userDeleteVO,
@@ -312,7 +312,7 @@ let getUserBanVO = reactive(userBanVO);
 let getUserDeleteVO = reactive(userDeleteVO);
 let getUserResetVO = reactive(userResetVO);
 
-let getUser = getUserList('all', getUserListVO);
+let getUser = getUserListRequest('all', getUserListVO);
 
 // Dialog相关
 const addUserDialog = ref(false);
@@ -383,10 +383,10 @@ const closeDialogAddUser = () => addUserDialog.value = false;
  * 添加用户接口
  */
 function consoleAddUser() {
-  const getReturnData = userAdd(addUserAddVO)
+  const getReturnData = userAddRequest(addUserAddVO)
   if (getReturnData.value.output === "Success") {
     addUserDialog.value = false
-    getUser = getUserList('all', getUserListVO);
+    getUser = getUserListRequest('all', getUserListVO);
   }
 }
 
@@ -394,10 +394,10 @@ function consoleAddUser() {
  * 编辑用户接口
  */
 function consoleEditUser() {
-  const getReturnData = userManageEdit(getUserManageEditVO.uuid, getUserManageEditVO)
+  const getReturnData = userManageEditRequest(getUserManageEditVO.uuid, getUserManageEditVO)
   if (getReturnData.value.output === "Success") {
     editUserDialog.value = false
-    getUser = getUserList('all', getUserListVO);
+    getUser = getUserListRequest('all', getUserListVO);
   }
 }
 
@@ -405,10 +405,10 @@ function consoleEditUser() {
  * 注销用户接口
  */
 function consoleDeleteUser() {
-  const getReturnData = userDelete(getUserDeleteVO.uuid)
+  const getReturnData = userDeleteRequest(getUserDeleteVO.uuid)
   if (getReturnData.value.output === "Success") {
     deleteUserDialog.value = true
-    getUser = getUserList('all', getUserListVO);
+    getUser = getUserListRequest('all', getUserListVO);
   }
 }
 
@@ -416,10 +416,10 @@ function consoleDeleteUser() {
  * 封禁用户接口
  */
 function consoleBanUser() {
-  const getReturnData = userBan(getUserBanVO.uuid)
+  const getReturnData = userBanRequest(getUserBanVO.uuid)
   if (getReturnData.value.output === "Success") {
     banUserDialog.value = true
-    getUser = getUserList('all', getUserListVO);
+    getUser = getUserListRequest('all', getUserListVO);
   }
 }
 
@@ -427,10 +427,10 @@ function consoleBanUser() {
  * 重制用户密码接口
  */
 function consoleResetUser() {
-  const getReturnData = userBan(getUserResetVO.uuid)
+  const getReturnData = userBanRequest(getUserResetVO.uuid)
   if (getReturnData.value.output === "Success") {
     resetUserPasswordDialog.value = true
-    getUser = getUserList('all', getUserListVO);
+    getUser = getUserListRequest('all', getUserListVO);
   }
 }
 
@@ -440,7 +440,7 @@ function consoleResetUser() {
  * @param type
  * @return {Ref<UnwrapRef<{getBaseResponseDO: {output: string, code: number, message: string}, data: [{role: string, updateAt: string, avatar: string, uuid: string, createAt: string, ban: boolean, realname: string, uid: number, deletedAt: string, nickname: string, invite: string, email: string, username: string}]}>>}
  */
-const getUserType = (type) => getUser = getUserList(type, getUserListVO);
+const getUserType = (type) => getUser = getUserListRequest(type, getUserListVO);
 </script>
 
 <script>

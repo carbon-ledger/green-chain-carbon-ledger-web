@@ -33,7 +33,7 @@
  * 引入区
  */
 import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
-import {getReviewList} from "@/assets/js/PublishUtil.js";
+import {getReviewListRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import router from "@/router/index.js";
 
@@ -41,7 +41,7 @@ import router from "@/router/index.js";
  * 数据初始化区
  */
 const routes = breadcrumbs
-const getReview = getReviewList()
+const getReview = getReviewListRequest()
 
 const columns = [
   {

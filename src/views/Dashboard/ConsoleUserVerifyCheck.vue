@@ -80,7 +80,7 @@
  * 引入区
  */
 import router from "@/router/index.js";
-import {reviewCheckOrganize, reviewGetAdmin} from "@/assets/js/PublishUtil.js";
+import {reviewCheckOrganizeRequest, reviewGetAdminRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {api} from "@/assets/js/Request.js";
 import {ReviewCheckVO} from "@/assets/js/VoModel.js";
@@ -90,7 +90,7 @@ import {message} from "ant-design-vue";
 /*
  * 数据初始化区
  */
-const getData = reviewGetAdmin(router.currentRoute.value.query.id, router.currentRoute.value.query.type);
+const getData = reviewGetAdminRequest(router.currentRoute.value.query.id, router.currentRoute.value.query.type);
 let getReviewCheckVO = reactive(ReviewCheckVO)
 const open = ref(false);
 const confirmLoading = ref(false);
@@ -113,13 +113,13 @@ function organizationalReview(check) {
   confirmLoading.value = true
   getReviewCheckVO.allow = check
   if (check) {
-    getReturnData = reviewCheckOrganize(router.currentRoute.value.query.id, getReviewCheckVO);
+    getReturnData = reviewCheckOrganizeRequest(router.currentRoute.value.query.id, getReviewCheckVO);
   } else {
     if (getReviewCheckVO.remark === null || getReviewCheckVO.remark === '' || getReviewCheckVO.remark === undefined) {
       message.warn("请填写拒绝原因")
       return
     }
-    getReturnData = reviewCheckOrganize(router.currentRoute.value.query.id, getReviewCheckVO);
+    getReturnData = reviewCheckOrganizeRequest(router.currentRoute.value.query.id, getReviewCheckVO);
     closeModal()
   }
   // 处理判断数据

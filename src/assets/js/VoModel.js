@@ -98,10 +98,10 @@ export let roleAddVO = {
  * 修改角色
  */
 export let roleEditVO = {
+    uuid: '',
     name: '',
     displayName: '',
-    permission: '',
-    uuid: '',
+    permission: [],
 }
 
 /**

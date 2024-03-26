@@ -93,7 +93,7 @@ import {ref} from 'vue';
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import {KeyOutlined, MailOutlined, NumberOutlined} from "@ant-design/icons-vue";
-import {getUserCurrent, sendMailCode} from "@/assets/js/PublishUtil.js";
+import {getUserCurrentRequest, sendMailCodeRequest} from "@/assets/js/PublishUtil.js";
 
 
 const open = ref(false);
@@ -103,7 +103,7 @@ let getData = ref({
   code: '',
 })
 
-let getUserInfo = getUserCurrent()
+let getUserInfo = getUserCurrentRequest()
 
 let sendCodeData = {
   email: '',
@@ -159,7 +159,7 @@ const handleOk = () => {
 };
 
 function sendMail(sendCodeData) {
-  sendMailCode(sendCodeData)
+  sendMailCodeRequest(sendCodeData)
   countDown(new Date().getTime() + 120000)
   document.getElementById('inputCode').disabled = true;
 }

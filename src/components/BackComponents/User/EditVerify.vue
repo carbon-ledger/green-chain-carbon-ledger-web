@@ -133,14 +133,14 @@ import {
 } from "@ant-design/icons-vue";
 
 import {reactive, watch} from "vue";
-import {reviewGet, reviewResendOrganize} from "@/assets/js/PublishUtil.js";
+import {reviewGetRequest, reviewResendOrganizeRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {message} from "ant-design-vue";
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
 
 // 获取表单信息
 const form = reactive(UserVerifyVO)
-let getVerifyInfo = reviewGet();
+let getVerifyInfo = reviewGetRequest();
 let getReturnData = undefined;
 
 function reUpload() {
@@ -182,7 +182,7 @@ function reUpload() {
   console.log('[EditVerify] 准备提交 `form` 内容:', form)
   // 发送数据
   setTimeout(() => {
-    getReturnData = reviewResendOrganize(form, getVerifyInfo.value.data.id);
+    getReturnData = reviewResendOrganizeRequest(form, getVerifyInfo.value.data.id);
     console.debug('[EditVerify] 触发器 `getReturnData`:', getReturnData)
     if (getReturnData.value.output === "Success") {
       message.success("提交成功");

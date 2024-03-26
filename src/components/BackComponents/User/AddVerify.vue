@@ -129,7 +129,7 @@ import {
 } from "@ant-design/icons-vue";
 import {reactive} from "vue";
 import {message} from "ant-design-vue";
-import {reviewResendOrganize} from "@/assets/js/PublishUtil.js";
+import {reviewResendOrganizeRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
 
@@ -174,7 +174,7 @@ function upload() {
   form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
   // 发送数据
   // 发送数据
-  const getReturnData = reviewResendOrganize(form, getVerifyInfo.value.data.id);
+  const getReturnData = reviewResendOrganizeRequest(form, getVerifyInfo.value.data.id);
   if (getReturnData.value.output === "Success") {
     message.success("提交成功");
     setTimeout(() => {

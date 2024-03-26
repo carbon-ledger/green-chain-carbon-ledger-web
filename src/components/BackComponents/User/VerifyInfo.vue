@@ -16,8 +16,8 @@
 /*
  * 引入区
  */
-import {reviewGet} from "@/assets/js/PublishUtil.js";
-const getVerifyInfo = reviewGet()
+import {reviewGetRequest} from "@/assets/js/PublishUtil.js";
+const getVerifyInfo = reviewGetRequest()
 
 function clickLocation() {
   window.location.replace('?edit=true')

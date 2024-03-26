@@ -36,9 +36,14 @@ export let getRoleCurrentVO = {
     permission: []
 }
 
-export let permissionVO = {
-    name: '',
-    description: ''
+export let permissionDO = {
+    getBaseResponseDO,
+    data: [
+        {
+            name: '',
+            description: ''
+        }
+    ]
 }
 
 export let getVerifyInfoDO = {
@@ -210,7 +215,7 @@ export let roleListDO = {
             uuid: '',
             name: '',
             displayName: '',
-            permission: '',
+            permission: [],
         }
     ]
 }

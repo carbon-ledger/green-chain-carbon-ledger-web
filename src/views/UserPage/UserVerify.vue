@@ -34,13 +34,13 @@ import {
   CheckCircleTwoTone,
 } from "@ant-design/icons-vue";
 import AddVerify from "@/components/BackComponents/User/AddVerify.vue";
-import {reviewGet} from "@/assets/js/PublishUtil.js";
+import {reviewGetRequest} from "@/assets/js/PublishUtil.js";
 import VerifyInspection from "@/components/BackComponents/User/VerifyInspection.vue";
 import VerifyInfo from "@/components/BackComponents/User/VerifyInfo.vue";
 import router from "@/router/index.js";
 import EditVerify from "@/components/BackComponents/User/EditVerify.vue";
 
-const getVerifyInfoVO = reviewGet();
+const getVerifyInfoVO = reviewGetRequest();
 
 // 获取 query 参数信息
 const getQuery = router.currentRoute.value.query;

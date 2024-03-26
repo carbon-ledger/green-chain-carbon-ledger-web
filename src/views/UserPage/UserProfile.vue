@@ -77,9 +77,9 @@
 
 <script setup>
 import {AppstoreTwoTone} from "@ant-design/icons-vue";
-import {getPermissionList, getRoleCurrent, getUserCurrent} from "@/assets/js/PublishUtil.js";
+import {getPermissionListRequest, getRoleCurrentRequest, getUserCurrentRequest} from "@/assets/js/PublishUtil.js";
 
-let getUserVO = getUserCurrent()
+let getUserVO = getUserCurrentRequest()
 
 import { KeyOutlined, EditOutlined} from '@ant-design/icons-vue';
 const columns = [
@@ -95,7 +95,7 @@ const columns = [
   }
 ];
 
-const dataPermission = getPermissionList();
+const dataPermission = getPermissionListRequest();
 
-let dataRole = getRoleCurrent()
+let dataRole = getRoleCurrentRequest()
 </script>
