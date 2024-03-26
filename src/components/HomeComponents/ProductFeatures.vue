@@ -1,8 +1,10 @@
 <template>
-  <div style="text-align:left; padding:20px; background-color: #04cc97" @click="$router.push('/ProductFeatures')">
-    <h1 style="text-align: center; margin-top: 2vh">产品特色</h1>
-    <div  style="text-align: center">
-    助力企业完成碳中和
+  <div class="bg-aspargus p-5"  @click="$router.push('/ProductFeatures')">
+    <div>
+      <h1 class="text-center text-2xl font-bold">产品特色</h1>
+      <p class="text-center text-lg">
+        助力企业完成碳中和
+      </p>
     </div>
     <div style="display: flex; justify-content: center; margin-top: 5vh">
       <a-card style="width: 30vw; height: 15vh; border-radius: 0 !important;">

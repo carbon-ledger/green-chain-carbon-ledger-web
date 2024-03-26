@@ -1,8 +1,8 @@
 <template>
   <a-layout class="layout">
     <Navbar/>
-    <Carousel />
-    <a-layout-content>
+    <a-layout-content class="mt-[65px]">
+      <Carousel />
       <CarbonAccountingIntro/>
       <CarbonTradingIntro/>
       <ProductFeatures/>
