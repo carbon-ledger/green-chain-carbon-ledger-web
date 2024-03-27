@@ -1,7 +1,7 @@
 <template>
   <a-layout class="layout">
     <Navbar/>
-    <a-layout-content>
+    <a-layout-content class="mt-[70px]">
       <Carousel />
       <CarbonAccountingIntro/>
       <CarbonTradingIntro/>

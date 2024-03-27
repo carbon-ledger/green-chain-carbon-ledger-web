@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-aspargus flex justify-center">
+  <div class="bg-green-50 flex justify-center">
     <div class="container p-32">
       <div class="grid grid-cols-6 gap-x-8 gap-y-10">
         <div class="col-span-6">

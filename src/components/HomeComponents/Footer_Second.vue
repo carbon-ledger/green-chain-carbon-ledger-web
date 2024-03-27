@@ -7,16 +7,16 @@
       </a>
       <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
         <li>
-          <a href="#" class="hover:underline me-4 md:me-6">About</a>
+          <a href="#" class="hover:underline me-4 md:me-6">关于我们</a>
         </li>
         <li>
-          <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+          <a href="#" class="hover:underline me-4 md:me-6">隐私政策</a>
         </li>
         <li>
-          <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+          <a href="#" class="hover:underline me-4 md:me-6">法律声明</a>
         </li>
         <li>
-          <a href="#" class="hover:underline">Contact</a>
+          <a href="#" class="hover:underline">联系我们</a>
         </li>
       </ul>
     </div>
