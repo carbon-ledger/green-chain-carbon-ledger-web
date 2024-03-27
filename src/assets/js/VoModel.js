@@ -55,7 +55,7 @@ export let userManageEditVO = {
 /**
  * 注销账户
  */
-export let userDeleteVO = {
+export let userDeleteForceVO = {
     uuid: '',
 }
 
@@ -125,4 +125,19 @@ export let userChangePasswordVO = {
     currentPassword: '',
     newPassword: '',
     newPasswordConfirm: ''
+}
+
+export let userLoginVO = {
+    user: '',
+    password: ''
+}
+
+export let sendMailVO = {
+    email: '',
+    template: ''
+}
+
+export let userDeleteVO = {
+    password: '',
+    code: '',
 }

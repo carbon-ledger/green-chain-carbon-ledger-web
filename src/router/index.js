@@ -140,6 +140,7 @@ const router = createRouter({
         {
             // 仪表盘相关路由表
             path: '/dashboard',
+            name: 'Dashboard',
             component: () => import('@/views/Dashboard/DashboardFrame.vue'),
             children: [
                 {

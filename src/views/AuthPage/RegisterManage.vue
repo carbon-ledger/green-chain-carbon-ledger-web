@@ -90,7 +90,7 @@
               </a-form-item>
               <div class=" text-end mb-3">
                 已有账户?
-                <a class="text-aspargus hover:text-spring" @click="router.push('/auth/login')">登陆</a>
+                <a class="text-aspargus hover:text-spring" @click="router.push('/auth/userLogin')">登陆</a>
                 或 <a class="text-aspargus hover:text-spring"
                       @click="router.push('/auth/register/organize')">组织注册</a>
               </div>
@@ -178,7 +178,7 @@ function getEmailVerifyCode() {
     email: organizeRegisterForm.email,
     template: "user-register"
   };
-  requests.getCode(requestData).then(response => {
+  requests.sendCodeMail(requestData).then(response => {
     countDown(new Date().getTime() + 120000);
     switch (response.data.output) {
       case "Success":

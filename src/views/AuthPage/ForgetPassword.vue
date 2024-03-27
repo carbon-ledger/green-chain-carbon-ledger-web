@@ -132,7 +132,7 @@ function getEmailVerifyCode() {
     email: data.email,
     template: "user-register"
   };
-  requests.getCode(requestData).then(response => {
+  requests.sendCodeMail(requestData).then(response => {
     countDown(new Date().getTime() + 120000);
     switch (response.data.output) {
       case "Success":

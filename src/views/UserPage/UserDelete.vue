@@ -42,7 +42,7 @@
             A: 注销账户后，您的注销信息会被保留7天时间。在此期间，您可以重新登陆账户即可取消注销。如果时间超过7天，则账户进入永久注销，数据将会冻结处理。
           </a-typography-text>
         </div>
-        <div class="col-span-12 flex justify-end">
+        <div class="col-span-12 grid justify-center">
           <a-button danger @click="showModal">确认注销</a-button>
         </div>
       </div>
@@ -54,9 +54,9 @@
           <a-typography-text>您确认您的账户需要进行注销，请务必查阅账户注销说明书后再进行！</a-typography-text>
           <div class="grid gap-1">
             <a-typography-text>
-              <MailOutlined />
+              <MailOutlined/>
               邮箱 <span class="text-red-600">*</span></a-typography-text>
-            <a-input v-model:value="sendCodeData.email" disabled>
+            <a-input v-model:value="sendCodeDataForm.email" disabled>
               <template #suffix/>
             </a-input>
           </div>
@@ -64,16 +64,16 @@
             <a-typography-text>
               <KeyOutlined/>
               密码 <span class="text-red-600">*</span></a-typography-text>
-            <a-input-password id="inputPassword" v-model:value="getData.password" placeholder="您的密码"/>
+            <a-input-password id="inputPassword" v-model:value="userDeleteForm.password" placeholder="您的密码"/>
           </div>
           <div class="grid gap-1">
             <a-typography-text>
               <NumberOutlined/>
               邮箱验证码 <span class="text-red-600">*</span></a-typography-text>
-            <a-input v-model:value="getData.code" placeholder="验证码">
+            <a-input v-model:value="userDeleteForm.code" placeholder="验证码">
               <template #suffix>
                 <a-button id="inputCode" class="text-aspargus hover:text-spring" size="small" type="link"
-                          @click="sendMail(sendCodeData)">发送验证码
+                          @click="sendMail(sendCodeDataForm)">发送验证码
                 </a-button>
               </template>
             </a-input>
@@ -89,82 +89,65 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
-import request from "@/assets/js/Request.js";
+import {onMounted, reactive, ref} from 'vue';
 import {message} from "ant-design-vue";
 import {KeyOutlined, MailOutlined, NumberOutlined} from "@ant-design/icons-vue";
-import {getUserCurrentRequest, sendMailCodeRequest} from "@/assets/js/PublishUtil.js";
+import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {getUserCurrentApi} from "@/api/UserApi.js";
+import {sendCodeMailApi} from "@/api/MailApi.js";
+import {sendMailVO, userDeleteVO} from "@/assets/js/VoModel.js";
+import {userDeleteApi, userLogoutApi} from "@/api/AuthApi.js";
 
 
 const open = ref(false);
+const userDeleteForm = reactive(userDeleteVO)
+const sendCodeDataForm = reactive(sendMailVO);
+const getUserCurrent = ref(userCurrentDO);
 
-let getData = ref({
-  password: '',
-  code: '',
+
+onMounted(async _ => {
+  getUserCurrent.value = await getUserCurrentApi();
+  userDeleteForm.email = getUserCurrent.value.data.user.email;
+  sendCodeDataForm.email = getUserCurrent.value.data.user.email;
 })
 
-let getUserInfo = getUserCurrentRequest()
+const showModal = () => open.value = true;
+const closeModal = () => open.value = false;
 
-let sendCodeData = {
-  email: '',
-  template: 'user-register'
-}
-console.log(getUserInfo)
-
-const showModal = () => {
-  sendCodeData.email = getUserInfo.value.user.email;
-  open.value = true;
-};
-
-const closeModal = () => {
-  open.value = false;
-};
-
-const handleOk = () => {
+async function handleOk() {
   document.getElementById("checkButton").setAttribute("disabled", true)
   document.getElementById("checkButton").innerText = "注销中..."
   document.getElementById("cancelButton").setAttribute("disabled", true)
-  request.getAuthDelete(getData.value).then(res => {
-    switch (res.data.output) {
-      case "Success":
-        message.success("账户注销成功！");
-        request.userLoginOut().then(_ => {
-          localStorage.removeItem("AuthorizationToken");
-          localStorage.removeItem("X-Auth-UUID");
-          setTimeout(() => {
-            window.location.href = "/"
-          }, 1000)
-        })
-        break
-      default:
-        message.warn(res.data.message)
+  const returnData = await userDeleteApi(userDeleteForm);
+  if (returnData.output === "Success") {
+    message.success("账户注销成功！");
+    const returnDataWithLoginOut = await userLogoutApi();
+    if (returnDataWithLoginOut.output === "Success") {
+      localStorage.removeItem("AuthorizationToken");
+      localStorage.removeItem("X-Auth-UUID");
+      setTimeout(() => {
+        window.location.href = "/"
+      }, 1000)
     }
-  }).catch(err => {
-    switch (err.response.data.output) {
-      case "RequestBodyError":
-        message.error(err.response.data.data[0])
-        break
-      case "UserCannotBeOperate":
-        message.error(err.response.data.data.errorMessage)
-        break
-      default:
-        message.warn(err.response.data.message)
-    }
+  } else {
     setTimeout(() => {
       document.getElementById("checkButton").innerText = "确认"
       document.getElementById("checkButton").removeAttribute("disabled")
       document.getElementById("cancelButton").removeAttribute("disabled")
     }, 100)
-  })
-};
-
-function sendMail(sendCodeData) {
-  sendMailCodeRequest(sendCodeData)
-  countDown(new Date().getTime() + 120000)
-  document.getElementById('inputCode').disabled = true;
+  }
 }
 
-function addZero(i) {
+async function sendMail(sendCodeData) {
+  sendCodeData.template = 'user-delete';
+  const getReturnData = await sendCodeMailApi(sendCodeData);
+  if (getReturnData.output === 'Success') {
+    await countDown(new Date().getTime() + 120000)
+    document.getElementById('inputCode').disabled = true;
+  }
+}
+
+async function addZero(i) {
   return i < 10 ? "0" + i : i + "";
 }
 
@@ -173,7 +156,7 @@ async function countDown(endTime) {
   const leftTime = parseInt((endTime - now) / 1000);
 
   if (leftTime > 0) {
-    document.getElementById('inputCode').innerText = addZero(leftTime) + '秒后重发';
+    document.getElementById('inputCode').innerText = await addZero(leftTime) + '秒后重发';
   } else {
     document.getElementById('inputCode').disabled = false;
     document.getElementById('inputCode').innerText = '获取验证码';

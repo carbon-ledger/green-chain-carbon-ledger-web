@@ -4,7 +4,7 @@
       <div class="grid grid-cols-12 gap-3">
         <div class="col-span-12 text-xl"><PhoneTwoTone /> 当前登陆设备</div>
         <div class="col-span-12">
-          <a-list item-layout="horizontal" :data-source="data">
+          <a-list item-layout="horizontal" :data-source="getConnectDevice.data">
             <template #renderItem="{ item }">
               <a-list-item>
                 <a-list-item-meta
@@ -37,7 +37,13 @@
 
 <script setup>
 import {PhoneTwoTone} from "@ant-design/icons-vue";
-import {getLoginInfoRequest} from "@/assets/js/PublishUtil.js";
+import {onMounted, ref} from "vue";
+import {userLoginDeviceApi} from "@/api/AuthApi.js";
+import {userLoginInfoDO} from "@/assets/js/DoModel.js";
 
-const userChangePassword = getLoginInfoRequest()
+const getConnectDevice = ref(userLoginInfoDO);
+
+onMounted(async _ => {
+  getConnectDevice.value = await userLoginDeviceApi();
+})
 </script>

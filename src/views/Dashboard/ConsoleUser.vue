@@ -298,7 +298,7 @@ import {
   userBanRequest,
 } from "@/assets/js/PublishUtil.js";
 import {
-  userDeleteVO,
+  userDeleteForceVO,
   userManageEditVO,
   userBanVO,
   userAddVO, userListVO, userResetVO
@@ -309,7 +309,7 @@ let getUserListVO = reactive(userListVO);
 let addUserAddVO = reactive(userAddVO);
 let getUserManageEditVO = reactive(userManageEditVO);
 let getUserBanVO = reactive(userBanVO);
-let getUserDeleteVO = reactive(userDeleteVO);
+let getUserDeleteVO = reactive(userDeleteForceVO);
 let getUserResetVO = reactive(userResetVO);
 
 let getUser = getUserListRequest('all', getUserListVO);

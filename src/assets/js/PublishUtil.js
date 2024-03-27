@@ -3,7 +3,6 @@ import {
     baseResponse,
     getLoginInfoVO,
     getRoleCurrentVO,
-    getUserProfileVO,
     getVerifyInfoDO,
     getVerifyListDO,
     reviewGetOrganizeDO,
@@ -16,40 +15,9 @@ import requests from "@/assets/js/Request.js";
 import router from "@/router/index.js";
 import {roleEditVO} from "@/assets/js/VoModel.js";
 
-/**
- * 获取用户的信息
- *
- * 会根据用户的登陆信息访问，返回当前登陆用户的数据内容
- *
- * @return {Ref<UnwrapRef<{role: string, permission: {rolePermission: [], userPermission: []}, user: {realName: string, phone: string, userName: string, uuid: string, email: string}}>>}
- */
-export function getUserCurrentRequest() {
-    let getUserVO = ref(getUserProfileVO)
-    request.getUserCurrent().then(res => {
-        switch (res.data.output) {
-            case "Success":
-                getUserVO.value = res.data.data;
-                break
-            default:
-                message.warn(res.data.message)
-        }
-    }).catch(err => {
-        switch (err.response.data.output) {
-            case "TokenVerifyError": {
-                message.warn(err.response.data.data.errorMessage)
-                window.location.replace("/auth/login")
-                break;
-            }
-            default:
-                message.warn(err.response.data.message)
-        }
-    })
-    return getUserVO
-}
-
 export function getLoginInfoRequest() {
     let getLoginInfo = ref(getLoginInfoVO)
-    request.getLoginInfo().then(res => {
+    request.loginInfo().then(res => {
         switch (res.data.output) {
             case "Success":
                 getLoginInfo.value = res.data.data;
@@ -102,7 +70,7 @@ export function getRoleCurrentRequest() {
  */
 export function sendMailCodeRequest(data) {
     let getData = ref([])
-    request.getCode(data).then(res => {
+    request.sendCodeMail(data).then(res => {
         switch (res.data.output) {
             case "Success":
                 getData.value = res.data.data;
@@ -440,7 +408,7 @@ export function managerUserRegisterRequest(data) {
         switch (res.data.output) {
             case "Success":
                 message.success('注册成功，请登录');
-                router.push("/auth/login");
+                router.push("/auth/userLogin");
                 break;
             default:
                 console.log(res.data.message);

@@ -31,27 +31,18 @@ import UserMenuBar from "@/components/BackComponents/UserMenuBar.vue";
 </template>
 
 <script>
-import {nextTick} from "vue";
+import {nextTick, onMounted} from "vue";
 import router from "@/router/index.js";
+import {getUserCurrentApi} from "@/api/UserApi.js";
+import {getUrlRelativePath} from "@/assets/js/ProcessUtil.js";
 
-function GetUrlRelativePath() {
-  const url = document.location.toString();
-  const arrUrl = url.split("//");
+onMounted(async _ => {
+  await getUserCurrentApi();
+})
 
-  const start = arrUrl[1].indexOf("/");
-  //stop省略，截取从start开始到结尾的所有字符
-  let relUrl = arrUrl[1].substring(start);
-
-  if (relUrl.indexOf("?") !== -1) {
-    relUrl = relUrl.split("?")[0];
+nextTick(async _ => {
+  if (getUrlRelativePath() === "/user") {
+    await router.replace({name: 'UserProfile', replace: true});
   }
-  return relUrl;
-}
-
-nextTick(() => {
-      if (GetUrlRelativePath() === "/user") {
-        router.push("/user/profile")
-      }
-    }
-)
+})
 </script>

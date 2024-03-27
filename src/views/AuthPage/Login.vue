@@ -12,10 +12,8 @@
             <a-form
                 :label-col="{ span: 4 }"
                 :model="loginForm"
-                class="login-form"
+                class="userLogin-form"
                 name="normal_login"
-                @finish="onFinish"
-                @finishFailed="onFinishFailed"
             >
               <a-form-item
                   :rules="[{ required: true, message: '请输入用户名' }]"
@@ -53,7 +51,7 @@
               </div>
               <div class="text-center">
                 <a-button :disabled="false" class="bg-aspargus" html-type="submit" type="primary"
-                          @click="UserLogin()">
+                          @click="consoleUserLogin()">
                   <div class="mx-10">登录</div>
                 </a-button>
               </div>
@@ -66,90 +64,65 @@
 </template>
 
 <script setup>
-import {onMounted, reactive} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 import {message} from "ant-design-vue";
-import requests from "@/assets/js/Request.js";
 import {KeyOutlined, UserOutlined} from "@ant-design/icons-vue";
 import router from "@/router/index.js";
+import {userLoginVO} from "@/assets/js/VoModel.js";
+import {userLoginApi} from "@/api/AuthApi.js";
+import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {getUserCurrentApi} from "@/api/UserApi.js";
 
-// 路由表
-// 表单登陆
-const loginForm = reactive({
-  user: '',
-  password: ''
-});
+const loginForm = reactive(userLoginVO);
+const getUserCurrent = ref(userCurrentDO)
 
-function UserLogin() {
-  if (loginForm.user !== '' && loginForm.password !== '') {
-    requests.login(loginForm).then((res) => {
-      localStorage.setItem("AuthorizationToken", "Bearer " + res.data.data.token);
-      localStorage.setItem("X-Auth-UUID", res.data.data.user.uuid);
-      if (res.data.data.recover) {
-        message.success('你好 ' + res.data.data.user.userName + ' 用户, 账户已取消注销')
+/**
+ * 用户进行登陆操作
+ * @return {Promise<void>}
+ * @constructor
+ */
+async function consoleUserLogin() {
+  if (loginForm.user === '' && loginForm.password === '') {
+    message.warn("账户密码不能为空")
+    return;
+  }
+  const getReturnData = await userLoginApi(loginForm);
+  switch (getReturnData.output) {
+    case "Success":
+      localStorage.setItem("AuthorizationToken", "Bearer " + getReturnData.data.token);
+      localStorage.setItem("X-Auth-UUID", getReturnData.data.user.uuid);
+      if (getReturnData.data.recover) {
+        message.success('账户 ' + getReturnData.data.user.userName + ' 用户已取消注销')
       } else {
-        message.success('你好 ' + res.data.data.user.userName + ' 用户')
+        message.success('你好 ' + getReturnData.data.user.userName + ' 用户')
       }
-      setTimeout(() => {
-        switch (res.data.data.role.name) {
-          case "console":
-            window.location.replace("/dashboard/console")
-            break
-          case "admin":
-            window.location.replace("/dashboard/admin")
-            break
-          case "organize":
-            window.location.replace("/dashboard/organize")
-            break
-          default:
-            window.location.replace("/dashboard/default")
-        }
-      }, 1000)
-    }).catch((err) => {
-      console.warn("[LoginView] 用户登录失败，失败缘由 " + err.response.data.output)
-      switch (err.response.data.output) {
-        case "RequestBodyError":
-          message.error(err.response.data.data[0])
-          break
-        default:
-          message.error(err.response.data.message)
-          break
-      }
-    });
+      setTimeout(async () => {
+        await router.replace({ name: 'Dashboard', replace: true })
+      }, 1000);
   }
 }
 
+/**
+ * 检查用户是否登陆
+ * @return {Promise<void>}
+ */
+async function isUserLogin() {
+  switch (getUserCurrent.value.output) {
+    case "Success":
+      await router.replace({ name: 'Dashboard', replace: true })
+      break;
+    default:
+      if (localStorage.getItem("AuthorizationToken") !== undefined && localStorage.getItem("X-Auth-UUID") !== null) {
+        message.warn("您的登陆已失效");
+        console.warn("[VIEW] Login[isUserLogin]: 登陆失败，失败原因: " + getUserCurrent.output);
+        localStorage.removeItem("AuthorizationToken");
+        localStorage.removeItem("X-Auth-UUID");
+      }
+  }
+}
 
-const onFinish = values => {
-  console.log('Success:', values);
-};
-const onFinishFailed = errorInfo => {
-  console.log('Failed:', errorInfo);
-};
-
-onMounted(() => {
-  // 检查用户是否已登陆
-  requests.getUserCurrent().then((res) => {
-    if (res.data.data.uuid !== null) {
-      message.success("您已登陆，正在为您跳转至控制台")
-      setTimeout(() => {
-        // 检查登陆用户组
-        switch (res.data.data.role) {
-          case "console":
-            window.location.replace("/dashboard/console")
-            break
-          case "admin":
-            window.location.replace("/dashboard/admin")
-            break
-          case "organize":
-            window.location.replace("/dashboard/organize")
-            break
-          default:
-            window.location.replace("/dashboard/default")
-        }
-      }, 1000)
-    }
-  }).catch((err) => {
-    console.warn("[LoginView] 用户未登录，失败缘由 " + err.response.data.output)
-  })
+onMounted(async _ => {
+  getUserCurrent.value = await getUserCurrentApi();
+  await isUserLogin();
 })
 </script>

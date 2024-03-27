@@ -1,6 +1,7 @@
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import {getRoleCurrentVO, roleListDO} from "@/assets/js/DoModel.js";
+import {publicErrorOperate} from "@/assets/js/PublishUtil.js";
 
 /**
  * 获取角色列表
@@ -14,14 +15,16 @@ export async function getRoleListApi(type, data) {
         returnData = res.data;
     } catch (err) {
         if (err.response && err.response.data) {
-            switch (err.response.data.output) {
-                default:
-                    returnData = err.response.data;
-                    message.warn(err.response.data.message);
+            if (!await publicErrorOperate(err)) {
+                switch (err.response.data.output) {
+                    default:
+                        returnData = err.response.data;
+                        message.warn(err.response.data.message);
+                }
             }
         } else {
             // 处理无法访问err.response的情况
-            message.warn("[REQUEST] RoleApi[getRoleListApi]: 无法找到 response 体");
+            console.warn("[REQUEST] RoleApi[getRoleListApi]: 无法找到 response 体");
         }
     } finally {
         console.debug('[REQUEST] RoleApi[getRoleListApi]: 请求数据', returnData);
@@ -37,14 +40,16 @@ export async function getRoleCurrentApi() {
         returnData = res.data;
     } catch (err) {
         if (err.response && err.response.data) {
-            switch (err.response.data.output) {
-                default:
-                    returnData = err.response.data;
-                    message.warn(err.response.data.message);
+            if (!await publicErrorOperate(err)) {
+                switch (err.response.data.output) {
+                    default:
+                        returnData = err.response.data;
+                        message.warn(err.response.data.message);
+                }
             }
         } else {
             // 处理无法访问err.response的情况
-            message.warn("[REQUEST] RoleApi[getRoleCurrentApi]: 无法找到 response 体");
+            console.warn("[REQUEST] RoleApi[getRoleCurrentApi]: 无法找到 response 体");
         }
     } finally {
         console.debug('[REQUEST] RoleApi[getRoleCurrentApi]: 请求数据', returnData);

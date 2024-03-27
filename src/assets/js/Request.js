@@ -43,11 +43,28 @@ const ManagerRegister = (data) => {
 }
 
 /**
- * 获取邮箱验证码
+ * 发送验证码到邮箱
  * @params userChangePassword (email, template)
  * @return{*}
  */
-const getCode = (data) => {
+const sendCodeMail = (data) => {
+    return axios({
+        url: api + "/mail/send/code",
+        method: "post",
+        data: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': getCurrentTimestamp()
+        }
+    })
+}
+
+/**
+ * 发送邮件
+ * @params userChangePassword (email, template)
+ * @return{*}
+ */
+const sendMail = (data) => {
     return axios({
         url: api + "/mail/send/code",
         method: "post",
@@ -65,7 +82,7 @@ const getCode = (data) => {
  * @param data (user,password)
  * @returns {*}
  */
-const login = (data) => {
+const userLogin = (data) => {
     return axios({
         url: api + "/auth/login",
         method: "post",
@@ -349,7 +366,7 @@ const RoleDelete = (uuid) => {
     })
 }
 
-const getLoginInfo = () => {
+const loginInfo = () => {
     return axios({
         url: api + "/auth/login-info",
         method: "get",
@@ -391,7 +408,7 @@ const getPermissionList = () => {
     })
 }
 
-const getAuthDelete = (data) => {
+const userDelete = (data) => {
     return axios({
         url: api + "/auth/delete",
         method: "delete",
@@ -581,10 +598,11 @@ const reviewGetAdmin = (id, type) => {
 
 export default {
     OrganizeRegister,
-    login,
+    userLogin,
     Forget,
     userPasswordChange,
-    getCode,
+    sendCodeMail,
+    sendMail,
     getUserCurrent,
     getUserList,
     UserAdd,
@@ -599,10 +617,10 @@ export default {
     RoleEdit,
     RoleDelete,
     ManagerRegister,
-    getLoginInfo,
+    loginInfo,
     getRoleCurrent,
     getPermissionList,
-    getAuthDelete,
+    userDelete,
     getReviewList,
     ReviewCheckAdmin,
     ReviewCheckOrganize,

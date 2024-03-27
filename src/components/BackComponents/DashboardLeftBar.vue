@@ -128,7 +128,7 @@ function getUserCurrent() {
  */
 function pushTo() {
   if (userRole === null) {
-    router.push("/auth/login")
+    router.push("/auth/userLogin")
   } else {
     router.push("/dashboard/" + userRole)
   }

@@ -21,7 +21,7 @@
         </ul>
       </div>
       <div class="w-32 p-2 gap-1 bg-aspargus flex justify-center items-center">
-        <button class="text-gray-200 hover:text-spring" @click="$router.push('/auth/login')">登录</button>
+        <button class="text-gray-200 hover:text-spring" @click="$router.push('/auth/userLogin')">登录</button>
         <span class="text-gray-200 mx-1">|</span>
         <button class="text-gray-200  hover:text-spring" @click="$router.push('/auth/register/organize')">注册</button>
       </div>

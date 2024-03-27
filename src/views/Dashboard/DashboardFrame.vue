@@ -5,7 +5,7 @@
           overflow: 'auto',
           position: 'fixed',
           left: 0, top: 0, bottom: 0,
-          background: '#fff',
+          background: '#fff'
         }"
         class="shadow"
     >
@@ -32,35 +32,36 @@ body {
 </style>
 
 <script setup>
-import {onMounted} from "vue";
-import request from "@/assets/js/Request.js";
+import {nextTick, onMounted, ref} from "vue";
 import router from "@/router/index.js";
-import {message} from "ant-design-vue";
 import LeftBar from "@/components/BackComponents/DashboardLeftBar.vue";
 import DashboardHeader from "@/components/BackComponents/DashboardHeader.vue";
 import DashboardFooter from "@/components/BackComponents/DashboardFooter.vue";
+import {getUserCurrentApi} from "@/api/UserApi.js";
+import {getUrlRelativePath} from "@/assets/js/ProcessUtil.js";
+import {userCurrentDO} from "@/assets/js/DoModel.js";
 
-onMounted(() => {
-  request.getUserCurrent().then((res) => {
-    switch (res.data.output) {
-      case "Success": {
-        console.log("[Dashboard] 登陆用户 " + res.data.data.user.userName)
+const getUserCurrent = ref(userCurrentDO);
+
+onMounted(async _ => {
+  getUserCurrent.value = await getUserCurrentApi();
+})
+
+nextTick(async _ => {
+  if (getUrlRelativePath() === "/dashboard") {
+    switch (getUserCurrent.value.data.role) {
+      case "console":
+        await router.replace({ name: 'DashboardConsole', replace: true })
         break
-      }
-      default: {
-        console.log("[Dashboard] " + res.data.output)
-      }
+      case "admin":
+        await router.replace({ name: 'DashboardConsole', replace: true })
+        break
+      case "organize":
+        await router.replace({ name: 'DashboardConsole', replace: true })
+        break
+      default:
+        await router.replace({ name: 'DashboardConsole', replace: true })
     }
-  }).catch((err) => {
-    if (err.response.data.output === "TokenVerifyError") {
-      console.warn("[Dashboard] " + err.response.data.data.errorMessage)
-      message.warn(err.response.data.data.errorMessage)
-      router.push("/auth/login")
-    } else {
-      console.warn("[Dashboard] 未知错误" + err.response.data.output)
-      message.error(err.response.data.message)
-      router.push("/auth/login")
-    }
-  })
+  }
 })
 </script>
