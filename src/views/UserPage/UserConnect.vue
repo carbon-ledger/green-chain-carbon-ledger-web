@@ -39,5 +39,5 @@
 import {PhoneTwoTone} from "@ant-design/icons-vue";
 import {getLoginInfoRequest} from "@/assets/js/PublishUtil.js";
 
-const data = getLoginInfoRequest()
+const userChangePassword = getLoginInfoRequest()
 </script>

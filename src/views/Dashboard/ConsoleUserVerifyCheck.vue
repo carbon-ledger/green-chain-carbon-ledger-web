@@ -8,25 +8,25 @@
     <a-card class="shadow flex justify-center">
       <div class="container w-full">
         <a-descriptions bordered title="待审核">
-          <a-descriptions-item label="账户名称">{{ getData.data.account.userName }}</a-descriptions-item>
-          <a-descriptions-item label="真实信息">{{ getData.data.account.realName }}</a-descriptions-item>
-          <a-descriptions-item label="账户邮箱">{{ getData.data.account.email }}</a-descriptions-item>
-          <a-descriptions-item :span="2" label="组织名称">{{ getData.data.organizeName }}</a-descriptions-item>
-          <a-descriptions-item label="组织信用代码">{{ getData.data.organizeCreditCode }}</a-descriptions-item>
+          <a-descriptions-item label="账户名称">{{ getData.userChangePassword.account.userName }}</a-descriptions-item>
+          <a-descriptions-item label="真实信息">{{ getData.userChangePassword.account.realName }}</a-descriptions-item>
+          <a-descriptions-item label="账户邮箱">{{ getData.userChangePassword.account.email }}</a-descriptions-item>
+          <a-descriptions-item :span="2" label="组织名称">{{ getData.userChangePassword.organizeName }}</a-descriptions-item>
+          <a-descriptions-item label="组织信用代码">{{ getData.userChangePassword.organizeCreditCode }}</a-descriptions-item>
           <a-descriptions-item label="注册资本">{{
-              getData.data.organizeRegisteredCapital
+              getData.userChangePassword.organizeRegisteredCapital
             }}万人民币
           </a-descriptions-item>
           <a-descriptions-item label="注册时间">
-            {{ moment(getData.data.organizeEstablishmentDate).format('yyyy年MM月DD日') }}
+            {{ moment(getData.userChangePassword.organizeEstablishmentDate).format('yyyy年MM月DD日') }}
           </a-descriptions-item>
           <a-descriptions-item label="申请时间">{{
-              moment(getData.data.applyTime).format('yyyy年MM月DD日 hh时')
+              moment(getData.userChangePassword.applyTime).format('yyyy年MM月DD日 hh时')
             }}
           </a-descriptions-item>
-          <a-descriptions-item label="组织法人">{{ getData.data.legalRepresentativeName }}</a-descriptions-item>
+          <a-descriptions-item label="组织法人">{{ getData.userChangePassword.legalRepresentativeName }}</a-descriptions-item>
           <a-descriptions-item :span="2" label="法人身份证号">{{
-              getData.data.legalRepresentativeId
+              getData.userChangePassword.legalRepresentativeId
             }}
           </a-descriptions-item>
           <a-descriptions-item :span="3" label="组织营业执照">

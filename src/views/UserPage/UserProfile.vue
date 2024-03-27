@@ -7,8 +7,8 @@
         </div>
         <div class="col-span-6 flex items-center">
           <div>
-            <div class="text-2xl font-bold">{{ getUserVO.user.realName }}</div>
-            <div class="text-mount-pink">{{ getUserVO.user.userName }} <{{ getUserVO.user.email }}></div>
+            <div class="text-2xl font-bold">{{ getUserProfile.data.user.realName }}</div>
+            <div class="text-mount-pink">{{ getUserProfile.data.user.userName }} <{{ getUserProfile.data.user.email }}></div>
           </div>
         </div>
         <div class="col-span-4 grid grid-cols-2 gap-3 items-center">
@@ -28,24 +28,24 @@
               <a-list-item-meta>
                 <template #title>
                   <div class="grid">
-                    <div>{{ dataRole.displayName }}</div>
+                    <div>{{ dataRole.data.displayName }}</div>
                     <div class="grid">
-                      <div class="text-mount-pink">角色组名称：{{ dataRole.name }}</div>
-                      <div class="text-mount-pink">角色识别号：{{ dataRole.uuid }}</div>
+                      <div class="text-mount-pink">角色组名称：{{ dataRole.data.name }}</div>
+                      <div class="text-mount-pink">角色识别号：{{ dataRole.data.uuid }}</div>
                     </div>
                   </div>
                 </template>
                 <template #avatar>
-                  <img class="w-12 h-12 rounded-2xl" v-if="dataRole.name === 'console'" src="@/assets/images/role-console.webp" alt="RoleList">
-                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.name === 'admin'" src="@/assets/images/role-admin.webp" alt="RoleList">
-                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.name === 'organize'" src="@/assets/images/role-organize.webp" alt="RoleList">
-                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.name === 'default'" src="@/assets/images/role-default.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-if="dataRole.data.name === 'console'" src="@/assets/images/role-console.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.data.name === 'admin'" src="@/assets/images/role-admin.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.data.name === 'organize'" src="@/assets/images/role-organize.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.data.name === 'default'" src="@/assets/images/role-default.webp" alt="RoleList">
                   <img class="w-12 h-12 rounded-2xl" v-else src="@/assets/images/role-customize.webp" alt="RoleList">
                 </template>
               </a-list-item-meta>
             </a-list-item>
           </a-list>
-          <a-table :columns="columns" :data-source="dataPermission">
+          <a-table :columns="columns" :data-source="dataPermission.data">
             <template #headerCell="{ column }">
               <template v-if="column.key === 'name'">
                 <span>
@@ -77,11 +77,25 @@
 
 <script setup>
 import {AppstoreTwoTone} from "@ant-design/icons-vue";
-import {getPermissionListRequest, getRoleCurrentRequest, getUserCurrentRequest} from "@/assets/js/PublishUtil.js";
-
-let getUserVO = getUserCurrentRequest()
-
 import { KeyOutlined, EditOutlined} from '@ant-design/icons-vue';
+import {onMounted, ref} from "vue";
+import {getPermissionListApi} from "@/api/PermissionApi.js";
+import {getRoleCurrentApi} from "@/api/RoleApi.js";
+import {getRoleCurrentVO, getUserProfileVO, permissionDO} from "@/assets/js/DoModel.js";
+import {getUserCurrentApi} from "@/api/UserApi.js";
+
+const dataPermission = ref(permissionDO);
+const dataRole = ref(getRoleCurrentVO);
+const getUserProfile = ref(getUserProfileVO);
+
+onMounted(async _ => {
+  dataRole.value = await getRoleCurrentApi();
+  dataPermission.value = await getPermissionListApi();
+  getUserProfile.value = await getUserCurrentApi();
+})
+</script>
+
+<script>
 const columns = [
   {
     name: '权限名',
@@ -94,8 +108,4 @@ const columns = [
     key: 'description',
   }
 ];
-
-const dataPermission = getPermissionListRequest();
-
-let dataRole = getRoleCurrentRequest()
 </script>

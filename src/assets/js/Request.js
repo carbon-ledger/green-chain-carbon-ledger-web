@@ -1,7 +1,13 @@
 import axios from "axios";
 import getCurrentTimestamp from "@/assets/js/methods.js";
 
-export const api = 'http://localhost:8081/api/v1'
+/**
+ * 配置Api使用地址
+ *
+ * @type {string}
+ */
+export const api = 'http://192.168.5.234:8081/api/v1'
+
 /**
  * 组织账号注册
  * @param data (organize,username,phone,email,code,invite,password)
@@ -38,7 +44,7 @@ const ManagerRegister = (data) => {
 
 /**
  * 获取邮箱验证码
- * @params data (email, template)
+ * @params userChangePassword (email, template)
  * @return{*}
  */
 const getCode = (data) => {
@@ -91,7 +97,7 @@ const Forget = (data) => {
  * 修改密码
  * @param data
  */
-const Change = (data) => {
+const userPasswordChange = (data) => {
     return axios({
         url: api + "/auth/change",
         method: "patch",
@@ -371,13 +377,11 @@ const getRoleCurrent = () => {
 
 /**
  * 获取权限列表
- * @param data
  */
-const getPermissionList = (data) => {
+const getPermissionList = () => {
     return axios({
         url: api + "/permission/list",
         method: "get",
-        params: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),
@@ -579,7 +583,7 @@ export default {
     OrganizeRegister,
     login,
     Forget,
-    Change,
+    userPasswordChange,
     getCode,
     getUserCurrent,
     getUserList,

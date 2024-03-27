@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
+import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 import {onMounted, reactive} from "vue";
 import request from "@/assets/js/Request.js";
 
@@ -51,7 +51,7 @@ const columns = [
   }
 ];
 
-const data = reactive({
+const userChangePassword = reactive({
   limit:'',
   page:'',
   order:'asc'

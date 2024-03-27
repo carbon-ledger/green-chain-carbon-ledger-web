@@ -32,7 +32,7 @@
 /*
  * 引入区
  */
-import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
+import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 import {getReviewListRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import router from "@/router/index.js";

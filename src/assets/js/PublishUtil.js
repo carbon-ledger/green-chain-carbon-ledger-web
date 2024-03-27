@@ -1,21 +1,20 @@
 import {ref} from "vue";
 import {
-    getBaseResponseDO,
+    baseResponse,
     getLoginInfoVO,
     getRoleCurrentVO,
     getUserProfileVO,
     getVerifyInfoDO,
     getVerifyListDO,
-    permissionDO,
     reviewGetOrganizeDO,
     getUserListDO,
-    userAddDO, userEditDO, userDeleteDO, userBanDO, roleListDO, userResetDO, roleDeleteDO
+    userAddDO, userEditDO, userDeleteDO, userBanDO, userResetDO, roleDeleteDO
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import requests from "@/assets/js/Request.js";
 import router from "@/router/index.js";
-import {roleAddVO, roleEditVO} from "@/assets/js/VoModel.js";
+import {roleEditVO} from "@/assets/js/VoModel.js";
 
 /**
  * 获取用户的信息
@@ -96,29 +95,6 @@ export function getRoleCurrentRequest() {
     return getRoleCurrent;
 }
 
-export function getPermissionListRequest() {
-    let getPermissionList = ref(permissionDO)
-    request.getPermissionList().then(res => {
-        getPermissionList.value = res.data;
-        switch (res.data.output) {
-            case "Success":
-                break
-            default:
-                message.warn(res.data.message)
-        }
-    }).catch(err => {
-        switch (err.response.data.output) {
-            case "TokenVerifyError": {
-                message.warn(err.response.data.data.errorMessage)
-                break;
-            }
-            default:
-                message.warn(err.response.data.message)
-        }
-    });
-    return getPermissionList;
-}
-
 /**
  * 发送邮箱验证码
  *
@@ -173,7 +149,7 @@ export function reviewGetRequest() {
  * @param {String} projectId
  */
 export function reviewResendOrganizeRequest(data, projectId) {
-    let getData = ref(getBaseResponseDO)
+    let getData = ref(baseResponse)
     request.ReviewResendOrganize(data, projectId).then(res => {
         switch (res.data.output) {
             case "Success":
@@ -393,41 +369,13 @@ export function userResetRequest(uuid) {
 }
 
 /**
- * 获取角色列表
- */
-export function getRoleListRequest(type, data){
-    let roleList = ref(roleListDO)
-    data.type = type;
-    request.getRoleList(data).then(res => {
-        roleList.value = res.data
-        switch (res.data.output) {
-            case "Success":
-                break;
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        switch (err.response.data.output) {
-            case "TokenVerifyError": {
-                message.warn(err.response.data.data.errorMessage).then()
-                window.location.replace("/auth/login")
-                break;
-            }
-            default:
-                message.warn(err.response.data.message).then()
-        }
-    })
-    return roleList;
-}
-
-/**
  * 新增角色
  * @param data
  */
 export function roleAddRequest(data) {
-    let roleAdd = ref(roleAddVO)
+    let returnData = ref(baseResponse)
     request.RoleAdd(data).then(res => {
-        roleAdd.value = res.data
+        returnData.value = res.data
         switch (res.data.output) {
             case "Success":
                 message.success("操作成功").then()
@@ -436,10 +384,10 @@ export function roleAddRequest(data) {
                 message.warn(res.data.message).then()
         }
     }).catch(err => {
-       roleAdd.value = err.response.data
+       returnData.value = err.response.data
         message.warn(err.response.data.message).then()
     })
-    return  roleAdd;
+    return returnData;
 }
 
 /**
@@ -512,4 +460,19 @@ export function managerUserRegisterRequest(data) {
                 message.error(err.response.data.message);
         }
     });
+}
+
+export async function publicErrorOperate(err) {
+    switch (err.response.data.output) {
+        case "RequestBodyError":
+            message.warn(err.response.data.data[0]);
+            return true;
+        case "TokenVerifyError":
+            message.warn(err.response.data.data.errorMessage);
+            setTimeout(_ => {
+                router.replace({ name: 'LoginAccount' });
+            }, 500);
+            break;
+    }
+    return false;
 }

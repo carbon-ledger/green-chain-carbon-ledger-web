@@ -31,7 +31,7 @@
               <a-form-item
                   :rules="[{ required: true, message: '请输入密码' }]"
                   label="密码"
-                  name="user"
+                  name="password"
               >
                 <a-input-password v-model:value="loginForm.password">
                   <template #prefix>

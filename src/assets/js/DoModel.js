@@ -1,21 +1,24 @@
-export let getBaseResponseDO = {
+export let baseResponse = {
     output: '',
     code: 0,
     message: ''
 }
 
 export let getUserProfileVO = {
-    user: {
-        uuid: '',
-        userName: '',
-        realName: '',
-        email: '',
-        phone: ''
-    },
-    role: '',
-    permission: {
-        rolePermission: [],
-        userPermission: []
+    getBaseResponseDO: baseResponse,
+    data: {
+        user: {
+            uuid: '',
+            userName: '',
+            realName: '',
+            email: '',
+            phone: ''
+        },
+        role: '',
+        permission: {
+            rolePermission: [],
+            userPermission: []
+        }
     }
 }
 
@@ -30,14 +33,17 @@ export let getLoginInfoVO = [
 ]
 
 export let getRoleCurrentVO = {
-    uuid: '',
-    name: '',
-    displayName: '',
-    permission: []
+    getBaseResponseDO: baseResponse,
+    data: {
+        uuid: '',
+        name: '',
+        displayName: '',
+        permission: []
+    }
 }
 
 export let permissionDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: [
         {
             name: '',
@@ -47,7 +53,7 @@ export let permissionDO = {
 }
 
 export let getVerifyInfoDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         id: 0,
         accountUuid: '',
@@ -84,7 +90,7 @@ export let getVerifyListDO = {
 }
 
 export let reviewGetOrganizeDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         account: {
             uuid: '',
@@ -111,7 +117,7 @@ export let reviewGetOrganizeDO = {
  * 获取用户列表
  */
 export let getUserListDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: [
         {
             uid: 0,
@@ -135,7 +141,7 @@ export let getUserListDO = {
  * 添加账户
  */
 export let userAddDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         name: '',
         displayName: '',
@@ -148,7 +154,7 @@ export let userAddDO = {
  *
  */
 export let userEditDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         uuid: '',
         userName: '',
@@ -163,10 +169,10 @@ export let userEditDO = {
 
 /**
  * 注销账户
- * @type {{getBaseResponseDO: {output: string, code: number, message: string}, data: {realName: string, createdAt: string, phone: string, nickName: string, userName: string, uuid: string, email: string, updatedAt: string}}}
+ * @type {{baseResponse: {output: string, code: number, message: string}, userChangePassword: {realName: string, createdAt: string, phone: string, nickName: string, userName: string, uuid: string, email: string, updatedAt: string}}}
  */
 export let userDeleteDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         uuid: '',
         userName: '',
@@ -183,7 +189,7 @@ export let userDeleteDO = {
  * 封禁账户
  */
 export let userBanDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         uuid: '',
         userName: '',
@@ -200,7 +206,7 @@ export let userBanDO = {
  * 账户密码重置
  */
 export let userResetDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {}
 }
 
@@ -209,7 +215,7 @@ export let userResetDO = {
  */
 
 export let roleListDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: [
         {
             uuid: '',
@@ -224,7 +230,7 @@ export let roleListDO = {
  * 修改角色
  */
 export let roleEditDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         uuid: '',
         name: '',
@@ -237,7 +243,7 @@ export let roleEditDO = {
  * 新增角色
  */
 export let roleAddDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         name: '',
         displayName: '',
@@ -249,7 +255,7 @@ export let roleAddDO = {
  * 删除角色
  */
 export let roleDeleteDO = {
-    getBaseResponseDO,
+    getBaseResponseDO: baseResponse,
     data: {
         name: '',
         displayName: '',

@@ -91,7 +91,7 @@ export let roleListVO = {
 export let roleAddVO = {
     name: '',
     displayName: '',
-    permission: '',
+    permission: [],
 }
 
 /**
@@ -119,4 +119,10 @@ export let managerUserRegisterVO = {
     email: '',
     code: '',
     password: '',
+}
+
+export let userChangePasswordVO = {
+    currentPassword: '',
+    newPassword: '',
+    newPasswordConfirm: ''
 }

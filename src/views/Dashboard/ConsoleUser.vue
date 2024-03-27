@@ -438,13 +438,13 @@ function consoleResetUser() {
  * 动态更新数据
  *
  * @param type
- * @return {Ref<UnwrapRef<{getBaseResponseDO: {output: string, code: number, message: string}, data: [{role: string, updateAt: string, avatar: string, uuid: string, createAt: string, ban: boolean, realname: string, uid: number, deletedAt: string, nickname: string, invite: string, email: string, username: string}]}>>}
+ * @return {Ref<UnwrapRef<{baseResponse: {output: string, code: number, message: string}, userChangePassword: [{role: string, updateAt: string, avatar: string, uuid: string, createAt: string, ban: boolean, realname: string, uid: number, deletedAt: string, nickname: string, invite: string, email: string, username: string}]}>>}
  */
 const getUserType = (type) => getUser = getUserListRequest(type, getUserListVO);
 </script>
 
 <script>
-import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
+import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});
 breadcrumbs.push({path: '/user', breadcrumbName: '账户管理'});

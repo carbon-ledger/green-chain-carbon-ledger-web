@@ -30,28 +30,31 @@
     </a-radio-group>
   </a-page-header>
   <div class="px-6">
-      <div class="grid grid-cols-6 gap-3" v-if="getSelectRadio === 'search'">
-        <a-input v-model:value="getRoleListVO.search" placeholder="organize" class="col-span-5">
-          <template #prefix><SearchOutlined style="color: rgba(0, 0, 0, 0.25)" /></template>
-        </a-input>
-        <a-button type="primary" class="bg-aspargus" @click="onSearch">
-          查询角色
-        </a-button>
-      </div>
-      <!--表格内容-->
-      <div class="w-full h-auto mt-6 rounded" v-if="getSelectRadio === 'all' || (getSelectRadio === 'search' && getRoleListVO.search !== '')">
-        <a-table :columns="columns" :data-source="dataRole.data">
-          <template #bodyCell="{ column, record }">
-            <template v-if="column.key==='uuid'">
-              {{ record.uuid }}
-            </template>
-            <template v-else-if="column.key === 'name'">
-              {{ record.name }}
-            </template>
-            <template v-else-if="column.key === 'displayName'">
-              {{ record.displayName }}
-            </template>
-            <template v-else-if="column.key==='action'">
+    <div v-if="getSelectRadio === 'search'" class="grid grid-cols-6 gap-3">
+      <a-input v-model:value="getRoleListVO.search" class="col-span-5" placeholder="organize">
+        <template #prefix>
+          <SearchOutlined style="color: rgba(0, 0, 0, 0.25)"/>
+        </template>
+      </a-input>
+      <a-button class="bg-aspargus" type="primary" @click="onSearch">
+        查询角色
+      </a-button>
+    </div>
+    <!--表格内容-->
+    <div v-if="getSelectRadio === 'all' || (getSelectRadio === 'search' && getRoleListVO.search !== '')"
+         class="w-full h-auto mt-6 rounded">
+      <a-table :columns="columns" :data-source="dataRole.data">
+        <template #bodyCell="{ column, record }">
+          <template v-if="column.key==='uuid'">
+            {{ record.uuid }}
+          </template>
+          <template v-else-if="column.key === 'name'">
+            {{ record.name }}
+          </template>
+          <template v-else-if="column.key === 'displayName'">
+            {{ record.displayName }}
+          </template>
+          <template v-else-if="column.key==='action'">
             <span style="margin-left: 10px; display: flex">
               <a-button class="text-aspargus flex justify-center items-center" size="small"
                         type="text" @click="showDialogWithEditUser(record)">
@@ -64,17 +67,17 @@
                 删除
               </a-button>
             </span>
-            </template>
           </template>
-        </a-table>
-      </div>
+        </template>
+      </a-table>
+    </div>
   </div>
 
   <!--新增角色对话框-->
-  <a-modal v-model:open="addRoleDialog" title="新增角色" width="900px">
+  <a-modal v-model:open="addRoleDialog" class="w-48" title="新增角色">
     <a-form
-        :label-col="{ span: 5}"
-        class="p-4 flex-col justify-center"
+        :label-col="{ span: 5 }"
+        class="p-4 grid justify-center"
     >
       <a-form-item
           :rules="[{ required: true }]"
@@ -95,29 +98,16 @@
           </template>
         </a-input>
       </a-form-item>
-      <!--      <a-form-item
-                :rules="[{ required: true }]"
-                label="权限组"
-            >
-              <a-transfer
-                  v-model:target-keys="targetKeys"
-                  v-model:selected-keys="selectedKeys"
-                  :titles:="['所有权限', '拥有权限']"
-                  :data-source="totalPermissionList.permissionList_data"
-                  :list-style="{width: '300px',height: '300px',}"
-              >
-                <template #render="item">
-                  <span>{{ item.name }}</span>
-                </template>
-              </a-transfer>
-              <a-transfer
-                  v-model:target-keys="targetKeys"
-                  v-model:selected-keys="selectedKeys"
-                  :data-source="mockData"
-                  :titles="['Source', 'Target']"
-                  :render="item => item.title"
-              />
-            </a-form-item>-->
+      <div>
+        <a-transfer
+            v-model:target-keys="addRoleTargetKeys"
+            :data-source="permissionList"
+            :render="item => item.key"
+            :titles="['全部权限', '分配权限']"
+            @change="handleChange"
+            @selectChange="handleSelectChange"
+        />
+      </div>
     </a-form>
     <template #footer>
       <a-button @click="closeDialogRoleAdd()">取消</a-button>
@@ -126,10 +116,10 @@
   </a-modal>
 
   <!--修改角色对话框-->
-  <a-modal v-model:open="editRoleDialog" title="修改角色" width="450px">
+  <a-modal v-model:open="editRoleDialog" class="w-48" title="修改角色">
     <a-form
         :label-col="{ span: 5 }"
-        class="p-4 flex-col justify-center"
+        class="p-4 grid justify-center"
     >
       <a-form-item
           :rules="[{ required: true }]"
@@ -152,13 +142,12 @@
       </a-form-item>
       <div>
         <a-transfer
-            v-model:target-keys="selectedPermission"
+            v-model:target-keys="editRoleTargetKeys"
             :data-source="permissionList"
+            :render="item => item.key"
             :titles="['全部权限', '分配权限']"
-            :render="item => item.title"
             @change="handleChange"
             @selectChange="handleSelectChange"
-            @scroll="handleScroll"
         />
       </div>
     </a-form>
@@ -191,15 +180,16 @@ import {
   ProfileOutlined,
   ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
-import {reactive, ref, watch} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 import {roleAddVO, roleDeleteVO, roleEditVO, roleListVO} from "@/assets/js/VoModel.js";
 import {
-  getPermissionListRequest,
-  getRoleListRequest,
+  roleAddRequest,
   roleDeleteRequest,
   roleEditRequest,
-  userAddRequest
 } from "@/assets/js/PublishUtil.js";
+import {getRoleListApi} from "@/api/RoleApi.js"
+import {getPermissionListApi} from "@/api/PermissionApi.js";
+import {permissionDO, roleListDO} from "@/assets/js/DoModel.js";
 
 
 const addRoleDialog = ref(false);
@@ -211,60 +201,94 @@ let getRoleListVO = reactive(roleListVO);
 let getRoleDeleteVO = reactive(roleDeleteVO);
 let getRoleAddVO = reactive(roleAddVO);
 let getRoleEditVO = reactive(roleEditVO);
-let selectedPermission = ref([]);
-const totalPermissionList = [];
-let permissionList = totalPermissionList;
+const editRoleTargetKeys = ref([]);
+const addRoleTargetKeys = ref([]);
+const permissionList = ref([]);
+const dataRole = ref(roleListDO);
+const getPermissionList = ref(permissionDO);
 
-let dataRole = getRoleListRequest('all', getRoleListVO);
-const getPermissionList = getPermissionListRequest();
+// 数据准备
+onMounted(async () => {
+  dataRole.value = await getRoleListApi('all', getRoleListVO);
+  getPermissionList.value = await getPermissionListApi();
+})
 
-const showDialogWithAddRole = () => addRoleDialog.value = true;
+const showDialogWithAddRole = () => {
+  // 数据处理
+  permissionList.value = [];
+  addRoleTargetKeys.value = [];
+  getPermissionList.value.data.forEach(it => {
+    permissionList.value.push({
+      key: it.name,
+      title: it.name
+    })
+  })
+  console.debug('[VIEW] ConsoleRole: 获取权限列表', getPermissionList)
+  console.debug('[VIEW] ConsoleRole: 获取已选择的信息', addRoleTargetKeys)
+  console.debug('[VIEW] ConsoleRole: 获取roleEditVO信息', getRoleEditVO)
+  addRoleDialog.value = true;
+}
 const showDialogWithDeleteRole = (record) => {
   deleteRoleDialog.value = true;
   getRoleDeleteVO.uuid = record.uuid
 }
 const showDialogWithEditUser = (record) => {
-  permissionList = totalPermissionList
-  const getPermission = [];
-  editRoleDialog.value = true;
+  // 数据映射
   getRoleEditVO.uuid = record.uuid;
   getRoleEditVO.name = record.name;
   getRoleEditVO.displayName = record.displayName;
-  // 穿梭框逻辑操作
-  record.permission.forEach(it => {
-    console.log("demo")
-    permissionList.filter(item => item.key === it);
-    getPermission.push({
-      key: it,
-      title: it
+  // 数据处理
+  permissionList.value = [];
+  editRoleTargetKeys.value = [];
+  getPermissionList.value.data.forEach(it => {
+    permissionList.value.push({
+      key: it.name,
+      title: it.name
     })
   })
-  selectedPermission = ref(getPermission);
-  console.log(selectedPermission)
-  console.log(getRoleEditVO)
+  // 穿梭框内容处理
+  record.permission.forEach(it => {
+    for (let i = 0; i < permissionList.value.length; i++) {
+      if (permissionList.value[i].key === it) {
+        editRoleTargetKeys.value.push(permissionList.value[i].key)
+      }
+    }
+  })
+  console.debug('[VIEW] ConsoleRole: 获取权限列表', getPermissionList)
+  console.debug('[VIEW] ConsoleRole: 获取已选择的信息', editRoleTargetKeys)
+  console.debug('[VIEW] ConsoleRole: 获取roleEditVO信息', getRoleEditVO)
+  editRoleDialog.value = true;
 }
 
 const closeDialogRoleAdd = () => addRoleDialog.value = false;
-const closeDialogRoleEdit = () => editRoleDialog.value = false;
+const closeDialogRoleEdit = () => {
+  editRoleDialog.value = false;
+}
 const closeDialogRoleDelete = () => deleteRoleDialog.value = false;
 
 /**
  * 添加角色
  */
 const consoleAddRole = () => {
-  if (userAddRequest(getRoleAddVO).value.output === "Success") {
-    addRoleDialog.value = false
-    dataRole = getRoleListRequest('all', getRoleListVO);
+  // 数据准备
+  getRoleAddVO.permission = addRoleTargetKeys.value;
+  const getReturnData = roleAddRequest(getRoleAddVO);
+  switch (getReturnData.value.output) {
+    case "Success":
+      dataRole.value = getRoleListApi('all', getRoleListVO);
   }
+  addRoleDialog.value = false;
 }
 
 /**
  * 角色编辑
  */
 const consoleEditRole = () => {
+  // 数据准备
+  getRoleAddVO.permission = editRoleTargetKeys.value;
   if (roleEditRequest(getRoleEditVO.uuid, getRoleEditVO).value.output === "Success") {
     editRoleDialog.value = false
-    dataRole = getRoleListRequest('all', getRoleListVO);
+    dataRole.value = getRoleListApi('all', getRoleListVO);
   }
 }
 
@@ -274,7 +298,7 @@ const consoleEditRole = () => {
 const consoleDeleteRole = () => {
   if (roleDeleteRequest(getRoleDeleteVO.uuid).value.output === "Success") {
     deleteRoleDialog.value = false
-    dataRole = getRoleListRequest('all', getRoleListVO);
+    dataRole.value = getRoleListApi('all', getRoleListVO);
   }
 }
 
@@ -289,33 +313,19 @@ function changeSelectRadio(type) {
 function getRoleListFunction(type) {
   changeSelectRadio(type);
   if (type === 'all') {
-    dataRole = getRoleListRequest('all', getRoleListVO)
+    dataRole.value = getRoleListApi('all', getRoleListVO)
   } else {
-    dataRole = getRoleListRequest('search', getRoleListVO)
+    dataRole.value = getRoleListApi('search', getRoleListVO)
   }
 }
 
 function onSearch() {
   isSearchListView.value = true;
-  dataRole = getRoleListRequest('search', getRoleListVO);
+  dataRole.value = getRoleListApi('search', getRoleListVO);
 }
 
-watch(getRoleListVO, _ => {
-  dataRole = getRoleListRequest('search', getRoleListVO);
-})
-
-watch(getPermissionList, newValue => {
-  console.log(newValue)
-  newValue.data.forEach(it => {
-    totalPermissionList.push({
-      key: it.name,
-      title: it.name
-    })
-  })
-})
-
 const handleChange = (nextTargetKeys, direction, moveKeys) => {
-  console.log('targetKeys: ', nextTargetKeys);
+  console.log('editRoleTargetKeys: ', nextTargetKeys);
   console.log('direction: ', direction);
   console.log('moveKeys: ', moveKeys);
 };
@@ -326,7 +336,7 @@ const handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
 </script>
 
 <script>
-import {breadcrumbs} from "@/assets/js/DashboardBreadCrumb.js";
+import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 
 breadcrumbs.push({breadcrumbName: '网站管理'});
 breadcrumbs.push({path: '/user', breadcrumbName: '角色管理'});
