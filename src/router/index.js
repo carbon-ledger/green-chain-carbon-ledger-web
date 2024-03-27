@@ -5,11 +5,13 @@ const router = createRouter({
     routes: [
         {
             // 首页相关路由表
-            path: '/',
+            path: '/home',
+            name:'Home',
+            component:() => import('@/views/HomePage/HomeFrame.vue'),
             children: [
                 {
                     path: '/',
-                    name: 'Home',
+                    name: 'Index',
                     component: () => import('@/views/HomePage/IndexView.vue'),
                 },
                 {
