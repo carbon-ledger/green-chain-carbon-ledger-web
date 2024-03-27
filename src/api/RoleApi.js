@@ -27,7 +27,7 @@ export async function getRoleListApi(type, data) {
             console.warn("[REQUEST] RoleApi[getRoleListApi]: 无法找到 response 体");
         }
     } finally {
-        console.debug('[REQUEST] RoleApi[getRoleListApi]: 请求数据', returnData);
+        console.debug('[REQUEST] RoleApi[getRoleListApi]: 请求数据\n', returnData);
     }
 
     return returnData;
@@ -41,9 +41,9 @@ export async function getRoleCurrentApi() {
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
                 switch (err.response.data.output) {
                     default:
-                        returnData = err.response.data;
                         message.warn(err.response.data.message);
                 }
             }
@@ -52,7 +52,7 @@ export async function getRoleCurrentApi() {
             console.warn("[REQUEST] RoleApi[getRoleCurrentApi]: 无法找到 response 体");
         }
     } finally {
-        console.debug('[REQUEST] RoleApi[getRoleCurrentApi]: 请求数据', returnData);
+        console.debug('[REQUEST] RoleApi[getRoleCurrentApi]: 请求数据\n', returnData);
     }
 
     return returnData;

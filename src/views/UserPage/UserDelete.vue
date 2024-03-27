@@ -142,12 +142,13 @@ async function sendMail(sendCodeData) {
   sendCodeData.template = 'user-delete';
   const getReturnData = await sendCodeMailApi(sendCodeData);
   if (getReturnData.output === 'Success') {
+    message.success("验证码发送成功，请查阅邮箱")
     await countDown(new Date().getTime() + 120000)
     document.getElementById('inputCode').disabled = true;
   }
 }
 
-async function addZero(i) {
+function addZero(i) {
   return i < 10 ? "0" + i : i + "";
 }
 
@@ -156,7 +157,7 @@ async function countDown(endTime) {
   const leftTime = parseInt((endTime - now) / 1000);
 
   if (leftTime > 0) {
-    document.getElementById('inputCode').innerText = await addZero(leftTime) + '秒后重发';
+    document.getElementById('inputCode').innerText = addZero(leftTime) + '秒后重发';
   } else {
     document.getElementById('inputCode').disabled = false;
     document.getElementById('inputCode').innerText = '获取验证码';

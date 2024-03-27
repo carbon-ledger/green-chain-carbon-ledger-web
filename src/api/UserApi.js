@@ -9,8 +9,8 @@ export async function getUserCurrentApi() {
         returnData = res.data;
     } catch (err) {
         if (err.response && err.response.data) {
-            await router.replace({name: 'LoginAccount', replace: true});
             returnData = err.response.data;
+            await router.replace({name: 'LoginAccount', replace: true});
         } else {
             // 处理无法访问err.response的情况
             console.warn("[REQUEST] UserApi[getUserCurrentApi]: 无法找到 response 体");

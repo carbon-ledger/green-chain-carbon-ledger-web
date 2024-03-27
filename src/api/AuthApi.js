@@ -75,9 +75,12 @@ export async function userDeleteApi(getData) {
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
                 switch (err.response.data.output) {
+                    case "UserCannotBeOperate":
+                        message.warn(err.response.data.data.errorMessage);
+                        break;
                     default:
-                        returnData = err.response.data;
                         message.warn(err.response.data.message);
                 }
             }
@@ -98,9 +101,9 @@ export async function userLogoutApi() {
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
                 switch (err.response.data.output) {
                     default:
-                        returnData = err.response.data;
                         message.warn(err.response.data.message);
                 }
             }
@@ -126,9 +129,9 @@ export async function userLoginDeviceApi() {
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
                 switch (err.response.data.output) {
                     default:
-                        returnData = err.response.data;
                         message.warn(err.response.data.message);
                 }
             }
