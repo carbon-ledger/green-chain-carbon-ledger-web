@@ -98,7 +98,7 @@ async function consoleConfirmChangUserPassword() {
       localStorage.removeItem("X-Auth-UUID");
       message.success("密码修改完毕");
       setTimeout(_ => {
-        router.replace({name: 'LoginAccount'});
+        router.replace({ name: 'LoginAccount', replace: true });
       }, 500)
   }
   isLoading.value = false;
