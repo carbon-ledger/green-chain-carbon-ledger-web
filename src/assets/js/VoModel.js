@@ -1,4 +1,4 @@
-export let ReviewCheckVO = {
+export let reviewCheckVO = {
     remark: '',
     allow: false
 }

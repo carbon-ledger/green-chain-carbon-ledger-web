@@ -1,11 +1,8 @@
 import {ref} from "vue";
 import {
     baseResponse,
-    getLoginInfoVO,
-    getRoleCurrentVO,
-    getVerifyInfoDO,
-    getVerifyListDO,
-    reviewGetOrganizeDO,
+    organizeReviewDO,
+    reviewDO,
     getUserListDO,
     userAddDO, userEditDO, userDeleteDO, userBanDO, userResetDO, roleDeleteDO
 } from "@/assets/js/DoModel.js";
@@ -14,80 +11,8 @@ import {message} from "ant-design-vue";
 import requests from "@/assets/js/Request.js";
 import router from "@/router/index.js";
 import {roleEditVO} from "@/assets/js/VoModel.js";
-
-export function getLoginInfoRequest() {
-    let getLoginInfo = ref(getLoginInfoVO)
-    request.loginInfo().then(res => {
-        switch (res.data.output) {
-            case "Success":
-                getLoginInfo.value = res.data.data;
-                break
-            default:
-                message.warn(res.data.message)
-        }
-    }).catch(err => {
-        switch (err.response.data.output) {
-            case "TokenVerifyError": {
-                message.warn(err.response.data.data.errorMessage)
-                window.location.replace("/auth/login")
-                break;
-            }
-            default:
-                message.warn(err.response.data.message)
-        }
-    });
-    return getLoginInfo;
-}
-
-export function getRoleCurrentRequest() {
-    let getRoleCurrent = ref(getRoleCurrentVO)
-    request.getRoleCurrent().then(res => {
-        switch (res.data.output) {
-            case "Success":
-                getRoleCurrent.value = res.data.data;
-                break
-            default:
-                message.warn(res.data.message)
-        }
-    }).catch(err => {
-        switch (err.response.data.output) {
-            case "TokenVerifyError": {
-                message.warn(err.response.data.data.errorMessage)
-                window.location.replace("/auth/login")
-                break;
-            }
-            default:
-                message.warn(err.response.data.message)
-        }
-    });
-    return getRoleCurrent;
-}
-
-/**
- * 发送邮箱验证码
- *
- * @param {Object} data
- */
-export function sendMailCodeRequest(data) {
-    let getData = ref([])
-    request.sendCodeMail(data).then(res => {
-        switch (res.data.output) {
-            case "Success":
-                getData.value = res.data.data;
-                message.success("验证码已发送，有效期15分钟").then()
-                break
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        message.warn(err.response.data.message).then()
-    })
-    console.log(getData)
-    return getData;
-}
-
 export function reviewGetRequest() {
-    let getData = ref(getVerifyInfoDO)
+    let getData = ref(organizeReviewDO)
     request.reviewGet().then(res => {
         switch (res.data.output) {
             case "Success":
@@ -118,7 +43,7 @@ export function reviewGetRequest() {
  */
 export function reviewResendOrganizeRequest(data, projectId) {
     let getData = ref(baseResponse)
-    request.ReviewResendOrganize(data, projectId).then(res => {
+    request.reviewResendOrganize(data, projectId).then(res => {
         switch (res.data.output) {
             case "Success":
                 getData.value = res.data
@@ -133,44 +58,9 @@ export function reviewResendOrganizeRequest(data, projectId) {
     console.debug(getData)
     return getData;
 }
-
-export function getReviewListRequest() {
-    let getData = ref([getVerifyListDO])
-    request.getReviewList().then(res => {
-        switch (res.data.output) {
-            case "Success":
-                getData.value = res.data.data
-                break
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        message.warn(err.response.data.message).then()
-    })
-    console.debug(getData)
-    return getData;
-}
-
-export function reviewAddOrganizeRequest(data) {
-    request.reviewAddOrganize(data).then(res => {
-        switch (res.data.output) {
-            case "Success":
-                message.success("成功发送审核").then()
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1000)
-                break
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        message.warn(err.response.data.message).then()
-    })
-}
-
 export function reviewGetAdminRequest(id, type) {
-    let getData = ref(reviewGetOrganizeDO)
-    request.reviewGetAdmin(id, type).then(res => {
+    let getData = ref(reviewDO)
+    request.reviewGetConsoleCheck(id, type).then(res => {
         getData.value = res.data
         switch (res.data.output) {
             case "Success":
@@ -192,8 +82,8 @@ export function reviewGetAdminRequest(id, type) {
 }
 
 export function reviewCheckOrganizeRequest(id, data) {
-    let getData = ref(reviewGetOrganizeDO)
-    request.ReviewCheckOrganize(id, data).then(res => {
+    let getData = ref(reviewDO)
+    request.reviewCheckOrganize(id, data).then(res => {
         switch (res.data.output) {
             case "Success":
                 getData.value = res.data

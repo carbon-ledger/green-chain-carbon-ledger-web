@@ -129,14 +129,14 @@ import {
 } from "@ant-design/icons-vue";
 import {reactive} from "vue";
 import {message} from "ant-design-vue";
-import {reviewResendOrganizeRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
+import {reviewAddOrganizeApi} from "@/api/ReviewApi.js";
 
 // 获取表单信息
 const form = reactive(UserVerifyVO)
 
-function upload() {
+async function upload() {
   if (document.getElementById('file_license').files[0] !== undefined) {
     const imgFileLicense = reactive(new FileReader());
     imgFileLicense.readAsDataURL(document.getElementById('file_license').files[0]);
@@ -173,13 +173,18 @@ function upload() {
   // 时间格式化
   form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
   // 发送数据
-  // 发送数据
-  const getReturnData = reviewResendOrganizeRequest(form, getVerifyInfo.value.data.id);
-  if (getReturnData.value.output === "Success") {
-    message.success("提交成功");
-    setTimeout(() => {
-      window.location.replace('?edit=false')
-    }, 500)
-  }
+  setTimeout(async _ => {
+    const getReturnData = await reviewAddOrganizeApi(form);
+    if (getReturnData.output === "Success") {
+      message.success("提交成功");
+    }
+  }, 10);
+  setTimeout(async _ => {
+    clickLocation()
+  }, 500);
+}
+
+function clickLocation() {
+  window.location.replace('?edit=false');
 }
 </script>

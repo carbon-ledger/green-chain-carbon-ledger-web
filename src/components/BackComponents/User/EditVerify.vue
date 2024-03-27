@@ -132,24 +132,29 @@ import {
   DollarCircleOutlined,
 } from "@ant-design/icons-vue";
 
-import {reactive, watch} from "vue";
-import {reviewGetRequest, reviewResendOrganizeRequest} from "@/assets/js/PublishUtil.js";
+import {onMounted, reactive, ref} from "vue";
+import {reviewResendOrganizeRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {message} from "ant-design-vue";
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
+import {reviewGetApi} from "@/api/ReviewApi.js";
+import {reviewDO} from "@/assets/js/DoModel.js";
 
 // 获取表单信息
 const form = reactive(UserVerifyVO)
-let getVerifyInfo = reviewGetRequest();
-let getReturnData = undefined;
+const getVerifyInfo = ref(reviewDO);
 
-function reUpload() {
+onMounted(async _ => {
+  getVerifyInfo.value = await reviewGetApi();
+  await getDataToForm(getVerifyInfo);
+})
+
+async function reUpload() {
   if (document.getElementById('file_license').files[0] !== undefined) {
     const imgFileLicense = reactive(new FileReader());
     imgFileLicense.readAsDataURL(document.getElementById('file_license').files[0]);
     imgFileLicense.onload = () => {
       form.license = imgFileLicense.result;
-      console.debug("OrganizeLicense: ", form.license)
     };
   } else {
     message.error('组织营业执照不可缺少');
@@ -160,7 +165,6 @@ function reUpload() {
     imgFileLedgeFront.readAsDataURL(document.getElementById('file_ledge_front').files[0]);
     imgFileLedgeFront.onload = () => {
       form.legalIdCardFront = imgFileLedgeFront.result;
-      console.debug("LegalIdCardFront: ", form.legalIdCardFront)
     };
   } else {
     message.error('法人身份证正面照不可缺少');
@@ -171,7 +175,6 @@ function reUpload() {
     imgFileLedgeBack.readAsDataURL(document.getElementById('file_ledge_back').files[0]);
     imgFileLedgeBack.onload = () => {
       form.legalIdCardBack = imgFileLedgeBack.result;
-      console.debug("LegalIdCardBack: ", form.legalIdCardBack)
     };
   } else {
     message.error('法人身份证反面照不可缺少');
@@ -181,31 +184,28 @@ function reUpload() {
   form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
   console.log('[EditVerify] 准备提交 `form` 内容:', form)
   // 发送数据
-  setTimeout(() => {
-    getReturnData = reviewResendOrganizeRequest(form, getVerifyInfo.value.data.id);
-    console.debug('[EditVerify] 触发器 `getReturnData`:', getReturnData)
+  setTimeout(async _ => {
+    const getReturnData = reviewResendOrganizeRequest(form, getVerifyInfo.value.data.id);
     if (getReturnData.value.output === "Success") {
       message.success("提交成功");
-      setTimeout(() => {
-        window.location.replace('?edit=false')
-      }, 500)
     }
-  }, 100)
+  }, 10);
+  setTimeout(async _ => {
+    clickLocation()
+  }, 500);
 }
 
 function clickLocation() {
-  window.location.replace('?edit=false')
+  window.location.replace('?edit=false');
 }
 
-watch(getVerifyInfo, (value) => {
-  console.debug('[EditVerify] 数据获取 `getVerifyInfo`:', getVerifyInfo)
-  form.organizeName = value.data.organizeName;
-  form.creditCode = value.data.organizeCreditCode;
-  form.registeredCapital = value.data.organizeRegisteredCapital;
-  form.establishmentDate = reactive(moment(value.data.organizeEstablishmentDate + "00:00:00", 'yyyy-MM-DD HH:ii:ss').utc());
-  form.legalRepresentativeName = value.data.legalRepresentativeName;
-  form.legalRepresentativeId = value.data.legalRepresentativeId;
-  form.remark = value.data.remarks;
-  console.debug('[EditVerify] 赋值 `form` 内容:', form)
-}, {immediate: true})
+async function getDataToForm(getData) {
+  form.organizeName = getData.value.data.organizeName;
+  form.creditCode = getData.value.data.organizeCreditCode;
+  form.registeredCapital = getData.value.data.organizeRegisteredCapital;
+  form.establishmentDate = reactive(moment(getData.value.data.organizeEstablishmentDate + "00:00:00", 'yyyy-MM-DD HH:ii:ss').utc());
+  form.legalRepresentativeName = getData.value.data.legalRepresentativeName;
+  form.legalRepresentativeId = getData.value.data.legalRepresentativeId;
+  form.remark = getData.data.remarks;
+}
 </script>

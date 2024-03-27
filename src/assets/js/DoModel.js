@@ -75,7 +75,7 @@ export let permissionDO = {
     ]
 }
 
-export let getVerifyInfoDO = {
+export let organizeReviewDO = {
     baseResponse,
     data: {
         id: 0,
@@ -100,19 +100,49 @@ export let getVerifyInfoDO = {
     }
 }
 
-export let getVerifyListDO = {
-    id: 0,
-    type: false,
-    account: {
-        userName: '',
-        email: ''
-    },
-    organizeName: '',
-    legalRepresentativeName: '',
-    applyTime: ''
+export let reviewListDO = {
+    baseResponse,
+    data: [
+        {
+            id: 0,
+            type: false,
+            account: {
+                userName: '',
+                email: ''
+            },
+            organizeName: '',
+            legalRepresentativeName: '',
+            applyTime: ''
+        }
+    ]
 }
 
-export let reviewGetOrganizeDO = {
+export let reviewDO = {
+    baseResponse,
+    data: {
+        id: 0,
+        accountUuid: '',
+        type: 0,
+        organizeName: '',
+        organizeLicenseUrl: '',
+        organizeCreditCode: '',
+        organizeRegisteredCapital: '',
+        organizeEstablishmentDate: '',
+        legalRepresentativeName: '',
+        legalRepresentativeId: '',
+        legalIdCardFrontUrl: '',
+        legalIdCardBackUrl: '',
+        certificationStatus: 0,
+        applyTime: '',
+        approveTime: '',
+        updatedAt: '',
+        remarks: '',
+        approveUuid: '',
+        approveRemarks: ''
+    }
+}
+
+export let reviewCheckConsoleDO = {
     baseResponse,
     data: {
         account: {
@@ -125,7 +155,7 @@ export let reviewGetOrganizeDO = {
         organizeName: '',
         organizeLicenseUrl: '',
         organizeCreditCode: '',
-        organizeRegisteredCapital: '',
+        organizeRegisteredCapital: 0.00,
         organizeEstablishmentDate: '',
         legalRepresentativeName: '',
         legalRepresentativeId: '',

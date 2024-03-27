@@ -9,15 +9,18 @@
         <div class="col-span-12 px-3">
           <div class="container p-3">
             <div class="row-auto">
-              <div class="" v-if="getQuery.edit === 'true' || getVerifyInfoVO.data.certificationStatus === 2">
-                <EditVerify v-if="getVerifyInfoVO.data.certificationStatus !== 0"/>
-                <VerifyInspection v-else-if="getVerifyInfoVO.data.certificationStatus === 0"/>
+              <div v-if="isTheFirst">
+                <div v-if="getQuery.edit === 'true' || getVerifyInfoVO.data.certificationStatus === 2">
+                  <EditVerify v-if="getVerifyInfoVO.data.certificationStatus !== 0"/>
+                  <VerifyInspection v-else-if="getVerifyInfoVO.data.certificationStatus === 0"/>
+                </div>
+                <div class="div" v-else>
+                  <AddVerify v-if="getVerifyInfoVO.data.certificationStatus === -1"/>
+                  <VerifyInspection v-else-if="getVerifyInfoVO.data.certificationStatus === 0"/>
+                  <VerifyInfo v-else/>
+                </div>
               </div>
-              <div class="div" v-else>
-                <AddVerify v-if="getVerifyInfoVO.data.certificationStatus === -1"/>
-                <VerifyInspection v-else-if="getVerifyInfoVO.data.certificationStatus === 0"/>
-                <VerifyInfo v-else/>
-              </div>
+              <AddVerify v-else/>
             </div>
           </div>
         </div>
@@ -34,17 +37,38 @@ import {
   CheckCircleTwoTone,
 } from "@ant-design/icons-vue";
 import AddVerify from "@/components/BackComponents/User/AddVerify.vue";
-import {reviewGetRequest} from "@/assets/js/PublishUtil.js";
 import VerifyInspection from "@/components/BackComponents/User/VerifyInspection.vue";
 import VerifyInfo from "@/components/BackComponents/User/VerifyInfo.vue";
 import router from "@/router/index.js";
 import EditVerify from "@/components/BackComponents/User/EditVerify.vue";
+import {onMounted, ref} from "vue";
+import {reviewGetApi} from "@/api/ReviewApi.js";
+import {organizeReviewDO} from "@/assets/js/DoModel.js";
 
-const getVerifyInfoVO = reviewGetRequest();
+const getVerifyInfoVO = ref(organizeReviewDO);
+const isTheFirst = ref(false);
 
 // 获取 query 参数信息
 const getQuery = router.currentRoute.value.query;
 if (getQuery.edit === 'true') {
-  getVerifyInfoVO.certificationStatus = '0';
+  getVerifyInfoVO.value.data.certificationStatus = '0';
+}
+
+onMounted(async _ => {
+  getVerifyInfoVO.value = await reviewGetApi();
+  await isTheFirstReview();
+})
+
+async function isTheFirstReview() {
+  switch (getVerifyInfoVO.value.output) {
+    case "Success":
+      isTheFirst.value = true;
+      break;
+    case "ReviewError":
+      isTheFirst.value = false;
+      break;
+    default:
+      isTheFirst.value = false;
+  }
 }
 </script>

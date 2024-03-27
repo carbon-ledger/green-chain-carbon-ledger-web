@@ -439,7 +439,7 @@ const userLoginOut = () => {
  * 获取实名信息待审列表
  * @param data (type)
  */
-const getReviewList = (data) => {
+const reviewList = (data) => {
     return axios({
         url: api + "/review/list",
         method: "get",
@@ -458,7 +458,7 @@ const getReviewList = (data) => {
  * @param checkId
  * @param data
  */
-const ReviewCheckAdmin = (checkId, data) => {
+const reviewCheckAdmin = (checkId, data) => {
     return axios({
         url: api + "/review/check/admin/" + checkId,
         method: "PATCH",
@@ -475,7 +475,7 @@ const ReviewCheckAdmin = (checkId, data) => {
  * @param checkId
  * @param data
  */
-const ReviewCheckOrganize = (checkId, data) => {
+const reviewCheckOrganize = (data, checkId) => {
     return axios({
         url: api + "/review/check/organize/" + checkId,
         method: "PATCH",
@@ -530,7 +530,7 @@ const reviewAddOrganize = (data) => {
  * @param data
  * @param checkId
  */
-const ReviewResendOrganize = (data, checkId) => {
+const reviewResendOrganize = (data, checkId) => {
     return axios({
         url: api + "/review/re-send/organize/" + checkId,
         method: "PUT",
@@ -579,7 +579,7 @@ const reviewGet = () => {
     })
 }
 
-const reviewGetAdmin = (id, type) => {
+const reviewGetConsoleCheck = (id, type) => {
     return axios({
         url: api + "/review/check",
         method: "GET",
@@ -621,14 +621,14 @@ export default {
     getRoleCurrent,
     getPermissionList,
     userDelete,
-    getReviewList,
-    ReviewCheckAdmin,
-    ReviewCheckOrganize,
+    reviewList,
+    reviewCheckAdmin,
+    reviewCheckOrganize,
     ReviewAddAdmin,
     reviewAddOrganize,
-    ReviewResendOrganize,
+    reviewResendOrganize,
     ReviewResendAdmin,
     reviewGet,
     userLoginOut,
-    reviewGetAdmin
+    reviewGetConsoleCheck
 }

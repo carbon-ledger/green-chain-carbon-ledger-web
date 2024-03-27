@@ -8,42 +8,42 @@
     <a-card class="shadow flex justify-center">
       <div class="container w-full">
         <a-descriptions bordered title="待审核">
-          <a-descriptions-item label="账户名称">{{ userDeleteForm.userChangePassword.account.userName }}</a-descriptions-item>
-          <a-descriptions-item label="真实信息">{{ userDeleteForm.userChangePassword.account.realName }}</a-descriptions-item>
-          <a-descriptions-item label="账户邮箱">{{ userDeleteForm.userChangePassword.account.email }}</a-descriptions-item>
-          <a-descriptions-item :span="2" label="组织名称">{{ userDeleteForm.userChangePassword.organizeName }}</a-descriptions-item>
-          <a-descriptions-item label="组织信用代码">{{ userDeleteForm.userChangePassword.organizeCreditCode }}</a-descriptions-item>
+          <a-descriptions-item label="账户名称">{{ reviewForm.data.account.userName }}</a-descriptions-item>
+          <a-descriptions-item label="真实信息">{{ reviewForm.data.account.realName }}</a-descriptions-item>
+          <a-descriptions-item label="账户邮箱">{{ reviewForm.data.account.email }}</a-descriptions-item>
+          <a-descriptions-item :span="2" label="组织名称">{{ reviewForm.data.organizeName }}</a-descriptions-item>
+          <a-descriptions-item label="组织信用代码">{{ reviewForm.data.organizeCreditCode }}</a-descriptions-item>
           <a-descriptions-item label="注册资本">{{
-              userDeleteForm.userChangePassword.organizeRegisteredCapital
+              reviewForm.data.organizeRegisteredCapital
             }}万人民币
           </a-descriptions-item>
           <a-descriptions-item label="注册时间">
-            {{ moment(userDeleteForm.userChangePassword.organizeEstablishmentDate).format('yyyy年MM月DD日') }}
+            {{ moment(reviewForm.data.organizeEstablishmentDate).format('yyyy年MM月DD日') }}
           </a-descriptions-item>
           <a-descriptions-item label="申请时间">{{
-              moment(userDeleteForm.userChangePassword.applyTime).format('yyyy年MM月DD日 hh时')
+              moment(reviewForm.data.applyTime).format('yyyy年MM月DD日 hh时')
             }}
           </a-descriptions-item>
-          <a-descriptions-item label="组织法人">{{ userDeleteForm.userChangePassword.legalRepresentativeName }}</a-descriptions-item>
+          <a-descriptions-item label="组织法人">{{ reviewForm.data.legalRepresentativeName }}</a-descriptions-item>
           <a-descriptions-item :span="2" label="法人身份证号">{{
-              userDeleteForm.userChangePassword.legalRepresentativeId
+              reviewForm.data.legalRepresentativeId
             }}
           </a-descriptions-item>
           <a-descriptions-item :span="3" label="组织营业执照">
             <a-image
-                :src="api + '/image/license/' + getData.data.organizeLicenseUrl"
+                :src="api + '/image/license/' + reviewForm.data.organizeLicenseUrl"
                 :width="200"
             />
           </a-descriptions-item>
           <a-descriptions-item :span="3" label="法人身份证正面照">
             <a-image
-                :src="api + '/image/legal/front/' + getData.data.legalIdCardFrontUrl"
+                :src="api + '/image/legal/front/' + reviewForm.data.legalIdCardFrontUrl"
                 :width="200"
             />
           </a-descriptions-item>
           <a-descriptions-item :span="3" label="法人身份证反面照">
             <a-image
-                :src="api + '/image/legal/back/' + getData.data.legalIdCardBackUrl"
+                :src="api + '/image/legal/back/' + reviewForm.data.legalIdCardBackUrl"
                 :width="200"
             />
           </a-descriptions-item>
@@ -80,21 +80,26 @@
  * 引入区
  */
 import router from "@/router/index.js";
-import {reviewCheckOrganizeRequest, reviewGetAdminRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {api} from "@/assets/js/Request.js";
-import {ReviewCheckVO} from "@/assets/js/VoModel.js";
-import {reactive, ref, watch} from "vue";
+import {reviewCheckVO} from "@/assets/js/VoModel.js";
+import {onMounted, reactive, ref} from "vue";
 import {message} from "ant-design-vue";
+import {reviewCheckOrganizeApi, reviewGetConsoleCheck} from "@/api/ReviewApi.js";
+import {baseResponse, reviewCheckConsoleDO} from "@/assets/js/DoModel.js";
 
 /*
  * 数据初始化区
  */
-const userDeleteForm = reviewGetAdminRequest(router.currentRoute.value.query.id, router.currentRoute.value.query.type);
-let getReviewCheckVO = reactive(ReviewCheckVO)
+const reviewForm = ref(reviewCheckConsoleDO);
+let getReviewCheckVO = reactive(reviewCheckVO)
 const open = ref(false);
 const confirmLoading = ref(false);
-let getReturnData = undefined;
+
+onMounted(async _ => {
+  reviewForm.value = await reviewGetConsoleCheck(router.currentRoute.value.query.id, router.currentRoute.value.query.type);
+  await isTheReviewExist(reviewForm);
+})
 
 /*
  * 方法区
@@ -102,38 +107,32 @@ let getReturnData = undefined;
 const showModal = () => open.value = true;
 const closeModal = () => open.value = false;
 
-watch(getData, (newValue) => {
-  console.log(newValue);
-  if (newValue.output !== "Success") {
-    router.push({name: 'DashboardVerify'})
+async function isTheReviewExist(value) {
+  if (value.value.output !== "Success") {
+    await router.push({name: 'DashboardVerify'})
   }
-})
+}
 
-function organizationalReview(check) {
+async function organizationalReview(check) {
+  let getReturnData = reactive(baseResponse);
   confirmLoading.value = true
   getReviewCheckVO.allow = check
+  console.log(getReviewCheckVO);
   if (check) {
-    getReturnData = reviewCheckOrganizeRequest(router.currentRoute.value.query.id, getReviewCheckVO);
+    getReturnData = await reviewCheckOrganizeApi(getReviewCheckVO, router.currentRoute.value.query.id);
   } else {
     if (getReviewCheckVO.remark === null || getReviewCheckVO.remark === '' || getReviewCheckVO.remark === undefined) {
       message.warn("请填写拒绝原因")
       return
     }
-    getReturnData = reviewCheckOrganizeRequest(router.currentRoute.value.query.id, getReviewCheckVO);
+    getReturnData = await reviewCheckOrganizeApi(getReviewCheckVO, router.currentRoute.value.query.id);
     closeModal()
   }
-  // 处理判断数据
-  console.debug('[ConsoleUserVerifyCheck] `getReturnData`:', getReturnData)
-}
-
-watch(getReturnData, (newValue) => {c
-  console.log('[ConsoleUserVerifyCheck] 监听器 `getReturnData`:', newValue);
-  switch (newValue.value.output) {
-    case "Success":
-      message.success("操作成功");
-      setTimeout(() => {
-        router.replace({name: 'DashboardVerify'});
-      }, 500);
+  if (getReturnData.output === 'Success') {
+    message.success("操作成功");
+    setTimeout(_ => {
+      router.push({name: 'DashboardVerify'});
+    }, 500);
   }
-})
+}
 </script>

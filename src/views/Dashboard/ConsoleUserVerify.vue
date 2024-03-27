@@ -11,7 +11,7 @@
   </a-page-header>
   <div class="px-3">
     <div class="w-full h-auto mt-6">
-      <a-table :columns="columns" :data-source="getReview">
+      <a-table :columns="columns" :data-source="getReview.data">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'email'">{{ record.account.email }}</template>
           <template v-if="column.key === 'userName'">{{ record.account.userName }}</template>
@@ -33,16 +33,38 @@
  * 引入区
  */
 import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
-import {getReviewListRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import router from "@/router/index.js";
+import {onMounted, ref} from "vue";
+import {reviewListDO} from "@/assets/js/DoModel.js";
+import {getReviewListApi} from "@/api/ReviewApi.js";
 
 /*
  * 数据初始化区
  */
 const routes = breadcrumbs
-const getReview = getReviewListRequest()
+const getReview = ref(reviewListDO)
 
+onMounted(async _ => {
+  getReview.value = await getReviewListApi();
+})
+/*
+ * 函数执行区
+ */
+
+// 面包屑导航
+breadcrumbs.push({breadcrumbName: '实名审核'});
+setTimeout(() => {
+  breadcrumbs.pop();
+  breadcrumbs.pop();
+}, 1)
+
+function applyTimeArrange(applyTime) {
+  return moment(applyTime).format('YYYY年MM月DD日')
+}
+</script>
+
+<script>
 const columns = [
   {
     title: '账户邮箱',
@@ -75,19 +97,4 @@ const columns = [
     dataIndex: 'action'
   }
 ]
-
-/*
- * 函数执行区
- */
-
-// 面包屑导航
-breadcrumbs.push({breadcrumbName: '实名审核'});
-setTimeout(() => {
-  breadcrumbs.pop();
-  breadcrumbs.pop();
-}, 1)
-
-function applyTimeArrange(applyTime) {
-  return moment(applyTime).format('YYYY年MM月DD日')
-}
 </script>

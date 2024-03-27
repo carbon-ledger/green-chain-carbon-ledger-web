@@ -9,7 +9,6 @@ import {publicErrorOperate} from "@/assets/js/PublishUtil.js";
 export async function getRoleListApi(type, data) {
     let returnData = roleListDO;
     data.type = type;
-
     try {
         const res = await request.getRoleList(data);
         returnData = res.data;
@@ -29,7 +28,6 @@ export async function getRoleListApi(type, data) {
     } finally {
         console.debug('[REQUEST] RoleApi[getRoleListApi]: 请求数据\n', returnData);
     }
-
     return returnData;
 }
 
@@ -54,7 +52,6 @@ export async function getRoleCurrentApi() {
     } finally {
         console.debug('[REQUEST] RoleApi[getRoleCurrentApi]: 请求数据\n', returnData);
     }
-
     return returnData;
 }
 
