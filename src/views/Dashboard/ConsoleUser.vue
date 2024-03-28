@@ -289,20 +289,22 @@ import {
   UserOutlined,
   ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
-import {reactive, ref} from 'vue';
-import {
-  getUserListRequest,
-  userAddRequest,
-  userManageEditRequest,
-  userDeleteRequest,
-  userBanRequest,
-} from "@/assets/js/PublishUtil.js";
+import {onMounted, reactive, ref} from 'vue';
 import {
   userDeleteForceVO,
   userManageEditVO,
   userBanVO,
   userAddVO, userListVO, userResetVO
 } from "@/assets/js/VoModel.js"
+import {
+  getUserListApi,
+  userAddConsoleApi,
+  userBanApi,
+  userForceDeleteApi,
+  userForceEditApi,
+  userResetPasswordApi
+} from "@/api/UserApi.js";
+import {userListDO} from "@/assets/js/DoModel.js";
 
 
 let getUserListVO = reactive(userListVO);
@@ -311,8 +313,11 @@ let getUserManageEditVO = reactive(userManageEditVO);
 let getUserBanVO = reactive(userBanVO);
 let getUserDeleteVO = reactive(userDeleteForceVO);
 let getUserResetVO = reactive(userResetVO);
+const getUser = ref(userListDO);
 
-let getUser = getUserListRequest('all', getUserListVO);
+onMounted(async _ => {
+  getUser.value = await getUserListApi('all', getUserListVO);
+})
 
 // Dialog相关
 const addUserDialog = ref(false);
@@ -382,55 +387,55 @@ const closeDialogAddUser = () => addUserDialog.value = false;
 /**
  * 添加用户接口
  */
-function consoleAddUser() {
-  const getReturnData = userAddRequest(addUserAddVO)
-  if (getReturnData.value.output === "Success") {
+async function consoleAddUser() {
+  const getReturnData = await userAddConsoleApi(addUserAddVO)
+  if (getReturnData.output === "Success") {
     addUserDialog.value = false
-    getUser = getUserListRequest('all', getUserListVO);
+    getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
 
 /**
  * 编辑用户接口
  */
-function consoleEditUser() {
-  const getReturnData = userManageEditRequest(getUserManageEditVO.uuid, getUserManageEditVO)
+async function consoleEditUser() {
+  const getReturnData = await userForceEditApi(getUserManageEditVO)
   if (getReturnData.value.output === "Success") {
     editUserDialog.value = false
-    getUser = getUserListRequest('all', getUserListVO);
+    getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
 
 /**
  * 注销用户接口
  */
-function consoleDeleteUser() {
-  const getReturnData = userDeleteRequest(getUserDeleteVO.uuid)
-  if (getReturnData.value.output === "Success") {
-    deleteUserDialog.value = true
-    getUser = getUserListRequest('all', getUserListVO);
+async function consoleDeleteUser() {
+  const getReturnData = await userForceDeleteApi(getUserDeleteVO.uuid)
+  if (getReturnData.output === "Success") {
+    deleteUserDialog.value = false
+    getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
 
 /**
  * 封禁用户接口
  */
-function consoleBanUser() {
-  const getReturnData = userBanRequest(getUserBanVO.uuid)
-  if (getReturnData.value.output === "Success") {
-    banUserDialog.value = true
-    getUser = getUserListRequest('all', getUserListVO);
+async function consoleBanUser() {
+  const getReturnData = await userBanApi(getUserBanVO.uuid)
+  if (getReturnData.output === "Success") {
+    banUserDialog.value = false
+    getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
 
 /**
  * 重制用户密码接口
  */
-function consoleResetUser() {
-  const getReturnData = userBanRequest(getUserResetVO.uuid)
-  if (getReturnData.value.output === "Success") {
-    resetUserPasswordDialog.value = true
-    getUser = getUserListRequest('all', getUserListVO);
+async function consoleResetUser() {
+  const getReturnData = await userResetPasswordApi(getUserResetVO.uuid)
+  if (getReturnData.output === "Success") {
+    resetUserPasswordDialog.value = false
+    getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
 
@@ -438,9 +443,9 @@ function consoleResetUser() {
  * 动态更新数据
  *
  * @param type
- * @return {Ref<UnwrapRef<{baseResponse: {output: string, code: number, message: string}, userChangePassword: [{role: string, updateAt: string, avatar: string, uuid: string, createAt: string, ban: boolean, realname: string, uid: number, deletedAt: string, nickname: string, invite: string, email: string, username: string}]}>>}
+ * @return {Ref<UnwrapRef<{data: [{role: string, updateAt: string, avatar: string, uuid: string, createAt: string, ban: boolean, realname: string, uid: number, deletedAt: string, nickname: string, invite: string, email: string, username: string}], baseResponse: {output: string, code: number, message: string}}>>}
  */
-const getUserType = (type) => getUser = getUserListRequest(type, getUserListVO);
+const getUserType = async (type) => getUser.value = await getUserListApi(type, getUserListVO);
 </script>
 
 <script>

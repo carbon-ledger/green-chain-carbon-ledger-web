@@ -2,7 +2,7 @@
   <div class="flex justify-center my-3">
     <img alt="UserAvatar" class="rounded-full w-auto h-[40px]" src="/favicon.ico">
   </div>
-  <a-menu v-model:openKeys="openKey" v-model:selectedKeys="leftBarKey" mode="inline">
+  <a-menu v-model:openKeys="openMenuKey" v-model:selectedKeys="selectedKey" mode="inline">
     <a-menu-item>
       <HomeOutlined />
       <span class="nav-text">返回主页</span>
@@ -12,7 +12,7 @@
       <span class="nav-text">交易市场</span>
     </a-menu-item>
     <hr class="m-3"/>
-    <a-menu-item key="1" @click="router.push({name: 'Dashboard'})">
+    <a-menu-item key="1" @click="sendTo()">
       <DashboardOutlined/>
       <span class="nav-text">仪表盘</span>
     </a-menu-item>
@@ -112,57 +112,58 @@ import {
   HomeOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
-import request from "@/assets/js/Request.js";
+import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {getUserCurrentApi} from "@/api/UserApi.js";
 
-// 服务挂载
-onMounted(() => {
-  getUserCurrent()
+const selectedKey = ref([""]);
+const openMenuKey = ref([""]);
+const getUserCurrent = ref(userCurrentDO);
+
+onMounted(async _ => {
+  getUserCurrent.value = await getUserCurrentApi();
 })
 
-let userRole = null;
-
-/**
- * 获取用户信息
- */
-function getUserCurrent() {
-  console.log("[DashboardLeftBar] 获取用户权限")
-  // 权限获取
-  request.getUserCurrent().then((res) => {
-    userRole = res.data.data.role
-  }).catch(() => {
-    console.warn("获取用户权限失败")
-  })
+function sendTo() {
+  switch (getUserCurrent.value.data.role) {
+    case "console":
+      router.replace({ name: 'DashboardConsole', replace: true })
+      break
+    case "admin":
+      router.replace({ name: 'DashboardConsole', replace: true })
+      break
+    case "organize":
+      router.replace({ name: 'DashboardConsole', replace: true })
+      break
+    default:
+      router.replace({ name: 'DashboardConsole', replace: true })
+  }
 }
-
-let leftBarKey
-let openKey
 
 switch (router.currentRoute.value.name) {
   case "DashboardConsole":
-    leftBarKey = ref(["1"])
-    openKey = ref([""])
+    selectedKey.value = ["1"]
     break
   case "DashboardUser":
-    leftBarKey = ref(["2"])
-    openKey = ref(["sub1"])
+    selectedKey.value = ["2"]
+    openMenuKey.value = ["sub1"]
     break
   case "DashboardRole":
-    leftBarKey = ref(["3"])
-    openKey = ref(["sub1"])
+    selectedKey.value = ["3"]
+    openMenuKey.value = ["sub1"]
     break
   case "DashboardPermission":
-    leftBarKey = ref(["4"])
-    openKey = ref(["sub1"])
+    selectedKey.value = ["4"]
+    openMenuKey.value = ["sub1"]
     break
   case "DashboardVerify":
-    leftBarKey = ref(["10"])
-    openKey = ref(["sub4"])
+    selectedKey.value = ["10"]
+    openMenuKey.value = ["sub4"]
     break
   case "DashboardVerifyCheck":
-    leftBarKey = ref(["10"])
-    openKey = ref(["sub4"])
+    selectedKey.value = ["10"]
+    openMenuKey.value = ["sub4"]
     break
   default:
-    leftBarKey = ref(["1"])
+    selectedKey.value = ["1"]
 }
 </script>

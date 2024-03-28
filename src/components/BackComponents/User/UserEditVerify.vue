@@ -133,11 +133,10 @@ import {
 } from "@ant-design/icons-vue";
 
 import {onMounted, reactive, ref} from "vue";
-import {reviewResendOrganizeRequest} from "@/assets/js/PublishUtil.js";
 import moment from "moment";
 import {message} from "ant-design-vue";
 import {UserVerifyVO} from "@/assets/js/VoModel.js";
-import {reviewGetApi} from "@/api/ReviewApi.js";
+import {reviewGetApi, reviewResendOrganizeApi} from "@/api/ReviewApi.js";
 import {reviewDO} from "@/assets/js/DoModel.js";
 
 // 获取表单信息
@@ -185,8 +184,8 @@ async function reUpload() {
   console.log('[EditVerify] 准备提交 `form` 内容:', form)
   // 发送数据
   setTimeout(async _ => {
-    const getReturnData = reviewResendOrganizeRequest(form, getVerifyInfo.value.data.id);
-    if (getReturnData.value.output === "Success") {
+    const getReturnData = await reviewResendOrganizeApi(form, getVerifyInfo.value.data.id);
+    if (getReturnData.output === "Success") {
       message.success("提交成功");
     }
   }, 10);

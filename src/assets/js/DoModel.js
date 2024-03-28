@@ -169,7 +169,7 @@ export let reviewCheckConsoleDO = {
 /**
  * 获取用户列表
  */
-export let getUserListDO = {
+export let userListDO = {
     baseResponse,
     data: [
         {
@@ -206,7 +206,7 @@ export let userAddDO = {
  * 修改账户
  *
  */
-export let userEditDO = {
+export let userForceEditDO = {
     baseResponse,
     data: {
         uuid: '',
@@ -327,4 +327,29 @@ export let userLoginInfoDO = {
             expireTime: ''
         }
     ]
+}
+
+export let userForceDeleteDO = {
+    baseResponse,
+    data: {
+        uuid: '',
+        userName: '',
+        nickName: '',
+        realName: '',
+        email: '',
+        phone: '',
+        createdAt: '',
+        updatedAt: ''
+    }
+}
+
+export let userRegisterDO = {
+    baseResponse,
+    data: {
+        uuid: '',
+        userName: '',
+        realName: '',
+        email: '',
+        phone: ''
+    }
 }

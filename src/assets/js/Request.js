@@ -30,7 +30,7 @@ const OrganizeRegister = (data) => {
  * @param data (organize,username,phone,email,code,invite,password)
  * @return{*}
  */
-const ManagerRegister = (data) => {
+const managerRegister = (data) => {
     return axios({
         url: api + "/auth/admin/register",
         method: "post",
@@ -172,7 +172,7 @@ const getUserList = (data) => {
  * @param data (username, realname, phone, email, role)
  * @return {Promise<AxiosResponse<any>> | *}
  */
-const UserAdd = (data) => {
+const userAddConsole = (data) => {
     return axios({
         url: api + "/user/add",
         method: "post",
@@ -191,7 +191,7 @@ const UserAdd = (data) => {
  * @param uuid
  * @param data (userName, nickName, realName, avatar, email, phone)
  */
-const UserManagerEdit = (uuid, data) => {
+const userForceEdit = (uuid, data) => {
     return axios({
         url: api + "/user/force-edit/" + uuid,
         method: 'PUT',
@@ -210,7 +210,7 @@ const UserManagerEdit = (uuid, data) => {
  * 用户修改账户
  * @param data (nickName, avatar, email, phone, emailCode, phoneCode)
  */
-const UserEdit = (data) => {
+const userEdit = (data) => {
     return axios({
         url: api + "/user/edit",
         method: "PUT",
@@ -230,7 +230,7 @@ const UserEdit = (data) => {
  * @param uuid
  * @return {Promise<AxiosResponse<any>> | *}
  */
-const UserDelete = (uuid) => {
+const userForceDelete = (uuid) => {
     return axios({
         url: api + "/user/force-logout/" + uuid,
         method: "DELETE",
@@ -249,7 +249,7 @@ const UserDelete = (uuid) => {
  * @param uuid
  * @return {Promise<AxiosResponse<any>> | *}
  */
-const UserBan = (uuid) => {
+const userBan = (uuid) => {
     return axios({
         url: api + "/user/ban/" + uuid,
         method: "PATCH",
@@ -265,7 +265,7 @@ const UserBan = (uuid) => {
 /**
  * 重置账户密码
  */
-const UserReset = (data) => {
+const userResetPassword = (data) => {
     return axios({
         url: api + "/admin/user/reset/password",
         method: "PATCH",
@@ -605,18 +605,18 @@ export default {
     sendMail,
     getUserCurrent,
     getUserList,
-    UserAdd,
-    UserManagerEdit,
-    UserEdit,
-    UserDelete,
-    UserBan,
-    UserReset,
+    userAddConsole,
+    userForceEdit,
+    userEdit,
+    userForceDelete,
+    userBan,
+    userResetPassword,
     userLogout,
     getRoleList,
     roleAdd,
     roleEdit,
     roleDelete,
-    ManagerRegister,
+    managerRegister,
     loginInfo,
     getRoleCurrent,
     getPermissionList,

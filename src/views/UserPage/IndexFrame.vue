@@ -1,7 +1,7 @@
 <script setup>
 import router from "@/router/index.js";
-import DashboardFooter from "@/components/BackComponents/DashboardFooter.vue";
-import UserMenuBar from "@/components/BackComponents/UserMenuBar.vue";
+import DashboardFooter from "@/components/BackComponents/Dashboard/DashboardFooter.vue";
+import UserMenuBar from "@/components/BackComponents/User/UserMenuBar.vue";
 import {nextTick, onMounted} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
 import {getUrlRelativePath} from "@/assets/js/ProcessUtil.js";

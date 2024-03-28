@@ -1,7 +1,36 @@
-import {baseResponse, userLoginDO, userLoginInfoDO} from "@/assets/js/DoModel.js";
+import {baseResponse, userLoginDO, userLoginInfoDO, userRegisterDO} from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {publicErrorOperate} from "@/assets/js/PublishUtil.js";
 import {message} from "ant-design-vue";
+
+export async function managerRegisterApi(getData) {
+    let returnData = userRegisterDO;
+    try {
+        const res = await request.managerRegister(getData);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    case "OrganizeRegisterFailed":
+                        message.error(err.response.data.data.errorMessage);
+                        break;
+                    case "UsernameExisted":
+                        message.error(err.response.data.data.errorMessage);
+                        break;
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] AuthApi[managerRegisterApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] AuthApi[managerRegisterApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
 
 /**
  * 用户登陆Api
@@ -17,9 +46,9 @@ export async function userLoginApi(getData) {
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
                 switch (err.response.data.output) {
                     default:
-                        returnData = err.response.data;
                         message.warn(err.response.data.message);
                 }
             }
@@ -46,9 +75,9 @@ export async function userPasswordChangeApi(getData) {
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
                 switch (err.response.data.output) {
                     default:
-                        returnData = err.response.data;
                         message.warn(err.response.data.message);
                 }
             }

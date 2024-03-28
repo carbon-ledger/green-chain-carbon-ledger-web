@@ -36,11 +36,11 @@
 import {
   CheckCircleTwoTone,
 } from "@ant-design/icons-vue";
-import AddVerify from "@/components/BackComponents/User/AddVerify.vue";
-import VerifyInspection from "@/components/BackComponents/User/VerifyInspection.vue";
-import VerifyInfo from "@/components/BackComponents/User/VerifyInfo.vue";
+import AddVerify from "@/components/BackComponents/User/UserAddVerify.vue";
+import VerifyInspection from "@/components/BackComponents/User/UserVerifyInspection.vue";
+import VerifyInfo from "@/components/BackComponents/User/UserVerifyInfo.vue";
 import router from "@/router/index.js";
-import EditVerify from "@/components/BackComponents/User/EditVerify.vue";
+import EditVerify from "@/components/BackComponents/User/UserEditVerify.vue";
 import {onMounted, ref} from "vue";
 import {reviewGetApi} from "@/api/ReviewApi.js";
 import {organizeReviewDO} from "@/assets/js/DoModel.js";

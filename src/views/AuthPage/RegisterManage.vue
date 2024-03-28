@@ -11,17 +11,15 @@
           <div class="row-span-1">
             <a-form
                 :label-col="{ span: 6 }"
-                :model="organizeRegisterForm"
+                :model="managerRegisterForm"
                 name="organize_name"
-                @finish="onFinish"
-                @finishFailed="onFinishFailed"
             >
               <a-form-item
                   :rules="[{ required: true, message: '监管用户名不能为空' }]"
                   label="监管用户名"
                   name="username"
               >
-                <a-input v-model:value="organizeRegisterForm.username">
+                <a-input v-model:value="managerRegisterForm.username">
                   <template #prefix>
                     <UserOutlined class="site-form-item-icon"/>
                   </template>
@@ -32,7 +30,7 @@
                   label="真实姓名"
                   name="realname"
               >
-                <a-input v-model:value="organizeRegisterForm.realname">
+                <a-input v-model:value="managerRegisterForm.realname">
                   <template #prefix>
                     <IdcardOutlined class="site-form-item-icon"/>
                   </template>
@@ -43,7 +41,7 @@
                   label="联系电话"
                   name="phone"
               >
-                <a-input v-model:value="organizeRegisterForm.phone">
+                <a-input v-model:value="managerRegisterForm.phone">
                   <template #prefix>
                     <PhoneOutlined class="site-form-item-icon"/>
                   </template>
@@ -54,7 +52,7 @@
                   label="账户邮箱"
                   name="email"
               >
-                <a-input v-model:value="organizeRegisterForm.email">
+                <a-input v-model:value="managerRegisterForm.email">
                   <template #prefix>
                     <MailOutlined class="site-form-item-icon"/>
                   </template>
@@ -65,7 +63,7 @@
                   label="验证码"
                   name="code"
               >
-                <a-input v-model:value="organizeRegisterForm.code">
+                <a-input v-model:value="managerRegisterForm.code">
                   <template #prefix>
                     <NumberOutlined class="site-form-item-icon"/>
                   </template>
@@ -82,7 +80,7 @@
                   label="密码"
                   name="password"
               >
-                <a-input-password v-model:value="organizeRegisterForm.password">
+                <a-input-password v-model:value="managerRegisterForm.password">
                   <template #prefix>
                     <KeyOutlined class="site-form-item-icon"/>
                   </template>
@@ -120,11 +118,12 @@ import {
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import {message} from "ant-design-vue";
-import requests from "@/assets/js/Request.js";
-import {managerUserRegisterVO} from "@/assets/js/VoModel.js";
-import {managerUserRegisterRequest} from "@/assets/js/PublishUtil.js";
+import {managerUserRegisterVO, sendMailVO} from "@/assets/js/VoModel.js";
+import {managerRegisterApi} from "@/api/AuthApi.js";
+import {sendCodeMailApi} from "@/api/MailApi.js";
 
-const organizeRegisterForm = reactive(managerUserRegisterVO);
+const managerRegisterForm = reactive(managerUserRegisterVO);
+const requestData = reactive(sendMailVO);
 
 function addZero(i) {
   return i < 10 ? "0" + i : i + "";
@@ -144,22 +143,18 @@ async function countDown(endTime) {
     countDown(endTime);
   }, 1000);
 }
-const onFinish = values => {
-  console.log('Success:', values);
-};
-const onFinishFailed = errorInfo => {
-  console.log('Failed:', errorInfo);
-};
 
-function UserRegister() {
-  if (organizeRegisterForm.username !== ''
-      && organizeRegisterForm.realname !== ''
-      && organizeRegisterForm.email !== ''
-      && organizeRegisterForm.code !== ''
-      && organizeRegisterForm.password !== '') {
-    // 准备调用 OrganizeRegister 函数所需的参数
-
-    managerUserRegisterRequest(organizeRegisterForm);
+async function UserRegister() {
+  if (managerRegisterForm.username !== ''
+      && managerRegisterForm.realname !== ''
+      && managerRegisterForm.email !== ''
+      && managerRegisterForm.code !== ''
+      && managerRegisterForm.password !== '') {
+    const getReturnData = await managerRegisterApi(managerRegisterForm);
+    if (getReturnData.output === "Success") {
+      message.success("注册成功，请登录");
+      await router.push({name: 'LoginAccount'});
+    }
   } else {
     message.warn("必填项不可缺")
   }
@@ -167,34 +162,22 @@ function UserRegister() {
 
 function getEmailVerifyCode() {
   document.getElementById('send_button').disabled = true;
-  if (organizeRegisterForm.email === '' || organizeRegisterForm.email === null || organizeRegisterForm.email === undefined) {
+  if (managerRegisterForm.email === '' || managerRegisterForm.email === null || managerRegisterForm.email === undefined) {
     message.error('邮箱不能为空');
     document.getElementById('send_button').disabled = false;
     return;
   }
-
   // 准备调用GetCode函数所需的参数
-  const requestData = {
-    email: organizeRegisterForm.email,
-    template: "user-register"
-  };
-  requests.sendCodeMail(requestData).then(response => {
-    countDown(new Date().getTime() + 120000);
-    switch (response.data.output) {
-      case "Success":
-        message.success('验证码已发送，有效期15分钟');
-        break;
-      default:
-        message.error(response.data.output);
+  requestData.email = managerRegisterForm.email;
+  requestData.template = 'user-register';
+  setTimeout(async _ => {
+    const getReturnData = await sendCodeMailApi(requestData);
+    if (getReturnData.output === "Success") {
+      message.success('验证码已发送，有效期15分钟');
+      await countDown(new Date().getTime() + 120000);
+    } else {
+      document.getElementById('send_button').disabled = false;
     }
-  }).catch(error => {
-    switch (error.response.data.output) {
-      case "VerifyCodeValid":
-        message.warn(error.response.data.data.errorMessage);
-        break;
-      default:
-        message.error(error.response.data.output);
-    }
-  })
+  }, 1);
 }
 </script>

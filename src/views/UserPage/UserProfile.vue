@@ -28,18 +28,18 @@
               <a-list-item-meta>
                 <template #title>
                   <div class="grid">
-                    <div>{{ getRoleList.data.displayName }}</div>
+                    <div>{{ getCurrentRole.data.displayName }}</div>
                     <div class="grid">
-                      <div class="text-mount-pink">角色组名称：{{ getRoleList.data.name }}</div>
-                      <div class="text-mount-pink">角色识别号：{{ getRoleList.data.uuid }}</div>
+                      <div class="text-mount-pink">角色组名称：{{ getCurrentRole.data.name }}</div>
+                      <div class="text-mount-pink">角色识别号：{{ getCurrentRole.data.uuid }}</div>
                     </div>
                   </div>
                 </template>
                 <template #avatar>
-                  <img class="w-12 h-12 rounded-2xl" v-if="dataRole.data.name === 'console'" src="@/assets/images/role-console.webp" alt="RoleList">
-                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.data.name === 'admin'" src="@/assets/images/role-admin.webp" alt="RoleList">
-                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.data.name === 'organize'" src="@/assets/images/role-organize.webp" alt="RoleList">
-                  <img class="w-12 h-12 rounded-2xl" v-else-if="dataRole.data.name === 'default'" src="@/assets/images/role-default.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-if="getCurrentRole.data.name === 'console'" src="@/assets/images/role-console.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-else-if="getCurrentRole.data.name === 'admin'" src="@/assets/images/role-admin.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-else-if="getCurrentRole.data.name === 'organize'" src="@/assets/images/role-organize.webp" alt="RoleList">
+                  <img class="w-12 h-12 rounded-2xl" v-else-if="getCurrentRole.data.name === 'default'" src="@/assets/images/role-default.webp" alt="RoleList">
                   <img class="w-12 h-12 rounded-2xl" v-else src="@/assets/images/role-customize.webp" alt="RoleList">
                 </template>
               </a-list-item-meta>
@@ -85,11 +85,11 @@ import {getRoleCurrentVO, userCurrentDO, permissionListDO} from "@/assets/js/DoM
 import {getUserCurrentApi} from "@/api/UserApi.js";
 
 const dataPermission = ref(permissionListDO);
-const getRoleList = ref(getRoleCurrentVO);
+const getCurrentRole = ref(getRoleCurrentVO);
 const getUserProfile = ref(userCurrentDO);
 
 onMounted(async _ => {
-  dataRole.value = await roleCurrentApi();
+  getCurrentRole.value = await roleCurrentApi();
   dataPermission.value = await getPermissionListApi();
   getUserProfile.value = await getUserCurrentApi();
 })
