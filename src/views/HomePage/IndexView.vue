@@ -1,15 +1,14 @@
 <template>
   <a-layout class="layout">
     <Navbar/>
-    <Carousel />
-    <a-layout-content>
+    <a-layout-content class="mt-[70px]">
+      <Carousel />
       <CarbonAccountingIntro/>
       <CarbonTradingIntro/>
       <ProductFeatures/>
       <IndustrySolutions/>
       <OurService/>
     </a-layout-content>
-    <Footer/>
   </a-layout>
 </template>
 

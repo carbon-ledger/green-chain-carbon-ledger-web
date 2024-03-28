@@ -1,67 +1,43 @@
 <template>
-  <div class="carbon-accounting-container" @click="$router.push('/CarbonAccounting')">
-    <h1 class="title">碳核算服务</h1>
-    <div class="description">
-      提供全面的碳排放核算，帮助企业准确计算和管理其碳足迹。
-    </div>
-    <div class="images-container">
-      <div class="row">
-        <!-- 第一行图片及描述 -->
-        <div class="image-container">
-          <img class="image" src="/favicon.ico" alt="描述1" />
-          <div class="image-description">图片描述1</div>
+  <div class="w-full flex justify-center bg-green-50">
+    <div class="container p-32">
+      <div class="grid grid-cols-6 gap-y-10">
+        <div class="col-span-6">
+          <h1 class="text-center text-2xl font-bold">碳核算服务</h1>
+          <p class="text-center text-lg">
+            提供全面的碳排放核算，帮助企业准确计算和管理其碳足迹。
+          </p>
+        </div>
+        <div class="col-span-3">
+          <a-card hoverable>
+            <template #cover>
+              <img src="@/assets/images/img8.jpg">
+            </template>
+          </a-card>
+        </div>
+        <div class="col-span-3 mt-6 flex-col space-y-10">
+          <div class="text-end">
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl">自动收集能源和排放数据 <CheckCircleOutlined class="text-aspargus" /></p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl">支持实时数据监测 <CheckCircleOutlined class="text-aspargus" /></p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl">符合国际碳核算标准 <CheckCircleOutlined class="text-aspargus" /></p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl">设定并跟踪减排目标 <CheckCircleOutlined class="text-aspargus" /></p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl">确保遵守环境法规和政策 <CheckCircleOutlined class="text-aspargus" /></p>
+          </div>
+          <div class="text-end">
+            <a-button type="primary" class="bg-aspargus" @click="gotoCarbonAccount()">了解更多</a-button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script setup>
 
-<script>
-export default {
-  name: 'CarbonAccountingIntro',
-};
+
+import {CheckCircleOutlined} from "@ant-design/icons-vue";
+
+
+function gotoCarbonAccount(){
+  window.location.replace("/accounting")
+}
 </script>
-
-<style scoped>
-.carbon-accounting-container {
-  text-align: left;
-  padding: 20px;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.images-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.row {
-  display: flex;
-  justify-content: center; /* 中心对齐替换为 space-between */
-  flex-wrap: wrap; /* 允许项目换行 */
-  gap: 100px; /* 替换 margin，简化间距设置 */
-}
-
-.image-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 垂直居中图片和描述 */
-  margin: 50px; /* 保持一些外边距 */
-}
-
-.image {
-  /* 保持图片原始大小，不超过容器宽度 */
-  max-width: 50%;
-  height: auto;
-  width: 200px;
-  display: block; /* 避免默认的行内样式，确保可以应用margin */
-}
-
-.image-description {
-  margin-top: 10px; /* 描述与图片间距 */
-}
-</style>

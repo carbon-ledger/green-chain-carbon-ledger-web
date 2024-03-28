@@ -1,70 +1,42 @@
 <template>
-  <div class="carbon-accounting-container" @click="$router.push('/CarbonTrading')">
-    <h1 class="title">碳交易平台</h1>
-    <div class="description">
-      提供一个透明、安全的碳交易市场，促进碳排放权的有效分配和交易。
-    </div>
-    <div class="images-container">
-      <div class="row">
-        <!-- 第一行图片及描述 -->
-        <div class="image-container">
-          <img class="image" src="/favicon.ico" alt="描述1" />
-          <div class="image-description">图片描述1</div>
+  <div class="w-full flex justify-center">
+    <div class="container p-32">
+      <div class="grid grid-cols-6 gap-y-10">
+        <div class="col-span-6">
+          <h1 class="text-center text-2xl font-bold">碳核算服务</h1>
+          <p class="text-center text-lg">
+            提供全面的碳排放核算，帮助企业准确计算和管理其碳足迹。
+          </p>
+        </div>
+        <div class="col-span-3 mt-6 flex-col space-y-10">
+          <div class="text-start">
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl"><CheckCircleOutlined class="text-aspargus mr-2" />简洁直观的界面，易于操作。</p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl"><CheckCircleOutlined class="text-aspargus mr-2" />确保交易和碳信用数据完全公开。</p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl"><CheckCircleOutlined class="text-aspargus mr-2" />流程自动化以提高效率。</p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl"><CheckCircleOutlined class="text-aspargus mr-2" />与其他平台和系统兼容。</p>
+            <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl"><CheckCircleOutlined class="text-aspargus mr-2" />强大的分析工具帮助用户做出决策。</p>
+          </div>
+          <div class="text-start">
+            <a-button type="primary" class="bg-aspargus" @click="gotoCarbonAccount()">了解更多</a-button>
+          </div>
+        </div>
+        <div class="col-span-3">
+          <a-card class="col-span-3" hoverable>
+            <template #cover>
+              <img src="@/assets/images/img11.jpg">
+            </template>
+          </a-card>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script setup>
+import {
+  CheckCircleOutlined
+} from "@ant-design/icons-vue";
 
-<script>
-export default {
-  name: 'CarbonAccountingIntro',
-};
+function gotoCarbonTrade(){
+  window.location.replace("/trade")
+}
 </script>
-
-<style scoped>
-.carbon-accounting-container {
-  background-color: #e0f1ff;
-
-  text-align: left;
-  padding: 20px;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.images-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.row {
-  display: flex;
-  justify-content: center; /* 中心对齐替换为 space-between */
-  flex-wrap: wrap; /* 允许项目换行 */
-  gap: 100px; /* 替换 margin，简化间距设置 */
-}
-
-.image-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 垂直居中图片和描述 */
-  margin: 50px; /* 保持一些外边距 */
-}
-
-.image {
-  /* 保持图片原始大小，不超过容器宽度 */
-  max-width: 50%;
-  height: auto;
-  width: 200px;
-  display: block; /* 避免默认的行内样式，确保可以应用margin */
-}
-
-.image-description {
-  margin-top: 10px; /* 描述与图片间距 */
-}
-</style>
-
