@@ -316,7 +316,7 @@ const getRoleList = (data) => {
  * 新增角色
  *@param data (name, displayName, permission)
  */
-const RoleAdd = (data) => {
+const roleAdd = (data) => {
     return axios({
         url: api + "/role/add",
         method: "post",
@@ -335,7 +335,7 @@ const RoleAdd = (data) => {
  * @param uuid
  * @param data (name, displayName, permission)
  */
-const RoleEdit = (uuid, data) => {
+const roleEdit = (uuid, data) => {
     return axios({
         url: api + "/role/edit/" + uuid,
         method: "put",
@@ -353,7 +353,7 @@ const RoleEdit = (uuid, data) => {
  * 删除角色
  * @param uuid
  */
-const RoleDelete = (uuid) => {
+const roleDelete = (uuid) => {
     return axios({
         url: api + "/role/delete/" + uuid,
         method: "delete",
@@ -613,9 +613,9 @@ export default {
     UserReset,
     userLogout,
     getRoleList,
-    RoleAdd,
-    RoleEdit,
-    RoleDelete,
+    roleAdd,
+    roleEdit,
+    roleDelete,
     ManagerRegister,
     loginInfo,
     getRoleCurrent,

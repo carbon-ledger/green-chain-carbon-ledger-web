@@ -59,7 +59,7 @@ const router = createRouter({
             // 登陆相关路由表
             path: "/auth",
             name: "Auth",
-            component: () => import("@/views/AuthPage/AuthFrame.vue"),
+            component: () => import("@/views/AuthPage/IndexFrame.vue"),
             children: [
                 {
                     // 登陆
@@ -141,7 +141,7 @@ const router = createRouter({
             // 仪表盘相关路由表
             path: '/dashboard',
             name: 'Dashboard',
-            component: () => import('@/views/Dashboard/DashboardFrame.vue'),
+            component: () => import('@/views/Dashboard/IndexFrame.vue'),
             children: [
                 {
                     // 仪表盘主页

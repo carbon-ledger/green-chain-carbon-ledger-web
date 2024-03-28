@@ -1,38 +1,14 @@
 import {ref} from "vue";
 import {
     baseResponse,
-    organizeReviewDO,
-    reviewDO,
     getUserListDO,
-    userAddDO, userEditDO, userDeleteDO, userBanDO, userResetDO, roleDeleteDO
+    userAddDO, userEditDO, userDeleteDO, userBanDO
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import requests from "@/assets/js/Request.js";
 import router from "@/router/index.js";
 import {roleEditVO} from "@/assets/js/VoModel.js";
-export function reviewGetRequest() {
-    let getData = ref(organizeReviewDO)
-    request.reviewGet().then(res => {
-        switch (res.data.output) {
-            case "Success":
-                getData.value = res.data
-                break
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        switch (err.response.data.output) {
-            case "ReviewError":
-                break
-            default:
-                message.warn(err.response.data.message).then()
-        }
-    })
-    console.debug(getData)
-    return getData;
-}
-
 /**
  * 重新发送审核
  *
@@ -58,51 +34,6 @@ export function reviewResendOrganizeRequest(data, projectId) {
     console.debug(getData)
     return getData;
 }
-export function reviewGetAdminRequest(id, type) {
-    let getData = ref(reviewDO)
-    request.reviewGetConsoleCheck(id, type).then(res => {
-        getData.value = res.data
-        switch (res.data.output) {
-            case "Success":
-                break
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        getData.value = err.response.data
-        switch (err.response.data.output) {
-            case "ReviewError":
-                break
-            default:
-                message.warn(err.response.data.message).then()
-        }
-    })
-    console.debug(getData)
-    return getData;
-}
-
-export function reviewCheckOrganizeRequest(id, data) {
-    let getData = ref(reviewDO)
-    request.reviewCheckOrganize(id, data).then(res => {
-        switch (res.data.output) {
-            case "Success":
-                getData.value = res.data
-                break
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        switch (err.response.data.output) {
-            case "ReviewError":
-                break
-            default:
-                message.warn(err.response.data.message).then()
-        }
-    })
-    console.debug(getData)
-    return getData;
-}
-
 /**
  * 获取用户列表
  */
@@ -204,50 +135,6 @@ export function userBanRequest(uuid) {
     })
     return  userBan;
 }
-
-/**
- * 账户密码重置
- */
-export function userResetRequest(uuid) {
-    let userReset = ref(userResetDO)
-    request.UserReset(uuid).then(res => {
-        userReset.value = res.data
-        switch (res.data.output) {
-            case "Success":
-                message.success("操作成功").then()
-                break;
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        userReset.value = err.response.data
-        message.warn(err.response.data.message).then()
-    })
-    return  userReset;
-}
-
-/**
- * 新增角色
- * @param data
- */
-export function roleAddRequest(data) {
-    let returnData = ref(baseResponse)
-    request.RoleAdd(data).then(res => {
-        returnData.value = res.data
-        switch (res.data.output) {
-            case "Success":
-                message.success("操作成功").then()
-                break;
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-       returnData.value = err.response.data
-        message.warn(err.response.data.message).then()
-    })
-    return returnData;
-}
-
 /**
  * 修改角色
  * @param uuid
@@ -255,7 +142,7 @@ export function roleAddRequest(data) {
  */
 export function roleEditRequest(uuid, data) {
     let roleEdit = ref(roleEditVO)
-    request.RoleEdit(uuid, data).then(res => {
+    request.roleEdit(uuid, data).then(res => {
         roleEdit.value = res.data
         switch (res.data.output) {
             case "Success":
@@ -270,29 +157,6 @@ export function roleEditRequest(uuid, data) {
     })
     return  roleEdit;
 }
-
-/**
- * 删除角色
- * @param uuid
- */
-export function roleDeleteRequest(uuid) {
-    let roleDelete = ref(roleDeleteDO)
-    request.RoleDelete(uuid).then(res => {
-        roleEditRequest.value = res.data
-        switch (res.data.output) {
-            case "Success":
-                message.success("操作成功").then()
-                break;
-            default:
-                message.warn(res.data.message).then()
-        }
-    }).catch(err => {
-        roleDelete.value = err.response.data
-        message.warn(err.response.data.message).then()
-    })
-    return  roleDelete;
-}
-
 export function managerUserRegisterRequest(data) {
     requests.ManagerRegister(data).then((res) => {
         switch (res.data.output) {

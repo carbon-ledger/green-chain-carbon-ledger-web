@@ -43,7 +43,7 @@
     <!--表格内容-->
     <div v-if="getSelectRadio === 'all' || (getSelectRadio === 'search' && getRoleListVO.search !== '')"
          class="w-full h-auto mt-6 rounded">
-      <a-table :columns="columns" :data-source="dataRole.data">
+      <a-table :columns="columns" :data-source="getRoleList.data">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key==='uuid'">
             {{ record.uuid }}
@@ -62,7 +62,13 @@
                 修改
               </a-button>
               <a-button class="text-aspargus flex justify-center items-center" size="small"
-                        type="text" @click="showDialogWithDeleteRole(record)">
+                        type="text" @click="showDialogWithDeleteRole(record.uuid)"
+                        v-if="record.name !== 'console' && record.name !== 'admin' && record.name !== 'organize' && record.name !== 'default'">
+                <DeleteOutlined/>
+                删除
+              </a-button>
+              <a-button class="text-aspargus flex justify-center items-center" size="small"
+                        type="text" v-else disabled>
                 <DeleteOutlined/>
                 删除
               </a-button>
@@ -74,7 +80,7 @@
   </div>
 
   <!--新增角色对话框-->
-  <a-modal v-model:open="addRoleDialog" class="w-48" title="新增角色">
+  <a-modal v-model:open="dialogAddRole" class="w-48" title="新增角色">
     <a-form
         :label-col="{ span: 5 }"
         class="p-4 grid justify-center"
@@ -116,7 +122,7 @@
   </a-modal>
 
   <!--修改角色对话框-->
-  <a-modal v-model:open="editRoleDialog" class="w-48" title="修改角色">
+  <a-modal v-model:open="dialogEditRole" class="w-48" title="修改角色">
     <a-form
         :label-col="{ span: 5 }"
         class="p-4 grid justify-center"
@@ -158,13 +164,13 @@
   </a-modal>
 
   <!--删除角色对话框-->
-  <a-modal v-model:open="deleteRoleDialog" title="删除角色" width="450px">
+  <a-modal v-model:open="dialogDeleteRole" title="删除角色" width="450px">
     <p>
       <ExclamationCircleOutlined class="text-yellow-300 font-extrabold text-xl mr-2"/>
       确认要删除该角色吗？
     </p>
     <template #footer>
-      <a-button class="mt-4" danger @click="consoleDeleteRole()">确认</a-button>
+      <a-button class="mt-4" danger @click="consoleDeleteRole">确认</a-button>
       <a-button @click="closeDialogRoleDelete">取消</a-button>
     </template>
   </a-modal>
@@ -181,35 +187,40 @@ import {
   ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
-import {roleAddVO, roleDeleteVO, roleEditVO, roleListVO} from "@/assets/js/VoModel.js";
-import {
-  roleAddRequest,
-  roleDeleteRequest,
-  roleEditRequest,
-} from "@/assets/js/PublishUtil.js";
-import {getRoleListApi} from "@/api/RoleApi.js"
+import {roleAddVO, roleEditVO, roleListVO} from "@/assets/js/VoModel.js";
+import {getRoleListApi, roleAddApi, roleDeleteApi, roleEditApi} from "@/api/RoleApi.js"
 import {getPermissionListApi} from "@/api/PermissionApi.js";
-import {permissionDO, roleListDO} from "@/assets/js/DoModel.js";
+import {permissionListDO, roleListDO} from "@/assets/js/DoModel.js";
+import {message} from "ant-design-vue";
+import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 
 
-const addRoleDialog = ref(false);
-const editRoleDialog = ref(false);
-const deleteRoleDialog = ref(false);
+const dialogAddRole = ref(false);
+const dialogEditRole = ref(false);
+const dialogDeleteRole = ref(false);
 const isSearchListView = ref(false);
 const getSelectRadio = ref('all');
-let getRoleListVO = reactive(roleListVO);
-let getRoleDeleteVO = reactive(roleDeleteVO);
-let getRoleAddVO = reactive(roleAddVO);
-let getRoleEditVO = reactive(roleEditVO);
+const getDeleteRoleUuid = ref('');
+const getRoleListVO = reactive(roleListVO);
+const getRoleAddVO = reactive(roleAddVO);
+const getRoleEditVO = reactive(roleEditVO);
 const editRoleTargetKeys = ref([]);
 const addRoleTargetKeys = ref([]);
 const permissionList = ref([]);
-const dataRole = ref(roleListDO);
-const getPermissionList = ref(permissionDO);
+const getRoleList = ref(roleListDO);
+const getPermissionList = ref(permissionListDO);
+const routes = breadcrumbs
+
+breadcrumbs.push({breadcrumbName: '网站管理'});
+breadcrumbs.push({path: '/user', breadcrumbName: '角色管理'});
+setTimeout(() => {
+  breadcrumbs.pop();
+  breadcrumbs.pop();
+}, 1)
 
 // 数据准备
 onMounted(async () => {
-  dataRole.value = await getRoleListApi('all', getRoleListVO);
+  getRoleList.value = await getRoleListApi('all', getRoleListVO);
   getPermissionList.value = await getPermissionListApi();
 })
 
@@ -226,11 +237,11 @@ const showDialogWithAddRole = () => {
   console.debug('[VIEW] ConsoleRole: 获取权限列表', getPermissionList)
   console.debug('[VIEW] ConsoleRole: 获取已选择的信息', addRoleTargetKeys)
   console.debug('[VIEW] ConsoleRole: 获取roleEditVO信息', getRoleEditVO)
-  addRoleDialog.value = true;
+  dialogAddRole.value = true;
 }
-const showDialogWithDeleteRole = (record) => {
-  deleteRoleDialog.value = true;
-  getRoleDeleteVO.uuid = record.uuid
+const showDialogWithDeleteRole = deleteRoleUuid => {
+  dialogDeleteRole.value = true;
+  getDeleteRoleUuid.value = deleteRoleUuid;
 }
 const showDialogWithEditUser = (record) => {
   // 数据映射
@@ -257,49 +268,54 @@ const showDialogWithEditUser = (record) => {
   console.debug('[VIEW] ConsoleRole: 获取权限列表', getPermissionList)
   console.debug('[VIEW] ConsoleRole: 获取已选择的信息', editRoleTargetKeys)
   console.debug('[VIEW] ConsoleRole: 获取roleEditVO信息', getRoleEditVO)
-  editRoleDialog.value = true;
+  dialogEditRole.value = true;
 }
 
-const closeDialogRoleAdd = () => addRoleDialog.value = false;
+const closeDialogRoleAdd = () => dialogAddRole.value = false;
 const closeDialogRoleEdit = () => {
-  editRoleDialog.value = false;
+  dialogEditRole.value = false;
 }
-const closeDialogRoleDelete = () => deleteRoleDialog.value = false;
+const closeDialogRoleDelete = () => dialogDeleteRole.value = false;
 
 /**
  * 添加角色
  */
-const consoleAddRole = () => {
+const consoleAddRole = async () => {
   // 数据准备
   getRoleAddVO.permission = addRoleTargetKeys.value;
-  const getReturnData = roleAddRequest(getRoleAddVO);
-  switch (getReturnData.value.output) {
+  const getReturnData = await roleAddApi(getRoleAddVO);
+  switch (getReturnData.output) {
     case "Success":
-      dataRole.value = getRoleListApi('all', getRoleListVO);
+      getRoleList.value = await getRoleListApi('all', getRoleListVO);
+      message.success("操作成功");
   }
-  addRoleDialog.value = false;
+  dialogAddRole.value = false;
 }
 
 /**
  * 角色编辑
  */
-const consoleEditRole = () => {
+const consoleEditRole = async () => {
   // 数据准备
   getRoleAddVO.permission = editRoleTargetKeys.value;
-  if (roleEditRequest(getRoleEditVO.uuid, getRoleEditVO).value.output === "Success") {
-    editRoleDialog.value = false
-    dataRole.value = getRoleListApi('all', getRoleListVO);
+  const getReturnData = await roleEditApi(getRoleEditVO);
+  if (getReturnData.output === "Success") {
+    getRoleList.value = await getRoleListApi('all', getRoleListVO);
+    message.success("操作成功");
   }
+  dialogEditRole.value = false
 }
 
 /**
  * 删除角色
  */
-const consoleDeleteRole = () => {
-  if (roleDeleteRequest(getRoleDeleteVO.uuid).value.output === "Success") {
-    deleteRoleDialog.value = false
-    dataRole.value = getRoleListApi('all', getRoleListVO);
+const consoleDeleteRole = async _ => {
+  const getReturnData = await roleDeleteApi(getDeleteRoleUuid.value);
+  if (getReturnData.output === "Success") {
+    getRoleList.value = await getRoleListApi('all', getRoleListVO);
+    message.success("操作成功");
   }
+  dialogDeleteRole.value = false
 }
 
 function changeSelectRadio(type) {
@@ -310,42 +326,22 @@ function changeSelectRadio(type) {
  * 获取 RoleList 函数
  * @param type
  */
-function getRoleListFunction(type) {
+async function getRoleListFunction(type) {
   changeSelectRadio(type);
   if (type === 'all') {
-    dataRole.value = getRoleListApi('all', getRoleListVO)
+    getRoleList.value = await getRoleListApi('all', getRoleListVO)
   } else {
-    dataRole.value = getRoleListApi('search', getRoleListVO)
+    getRoleList.value = await getRoleListApi('search', getRoleListVO)
   }
 }
 
-function onSearch() {
+async function onSearch() {
   isSearchListView.value = true;
-  dataRole.value = getRoleListApi('search', getRoleListVO);
+  getRoleList.value = await getRoleListApi('search', getRoleListVO);
 }
-
-const handleChange = (nextTargetKeys, direction, moveKeys) => {
-  console.log('editRoleTargetKeys: ', nextTargetKeys);
-  console.log('direction: ', direction);
-  console.log('moveKeys: ', moveKeys);
-};
-const handleSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-  console.log('sourceSelectedKeys: ', sourceSelectedKeys);
-  console.log('targetSelectedKeys: ', targetSelectedKeys);
-};
 </script>
 
 <script>
-import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
-
-breadcrumbs.push({breadcrumbName: '网站管理'});
-breadcrumbs.push({path: '/user', breadcrumbName: '角色管理'});
-const routes = breadcrumbs
-setTimeout(() => {
-  breadcrumbs.pop();
-  breadcrumbs.pop();
-}, 1)
-
 //表格栏目
 const columns = [
   {

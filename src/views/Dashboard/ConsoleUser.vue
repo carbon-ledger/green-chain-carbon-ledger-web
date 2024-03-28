@@ -154,8 +154,8 @@
               style="width: 293px"
               @focus="focus"
           >
-            <a-select-option v-for="(dataRole, index) in dataRole.data" :key="index" :value="dataRole.name">
-              <span>{{ dataRole.name }}</span> - <span class="text-gray-400">{{ dataRole.displayName }}</span>
+            <a-select-option v-for="(getRoleList, index) in dataRole.data" :key="index" :value="dataRole.name">
+              <span>{{ getRoleList.name }}</span> - <span class="text-gray-400">{{ getRoleList.displayName }}</span>
             </a-select-option>
           </a-select>
         </a-form-item>

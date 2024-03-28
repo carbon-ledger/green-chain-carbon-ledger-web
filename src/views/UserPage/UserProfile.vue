@@ -28,10 +28,10 @@
               <a-list-item-meta>
                 <template #title>
                   <div class="grid">
-                    <div>{{ dataRole.data.displayName }}</div>
+                    <div>{{ getRoleList.data.displayName }}</div>
                     <div class="grid">
-                      <div class="text-mount-pink">角色组名称：{{ dataRole.data.name }}</div>
-                      <div class="text-mount-pink">角色识别号：{{ dataRole.data.uuid }}</div>
+                      <div class="text-mount-pink">角色组名称：{{ getRoleList.data.name }}</div>
+                      <div class="text-mount-pink">角色识别号：{{ getRoleList.data.uuid }}</div>
                     </div>
                   </div>
                 </template>
@@ -80,16 +80,16 @@ import {AppstoreTwoTone} from "@ant-design/icons-vue";
 import { KeyOutlined, EditOutlined} from '@ant-design/icons-vue';
 import {onMounted, ref} from "vue";
 import {getPermissionListApi} from "@/api/PermissionApi.js";
-import {getRoleCurrentApi} from "@/api/RoleApi.js";
-import {getRoleCurrentVO, userCurrentDO, permissionDO} from "@/assets/js/DoModel.js";
+import {roleCurrentApi} from "@/api/RoleApi.js";
+import {getRoleCurrentVO, userCurrentDO, permissionListDO} from "@/assets/js/DoModel.js";
 import {getUserCurrentApi} from "@/api/UserApi.js";
 
-const dataPermission = ref(permissionDO);
-const dataRole = ref(getRoleCurrentVO);
+const dataPermission = ref(permissionListDO);
+const getRoleList = ref(getRoleCurrentVO);
 const getUserProfile = ref(userCurrentDO);
 
 onMounted(async _ => {
-  dataRole.value = await getRoleCurrentApi();
+  dataRole.value = await roleCurrentApi();
   dataPermission.value = await getPermissionListApi();
   getUserProfile.value = await getUserCurrentApi();
 })

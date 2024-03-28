@@ -104,14 +104,6 @@ export let roleEditVO = {
     permission: [],
 }
 
-/**
- * 删除角色
- * @type {{password: string, code: string, phone: string, email: string, username: string, realname: string}}
- */
-export let roleDeleteVO = {
-    uuid: '',
-}
-
 export let managerUserRegisterVO = {
     username: '',
     realname: '',

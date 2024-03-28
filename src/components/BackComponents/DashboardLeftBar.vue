@@ -3,7 +3,16 @@
     <img alt="UserAvatar" class="rounded-full w-auto h-[40px]" src="/favicon.ico">
   </div>
   <a-menu v-model:openKeys="openKey" v-model:selectedKeys="leftBarKey" mode="inline">
-    <a-menu-item key="1" @click="pushTo()">
+    <a-menu-item>
+      <HomeOutlined />
+      <span class="nav-text">返回主页</span>
+    </a-menu-item>
+    <a-menu-item>
+      <ShoppingOutlined />
+      <span class="nav-text">交易市场</span>
+    </a-menu-item>
+    <hr class="m-3"/>
+    <a-menu-item key="1" @click="router.push({name: 'Dashboard'})">
       <DashboardOutlined/>
       <span class="nav-text">仪表盘</span>
     </a-menu-item>
@@ -79,7 +88,7 @@
     </a-sub-menu>
     <a-menu-item key="10" @click="router.push('/dashboard/verify')">
       <span>
-        <SafetyOutlined />
+        <SafetyOutlined/>
         <span class="nav-text">实名审核</span>
       </span>
     </a-menu-item>
@@ -88,17 +97,19 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import {
-  IssuesCloseOutlined,
-  DashboardOutlined,
-  SettingOutlined,
-  CopyrightCircleOutlined,
-  LayoutOutlined,
+  ApartmentOutlined,
   BarChartOutlined,
+  CopyrightCircleOutlined,
+  DashboardOutlined,
+  IssuesCloseOutlined,
+  KeyOutlined,
+  LayoutOutlined,
+  SafetyOutlined,
+  SettingOutlined,
   UserOutlined,
   UserSwitchOutlined,
-  KeyOutlined,
-  ApartmentOutlined,
-  SafetyOutlined
+  ShoppingOutlined,
+  HomeOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import request from "@/assets/js/Request.js";
@@ -121,17 +132,6 @@ function getUserCurrent() {
   }).catch(() => {
     console.warn("获取用户权限失败")
   })
-}
-
-/**
- * 跳转到对应页面
- */
-function pushTo() {
-  if (userRole === null) {
-    router.push("/auth/userLogin")
-  } else {
-    router.push("/dashboard/" + userRole)
-  }
 }
 
 let leftBarKey

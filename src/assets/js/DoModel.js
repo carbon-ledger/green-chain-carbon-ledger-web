@@ -65,7 +65,7 @@ export let getRoleCurrentVO = {
     }
 }
 
-export let permissionDO = {
+export let permissionListDO = {
     baseResponse,
     data: [
         {
