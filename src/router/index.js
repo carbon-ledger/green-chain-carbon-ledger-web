@@ -177,6 +177,11 @@ const router = createRouter({
                 }
             ]
         },
+        {
+            path: '/no-permission',
+            name:'PageNotFounded',
+            component:() => import('@/views/PublicPage/NoPermission.vue')
+        }
     ]
 })
 
