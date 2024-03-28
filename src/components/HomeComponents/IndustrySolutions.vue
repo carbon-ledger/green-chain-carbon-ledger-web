@@ -7,21 +7,48 @@
           提供专业碳排放与交易解决方案，助力企业应对碳市场挑战。
         </p>
       </div>
-      <div class="mt-16 flex space-x-64">
-        <div class=" h-96 w-1/2 bg-white shadow-lg" role="status">
-          <img src="@/assets/images/img13.jpg">
+      <a-carousel class="h-[600px]" autoplay>
+        <div class="relative bg-[url('@/assets/images/img32.jpg')] bg-cover bg-center h-[600px]">
+          <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+          <div class="flex flex-col h-full z-10 relative justify-center">
+            <div class="container p-72">
+              <div class="grid grid-cols-6 gap-y-6">
+                <div class="col-span-6">
+                  <span class="text-start text-gray-100 text-4xl">钢铁产业</span>
+                </div>
+                <div class="col-span-6">
+                  <span class="text-start text-gray-100 text-xl">
+                    系统着重于生产过程的能效优化和清洁生产技术的应用，如电弧炉替代传统高炉，以显著降低碳排放。
+                    同时，通过为企业制定和执行针对性的碳交易策略，优化其碳资产的市场价值，帮助钢铁产业企业在满足环保法规的同时，实现经济效益的提升。
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="mt-8">
-          <p class="text-lg"><CheckCircleOutlined class="text-aspargus mr-2" />特点</p>
-          <p class="text-lg"><CheckCircleOutlined class="text-aspargus mr-2" />特点</p>
-          <p class="text-lg"><CheckCircleOutlined class="text-aspargus mr-2" />特点</p>
-          <p class="text-lg"><CheckCircleOutlined class="text-aspargus mr-2" />特点</p>
+        <div class="relative bg-[url('@/assets/images/img33.jpg')] bg-cover bg-center h-[600px]">
+          <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+          <div class="flex flex-col h-full z-10 relative justify-center">
+            <div class="container p-72">
+              <div class="grid grid-cols-6 gap-y-6">
+                <div class="col-span-6">
+                  <span class="text-start text-gray-100 text-4xl">发电产业</span>
+                </div>
+                <div class="col-span-6">
+                  <span class="text-start text-gray-100 text-xl">
+                    专注于深入分析和核算各类燃料的碳排放量，提供可再生能源如风能和太阳能的整合方案，以减少依赖化石燃料的碳排放。
+                    系统支持发电企业通过实时数据驱动的碳交易策略，有效管理其碳排放权，利用碳市场机制实现碳减排目标与成本效益最大化。
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </a-carousel>
     </div>
   </div>
 </template>
 <script setup>
 import ProductFeatures from "@/components/HomeComponents/ProductFeatures.vue";
-import {CheckCircleOutlined} from "@ant-design/icons-vue";
+import {LeftCircleOutlined, RightCircleOutlined} from "@ant-design/icons-vue";
 </script>

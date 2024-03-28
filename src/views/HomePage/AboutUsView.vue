@@ -1,10 +1,10 @@
 <template>
   <Carousel/>
-  <Company_Profile/>
-  <DevelopHistory/>
+  <Us/>
+  <ContactUs/>
 </template>
 <script setup>
 import Carousel from "@/components/HomeComponents/AboutUs/Carousel.vue";
-import Company_Profile from "@/components/HomeComponents/AboutUs/Company_Profile.vue";
-import DevelopHistory from "@/components/HomeComponents/AboutUs/DevelopHistory.vue";
+import Us from "@/components/HomeComponents/AboutUs/Us.vue";
+import ContactUs from "@/components/HomeComponents/AboutUs/ContactUs.vue";
 </script>

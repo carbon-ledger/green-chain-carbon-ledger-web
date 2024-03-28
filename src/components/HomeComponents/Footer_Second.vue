@@ -20,7 +20,7 @@
         </li>
       </ul>
     </div>
-    <span class="block text-sm text-gray-500 sm:text-center">©️ 2023-2024 锋楪技术团队. All Rights Reserved.</span>
+    <span class="block text-sm text-gray-500 sm:text-center">Copyright © 2014-2020 杭州云象网络技术有限公司 All Rights Reserved.浙ICP备15017172号-1</span>
   </div>
 
 
