@@ -71,7 +71,7 @@ import router from "@/router/index.js";
 import { SettingOutlined, UserOutlined, DashboardOutlined, FundOutlined} from "@ant-design/icons-vue";
 import {ref} from "vue";
 
-const value = ref(true);
+const value = ref(false);
 
 function JumpToPersonal() {
   window.location.replace("/user/profile")
