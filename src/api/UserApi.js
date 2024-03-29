@@ -1,9 +1,10 @@
 import {
+    baseResponse,
     userBanDO,
     userCurrentDO,
     userForceEditDO,
     userForceDeleteDO,
-    userListDO, userAddDO, resetPasswordDO
+    userListDO, userAddDO
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import router from "@/router/index.js";
@@ -37,7 +38,6 @@ export async function getUserCurrentIndexApi() {
     } catch (err) {
         if (err.response && err.response.data) {
             returnData = err.response.data;
-
         } else {
             // 处理无法访问err.response的情况
             console.warn("[REQUEST] UserApi[getUserCurrentApi]: 无法找到 response 体");
@@ -54,8 +54,8 @@ export async function userForceDeleteApi(getData) {
         const res = await request.userForceDelete(getData);
         returnData = res.data;
     } catch (err) {
+        returnData = err.response.data;
         if (err.response && err.response.data) {
-            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -77,13 +77,10 @@ export async function userBanApi(getData) {
         const res = await request.userBan(getData);
         returnData = res.data;
     } catch (err) {
+        returnData = err.response.data;
         if (err.response && err.response.data) {
-            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
-                    case "UserCannotBeOperate":
-                        message.info(err.response.data.data.errorMessage);
-                        break;
                     default:
                         message.warn(err.response.data.message);
                 }
@@ -98,13 +95,13 @@ export async function userBanApi(getData) {
 }
 
 export async function userResetPasswordApi(getData) {
-    let returnData = resetPasswordDO;
+    let returnData = baseResponse;
     try {
         const res = await request.userResetPassword(getData);
         returnData = res.data;
     } catch (err) {
+        returnData = err.response.data;
         if (err.response && err.response.data) {
-            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -126,8 +123,8 @@ export async function userForceEditApi(getData) {
         const res = await request.userForceEdit(getData.uuid, getData);
         returnData = res.data;
     } catch (err) {
+        returnData = err.response.data;
         if (err.response && err.response.data) {
-            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -149,8 +146,8 @@ export async function userAddConsoleApi(getData) {
         const res = await request.userAddConsole(getData);
         returnData = res.data;
     } catch (err) {
+        returnData = err.response.data;
         if (err.response && err.response.data) {
-            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -173,8 +170,8 @@ export async function getUserListApi(type, getData) {
         const res = await request.getUserList(getData);
         returnData = res.data;
     } catch (err) {
+        returnData = err.response.data;
         if (err.response && err.response.data) {
-            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:

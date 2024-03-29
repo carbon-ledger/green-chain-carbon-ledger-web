@@ -383,3 +383,28 @@ export let resetPasswordDO = {
         createdAt: ''
     }
 }
+
+export let emissionsQuotaDO = {
+    baseResponse,
+    data: [
+        {
+            uuid: '',
+            organizeUuid: '',
+            quotaYear: 0,
+            totalQuota: 0.0,
+            allocatedQuota: 0.0,
+            usedQuota: 0.0,
+            allocationDate: '',
+            complianceStatus: false,
+            auditLog: [
+                {
+                    date: '',
+                    log: '',
+                    operate: ''
+                }
+            ],
+            createdAt: '',
+            updatedAt: ''
+        }
+    ]
+}

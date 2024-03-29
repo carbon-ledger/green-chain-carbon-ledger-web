@@ -2,7 +2,6 @@ import {baseResponse, userLoginDO, userLoginInfoDO, userRegisterDO} from "@/asse
 import request from "@/assets/js/Request.js";
 import {publicErrorOperate} from "@/assets/js/PublishUtil.js";
 import {message} from "ant-design-vue";
-import router from "@/router/index.js";
 
 export async function managerRegisterApi(getData) {
     let returnData = userRegisterDO;
@@ -124,14 +123,14 @@ export async function userDeleteApi(getData) {
 }
 
 export async function userLogoutApi() {
+    let returnData = baseResponse;
     try {
-        await request.userLoginOut();
-        localStorage.removeItem("AuthorizationToken")
-        localStorage.removeItem("X-Auth-UUID")
-        await router.replace({name: 'LoginAccount', replace: true});
+        const res = await request.userLoginOut();
+        returnData = res.data;
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
                 switch (err.response.data.output) {
                     default:
                         message.warn(err.response.data.message);
@@ -140,7 +139,10 @@ export async function userLogoutApi() {
         } else {
             console.warn("[REQUEST] AuthApi[userLogoutApi]: 无法找到 response 体");
         }
+    } finally {
+        console.debug('[REQUEST] AuthApi[userLogoutApi]: 请求数据\n', returnData);
     }
+    return returnData;
 }
 
 /**

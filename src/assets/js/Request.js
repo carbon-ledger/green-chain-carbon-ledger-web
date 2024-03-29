@@ -1,5 +1,4 @@
 import axios from "axios";
-import getCurrentTimestamp from "@/assets/js/methods.js";
 
 /**
  * 配置Api使用地址
@@ -20,7 +19,7 @@ const OrganizeRegister = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp()
+            'X-Timestamp': new Date().getTime()
         }
     })
 }
@@ -37,7 +36,7 @@ const managerRegister = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp()
+            'X-Timestamp': new Date().getTime()
         }
     })
 }
@@ -54,7 +53,7 @@ const sendCodeMail = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp()
+            'X-Timestamp': new Date().getTime()
         }
     })
 }
@@ -71,7 +70,7 @@ const sendMail = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp()
+            'X-Timestamp': new Date().getTime()
         }
     })
 }
@@ -89,7 +88,7 @@ const userLogin = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp()
+            'X-Timestamp': new Date().getTime()
         },
     })
 }
@@ -105,7 +104,7 @@ const Forget = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp()
+            'X-Timestamp': new Date().getTime()
         },
     })
 }
@@ -121,7 +120,7 @@ const userPasswordChange = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -139,7 +138,7 @@ const getUserCurrent = () => {
         method: "get",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -159,7 +158,7 @@ const getUserList = (data) => {
         params: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -179,7 +178,7 @@ const userAddConsole = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -198,7 +197,7 @@ const userForceEdit = (uuid, data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -217,7 +216,7 @@ const userEdit = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -236,7 +235,7 @@ const userForceDelete = (uuid) => {
         method: "DELETE",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -255,7 +254,7 @@ const userBan = (uuid) => {
         method: "PATCH",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -274,7 +273,7 @@ const userResetPassword = (data) => {
         },
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -287,7 +286,7 @@ const userLogout = () => {
         method: "get",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -307,7 +306,7 @@ const getRoleList = (data) => {
         params: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -325,7 +324,7 @@ const roleAdd = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -344,7 +343,7 @@ const roleEdit = (uuid, data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -361,7 +360,7 @@ const roleDelete = (uuid) => {
         method: "delete",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -374,7 +373,7 @@ const loginInfo = () => {
         method: "get",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -387,7 +386,7 @@ const getRoleCurrent = () => {
         method: "get",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -403,7 +402,7 @@ const getPermissionList = () => {
         method: "get",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -417,7 +416,7 @@ const userDelete = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -430,7 +429,7 @@ const userLoginOut = () => {
         method: "get",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -448,7 +447,7 @@ const reviewList = (data) => {
         params: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -467,7 +466,7 @@ const reviewCheckAdmin = (checkId, data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
         }
     })
 }
@@ -484,7 +483,7 @@ const reviewCheckOrganize = (data, checkId) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -500,7 +499,7 @@ const ReviewAddAdmin = () => {
         method: "POST",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -517,7 +516,7 @@ const reviewAddOrganize = (data) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -539,7 +538,7 @@ const reviewResendOrganize = (data, checkId) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -558,7 +557,7 @@ const ReviewResendAdmin = (data, checkId) => {
         data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -574,7 +573,7 @@ const reviewGet = () => {
         method: "GET",
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -591,7 +590,24 @@ const reviewGetConsoleCheck = (id, type) => {
         },
         headers: {
             'content-type': 'application/json;charset=utf-8',
-            'X-Timestamp': getCurrentTimestamp(),
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+const emissionsQuota = (start, end) => {
+    return axios({
+        url: api + "/carbon/quota/get",
+        method: "GET",
+        params: {
+            start: start,
+            end: end
+        },
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
             'Authorization': localStorage.getItem("AuthorizationToken"),
             'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
         }
@@ -632,5 +648,6 @@ export default {
     ReviewResendAdmin,
     reviewGet,
     userLoginOut,
-    reviewGetConsoleCheck
+    reviewGetConsoleCheck,
+    emissionsQuota
 }
