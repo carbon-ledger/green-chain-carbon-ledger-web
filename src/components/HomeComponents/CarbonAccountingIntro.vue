@@ -9,7 +9,7 @@
           </p>
         </div>
         <div class="col-span-3">
-          <div class="bg-white border border-gray-200 rounded-lg shadow">
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img8.jpg"/>
           </div>
         </div>

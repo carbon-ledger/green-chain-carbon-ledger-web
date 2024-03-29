@@ -9,7 +9,7 @@
       </div>
       <div class="grid grid-cols-6 gap-y-10 my-20">
         <div class="col-span-3">
-          <div class="bg-white border border-gray-200 rounded-lg shadow">
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img28.jpg"/>
           </div>
         </div>
@@ -56,14 +56,14 @@
           </div>
         </div>
         <div class="col-span-3">
-          <div class="bg-white border border-gray-200 rounded-lg shadow">
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img29.jpg"/>
           </div>
         </div>
       </div>
       <div class="grid grid-cols-6 gap-y-10 my-40">
         <div class="col-span-3">
-          <div class="bg-white border border-gray-200 rounded-lg shadow">
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img30.jpg"/>
           </div>
         </div>
@@ -110,7 +110,7 @@
           </div>
         </div>
         <div class="col-span-3">
-          <div class="bg-white border border-gray-200 rounded-lg shadow">
+          <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img31.jpg"/>
           </div>
         </div>

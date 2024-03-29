@@ -9,7 +9,7 @@
           </p>
         </div>
         <div class="col-span-3 mr-4">
-          <a-card hoverable>
+          <a-card class="shadow-md" hoverable>
             <template #cover>
               <img class="h-80" src="@/assets/images/img17.jpg" />
             </template>
@@ -19,7 +19,7 @@
           </a-card>
         </div>
         <div class="col-span-3 mx-4">
-          <a-card hoverable>
+          <a-card class="shadow-md" hoverable>
             <template #cover>
               <img class="h-80" alt="example" src="@/assets/images/img18.jpg" />
             </template>
@@ -29,7 +29,7 @@
           </a-card>
         </div>
         <div class="col-span-3 mx-4">
-          <a-card hoverable>
+          <a-card class="shadow-md" hoverable>
             <template #cover>
               <img class="h-80" alt="example" src="@/assets/images/img19.jpg" />
             </template>
@@ -39,7 +39,7 @@
           </a-card>
         </div>
         <div class="col-span-3 ml-4">
-          <a-card hoverable>
+          <a-card class="shadow-md" hoverable>
             <template #cover>
               <img class="h-80" alt="example" src="@/assets/images/img20.jpg" />
             </template>

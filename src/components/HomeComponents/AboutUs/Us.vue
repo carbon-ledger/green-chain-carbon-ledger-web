@@ -6,7 +6,7 @@
           <h1 class="text-start text-3xl font-bold">关于我们</h1>
         </div>
         <div class="col-span-2">
-          <div class="bg-white border border-gray-200 rounded-lg shadow">
+          <div class="bg-white border border-gray-200 rounded-lg shadow-md">
             <img class="rounded-lg" src="@/assets/images/img36.jpg" alt=""/>
           </div>
         </div>
