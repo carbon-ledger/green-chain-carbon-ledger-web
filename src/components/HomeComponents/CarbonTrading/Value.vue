@@ -1,15 +1,15 @@
 <template>
   <div class="bg-green-50 flex justify-center">
-    <div class="container p-32">
-      <div class="grid grid-cols-6 gap-x-8 gap-y-10">
-        <div class="col-span-6">
-          <h1 class="text-center text-2xl font-bold">给您带来的价值</h1>
-          <p class="text-center text-lg">
-            提供先进的碳交易平台和服务，促进企业在全球碳市场中有效管理碳资产，实现经济效益和环境责任的双重提升。
-          </p>
+    <div class="container p-20">
+      <div class="grid grid-cols-6">
+        <div class="col-span-6 mb-10">
+          <a-typography-title class="text-center font-bold">给您带来的价值</a-typography-title>
+          <a-typography-title :level="4" class="text-center">
+            提供先进的碳交易平台和服务，促进企业在全球碳市场中有效管理碳资产，实现经济效益和环境责任的双重提升
+          </a-typography-title>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mb-4 mr-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><DollarCircleTwoTone /></div>
               <div class="col-span-8">
@@ -21,8 +21,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mb-4 ml-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><SafetyCertificateTwoTone /></div>
               <div class="col-span-8">
@@ -34,8 +34,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mt-4 mr-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><ToolTwoTone /></div>
               <div class="col-span-8">
@@ -47,14 +47,14 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mt-4 ml-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><ProfileTwoTone /></div>
               <div class="col-span-8">
                 <h2 class="text-2xl">促进环境责任和可持续发展</h2>
                 <p class="text-base text-gray-600">
-                  加强公众形象与品牌价值，通过碳减排行动支撑企业的长期可持续发展战略。
+                  通过参与碳减排，企业能提升公众形象和品牌价值，支撑其可持续发展战略，增强市场竞争力。
                 </p>
               </div>
             </div>

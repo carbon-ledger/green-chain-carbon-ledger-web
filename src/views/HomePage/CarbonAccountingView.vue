@@ -7,5 +7,5 @@
 
 import Carousel from "@/components/HomeComponents/CarbonAccounting/Carousel.vue";
 import Process from "@/components/HomeComponents/CarbonAccounting/Process.vue";
-import Value from "@/components/HomeComponents/CarbonAccounting/value.vue";
+import Value from "@/components/HomeComponents/CarbonAccounting/Value.vue";
 </script>

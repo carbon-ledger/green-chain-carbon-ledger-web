@@ -28,8 +28,8 @@
           </button>
         </a-menu>
       </div>
-      <div v-if="value === false" class="col-span-2 flex justify-end">
-        <div class="col-span-2 w-32 p-2 gap-1 bg-aspargus flex justify-center items-center rounded-lg">
+      <div v-if="value === false" class="col-span-2 flex justify-end ">
+        <div class="col-span-2 w-32 p-2 gap-1 bg-aspargus flex justify-center items-center rounded-lg shadow-lg">
           <button class="text-gray-200 hover:text-spring" @click="router.replace({name:'LoginAccount'})">登录</button>
           <span class="text-gray-200 mx-1">|</span>
           <button class="text-gray-200  hover:text-spring" @click="router.replace({name:'Register'})">注册</button>

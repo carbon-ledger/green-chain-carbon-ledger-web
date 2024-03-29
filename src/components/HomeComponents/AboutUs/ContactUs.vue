@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full flex justify-center">
-    <div class="container px-32 py-12">
-      <div class="grid grid-cols-6 gap-x-16 gap-y-10">
+  <div class="w-full flex justify-center bg-green-50">
+    <div class="container p-20">
+      <div class="grid grid-cols-6">
         <div class="col-span-6">
           <h1 class="text-start text-3xl font-bold">加入我们</h1>
         </div>

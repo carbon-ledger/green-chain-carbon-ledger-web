@@ -5,10 +5,9 @@
       <Carousel />
       <CarbonAccountingIntro/>
       <CarbonTradingIntro/>
-      <ProductFeatures/>
       <IndustrySolutions/>
+      <ProductFeatures/>
       <OurService/>
-    </a-layout-content>
   </a-layout>
 </template>
 
