@@ -81,6 +81,9 @@ export async function userBanApi(getData) {
             returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
+                    case "UserCannotBeOperate":
+                        message.info(err.response.data.data.errorMessage);
+                        break;
                     default:
                         message.warn(err.response.data.message);
                 }

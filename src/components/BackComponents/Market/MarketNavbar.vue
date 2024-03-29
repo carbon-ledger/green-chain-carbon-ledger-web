@@ -38,7 +38,7 @@
       <div class="col-span-2 flex justify-end">
         <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
           <a class="ant-dropdown-link" @click.prevent>
-            <img id="UserAvatar" alt="UserAvatar" class="rounded-full w-auto h-full" src="">
+            <img id="UserAvatar" alt="UserAvatar" class="rounded-full h-11 w-auto" :src="getUserAvatar" :draggable="false">
           </a>
           <template #overlay>
             <a-menu>
@@ -80,7 +80,6 @@ import {
 } from "@ant-design/icons-vue";
 import {onMounted, ref} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {api} from "@/assets/js/Request.js";
 import {userLogoutApi} from "@/api/AuthApi.js";
 
 const getUserAvatar = ref('');
@@ -88,8 +87,11 @@ const getUserAvatar = ref('');
 onMounted(async _ => {
   const getData = await getUserCurrentApi();
   if (getData.output === 'Success') {
-    getUserAvatar.value = api + '/image/avatar/' + getData.data.user.uuid;
-    document.getElementById("UserAvatar").setAttribute("src", getUserAvatar.value);
+    if (getData.data.user.avatar === '') {
+      getUserAvatar.value = getData.data.user.avatar;
+    } else {
+      getUserAvatar.value = '/no-image-p.webp';
+    }
   }
 })
 </script>

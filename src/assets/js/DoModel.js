@@ -35,6 +35,7 @@ export let userCurrentDO = {
             userName: '',
             realName: '',
             email: '',
+            avatar: '',
             phone: ''
         },
         role: '',
@@ -188,6 +189,22 @@ export let userListDO = {
             deletedAt: ''
         }
     ]
+}
+
+export let singleUserDO = {
+    uid: 0,
+    uuid: '',
+    username: '',
+    nickname: '',
+    realname: '',
+    email: '',
+    avatar: '',
+    role: '',
+    createAt: '',
+    updateAt: '',
+    ban: false,
+    invite: '',
+    deletedAt: ''
 }
 
 /**

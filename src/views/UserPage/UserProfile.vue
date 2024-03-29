@@ -3,7 +3,7 @@
     <div class="grid gap-3">
       <div class="grid grid-cols-12 py-6 gap-3">
         <div class="col-span-2 flex items-center justify-center">
-          <img alt="image description" class="rounded-full w-16 h-16" src="@/assets/images/user-icon.png">
+          <a-avatar alt="image description" class="rounded-full w-16 h-16" :src="getUserAvatar" :draggable="false" />
         </div>
         <div class="col-span-6 flex items-center">
           <div>
@@ -87,11 +87,19 @@ import {getUserCurrentApi} from "@/api/UserApi.js";
 const dataPermission = ref(permissionListDO);
 const getCurrentRole = ref(getRoleCurrentVO);
 const getUserProfile = ref(userCurrentDO);
+const getUserAvatar = ref('');
 
 onMounted(async _ => {
   getCurrentRole.value = await roleCurrentApi();
   dataPermission.value = await getPermissionListApi();
   getUserProfile.value = await getUserCurrentApi();
+  if (getUserProfile.value.output === 'Success') {
+    if (getUserProfile.value.data.user.avatar === "") {
+      getUserAvatar.value = getUserProfile.value.data.user.avatar;
+    } else {
+      getUserAvatar.value = '/no-image-p.webp';
+    }
+  }
 })
 </script>
 

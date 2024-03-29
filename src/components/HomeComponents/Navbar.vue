@@ -1,29 +1,29 @@
 <template>
   <nav class="bg-white border-gray-200 px-3 fixed top-0 left-0 right-0 z-50 flex justify-center">
     <div class="grid grid-cols-12 w-full container items-center mt-[2px]">
-      <a href="/" class="col-span-2">
-        <img src="/favicon.ico" alt="LOGO" class="w-11 h-11 m-1"/>
+      <a class="col-span-2" href="/">
+        <img alt="LOGO" class="w-11 h-11 m-1" src="/favicon.ico"/>
       </a>
       <div class="col-span-8 flex justify-center w-full gap-6 md:w-auto">
         <a-menu>
-          <button @click="router.push({name:'Index'})" class="text-spring hover:text-green-500 font-semibold">
+          <button class="text-spring hover:text-green-500 font-semibold" @click="router.push({name:'Index'})">
             首页
           </button>
         </a-menu>
         <a-menu>
-          <button @click="router.push({name:'AboutUsView'})" class="text-spring hover:text-green-500 font-semibold">
+          <button class="text-spring hover:text-green-500 font-semibold" @click="router.push({name:'AboutUsView'})">
             关于我们
           </button>
         </a-menu>
         <a-menu>
-          <button @click="router.push({name:'CarbonAccountingView'})"
-                  class="text-spring hover:text-green-500 font-semibold">
+          <button class="text-spring hover:text-green-500 font-semibold"
+                  @click="router.push({name:'CarbonAccountingView'})">
             碳核算服务
           </button>
         </a-menu>
         <a-menu>
-          <button @click="router.push({name:'CarbonTradingView'})"
-                        class="text-spring hover:text-green-500 font-semibold">
+          <button class="text-spring hover:text-green-500 font-semibold"
+                  @click="router.push({name:'CarbonTradingView'})">
             碳交易服务
           </button>
         </a-menu>
@@ -38,12 +38,12 @@
       <div v-if="value === true" class="col-span-2 flex justify-end">
         <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
           <a class="ant-dropdown-link" @click.prevent>
-            <img alt="UserAvatar" class="rounded-full w-auto h-full" src="" id="UserAvatar">
+            <a-avatar :draggable="false" :src="getUserAvatar" alt="UserAvatar" class="rounded-full h-11 w-auto"/>
           </a>
           <template #overlay>
             <a-menu>
               <a-menu-item @click="router.replace({name: 'Dashboard', replace: true})">
-                <DashboardOutlined />
+                <DashboardOutlined/>
                 仪表盘
               </a-menu-item>
               <a-menu-item @click="router.replace({name: 'UserProfile', replace: true})">
@@ -51,7 +51,7 @@
                 个人信息
               </a-menu-item>
               <a-menu-item @click="router.replace({name: 'MarketDashboard', replace: true})">
-                <MoneyCollectOutlined />
+                <MoneyCollectOutlined/>
                 交易市场
               </a-menu-item>
               <a-menu-divider/>
@@ -69,10 +69,9 @@
 
 <script setup>
 import router from "@/router/index.js";
-import {UserOutlined, DashboardOutlined, MoneyCollectOutlined, LogoutOutlined} from "@ant-design/icons-vue";
+import {DashboardOutlined, LogoutOutlined, MoneyCollectOutlined, UserOutlined} from "@ant-design/icons-vue";
 import {onMounted, ref} from "vue";
 import {getUserCurrentIndexApi} from "@/api/UserApi.js";
-import {api} from "@/assets/js/Request.js";
 import {userLogoutApi} from "@/api/AuthApi.js";
 
 const value = ref(false);
@@ -82,8 +81,11 @@ onMounted(async _ => {
   const getData = await getUserCurrentIndexApi();
   if (getData.output === 'Success') {
     value.value = true;
-    getUserAvatar.value = api + '/image/avatar/' + getData.data.user.uuid;
-    document.getElementById("UserAvatar");
+    if (getData.data.user.avatar === '') {
+      getUserAvatar.value = getData.data.user.avatar;
+    } else {
+      getUserAvatar.value = '/no-image-p.webp';
+    }
   }
 })
 </script>

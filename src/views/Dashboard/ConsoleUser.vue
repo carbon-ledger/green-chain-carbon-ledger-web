@@ -65,13 +65,24 @@
                 <EditOutlined/>
                 修改
               </a-button>
-              <a-button class="text-aspargus flex justify-center items-center" size="small"
-                        type="text" @click="showDialogWithDeleteUser(record)">
+              <a-button v-if="record.username !== 'console_user'" class="text-aspargus flex justify-center items-center"
+                        size="small" type="text"
+                        @click="showDialogWithDeleteUser(record)">
                 <DeleteOutlined/>
                 注销
               </a-button>
-              <a-button class="text-aspargus flex justify-center items-center" size="small"
+              <a-button v-else class="text-aspargus flex justify-center items-center"
+                        disabled size="small" type="text">
+                <DeleteOutlined/>
+                注销
+              </a-button>
+              <a-button v-if="record.username !== 'console_user'" class="text-aspargus flex justify-center items-center" size="small"
                         type="text" @click="showDialogWithResetUser(record)">
+                <UndoOutlined/>
+                重置密码
+              </a-button>
+              <a-button v-else class="text-aspargus flex justify-center items-center" size="small"
+                        type="text" disabled>
                 <UndoOutlined/>
                 重置密码
               </a-button>
@@ -154,7 +165,8 @@
               style="width: 293px"
               @focus="focus"
           >
-            <a-select-option v-for="(getRole, index) in getRoleList.data" :key="getRoleList.data[index].name" :value="getRoleList.name">
+            <a-select-option v-for="(getRole, index) in getRoleList.data" :key="getRoleList.data[index].name"
+                             :value="getRoleList.name">
               <span>{{ getRole.name }}</span> - <span class="text-gray-400">{{ getRole.displayName }}</span>
             </a-select-option>
           </a-select>
@@ -237,11 +249,12 @@
         </div>
       </a-form>
       <template #footer>
-        <a-button danger type="dashed" @click="showDialogWithBanUser(record)">封禁</a-button>
+        <a-button danger type="dashed" @click="showDialogWithBanUser()">封禁</a-button>
         <a-button @click="closeDialogManagerEditUser">取消</a-button>
         <a-button class="bg-aspargus mt-4" type="primary" @click="consoleEditUser()">确认</a-button>
       </template>
     </a-modal>
+
     <!--管理员注销账户对话框-->
     <a-modal v-model:open="deleteUserDialog" title="注销账户" width="450px">
       <p>
@@ -253,14 +266,16 @@
         <a-button @click="closeDialogDeleteUser">取消</a-button>
       </template>
     </a-modal>
+
     <!--封禁账户对话框-->
     <a-modal v-model:open="banUserDialog" title="封禁账户" width="450px">
       <p>确认要封禁该账户吗？</p>
       <template #footer>
-        <a-button class="mt-4" danger @click="consoleBanUser">确认</a-button>
+        <a-button class="mt-4" danger @click="consoleBanUser()">确认</a-button>
         <a-button @click="closeDialogBanUser">取消</a-button>
       </template>
     </a-modal>
+
     <!--管理员重置密码对话框-->
     <a-modal v-model:open="resetUserPasswordDialog" title="重置密码" width="450px">
       <p>
@@ -281,21 +296,24 @@ import {
   AuditOutlined,
   DeleteOutlined,
   EditOutlined,
+  ExclamationCircleOutlined,
   IdcardOutlined,
   MailOutlined,
   PhoneOutlined,
   PlusOutlined,
   SearchOutlined,
   UndoOutlined,
-  UserOutlined,
-  ExclamationCircleOutlined
+  UserOutlined
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
 import {
-  userDeleteForceVO,
-  userManageEditVO,
+  roleListVO,
+  userAddVO,
   userBanVO,
-  userAddVO, userListVO, userResetVO, roleListVO
+  userDeleteForceVO,
+  userListVO,
+  userManageEditVO,
+  userResetVO
 } from "@/assets/js/VoModel.js"
 import {
   getUserListApi,
@@ -305,9 +323,10 @@ import {
   userForceEditApi,
   userResetPasswordApi
 } from "@/api/UserApi.js";
-import {roleListDO, userListDO} from "@/assets/js/DoModel.js";
+import {roleListDO, singleUserDO, userListDO} from "@/assets/js/DoModel.js";
 import {getRoleListApi} from "@/api/RoleApi.js";
 import {message, notification} from 'ant-design-vue';
+
 const [api, contextHolder] = notification.useNotification();
 
 const getUserListVO = reactive(userListVO);
@@ -317,6 +336,7 @@ const getUserBanVO = reactive(userBanVO);
 const getUserDeleteVO = reactive(userDeleteForceVO);
 const getUserResetVO = reactive(userResetVO);
 const getRoleVO = reactive(roleListVO);
+const getSingleUser = ref(singleUserDO);
 const getUser = ref(userListDO);
 const getRoleList = ref(roleListDO);
 
@@ -348,6 +368,7 @@ function showAddDiaLog() {
  */
 function showDialogWithEditUser(record) {
   editUserDialog.value = true;
+  getSingleUser.value = record
   getUserManageEditVO.userName = record.username;
   getUserManageEditVO.realName = record.realname;
   getUserManageEditVO.email = record.email;
@@ -369,9 +390,9 @@ function showDialogWithDeleteUser(record) {
  *
  * @param record
  */
-function showDialogWithBanUser(record) {
+function showDialogWithBanUser() {
   banUserDialog.value = true;
-  getUserBanVO.uuid = record.uuid;
+  getUserBanVO.uuid = getSingleUser.value.uuid;
 }
 
 /**
@@ -439,7 +460,9 @@ async function consoleDeleteUser() {
 async function consoleBanUser() {
   const getReturnData = await userBanApi(getUserBanVO.uuid)
   if (getReturnData.output === "Success") {
-    banUserDialog.value = false
+    banUserDialog.value = false;
+    editUserDialog.value = false;
+    message.info("操作成功")
     getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
