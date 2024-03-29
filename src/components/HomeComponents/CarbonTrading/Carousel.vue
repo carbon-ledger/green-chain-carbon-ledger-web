@@ -1,5 +1,5 @@
 <template>
-  <a-carousel class="h-auto">
+  <a-carousel class="h-auto mt-14">
     <div class="relative bg-[url('@/assets/images/img27.jpg')] bg-cover bg-center">
       <div class="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-25"></div>
       <div class="flex flex-col h-full z-10 relative justify-center">
