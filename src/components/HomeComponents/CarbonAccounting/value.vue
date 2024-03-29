@@ -1,15 +1,15 @@
 <template>
   <div class="bg-green-50 flex justify-center">
-    <div class="container p-32">
-      <div class="grid grid-cols-6 gap-x-8 gap-y-10">
-        <div class="col-span-6">
+    <div class="container p-20">
+      <div class="grid grid-cols-6">
+        <div class="col-span-6 mb-10">
           <h1 class="text-center text-2xl font-bold">给您带来的价值</h1>
           <p class="text-center text-lg">
             提供创新的碳排放和碳交易解决方案，助力企业实现碳足迹优化和市场价值最大化。
           </p>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mb-4 mr-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><InteractionTwoTone /></div>
               <div class="col-span-8">
@@ -21,8 +21,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mb-4 ml-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><CheckSquareTwoTone /></div>
               <div class="col-span-8">
@@ -34,8 +34,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mt-4 mr-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><DollarCircleTwoTone /></div>
               <div class="col-span-8">
@@ -47,14 +47,14 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mt-4 ml-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><StarTwoTone /></div>
               <div class="col-span-8">
                 <h2 class="text-2xl">投资吸引力</h2>
                 <p class="text-base text-gray-600">
-                  企业的环境、社会和治理（ESG）表现对投资者越来越重要。有效的碳足迹管理展示了企业的责任感和前瞻性，吸引了对可持续发展感兴趣的投资者。
+                  企业的环境、社会和治理表现对投资者越来越重要。有效的碳足迹管理展示了企业的责任感和前瞻性，吸引了对可持续发展感兴趣的投资者。
                 </p>
               </div>
             </div>

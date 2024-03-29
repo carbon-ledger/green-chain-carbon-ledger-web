@@ -1,18 +1,16 @@
 <template>
-  <div class="w-full flex justify-center bg-blue-50">
-    <div class="container px-32 py-12">
-      <div class="grid grid-cols-6 gap-x-16 gap-y-10">
-        <div class="col-span-6">
+  <div class="w-full flex justify-center mt-20">
+    <div class="container p-20">
+      <div class="grid grid-cols-6">
+        <div class="col-span-6 mb-10">
           <h1 class="text-start text-3xl font-bold">关于我们</h1>
         </div>
         <div class="col-span-2">
-          <a-card hoverable>
-            <template #cover>
-              <img class="h-[300px]" src="@/assets/images/img21.jpg">
-            </template>
-          </a-card>
+          <div class="bg-white border border-gray-200 rounded-lg shadow">
+            <img class="rounded-lg" src="@/assets/images/img36.jpg" alt=""/>
+          </div>
         </div>
-        <div class="col-span-4 mt-6 text-lg text-gray-500">
+        <div class="ml-12 col-span-4 text-lg text-gray-500 flex flex-col items-center justify-center">
           <p style="text-indent: 2em;">
             绿链碳账本项目，由云象公司倡导并领导，旨在打造全国碳市场一体化管理的标杆平台。
             深植于全方位的碳管理与交易需求之中，此平台以区块链和大数据技术为核心，构建了一个系统化的数字科技架构。

@@ -1,15 +1,15 @@
 <template>
   <div class="bg-green-50 flex justify-center">
-    <div class="container p-32">
-      <div class="grid grid-cols-6 gap-x-8 gap-y-10">
-        <div class="col-span-6">
+    <div class="container p-20">
+      <div class="grid grid-cols-6">
+        <div class="col-span-6 mb-10">
           <h1 class="text-center text-2xl font-bold">产品特色</h1>
-          <p class="text-center text-lg">
+          <h2 class="text-center text-lg">
             提供创新的碳排放和碳交易解决方案，助力企业实现碳足迹优化和市场价值最大化。
-          </p>
+          </h2>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 my-b mr-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><ProjectTwoTone /></div>
               <div class="col-span-8">
@@ -21,8 +21,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mb-4 ml-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><SecurityScanTwoTone /></div>
               <div class="col-span-8">
@@ -34,8 +34,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 my-4 mr-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><ToolTwoTone /></div>
               <div class="col-span-8">
@@ -47,8 +47,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 my-4 ml-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><SettingTwoTone /></div>
               <div class="col-span-8">
@@ -60,8 +60,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3  mt-4 mr-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><HourglassTwoTone /></div>
               <div class="col-span-8">
@@ -73,8 +73,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
-          <a-card class="flex">
+        <div class="col-span-3 mt-4 ml-4">
+          <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><FileTextTwoTone /></div>
               <div class="col-span-8">

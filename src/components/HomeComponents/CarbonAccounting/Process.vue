@@ -1,21 +1,19 @@
 <template>
-  <div class="w-full flex justify-center">
-    <div class="container p-32 grid gird-cols-6 gap-y-24">
+  <div class="w-full flex justify-center mt-20">
+    <div class="container p-20">
       <div>
         <h1 class="text-center text-2xl font-bold">碳足迹核算的四大流程</h1>
         <p class="text-center text-lg">
           采取适合的核算和报告机制，以促进有效的碳管理和减排活动。
         </p>
       </div>
-      <div class="grid grid-cols-6 gap-y-10">
+      <div class="grid grid-cols-6 gap-y-10 my-20">
         <div class="col-span-3">
-          <a-card hoverable>
-            <template #cover>
-              <img src="@/assets/images/img24.jpg">
-            </template>
-          </a-card>
+          <div class="bg-white border border-gray-200 rounded-lg shadow">
+            <img class="rounded-lg" src="@/assets/images/img24.jpg"/>
+          </div>
         </div>
-        <div class="col-span-3 mt-6 flex-col space-y-10">
+        <div class="col-span-3 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-end">确定核算范围</h2>
           <div class="text-end">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -36,8 +34,8 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-6 gap-y-10">
-        <div class="col-span-3 mt-6 flex-col space-y-10">
+      <div class="grid grid-cols-6 gap-y-10 my-40">
+        <div class="col-span-3 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-start">收集数据</h2>
           <div class="text-start">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -58,22 +56,18 @@
           </div>
         </div>
         <div class="col-span-3">
-          <a-card class="col-span-3" hoverable>
-            <template #cover>
-              <img src="@/assets/images/img25.jpg">
-            </template>
-          </a-card>
+          <div class="bg-white border border-gray-200 rounded-lg shadow">
+            <img class="rounded-lg" src="@/assets/images/img25.jpg"/>
+          </div>
         </div>
       </div>
-      <div class="grid grid-cols-6 gap-y-10">
+      <div class="grid grid-cols-6 gap-y-10 my-40">
         <div class="col-span-3">
-          <a-card hoverable>
-            <template #cover>
-              <img src="@/assets/images/img23.jpg">
-            </template>
-          </a-card>
+          <div class="bg-white border border-gray-200 rounded-lg shadow">
+            <img class="rounded-lg" src="@/assets/images/img23.jpg"/>
+          </div>
         </div>
-        <div class="col-span-3 mt-6 flex-col space-y-10">
+        <div class="col-span-3 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-end">计算排放</h2>
           <div class="text-end">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -95,7 +89,7 @@
         </div>
       </div>
       <div class="grid grid-cols-6 gap-y-10">
-        <div class="col-span-3 mt-6 flex-col space-y-10">
+        <div class="col-span-3 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-start">报告和验证</h2>
           <div class="text-start">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -116,11 +110,9 @@
           </div>
         </div>
         <div class="col-span-3">
-          <a-card class="col-span-3" hoverable>
-            <template #cover>
-              <img src="@/assets/images/img26.jpg">
-            </template>
-          </a-card>
+          <div class="bg-white border border-gray-200 rounded-lg shadow">
+            <img class="rounded-lg" src="@/assets/images/img26.jpg"/>
+          </div>
         </div>
       </div>
     </div>

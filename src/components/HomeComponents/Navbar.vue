@@ -1,8 +1,8 @@
 <template>
-  <nav class="bg-white border-gray-200 px-3 fixed top-0 left-0 right-0 z-50">
-    <div class="grid grid-cols-12 w-full  items-center justify-between">
+  <nav class="bg-white flex justify-center border-gray-200 px-3 fixed top-0 left-0 right-0 z-50">
+    <div class="container grid grid-cols-12 w-full  items-center justify-between">
       <a href="/" class="col-span-2">
-        <img src="/favicon.ico" alt="LOGO" style="margin-left:2vw; max-width:50%; height:auto; width:4vw; display: block;" />
+        <img src="/favicon.ico" alt="LOGO" class="h-12 m-2"/>
       </a>
       <div class="col-span-8 flex justify-center w-full space-x-5 md:w-auto">
         <a-menu>
