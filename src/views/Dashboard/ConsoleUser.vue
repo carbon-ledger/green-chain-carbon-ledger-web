@@ -35,10 +35,7 @@
     <div class="w-full h-auto mt-6">
       <a-table :columns="columns" :data-source="getUser.data">
         <template #bodyCell="{ column, record }">
-          <template v-if="column.key==='uuid'">
-            {{ record.uuid }}
-          </template>
-          <template v-else-if="column.key==='username'">
+          <template v-if="column.key==='username'">
             {{ record.username }}
           </template>
           <template v-else-if="column.key==='realname'">
@@ -46,6 +43,9 @@
           </template>
           <template v-else-if="column.key==='email'">
             {{ record.email }}
+          </template>
+          <template v-else-if="column.key==='role'">
+            {{ getRoleName(record.role) }}
           </template>
           <template v-else-if="column.key === 'state'">
             <a-tag v-if="record.ban === true" color="error">
@@ -154,8 +154,8 @@
               style="width: 293px"
               @focus="focus"
           >
-            <a-select-option v-for="(getRoleList, index) in dataRole.data" :key="index" :value="dataRole.name">
-              <span>{{ getRoleList.name }}</span> - <span class="text-gray-400">{{ getRoleList.displayName }}</span>
+            <a-select-option v-for="(getRole, index) in getRoleList.data" :key="getRoleList.data[index].name" :value="getRoleList.name">
+              <span>{{ getRole.name }}</span> - <span class="text-gray-400">{{ getRole.displayName }}</span>
             </a-select-option>
           </a-select>
         </a-form-item>
@@ -273,6 +273,7 @@
       </template>
     </a-modal>
   </div>
+  <contextHolder/>
 </template>
 
 <script setup>
@@ -294,7 +295,7 @@ import {
   userDeleteForceVO,
   userManageEditVO,
   userBanVO,
-  userAddVO, userListVO, userResetVO
+  userAddVO, userListVO, userResetVO, roleListVO
 } from "@/assets/js/VoModel.js"
 import {
   getUserListApi,
@@ -304,19 +305,24 @@ import {
   userForceEditApi,
   userResetPasswordApi
 } from "@/api/UserApi.js";
-import {userListDO} from "@/assets/js/DoModel.js";
+import {roleListDO, userListDO} from "@/assets/js/DoModel.js";
+import {getRoleListApi} from "@/api/RoleApi.js";
+import {message, notification} from 'ant-design-vue';
+const [api, contextHolder] = notification.useNotification();
 
-
-let getUserListVO = reactive(userListVO);
-let addUserAddVO = reactive(userAddVO);
-let getUserManageEditVO = reactive(userManageEditVO);
-let getUserBanVO = reactive(userBanVO);
-let getUserDeleteVO = reactive(userDeleteForceVO);
-let getUserResetVO = reactive(userResetVO);
+const getUserListVO = reactive(userListVO);
+const addUserAddVO = reactive(userAddVO);
+const getUserManageEditVO = reactive(userManageEditVO);
+const getUserBanVO = reactive(userBanVO);
+const getUserDeleteVO = reactive(userDeleteForceVO);
+const getUserResetVO = reactive(userResetVO);
+const getRoleVO = reactive(roleListVO);
 const getUser = ref(userListDO);
+const getRoleList = ref(roleListDO);
 
 onMounted(async _ => {
   getUser.value = await getUserListApi('all', getUserListVO);
+  getRoleList.value = await getRoleListApi('all', getRoleVO);
 })
 
 // Dialog相关
@@ -384,13 +390,23 @@ const closeDialogBanUser = () => banUserDialog.value = false;
 const closeDialogManagerEditUser = () => editUserDialog.value = false;
 const closeDialogAddUser = () => addUserDialog.value = false;
 
+const openNotification = (placement, record) => {
+  api.info({
+    message: '密码更新成功',
+    description:
+        `用户 ${record.userName} 的新密码为 ${record.newPassword}`,
+    placement,
+  });
+};
+
 /**
  * 添加用户接口
  */
 async function consoleAddUser() {
   const getReturnData = await userAddConsoleApi(addUserAddVO)
   if (getReturnData.output === "Success") {
-    addUserDialog.value = false
+    addUserDialog.value = false;
+    message.success("用户创建成功");
     getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
@@ -400,8 +416,8 @@ async function consoleAddUser() {
  */
 async function consoleEditUser() {
   const getReturnData = await userForceEditApi(getUserManageEditVO)
-  if (getReturnData.value.output === "Success") {
-    editUserDialog.value = false
+  if (getReturnData.output === "Success") {
+    editUserDialog.value = false;
     getUser.value = await getUserListApi('all', getUserListVO);
   }
 }
@@ -434,9 +450,26 @@ async function consoleBanUser() {
 async function consoleResetUser() {
   const getReturnData = await userResetPasswordApi(getUserResetVO.uuid)
   if (getReturnData.output === "Success") {
-    resetUserPasswordDialog.value = false
+    resetUserPasswordDialog.value = false;
+    openNotification('topRight', getReturnData.data);
     getUser.value = await getUserListApi('all', getUserListVO);
   }
+}
+
+/**
+ * 获取角色名称
+ *
+ * @param role
+ * @return {*}
+ */
+function getRoleName(role) {
+  let getName;
+  getRoleList.value.data.forEach(it => {
+    if (it.uuid === role) {
+      getName = it.displayName;
+    }
+  })
+  return getName;
 }
 
 /**
@@ -462,11 +495,6 @@ let routes = breadcrumbs;
 //表格栏目
 const columns = [
   {
-    title: '账户序列号',
-    dataIndex: 'uuid',
-    key: 'uuid',
-  },
-  {
     title: '账户名',
     dataIndex: 'username',
     key: 'username',
@@ -475,6 +503,11 @@ const columns = [
     title: '真实信息',
     dataIndex: 'realname',
     key: 'realname',
+  },
+  {
+    title: '角色组',
+    dataIndex: 'role',
+    key: 'role',
   },
   {
     title: '邮箱',

@@ -353,3 +353,16 @@ export let userRegisterDO = {
         phone: ''
     }
 }
+
+export let resetPasswordDO = {
+    baseResponse,
+    data: {
+        uuid: '',
+        userName: '',
+        realName: '',
+        email: '',
+        phone: '',
+        newPassword: '',
+        createdAt: ''
+    }
+}

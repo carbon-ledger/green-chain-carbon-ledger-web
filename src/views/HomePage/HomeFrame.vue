@@ -6,10 +6,10 @@
     <a-layout-content>
       <router-view/>
     </a-layout-content>
-      <Footer_Second/>
+      <FooterIndex/>
   </a-layout>
 </template>
 <script setup>
-import Footer_Second from "@/components/HomeComponents/FooterIndex.vue";
+import FooterIndex from "@/components/HomeComponents/FooterIndex.vue";
 import Navbar from "@/components/HomeComponents/Navbar.vue";
 </script>

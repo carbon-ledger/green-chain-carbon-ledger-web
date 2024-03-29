@@ -38,25 +38,26 @@
       <div v-if="value === true" class="col-span-2 flex justify-end">
         <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
           <a class="ant-dropdown-link" @click.prevent>
-            <img alt="UserAvatar" class="rounded-full w-auto h-full" src="">
+            <img alt="UserAvatar" class="rounded-full w-auto h-full" src="" id="UserAvatar">
           </a>
           <template #overlay>
             <a-menu>
-              <a-menu-item @click="JumpToPersonal()">
-                <UserOutlined/>
-                个人信息
-              </a-menu-item>
-              <a-menu-item @click="JumpTODashboard()">
+              <a-menu-item @click="router.replace({name: 'Dashboard', replace: true})">
                 <DashboardOutlined />
                 仪表盘
               </a-menu-item>
-              <a-menu-item>
-                <FundOutlined />
+              <a-menu-item @click="router.replace({name: 'UserProfile', replace: true})">
+                <UserOutlined/>
+                个人信息
+              </a-menu-item>
+              <a-menu-item @click="router.replace({name: 'MarketDashboard', replace: true})">
+                <MoneyCollectOutlined />
                 交易市场
               </a-menu-item>
-              <a-menu-item @click="JumpToSystemSetting()">
-                <SettingOutlined/>
-                系统设置
+              <a-menu-divider/>
+              <a-menu-item @click="userLogoutApi">
+                <LogoutOutlined/>
+                账号登出
               </a-menu-item>
             </a-menu>
           </template>
@@ -68,20 +69,21 @@
 
 <script setup>
 import router from "@/router/index.js";
-import { SettingOutlined, UserOutlined, DashboardOutlined, FundOutlined} from "@ant-design/icons-vue";
-import {ref} from "vue";
+import {UserOutlined, DashboardOutlined, MoneyCollectOutlined, LogoutOutlined} from "@ant-design/icons-vue";
+import {onMounted, ref} from "vue";
+import {getUserCurrentIndexApi} from "@/api/UserApi.js";
+import {api} from "@/assets/js/Request.js";
+import {userLogoutApi} from "@/api/AuthApi.js";
 
 const value = ref(false);
+const getUserAvatar = ref('');
 
-function JumpToPersonal() {
-  window.location.replace("/user/profile")
-}
-
-function JumpToSystemSetting() {
-  window.location.replace("/setting")
-}
-
-function JumpTODashboard() {
-  window.location.replace("/dashboard/console")
-}
+onMounted(async _ => {
+  const getData = await getUserCurrentIndexApi();
+  if (getData.output === 'Success') {
+    value.value = true;
+    getUserAvatar.value = api + '/image/avatar/' + getData.data.user.uuid;
+    document.getElementById("UserAvatar");
+  }
+})
 </script>

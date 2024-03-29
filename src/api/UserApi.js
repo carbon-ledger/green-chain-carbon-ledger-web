@@ -1,10 +1,9 @@
 import {
-    baseResponse,
     userBanDO,
     userCurrentDO,
     userForceEditDO,
     userForceDeleteDO,
-    userListDO, userAddDO
+    userListDO, userAddDO, resetPasswordDO
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import router from "@/router/index.js";
@@ -17,9 +16,28 @@ export async function getUserCurrentApi() {
         const res = await request.getUserCurrent();
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             await router.replace({name: 'LoginAccount', replace: true});
+        } else {
+            // 处理无法访问err.response的情况
+            console.warn("[REQUEST] UserApi[getUserCurrentApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] UserApi[getUserCurrentApi]: 请求数据\n', returnData);
+    }
+    return returnData
+}
+
+export async function getUserCurrentIndexApi() {
+    let returnData = userCurrentDO;
+    try {
+        const res = await request.getUserCurrent();
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            returnData = err.response.data;
+
         } else {
             // 处理无法访问err.response的情况
             console.warn("[REQUEST] UserApi[getUserCurrentApi]: 无法找到 response 体");
@@ -36,8 +54,8 @@ export async function userForceDeleteApi(getData) {
         const res = await request.userForceDelete(getData);
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -59,8 +77,8 @@ export async function userBanApi(getData) {
         const res = await request.userBan(getData);
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -77,13 +95,13 @@ export async function userBanApi(getData) {
 }
 
 export async function userResetPasswordApi(getData) {
-    let returnData = baseResponse;
+    let returnData = resetPasswordDO;
     try {
         const res = await request.userResetPassword(getData);
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -105,8 +123,8 @@ export async function userForceEditApi(getData) {
         const res = await request.userForceEdit(getData.uuid, getData);
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -128,8 +146,8 @@ export async function userAddConsoleApi(getData) {
         const res = await request.userAddConsole(getData);
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:
@@ -152,8 +170,8 @@ export async function getUserListApi(type, getData) {
         const res = await request.getUserList(getData);
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             if (!await publicErrorOperate(err)) {
                 switch (err.response.data.output) {
                     default:

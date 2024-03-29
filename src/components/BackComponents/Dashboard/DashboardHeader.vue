@@ -18,7 +18,7 @@
                   系统设置
                 </a-menu-item>
                 <a-menu-divider/>
-                <a-menu-item @click="UserLogout">
+                <a-menu-item @click="userLogoutApi">
                   <LogoutOutlined/>
                   账号登出
                 </a-menu-item>
@@ -33,8 +33,7 @@
 
 <script setup>
 import {LogoutOutlined, UserOutlined, SettingOutlined} from '@ant-design/icons-vue';
-import request from "@/assets/js/Request.js";
-import {message} from "ant-design-vue";
+import {userLogoutApi} from "@/api/AuthApi.js";
 
 function JumpToPersonal() {
   window.location.replace("/user/profile")
@@ -42,29 +41,5 @@ function JumpToPersonal() {
 
 function JumpToSystemSetting() {
   window.location.replace("/setting")
-}
-
-// 账号登出
-function UserLogout() {
-  console.log("[DashboardHeader] 账号 " + " 登出")
-  request.userLogout().then((res) => {
-    switch (res.data.output) {
-      case "Success": {
-        console.log("[DashboardHeader] " + res.data.output)
-        message.success("账号登出成功")
-        localStorage.removeItem("AuthorizationToken")
-        localStorage.removeItem("X-Auth-UUID")
-        window.location.replace("/auth/login")
-        break
-      }
-      default: {
-        console.log("[DashboardHeader] " + res.data.output)
-        message.warn("其他错误：" + res.data.message)
-      }
-    }
-  }).catch((err) => {
-    console.warn("[DashboardHeader] " + err.response.data.output)
-    message.error(err.response.data.message)
-  })
 }
 </script>

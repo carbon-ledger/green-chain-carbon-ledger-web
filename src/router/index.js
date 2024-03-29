@@ -5,7 +5,7 @@ const router = createRouter({
     routes: [
         {
             // 首页相关路由表
-            path: '/home',
+            path: '/',
             name:'Home',
             component:() => import('@/views/HomePage/HomeFrame.vue'),
             children: [
@@ -49,11 +49,6 @@ const router = createRouter({
                     path: '/service',
                     name: 'OurServiceView',
                     component: () => import('@/views/HomePage/OurServiceView.vue')
-                },
-                {
-                    path: '/demo',
-                    name: 'Demo',
-                    component: () => import('@/views/demo.vue')
                 }
             ]
         },
@@ -180,9 +175,27 @@ const router = createRouter({
             ]
         },
         {
+            // 交易市场相关
+            path: '/market',
+            name: 'Market',
+            component: () => import('@/views/MarketPage/IndexFrame.vue'),
+            children:[
+                {
+                    path: '',
+                    name: 'MarketDashboard',
+                    component: () => import('@/views/MarketPage/MarketDashboard.vue'),
+                }
+            ]
+        },
+        {
             path: '/no-permission',
             name:'PageNotFounded',
             component:() => import('@/views/PublicPage/NoPermission.vue')
+        },
+        {
+            path: '/demo',
+            name: 'Demo',
+            component: () => import('@/views/demo.vue')
         }
     ]
 })

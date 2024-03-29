@@ -269,7 +269,9 @@ const userResetPassword = (data) => {
     return axios({
         url: api + "/admin/user/reset/password",
         method: "PATCH",
-        data: data,
+        data: {
+            uuid: data
+        },
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': getCurrentTimestamp(),

@@ -3,13 +3,13 @@
     <img alt="UserAvatar" class="rounded-full w-auto h-[40px]" src="/favicon.ico">
   </div>
   <a-menu v-model:openKeys="openMenuKey" v-model:selectedKeys="selectedKey" mode="inline">
-    <a-menu-item>
+    <a-menu-item key="a" @click="router.replace({name: 'Index', replace: true})">
       <HomeOutlined />
       <span class="nav-text">返回主页</span>
     </a-menu-item>
-    <a-menu-item>
+    <a-menu-item key="b" @click="router.replace({name: 'MarketDashboard', replace: true})">
       <ShoppingOutlined />
-      <span class="nav-text">交易市场</span>
+      <span class="nav-text">交易核算</span>
     </a-menu-item>
     <hr class="m-3"/>
     <a-menu-item key="1" @click="sendTo()">
@@ -23,19 +23,19 @@
           <span>网站管理</span>
         </span>
       </template>
-      <a-menu-item key="2" @click="router.push('/dashboard/user')">
+      <a-menu-item key="2" @click="router.push({name: 'DashboardUser'})">
         <span>
           <UserOutlined/>
           <span class="nav-text">账户管理</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="3" @click="router.push('/dashboard/role')">
+      <a-menu-item key="3" @click="router.push({name: 'DashboardRole'})">
         <span>
           <UserSwitchOutlined/>
           <span class="nav-text">角色管理</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="4" @click="router.push('/dashboard/permission')">
+      <a-menu-item key="4" @click="router.push({name: 'DashboardPermission'})">
         <span>
           <KeyOutlined/>
           <span class="nav-text">权限管理</span>

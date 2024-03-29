@@ -99,7 +99,7 @@ import {sendMailVO, userDeleteVO} from "@/assets/js/VoModel.js";
 import {userDeleteApi, userLogoutApi} from "@/api/AuthApi.js";
 
 
-const open = ref(false);
+const openNoti = ref(false);
 const userDeleteForm = reactive(userDeleteVO)
 const sendCodeDataForm = reactive(sendMailVO);
 const getUserCurrent = ref(userCurrentDO);
