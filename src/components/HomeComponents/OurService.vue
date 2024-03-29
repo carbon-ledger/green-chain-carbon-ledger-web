@@ -1,35 +1,35 @@
 <template>
   <div class="w-full flex justify-center">
     <div class="container p-20">
-      <div class="grid grid-cols-12">
-        <div class="col-span-12 mb-10">
-          <h1 class="text-center text-2xl font-bold">我们的服务</h1>
-          <p class="text-center text-lg">
+      <div class="grid grid-cols-12 gap-8">
+        <div class="col-span-12">
+          <a-typography-title class="text-center font-bold">我们的服务</a-typography-title>
+          <a-typography-title :level="4" class="text-center">
             助力企业完成碳中和
-          </p>
+          </a-typography-title>
         </div>
-        <div class="col-span-3 mr-4">
-          <a-card class="shadow-md" hoverable>
+        <div class="col-span-3">
+          <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
-              <img class="h-80" src="@/assets/images/img17.jpg" />
+              <img class="h-80" src="@/assets/images/img17.jpg"  alt=""/>
             </template>
             <a-card-meta title="碳交易平台">
               <template #description>提供碳配额买卖平台，助力企业优化碳资产。</template>
             </a-card-meta>
           </a-card>
         </div>
-        <div class="col-span-3 mx-4">
-          <a-card class="shadow-md" hoverable>
+        <div class="col-span-3">
+          <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
-              <img class="h-80" alt="example" src="@/assets/images/img18.jpg" />
+              <img class="h-80" src="@/assets/images/img18.jpg" alt=""/>
             </template>
             <a-card-meta title="减排项目支持">
               <template #description>协助开发碳减排项目，确保项目合规获碳信用。</template>
             </a-card-meta>
           </a-card>
         </div>
-        <div class="col-span-3 mx-4">
-          <a-card class="shadow-md" hoverable>
+        <div class="col-span-3">
+          <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
               <img class="h-80" alt="example" src="@/assets/images/img19.jpg" />
             </template>
@@ -38,8 +38,8 @@
             </a-card-meta>
           </a-card>
         </div>
-        <div class="col-span-3 ml-4">
-          <a-card class="shadow-md" hoverable>
+        <div class="col-span-3">
+          <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
               <img class="h-80" alt="example" src="@/assets/images/img20.jpg" />
             </template>

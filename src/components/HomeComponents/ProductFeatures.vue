@@ -3,10 +3,10 @@
     <div class="container p-20">
       <div class="grid grid-cols-6">
         <div class="col-span-6 mb-10">
-          <h1 class="text-center text-2xl font-bold">产品特色</h1>
-          <h2 class="text-center text-lg">
-            提供创新的碳排放和碳交易解决方案，助力企业实现碳足迹优化和市场价值最大化。
-          </h2>
+          <a-typography-title class="text-center font-bold">产品特色</a-typography-title>
+          <a-typography-title :level="4" class="text-center">
+            提供创新的碳排放和碳交易解决方案，助力企业实现碳足迹优化和市场价值最大化
+          </a-typography-title>
         </div>
         <div class="col-span-3 my-b mr-4">
           <a-card class="flex shadow-sm">

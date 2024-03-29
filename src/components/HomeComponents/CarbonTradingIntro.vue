@@ -3,10 +3,10 @@
     <div class="container p-20">
       <div class="grid grid-cols-6">
         <div class="col-span-6 mb-10">
-          <h1 class="text-center text-2xl font-bold">碳交易服务</h1>
-          <p class="text-center text-lg">
-            提供全面的碳排放核算，帮助企业准确计算和管理其碳足迹。
-          </p>
+          <a-typography-title class="text-center font-bold">碳交易服务</a-typography-title>
+          <a-typography-title :level="4" class="text-center">
+            提供全面的碳排放核算，帮助企业准确计算和管理其碳足迹
+          </a-typography-title>
         </div>
         <div class="col-span-3 flex flex-col justify-center space-y-10">
           <div class="text-start">
@@ -22,7 +22,7 @@
         </div>
         <div class="col-span-3">
           <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
-            <img class="rounded-lg" src="@/assets/images/img11.jpg"/>
+            <img class="rounded-lg" src="@/assets/images/img11.jpg" alt=""/>
           </div>
         </div>
       </div>

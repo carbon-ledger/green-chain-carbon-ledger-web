@@ -12,7 +12,7 @@
             </div>
             <div class="col-span-6">
              <span class="text-start text-white text-xl" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.8);">
-               识别和量化排放来源，为制定减排策略和衡量减排效果提供数据支持。
+               识别和量化排放来源，为制定减排策略和衡量减排效果提供数据支持
              </span>
             </div>
           </div>

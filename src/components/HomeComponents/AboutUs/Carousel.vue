@@ -12,7 +12,7 @@
             </div>
             <div class="col-span-6">
              <span class="text-start text-white text-xl" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.8);">
-            旨在为企业提供全面的碳管理解决方案。
+            旨在为企业提供全面的碳管理解决方案
              </span>
             </div>
           </div>

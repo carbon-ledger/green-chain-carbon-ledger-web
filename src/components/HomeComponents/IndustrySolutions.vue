@@ -2,10 +2,10 @@
   <div class="w-full flex justify-center">
     <div class="container p-20">
       <div class="mb-10">
-        <h1 class="text-center text-2xl font-bold">行业解决方案</h1>
-        <p class="text-center text-lg">
-          提供专业碳排放与交易解决方案，助力企业应对碳市场挑战。
-        </p>
+        <a-typography-title class="text-center font-bold">行业解决方案</a-typography-title>
+        <a-typography-title :level="4" class="text-center">
+          提供专业碳排放与交易解决方案，助力企业应对碳市场挑战
+        </a-typography-title>
       </div>
       <a-carousel class="h-auto" autoplay>
         <div class="relative bg-[url('@/assets/images/img32.jpg')] bg-cover bg-center">
@@ -52,7 +52,3 @@
     </div>
   </div>
 </template>
-<script setup>
-import ProductFeatures from "@/components/HomeComponents/ProductFeatures.vue";
-import {LeftCircleOutlined, RightCircleOutlined} from "@ant-design/icons-vue";
-</script>

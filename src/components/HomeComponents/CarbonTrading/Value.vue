@@ -3,19 +3,19 @@
     <div class="container p-20">
       <div class="grid grid-cols-6">
         <div class="col-span-6 mb-10">
-          <h1 class="text-center text-2xl font-bold">给您带来的价值</h1>
-          <p class="text-center text-lg">
-            提供创新的碳排放和碳交易解决方案，助力企业实现碳足迹优化和市场价值最大化。
-          </p>
+          <a-typography-title class="text-center font-bold">给您带来的价值</a-typography-title>
+          <a-typography-title :level="4" class="text-center">
+            提供先进的碳交易平台和服务，促进企业在全球碳市场中有效管理碳资产，实现经济效益和环境责任的双重提升
+          </a-typography-title>
         </div>
         <div class="col-span-3 mb-4 mr-4">
           <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
-              <div class="col-span-1 text-5xl"><InteractionTwoTone /></div>
+              <div class="col-span-1 text-5xl"><DollarCircleTwoTone /></div>
               <div class="col-span-8">
-                <h2 class="text-2xl">成本节约</h2>
+                <h2 class="text-2xl">经济激励与成本控制</h2>
                 <p class="text-base text-gray-600">
-                  通过识别和实施节能减排措施，企业可以显著降低能源消耗和相关成本，特别是在能源价格上涨的情况下。
+                  为企业开辟新的收入渠道通过出售碳信用，同时提供一个成本效益的减排途径，降低环境管理的总成本。
                 </p>
               </div>
             </div>
@@ -24,11 +24,11 @@
         <div class="col-span-3 mb-4 ml-4">
           <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
-              <div class="col-span-1 text-5xl"><CheckSquareTwoTone /></div>
+              <div class="col-span-1 text-5xl"><SafetyCertificateTwoTone /></div>
               <div class="col-span-8">
-                <h2 class="text-2xl">竞争优势</h2>
+                <h2 class="text-2xl">增强企业透明度和信任度</h2>
                 <p class="text-base text-gray-600">
-                  在越来越多消费者和业务伙伴关注企业环境责任的今天，能够展示其积极管理和减少碳足迹的企业将更容易获得市场份额和投资。
+                  通过系统的碳排放和减排数据公开，增加企业的透明度，建立和加强利益相关者的信任，同时确保企业的环境合规性。
                 </p>
               </div>
             </div>
@@ -37,7 +37,7 @@
         <div class="col-span-3 mt-4 mr-4">
           <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
-              <div class="col-span-1 text-5xl"><DollarCircleTwoTone /></div>
+              <div class="col-span-1 text-5xl"><ToolTwoTone /></div>
               <div class="col-span-8">
                 <h2 class="text-2xl">品牌和企业价值</h2>
                 <p class="text-base text-gray-600">
@@ -50,11 +50,11 @@
         <div class="col-span-3 mt-4 ml-4">
           <a-card class="flex shadow-sm">
             <div class="grid grid-cols-9">
-              <div class="col-span-1 text-5xl"><StarTwoTone /></div>
+              <div class="col-span-1 text-5xl"><ProfileTwoTone /></div>
               <div class="col-span-8">
-                <h2 class="text-2xl">投资吸引力</h2>
+                <h2 class="text-2xl">促进环境责任和可持续发展</h2>
                 <p class="text-base text-gray-600">
-                  企业的环境、社会和治理表现对投资者越来越重要。有效的碳足迹管理展示了企业的责任感和前瞻性，吸引了对可持续发展感兴趣的投资者。
+                  通过参与碳减排，企业能提升公众形象和品牌价值，支撑其可持续发展战略，增强市场竞争力。
                 </p>
               </div>
             </div>
@@ -66,9 +66,9 @@
 </template>
 <script setup>
 import {
-  InteractionTwoTone,
-  CheckSquareTwoTone,
+  ToolTwoTone,
+  SafetyCertificateTwoTone ,
   DollarCircleTwoTone,
-  StarTwoTone,
+  ProfileTwoTone,
 } from "@ant-design/icons-vue";
 </script>

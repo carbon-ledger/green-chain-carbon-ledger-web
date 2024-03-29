@@ -6,13 +6,13 @@
         <div class="container p-72">
           <div class="grid grid-cols-6 gap-y-6">
             <div class="col-span-6">
-              <span class="text-start text-white text-4xl  font-semibold" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.8);">
+              <span class="text-start text-white text-4xl font-semibold" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.8);">
                 碳排放交易
               </span>
             </div>
             <div class="col-span-6">
               <span class="text-start text-white text-xl" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.8);">
-                设定排放上限和允许市场参与者在此框架内买卖配额，激励减少温室气体排放。
+                设定排放上限和允许市场参与者在此框架内买卖配额，激励减少温室气体排放
               </span>
             </div>
           </div>
