@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-center mt-20">
+  <div class="w-full flex justify-center">
     <div class="container p-20">
       <div class="grid grid-cols-6">
         <div class="col-span-6 mb-10">

@@ -38,7 +38,7 @@
       <div v-if="value === true" class="col-span-2 flex justify-end">
         <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
           <a class="ant-dropdown-link" @click.prevent>
-            <img alt="UserAvatar" class="rounded-full w-auto h-full">
+            <img alt="UserAvatar" class="rounded-full w-auto h-full" src="">
           </a>
           <template #overlay>
             <a-menu>
