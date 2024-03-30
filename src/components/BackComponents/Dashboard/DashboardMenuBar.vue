@@ -55,13 +55,13 @@
           <span class="nav-text">网站设置</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="6">
+      <a-menu-item key="6" @click="router.push({name:'DashboardTestManage'})">
         <span>
           <IssuesCloseOutlined/>
           <span class="nav-text">测试管理</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="7">
+      <a-menu-item key="7" @click="router.push({name:'DashboardCopyRight'})">
         <span>
           <CopyrightCircleOutlined/>
           <span class="nav-text">版权页面</span>
@@ -165,6 +165,14 @@ switch (router.currentRoute.value.name) {
     break
   case "DashboardWebSetting":
     selectedKey.value = ["5"]
+    openMenuKey.value = ["sub2"]
+    break
+  case "DashboardTestManage":
+    selectedKey.value = ["6"]
+    openMenuKey.value = ["sub2"]
+    break
+  case "DashboardCopyRight":
+    selectedKey.value = ["7"]
     openMenuKey.value = ["sub2"]
     break
   default:
