@@ -5,7 +5,7 @@
   >
     <a-descriptions-item>
       <div class="text-mount-pink">
-        账户管理，包括账户的增删改查，账户的状态，账户的创建时间，账户的更新时间，账户是否已被删除等。
+        网站设置允许管理包括标题、Logo、SEO标题、传真、描述、联系方式等，以优化网站功能和提升品牌形象。
       </div>
     </a-descriptions-item>
   </a-page-header>

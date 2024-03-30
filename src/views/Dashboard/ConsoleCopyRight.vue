@@ -5,7 +5,7 @@
   >
     <a-descriptions-item>
       <div class="text-mount-pink">
-        账户管理，包括账户的增删改查，账户的状态，账户的创建时间，账户的更新时间，账户是否已被删除等。
+        版权信息包括版权声明、使用条款、商标信息等，确保内容保护与合规使用，维护网站及其内容的法律权益。
       </div>
     </a-descriptions-item>
   </a-page-header>
