@@ -176,6 +176,16 @@ const router = createRouter({
                     path: '/dashboard/websetting',
                     name:'DashboardWebSetting',
                     component:() => import('@/views/Dashboard/ConsoleWebSetting.vue')
+                },
+                {
+                    path: '/dashboard/copyright',
+                    name:'DashboardCopyRight',
+                    component:() => import('@/views/Dashboard/ConsoleCopyRight.vue')
+                },
+                {
+                    path: '/dashboard/testmanage',
+                    name:'DashboardTestManage',
+                    component:() => import('@/views/Dashboard/ConsoleTestManage.vue')
                 }
             ]
         },
