@@ -75,7 +75,7 @@
           <span>系统分析</span>
         </span>
       </template>
-      <a-menu-item key="8">
+      <a-menu-item key="8" @click="router.push({name:'DashboardSystemInfo'})">
         <span>
           <span class="nav-text">系统信息</span>
         </span>
@@ -174,6 +174,10 @@ switch (router.currentRoute.value.name) {
   case "DashboardCopyRight":
     selectedKey.value = ["7"]
     openMenuKey.value = ["sub2"]
+    break
+  case "DashboardSystem":
+    selectedKey.value = ["8"]
+    openMenuKey.value = ["sub3"]
     break
   default:
     selectedKey.value = ["1"]
