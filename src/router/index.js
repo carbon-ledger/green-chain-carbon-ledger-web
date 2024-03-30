@@ -184,6 +184,21 @@ const router = createRouter({
                     path: '',
                     name: 'MarketDashboard',
                     component: () => import('@/views/MarketPage/MarketDashboard.vue'),
+                },
+                {
+                    path: '/market/list',
+                    name: 'MarketList',
+                    component: () => import('@/views/MarketPage/MarketList.vue'),
+                },
+                {
+                    path: '/market/accounting',
+                    name: 'MarketAccounting',
+                    component: () => import('@/views/MarketPage/MarketAccounting.vue'),
+                },
+                {
+                    path: '/market/trade',
+                    name: 'MarketTrade',
+                    component: () => import('@/views/MarketPage/MarketTrade.vue'),
                 }
             ]
         },

@@ -15,21 +15,21 @@
         </a-menu>
         <a-menu>
           <button class="text-spring hover:text-green-500 font-semibold"
-                  @click="router.push({name:'Index'})">
+                  @click="router.push({name:'MarketList'})">
             <ShoppingCartOutlined/>
             交易市场
           </button>
         </a-menu>
         <a-menu>
           <button class="text-spring hover:text-green-500 font-semibold"
-                  @click="router.push({name:'AboutUsView'})">
+                  @click="router.push({name:'MarketAccounting'})">
             <MoneyCollectOutlined/>
             核算中心
           </button>
         </a-menu>
         <a-menu>
           <button class="text-spring hover:text-green-500 font-semibold"
-                  @click="router.push({name:'CarbonAccountingView'})">
+                  @click="router.push({name:'MarketTrade'})">
             <PayCircleOutlined/>
             我的交易
           </button>
@@ -72,7 +72,8 @@
 import router from "@/router/index.js";
 import {
   DashboardOutlined,
-  HomeOutlined, LogoutOutlined,
+  HomeOutlined,
+  LogoutOutlined,
   MoneyCollectOutlined,
   PayCircleOutlined,
   ShoppingCartOutlined,

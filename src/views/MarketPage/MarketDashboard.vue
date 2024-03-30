@@ -1,15 +1,18 @@
 <template>
   <div class="col-span-3">
-    <a-card class="shadow-lg grid gap-3">
-      <div class="w-full text-center">
-        <a-avatar :draggable="false" :size="78" :src="getUserAvatar"/>
-      </div>
-      <div class="text-center">
-        <a-typography-text class="text-3xl font-bold">{{ getUserProfile.data.user.userName }}</a-typography-text>
-      </div>
-      <div class="text-center">
-        <a-typography-text class="text-xl font-bold">{{ getUserProfile.data.user.realName }}</a-typography-text>
-      </div>
+    <a-card class="shadow-lg">
+      <template #cover>
+        <img alt="example" src="@/assets/images/market-user-background.webp"/>
+      </template>
+      <template #actions>
+        <span @click="router.replace({name: 'UserProfile', replace: true})"><UserOutlined /> 个人信息</span>
+        <span @click="router.push({name: 'MarketAccounting'})"><MoneyCollectOutlined/>  核算中心</span>
+      </template>
+      <a-card-meta :description="getUserProfile.data.user.userName" :title="getUserProfile.data.user.realName">
+        <template #avatar>
+          <a-avatar :src="getUserAvatar"/>
+        </template>
+      </a-card-meta>
     </a-card>
   </div>
   <div class="col-span-9">
@@ -62,10 +65,11 @@
 
 <script setup>
 import {onMounted, ref} from "vue";
-import {DashboardOutlined, FileOutlined} from "@ant-design/icons-vue"
+import {DashboardOutlined, MoneyCollectOutlined, FileOutlined, UserOutlined} from "@ant-design/icons-vue"
 import {getUserCurrentApi} from "@/api/UserApi.js";
 import {emissionsQuotaDO, userCurrentDO} from "@/assets/js/DoModel.js";
 import {emissionsQuotaApi} from "@/api/CarbonApi.js";
+import router from "@/router/index.js";
 
 const getUserAvatar = ref('');
 const getUserProfile = ref(userCurrentDO);
