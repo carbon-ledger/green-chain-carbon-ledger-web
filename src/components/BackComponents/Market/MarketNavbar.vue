@@ -1,6 +1,6 @@
 <template>
   <nav class="bg-white border-gray-200 dark:bg-gray-900">
-    <div class="max-w-screen-xl grid grid-cols-12 flex-wrap items-center justify-between mx-auto p-4">
+    <div class="max-w-screen-xl grid grid-cols-12 flex-wrap items-center justify-between mx-auto p-2">
       <div class="col-span-2 flex items-center space-x-3 rtl:space-x-reverse">
         <img alt="Market Logo" class="h-7 rounded-full" src="@/assets/images/market-logo.png" draggable="false"/>
         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">交易核算中心</span>
@@ -38,7 +38,7 @@
       <div class="col-span-2 flex justify-end">
         <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
           <a class="ant-dropdown-link" @click.prevent>
-            <img id="UserAvatar" alt="UserAvatar" class="rounded-full h-11 w-auto" :src="getUserAvatar" :draggable="false">
+            <img id="UserAvatar" alt="UserAvatar" class="rounded-full h-10 w-auto" :src="getUserAvatar" :draggable="false">
           </a>
           <template #overlay>
             <a-menu>

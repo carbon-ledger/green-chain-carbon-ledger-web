@@ -1,7 +1,7 @@
 <template>
   <MarketNavbar/>
-  <div class="p-3 bg-gray-50">
-    <div class="grid grid-cols-12 gap-3 px-20">
+  <div class="p-3 bg-gray-50 pt-8">
+    <div class="grid grid-cols-12 gap-3 px-20 mb-4">
       <RouterView/>
     </div>
     <DashboardFooter/>

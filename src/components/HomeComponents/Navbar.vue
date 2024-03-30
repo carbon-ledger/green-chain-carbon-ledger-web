@@ -1,8 +1,8 @@
 <template>
   <nav class="bg-white border-gray-200 px-3 fixed top-0 left-0 right-0 z-50 flex justify-center">
-    <div class="grid grid-cols-12 w-full container items-center mt-[2px]">
+    <div class="grid grid-cols-12 w-full container items-center">
       <a class="col-span-2" href="/">
-        <img alt="LOGO" class="w-11 h-11 m-1" src="/favicon.ico" draggable="false"/>
+        <img alt="LOGO" class="w-10 h-10 m-2" src="/favicon.ico" draggable="false"/>
       </a>
       <div class="col-span-8 flex justify-center w-full gap-6 md:w-auto">
         <a-menu>
@@ -38,7 +38,7 @@
       <div v-if="value === true" class="col-span-2 flex justify-end">
         <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
           <a class="ant-dropdown-link" @click.prevent>
-            <a-avatar :draggable="false" :src="getUserAvatar" alt="UserAvatar" class="rounded-full h-11 w-auto"/>
+            <a-avatar :draggable="false" :src="getUserAvatar" alt="UserAvatar" class="rounded-full h-10 w-auto"/>
           </a>
           <template #overlay>
             <a-menu>
