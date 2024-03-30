@@ -171,6 +171,11 @@ const router = createRouter({
                     path: '/dashboard/verify/check',
                     name:'DashboardVerifyCheck',
                     component:() => import('@/views/Dashboard/ConsoleUserVerifyCheck.vue')
+                },
+                {
+                    path: '/dashboard/websetting',
+                    name:'DashboardWebSetting',
+                    component:() => import('@/views/Dashboard/ConsoleWebSetting.vue')
                 }
             ]
         },

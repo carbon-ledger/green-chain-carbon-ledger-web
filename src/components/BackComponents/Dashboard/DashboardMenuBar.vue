@@ -49,7 +49,7 @@
           <span>系统设置</span>
         </span>
       </template>
-      <a-menu-item key="5">
+      <a-menu-item key="5" @click="router.push({name:'DashboardWebSetting'})">
         <span>
           <LayoutOutlined/>
           <span class="nav-text">网站设置</span>
@@ -162,6 +162,10 @@ switch (router.currentRoute.value.name) {
   case "DashboardVerifyCheck":
     selectedKey.value = ["10"]
     openMenuKey.value = ["sub4"]
+    break
+  case "DashboardWebSetting":
+    selectedKey.value = ["5"]
+    openMenuKey.value = ["sub2"]
     break
   default:
     selectedKey.value = ["1"]
