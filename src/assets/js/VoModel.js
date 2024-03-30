@@ -133,3 +133,10 @@ export let userDeleteVO = {
     password: '',
     code: '',
 }
+
+export let sendTradeSellVO = {
+    amount: 0.000,
+    unit: 0.000,
+    text: '',
+    draft: true
+}

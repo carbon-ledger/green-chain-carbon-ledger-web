@@ -614,6 +614,20 @@ const emissionsQuota = (start, end) => {
     })
 }
 
+const tradeSell = (data) => {
+    return axios({
+        url: api + "/trade/sell",
+        method: "POST",
+        data: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     userLogin,
@@ -649,5 +663,6 @@ export default {
     reviewGet,
     userLoginOut,
     reviewGetConsoleCheck,
-    emissionsQuota
+    emissionsQuota,
+    tradeSell
 }

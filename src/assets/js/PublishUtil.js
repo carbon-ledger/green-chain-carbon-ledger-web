@@ -17,6 +17,8 @@ export async function publicErrorOperate(err) {
                 router.replace({ name: 'LoginAccount' });
             }, 500);
             break;
+        case "ServerInternalError":
+            message.error("服务器内部错误，详情请询问管理员，错误 ID 「" + err.response.data.code +"」");
     }
     return false;
 }
