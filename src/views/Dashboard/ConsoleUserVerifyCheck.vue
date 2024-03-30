@@ -93,7 +93,7 @@ import {baseResponse, reviewCheckConsoleDO} from "@/assets/js/DoModel.js";
  */
 const reviewForm = ref(reviewCheckConsoleDO);
 let getReviewCheckVO = reactive(reviewCheckVO)
-const open = ref(false);
+const openNoti = ref(false);
 const confirmLoading = ref(false);
 
 onMounted(async _ => {

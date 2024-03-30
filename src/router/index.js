@@ -5,55 +5,50 @@ const router = createRouter({
     routes: [
         {
             // 首页相关路由表
-            path: '/home',
+            path: '/',
             name:'Home',
-            component:() => import('@/views/HomePage/HomeFrame.vue'),
+            component:() => import('@/views/HomePage/IndexFrame.vue'),
             children: [
                 {
                     path: '/',
                     name: 'Index',
-                    component: () => import('@/views/HomePage/IndexView.vue'),
+                    component: () => import('@/views/HomePage/Home.vue'),
                 },
                 {
                     // 关于我
                     path: '/about',
                     name: 'AboutUsView',
-                    component: () => import('@/views/HomePage/AboutUsView.vue')
+                    component: () => import('@/views/HomePage/AboutUs.vue')
                 },
                 {
                     // 碳核算
                     path: '/accounting',
                     name: 'CarbonAccountingView',
-                    component: () => import('@/views/HomePage/CarbonAccountingView.vue')
+                    component: () => import('@/views/HomePage/CarbonAccounting.vue')
                 },
                 {
                     // 碳交易
                     path: '/trade',
                     name: 'CarbonTradingView',
-                    component: () => import('@/views/HomePage/CarbonTradingView.vue')
+                    component: () => import('@/views/HomePage/CarbonTrading.vue')
                 },
                 {
                     // 产品特性
                     path: '/product',
                     name: 'ProductFeaturesView',
-                    component: () => import('@/views/HomePage/ProductFeaturesView.vue')
+                    component: () => import('@/views/HomePage/ProductFeatures.vue')
                 },
                 {
                     // 行业解决方案
                     path: '/solution',
                     name: 'IndustrySolutionView',
-                    component: () => import('@/views/HomePage/IndustrySolutionView.vue')
+                    component: () => import('@/views/HomePage/IndustrySolution.vue')
                 },
                 {
                     // 服务
                     path: '/service',
                     name: 'OurServiceView',
-                    component: () => import('@/views/HomePage/OurServiceView.vue')
-                },
-                {
-                    path: '/demo',
-                    name: 'Demo',
-                    component: () => import('@/views/demo.vue')
+                    component: () => import('@/views/HomePage/OurService.vue')
                 }
             ]
         },
@@ -185,9 +180,42 @@ const router = createRouter({
             ]
         },
         {
+            // 交易市场相关
+            path: '/market',
+            name: 'Market',
+            component: () => import('@/views/MarketPage/IndexFrame.vue'),
+            children:[
+                {
+                    path: '',
+                    name: 'MarketDashboard',
+                    component: () => import('@/views/MarketPage/MarketDashboard.vue'),
+                },
+                {
+                    path: '/market/list',
+                    name: 'MarketList',
+                    component: () => import('@/views/MarketPage/MarketList.vue'),
+                },
+                {
+                    path: '/market/accounting',
+                    name: 'MarketAccounting',
+                    component: () => import('@/views/MarketPage/MarketAccounting.vue'),
+                },
+                {
+                    path: '/market/trade',
+                    name: 'MarketTrade',
+                    component: () => import('@/views/MarketPage/MarketTrade.vue'),
+                }
+            ]
+        },
+        {
             path: '/no-permission',
             name:'PageNotFounded',
             component:() => import('@/views/PublicPage/NoPermission.vue')
+        },
+        {
+            path: '/demo',
+            name: 'Demo',
+            component: () => import('@/views/demo.vue')
         }
     ]
 })

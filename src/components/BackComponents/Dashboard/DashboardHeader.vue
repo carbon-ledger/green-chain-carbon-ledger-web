@@ -1,40 +1,52 @@
 <template>
-  <div class="flex h-full py-3">
-    <div class="flex flex-1">
-      <div class="flex">
-        <div class="flex flex-1 justify-end">
-          <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
-            <a class="ant-dropdown-link" @click.prevent>
-              <img alt="UserAvatar" class="rounded-full w-auto h-full" src="https://api.x-lf.cn/avatar/?uid=1">
-            </a>
-            <template #overlay>
-              <a-menu>
-                <a-menu-item @click="JumpToPersonal">
-                  <UserOutlined/>
-                  个人信息
-                </a-menu-item>
-                <a-menu-item @click="JumpToSystemSetting">
-                  <SettingOutlined/>
-                  系统设置
-                </a-menu-item>
-                <a-menu-divider/>
-                <a-menu-item @click="UserLogout">
-                  <LogoutOutlined/>
-                  账号登出
-                </a-menu-item>
-              </a-menu>
-            </template>
-          </a-dropdown>
-        </div>
-      </div>
+  <div class="grid h-full py-3">
+    <div class="flex justify-end">
+      <a-dropdown :arrow="{ pointAtCenter: true }" placement="bottomRight">
+        <a class="ant-dropdown-link text-end" @click.prevent>
+          <img :draggable="false" :src="getUserAvatar" alt="UserAvatar" class="rounded-full w-auto h-11">
+        </a>
+        <template #overlay>
+          <a-menu>
+            <a-menu-item @click="JumpToPersonal">
+              <UserOutlined/>
+              个人信息
+            </a-menu-item>
+            <a-menu-item @click="JumpToSystemSetting">
+              <SettingOutlined/>
+              系统设置
+            </a-menu-item>
+            <a-menu-divider/>
+            <a-menu-item @click="userLogoutApi">
+              <LogoutOutlined/>
+              账号登出
+            </a-menu-item>
+          </a-menu>
+        </template>
+      </a-dropdown>
     </div>
   </div>
 </template>
 
 <script setup>
-import {LogoutOutlined, UserOutlined, SettingOutlined} from '@ant-design/icons-vue';
-import request from "@/assets/js/Request.js";
-import {message} from "ant-design-vue";
+import {LogoutOutlined, SettingOutlined, UserOutlined} from '@ant-design/icons-vue';
+import {userLogoutApi} from "@/api/AuthApi.js";
+import {onMounted, ref} from "vue";
+import {getUserCurrentApi} from "@/api/UserApi.js";
+import {userCurrentDO} from "@/assets/js/DoModel.js";
+
+const getCurrentUser = ref(userCurrentDO);
+const getUserAvatar = ref('');
+
+onMounted(async _ => {
+  getCurrentUser.value = await getUserCurrentApi();
+  if (getCurrentUser.value.output === 'Success') {
+    if (getCurrentUser.value.data.user.avatar === '') {
+      getUserAvatar.value = getCurrentUser.value.data.user.avatar;
+    } else {
+      getUserAvatar.value = '/no-image-p.webp';
+    }
+  }
+})
 
 function JumpToPersonal() {
   window.location.replace("/user/profile")
@@ -42,29 +54,5 @@ function JumpToPersonal() {
 
 function JumpToSystemSetting() {
   window.location.replace("/setting")
-}
-
-// 账号登出
-function UserLogout() {
-  console.log("[DashboardHeader] 账号 " + " 登出")
-  request.userLogout().then((res) => {
-    switch (res.data.output) {
-      case "Success": {
-        console.log("[DashboardHeader] " + res.data.output)
-        message.success("账号登出成功")
-        localStorage.removeItem("AuthorizationToken")
-        localStorage.removeItem("X-Auth-UUID")
-        window.location.replace("/auth/login")
-        break
-      }
-      default: {
-        console.log("[DashboardHeader] " + res.data.output)
-        message.warn("其他错误：" + res.data.message)
-      }
-    }
-  }).catch((err) => {
-    console.warn("[DashboardHeader] " + err.response.data.output)
-    message.error(err.response.data.message)
-  })
 }
 </script>

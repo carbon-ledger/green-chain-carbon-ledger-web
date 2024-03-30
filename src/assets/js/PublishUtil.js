@@ -6,6 +6,11 @@ export async function publicErrorOperate(err) {
         case "RequestBodyError":
             message.warn(err.response.data.data[0]);
             return true;
+        case "NoPermissionError":
+            setTimeout(_ => {
+                router.replace({ name: 'PageNotFounded' });
+            }, 500);
+            break;
         case "TokenVerifyError":
             message.warn(err.response.data.data.errorMessage);
             setTimeout(_ => {

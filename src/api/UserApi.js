@@ -17,9 +17,27 @@ export async function getUserCurrentApi() {
         const res = await request.getUserCurrent();
         returnData = res.data;
     } catch (err) {
-        returnData = err.response.data;
         if (err.response && err.response.data) {
+            returnData = err.response.data;
             await router.replace({name: 'LoginAccount', replace: true});
+        } else {
+            // 处理无法访问err.response的情况
+            console.warn("[REQUEST] UserApi[getUserCurrentApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] UserApi[getUserCurrentApi]: 请求数据\n', returnData);
+    }
+    return returnData
+}
+
+export async function getUserCurrentIndexApi() {
+    let returnData = userCurrentDO;
+    try {
+        const res = await request.getUserCurrent();
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            returnData = err.response.data;
         } else {
             // 处理无法访问err.response的情况
             console.warn("[REQUEST] UserApi[getUserCurrentApi]: 无法找到 response 体");

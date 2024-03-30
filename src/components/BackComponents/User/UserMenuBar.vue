@@ -6,7 +6,7 @@
       class="rounded-lg border"
       mode="inline"
       @click="handleClick"
-  ></a-menu>
+  />
 </template>
 <script setup>
 import {h, reactive, ref} from 'vue';
