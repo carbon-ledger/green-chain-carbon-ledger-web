@@ -8,12 +8,12 @@
         </a-typography-title>
       </div>
       <div class="grid grid-cols-6 gap-y-10 my-20">
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img28.jpg" alt=""/>
           </div>
         </div>
-        <div class="col-span-3 flex flex-col justify-center space-y-10">
+        <div class="md:col-span-3 col-span-6 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-end">实时碳排放数据追踪</h2>
           <div class="text-end">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="grid grid-cols-6 gap-y-10 my-40">
-        <div class="col-span-3 flex flex-col justify-center space-y-10">
+        <div class="md:col-span-3 col-span-6 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-start">碳信用买卖平台</h2>
           <div class="text-start">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -65,19 +65,19 @@
             </p>
           </div>
         </div>
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img29.jpg" alt=""/>
           </div>
         </div>
       </div>
       <div class="grid grid-cols-6 gap-y-10 my-40">
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img30.jpg" alt=""/>
           </div>
         </div>
-        <div class="col-span-3 flex flex-col justify-center space-y-10">
+        <div class="md:col-span-3 col-span-6 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-end">计算排放</h2>
           <div class="text-end">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -104,7 +104,7 @@
         </div>
       </div>
       <div class="grid grid-cols-6 gap-y-10 mt-20">
-        <div class="col-span-3 flex flex-col justify-center space-y-10">
+        <div class="md:col-span-3 col-span-6 flex flex-col justify-center space-y-10">
           <h2 class="text-2xl text-start">合规性管理</h2>
           <div class="text-start">
             <p class="text-gray-500 sm:text-sm md:text-base lg:text-lg xl:text-xl">
@@ -129,7 +129,7 @@
             </p>
           </div>
         </div>
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img31.jpg" alt=""/>
           </div>

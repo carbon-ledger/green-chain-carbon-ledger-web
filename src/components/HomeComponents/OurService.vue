@@ -8,7 +8,7 @@
             助力企业完成碳中和
           </a-typography-title>
         </div>
-        <div class="col-span-3">
+        <div class="col-span-6 md:col-span-3">
           <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
               <img class="h-80" src="@/assets/images/img17.jpg"  alt=""/>
@@ -18,7 +18,7 @@
             </a-card-meta>
           </a-card>
         </div>
-        <div class="col-span-3">
+        <div class="col-span-6 md:col-span-3">
           <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
               <img class="h-80" src="@/assets/images/img18.jpg" alt=""/>
@@ -28,7 +28,7 @@
             </a-card-meta>
           </a-card>
         </div>
-        <div class="col-span-3">
+        <div class="col-span-6 md:col-span-3">
           <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
               <img class="h-80" alt="example" src="@/assets/images/img19.jpg" />
@@ -38,7 +38,7 @@
             </a-card-meta>
           </a-card>
         </div>
-        <div class="col-span-3">
+        <div class="col-span-6 md:col-span-3">
           <a-card class="shadow-md h-full w-full" hoverable>
             <template #cover>
               <img class="h-80" alt="example" src="@/assets/images/img20.jpg" />

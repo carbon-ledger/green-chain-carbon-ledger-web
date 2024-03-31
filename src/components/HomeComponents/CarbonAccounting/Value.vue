@@ -8,7 +8,7 @@
             提供创新的碳排放和碳交易解决方案，助力企业实现碳足迹优化和市场价值最大化
           </a-typography-title>
         </div>
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><InteractionTwoTone /></div>
@@ -21,7 +21,7 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><CheckSquareTwoTone /></div>
@@ -34,7 +34,7 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><DollarCircleTwoTone /></div>
@@ -47,7 +47,7 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><StarTwoTone /></div>

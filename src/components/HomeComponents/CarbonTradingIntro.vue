@@ -8,7 +8,7 @@
             提供全面的碳排放核算，帮助企业准确计算和管理其碳足迹
           </a-typography-title>
         </div>
-        <div class="col-span-3 flex flex-col justify-center space-y-10">
+        <div class="md:col-span-3 col-span-6 flex flex-col justify-center space-y-10">
           <div class="text-start">
             <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl"><CheckCircleOutlined class="text-aspargus mr-2" />简洁直观的界面，易于操作</p>
             <p class="sm:text-sm md:text-base lg:text-lg xl:text-xl"><CheckCircleOutlined class="text-aspargus mr-2" />确保交易和碳信用数据完全公开</p>
@@ -20,7 +20,7 @@
             <a-button type="primary" class="bg-aspargus" @click="gotoCarbonAccount()">了解更多</a-button>
           </div>
         </div>
-        <div class="col-span-3">
+        <div class="md:col-span-3 col-span-6">
           <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
             <img class="rounded-lg" src="@/assets/images/img11.jpg" alt=""/>
           </div>
