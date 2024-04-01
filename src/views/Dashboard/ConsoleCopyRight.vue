@@ -17,6 +17,7 @@
             name="basic"
         >
           <a-form-item
+              :rules="[{ required: true, message: '请输入版权说明！' }]"
               class="col-span-12"
               label="版权说明"
               name="desc"

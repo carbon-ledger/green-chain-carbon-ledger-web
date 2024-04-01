@@ -16,14 +16,14 @@
           <h2 class="font-bold mb-8 text-xl">服务器信息</h2>
           <a-form
               v-model="systemform"
-              :label-col="{ span: 4 }"
               class="grid grid-cols-12 gap-10"
               name="basic"
           >
             <a-form-item
+                :rules="[{ required: true, message: '请输入CPU信息！' }]"
                 class="col-span-6"
                 label="CPU信息"
-                name="organizeName"
+                name="CPU"
             >
               <a-textarea :rows="6" v-model:value="systemform.CPU">
                 <template #prefix>
@@ -32,9 +32,10 @@
               </a-textarea>
             </a-form-item>
             <a-form-item
+                :rules="[{ required: true, message: '请输入RAM信息！' }]"
                 class="col-span-6"
                 label="RAM信息"
-                name="creditCode"
+                name="RAM"
             >
               <a-textarea :rows="6" v-model:value="systemform.RAM">
                 <template #prefix>
@@ -43,8 +44,9 @@
               </a-textarea>
             </a-form-item>
             <a-form-item
+                :rules="[{ required: true, message: '请输入电源信息！' }]"
                 class="col-span-6"
-                label="电源"
+                label="电源信息"
                 name="legalRepresentativeId"
             >
               <a-textarea :rows="6" v-model:value="systemform.power">
@@ -54,9 +56,10 @@
               </a-textarea>
             </a-form-item>
             <a-form-item
+                :rules="[{ required: true, message: '请输入存储设备！' }]"
                 class="col-span-6"
                 label="存储设备"
-                name="legalRepresentativeId"
+                name="storage"
             >
               <a-textarea :rows="6" v-model:value="systemform.storage">
                 <template #prefix>
@@ -65,9 +68,10 @@
               </a-textarea>
             </a-form-item>
             <a-form-item
+                :rules="[{ required: true, message: '请输入接口管理！' }]"
                 class="col-span-6"
                 label="接口管理"
-                name="legalRepresentativeId"
+                name="interface"
             >
               <a-textarea :rows="3" v-model:value="systemform.interface">
                 <template #prefix>
@@ -76,9 +80,10 @@
               </a-textarea>
             </a-form-item>
             <a-form-item
+                :rules="[{ required: true, message: '请输入机箱和散热信息！' }]"
                 class="col-span-6"
                 label="机箱和散热"
-                name="legalRepresentativeId"
+                name="chassis"
             >
               <a-textarea :rows="3" v-model:value="systemform.chassis">
                 <template #prefix>
@@ -87,9 +92,10 @@
               </a-textarea>
             </a-form-item>
             <a-form-item
+                :rules="[{ required: true, message: '请输入操作系统信息！' }]"
                 class="col-span-6"
                 label="操作系统"
-                name="legalRepresentativeId"
+                name="operating"
             >
               <a-input v-model:value="systemform.operating">
                 <template #prefix>
@@ -103,14 +109,14 @@
           <h2 class="font-bold my-8 text-xl">链接信息</h2>
           <a-form
               v-model="systemform"
-              :label-col="{ span: 7}"
               class="grid grid-cols-12 gap-10"
               name="basic"
           >
             <a-form-item
+                :rules="[{ required: true, message: '链接信息！' }]"
                 class="col-span-6"
                 label="是否正常连接服务器"
-                name="resource">
+                name="radioValue">
               <a-radio-group v-model:value="radioValue">
                 <a-radio value="yes">是</a-radio>
                 <a-radio value="no">否</a-radio>
