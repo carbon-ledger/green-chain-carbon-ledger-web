@@ -21,7 +21,7 @@
           >
             <a-form-item
                 :rules="[{ required: true, message: '请输入CPU信息！' }]"
-                class="col-span-6"
+                class="md:col-span-6 col-span-12"
                 label="CPU信息"
                 name="CPU"
             >
@@ -33,7 +33,7 @@
             </a-form-item>
             <a-form-item
                 :rules="[{ required: true, message: '请输入RAM信息！' }]"
-                class="col-span-6"
+                class="md:col-span-6 col-span-12"
                 label="RAM信息"
                 name="RAM"
             >
@@ -45,7 +45,7 @@
             </a-form-item>
             <a-form-item
                 :rules="[{ required: true, message: '请输入电源信息！' }]"
-                class="col-span-6"
+                class="md:col-span-6 col-span-12"
                 label="电源信息"
                 name="legalRepresentativeId"
             >
@@ -57,7 +57,7 @@
             </a-form-item>
             <a-form-item
                 :rules="[{ required: true, message: '请输入存储设备！' }]"
-                class="col-span-6"
+                class="md:col-span-6 col-span-12"
                 label="存储设备"
                 name="storage"
             >
@@ -69,7 +69,7 @@
             </a-form-item>
             <a-form-item
                 :rules="[{ required: true, message: '请输入接口管理！' }]"
-                class="col-span-6"
+                class="md:col-span-6 col-span-12"
                 label="接口管理"
                 name="interface"
             >
@@ -81,7 +81,7 @@
             </a-form-item>
             <a-form-item
                 :rules="[{ required: true, message: '请输入机箱和散热信息！' }]"
-                class="col-span-6"
+                class="md:col-span-6 col-span-12"
                 label="机箱和散热"
                 name="chassis"
             >
@@ -93,7 +93,7 @@
             </a-form-item>
             <a-form-item
                 :rules="[{ required: true, message: '请输入操作系统信息！' }]"
-                class="col-span-6"
+                class="md:col-span-6 col-span-12"
                 label="操作系统"
                 name="operating"
             >

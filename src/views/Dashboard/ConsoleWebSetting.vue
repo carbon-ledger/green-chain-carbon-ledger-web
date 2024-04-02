@@ -18,7 +18,7 @@
       >
         <a-form-item
             :rules="[{ required: true, message: '请输入网站全称！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站全称"
             name="fullname"
         >
@@ -30,7 +30,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入网站简称！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站简称"
             name="shortname"
         >
@@ -43,7 +43,7 @@
         <a-form-item
             :rules="[{ required: true, message: '请输入网站LOGO！' }]"
             label="网站LOGO"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             name="logo"
         >
           <a-upload  v-model:file-list="logo" action="/upload.do" list-type="picture-card"/>
@@ -51,7 +51,7 @@
         <a-form-item
             :rules="[{ required: true, message: '请输入网站宣传图片！' }]"
             label="网站宣传图片"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             name="img"
         >
           <a-upload  v-model:file-list="img" action="/upload.do" list-type="picture-card">
@@ -62,7 +62,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入SEO标题！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="SEO标题"
             name="seotitle"
         >
@@ -74,7 +74,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入SEO描述！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="SEO描述"
             name="seodescription"
         >
@@ -86,7 +86,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入网站关键词！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站关键词"
             name="keywords"
         >
@@ -98,7 +98,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入网站描述！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站描述"
             name="webdecription"
         >
@@ -110,7 +110,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入网站网址！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站网址"
             name="webaddress"
         >
@@ -122,7 +122,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入网站QQ！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站QQ"
             name="qq"
         >
@@ -134,7 +134,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入网站邮箱！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站邮箱"
             name="email"
         >
@@ -146,7 +146,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入网站电话！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="网站电话"
             name="phone"
         >
@@ -158,7 +158,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入公司地址！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="公司地址"
             name="address"
         >
@@ -170,7 +170,7 @@
         </a-form-item>
         <a-form-item
             :rules="[{ required: true, message: '请输入传真！' }]"
-            class="col-span-6"
+            class="md:col-span-6 col-span-12"
             label="传真"
             name="fax"
         >
