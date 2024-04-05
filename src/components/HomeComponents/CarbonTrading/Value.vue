@@ -8,8 +8,8 @@
             提供先进的碳交易平台和服务，促进企业在全球碳市场中有效管理碳资产，实现经济效益和环境责任的双重提升
           </a-typography-title>
         </div>
-        <div class="col-span-3 mb-4 mr-4">
-          <a-card class="flex shadow-sm">
+        <div class="md:col-span-3 col-span-6 mb-8 md:mr-4">
+          <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><DollarCircleTwoTone /></div>
               <div class="col-span-8">
@@ -21,8 +21,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3 mb-4 ml-4">
-          <a-card class="flex shadow-sm">
+        <div class="md:col-span-3 col-span-6 mb-8 md:ml-4">
+          <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><SafetyCertificateTwoTone /></div>
               <div class="col-span-8">
@@ -34,8 +34,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3 mt-4 mr-4">
-          <a-card class="flex shadow-sm">
+        <div class="md:col-span-3 col-span-6 mb-8 md:mr-4">
+          <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><ToolTwoTone /></div>
               <div class="col-span-8">
@@ -47,8 +47,8 @@
             </div>
           </a-card>
         </div>
-        <div class="col-span-3 mt-4 ml-4">
-          <a-card class="flex shadow-sm">
+        <div class="md:col-span-3 col-span-6 mb-8 md:ml-4">
+          <a-card class="flex shadow-sm h-full w-full">
             <div class="grid grid-cols-9">
               <div class="col-span-1 text-5xl"><ProfileTwoTone /></div>
               <div class="col-span-8">

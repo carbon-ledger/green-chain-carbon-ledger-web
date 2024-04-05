@@ -9,169 +9,182 @@
       </div>
     </a-descriptions-item>
   </a-page-header>
-  <div class="grid grid-cols-12 p-3">
-    <div class="col-span-12">
-      <a-card class="shadow-lg p-10">
-        <a-form
-            v-model="webform"
-            :label-col="{ span: 4 }"
-            class="grid grid-cols-12 gap-10"
-            name="basic"
+  <div class="p-3">
+    <a-card class="shadow-lg p-5">
+      <a-form
+          v-model="webform"
+          class="grid grid-cols-12 gap-10"
+          name="basic"
+      >
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站全称！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站全称"
+            name="fullname"
         >
-          <a-form-item
-              class="col-span-6"
-              label="网站全称"
-              name="organizeName"
-          >
-            <a-input  v-model:value="webform.fullname">
-              <template #prefix>
-                <AlignCenterOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="网站简称"
-              name="creditCode"
-          >
-            <a-input v-model:value="webform.shortname">
-              <template #prefix>
-                <BorderHorizontalOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              label="网站LOGO"
-              class="col-span-6"
-          >
-            <a-upload  v-model:file-list="logo" action="/upload.do" list-type="picture-card"/>
-          </a-form-item>
-          <a-form-item
-              label="网站宣传图片"
-              class="col-span-6"
-          >
-            <a-upload  v-model:file-list="img" action="/upload.do" list-type="picture-card">
-              <div>
-                <div style="margin-top: 8px">上传</div>
-              </div>
-            </a-upload>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="SEO标题"
-              name="legalRepresentativeName"
-          >
-            <a-input v-model:value="webform.seotitle">
-              <template #prefix>
-                <HolderOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="SEO描述"
-              name="legalRepresentativeId"
-          >
-            <a-textarea v-model:value="webform.seodescription">
-              <template #prefix>
-                <SmallDashOutlined class="site-form-item-icon"/>
-              </template>
-            </a-textarea>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="网站关键词"
-              name="legalRepresentativeId"
-          >
-            <a-textarea v-model:value="webform.keywords">
-              <template #prefix>
-                <BarsOutlined class="site-form-item-icon"/>
-              </template>
-            </a-textarea>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="网站描述"
-              name="legalRepresentativeId"
-          >
-            <a-textarea v-model:value="webform.webdecription">
-              <template #prefix>
-                <MoreOutlined class="site-form-item-icon"/>
-              </template>
-            </a-textarea>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="网站网址"
-              name="legalRepresentativeId"
-          >
-            <a-input v-model:value="webform.webaddress">
-              <template #prefix>
-                <LinkOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="网站QQ"
-              name="legalRepresentativeId"
-          >
-            <a-input v-model:value="webform.qq">
-              <template #prefix>
-                <QqOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="网站邮箱"
-              name="legalRepresentativeId"
-          >
-            <a-input v-model:value="webform.phone">
-              <template #prefix>
-                <MailOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="网站电话"
-              name="legalRepresentativeId"
-          >
-            <a-input v-model:value="webform.phone">
-              <template #prefix>
-                <PhoneOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="公司地址"
-              name="legalRepresentativeId"
-          >
-            <a-input v-model:value="webform.address">
-              <template #prefix>
-                <EnvironmentOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-              class="col-span-6"
-              label="传真"
-              name="legalRepresentativeId"
-          >
-            <a-input v-model:value="webform.fax">
-              <template #prefix>
-                <NumberOutlined class="site-form-item-icon"/>
-              </template>
-            </a-input>
-          </a-form-item>
-          <div class="col-span-12 text-center">
-            <a-button class="bg-aspargus" type="primary">保存更改</a-button>
-          </div>
-        </a-form>
-      </a-card>
-    </div>
+          <a-input  v-model:value="webform.fullname">
+            <template #prefix>
+              <AlignCenterOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站简称！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站简称"
+            name="shortname"
+        >
+          <a-input v-model:value="webform.shortname">
+            <template #prefix>
+              <BorderHorizontalOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站LOGO！' }]"
+            label="网站LOGO"
+            class="md:col-span-6 col-span-12"
+            name="logo"
+        >
+          <a-upload  v-model:file-list="logo" action="/upload.do" list-type="picture-card"/>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站宣传图片！' }]"
+            label="网站宣传图片"
+            class="md:col-span-6 col-span-12"
+            name="img"
+        >
+          <a-upload  v-model:file-list="img" action="/upload.do" list-type="picture-card">
+            <div>
+              <div style="margin-top: 8px">上传</div>
+            </div>
+          </a-upload>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入SEO标题！' }]"
+            class="md:col-span-6 col-span-12"
+            label="SEO标题"
+            name="seotitle"
+        >
+          <a-input v-model:value="webform.seotitle">
+            <template #prefix>
+              <HolderOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入SEO描述！' }]"
+            class="md:col-span-6 col-span-12"
+            label="SEO描述"
+            name="seodescription"
+        >
+          <a-textarea v-model:value="webform.seodescription">
+            <template #prefix>
+              <SmallDashOutlined class="site-form-item-icon"/>
+            </template>
+          </a-textarea>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站关键词！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站关键词"
+            name="keywords"
+        >
+          <a-textarea v-model:value="webform.keywords">
+            <template #prefix>
+              <BarsOutlined class="site-form-item-icon"/>
+            </template>
+          </a-textarea>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站描述！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站描述"
+            name="webdecription"
+        >
+          <a-textarea v-model:value="webform.webdecription">
+            <template #prefix>
+              <MoreOutlined class="site-form-item-icon"/>
+            </template>
+          </a-textarea>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站网址！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站网址"
+            name="webaddress"
+        >
+          <a-input v-model:value="webform.webaddress">
+            <template #prefix>
+              <LinkOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站QQ！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站QQ"
+            name="qq"
+        >
+          <a-input v-model:value="webform.qq">
+            <template #prefix>
+              <QqOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站邮箱！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站邮箱"
+            name="email"
+        >
+          <a-input v-model:value="webform.email">
+            <template #prefix>
+              <MailOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入网站电话！' }]"
+            class="md:col-span-6 col-span-12"
+            label="网站电话"
+            name="phone"
+        >
+          <a-input v-model:value="webform.phone">
+            <template #prefix>
+              <PhoneOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入公司地址！' }]"
+            class="md:col-span-6 col-span-12"
+            label="公司地址"
+            name="address"
+        >
+          <a-input v-model:value="webform.address">
+            <template #prefix>
+              <EnvironmentOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <a-form-item
+            :rules="[{ required: true, message: '请输入传真！' }]"
+            class="md:col-span-6 col-span-12"
+            label="传真"
+            name="fax"
+        >
+          <a-input v-model:value="webform.fax">
+            <template #prefix>
+              <NumberOutlined class="site-form-item-icon"/>
+            </template>
+          </a-input>
+        </a-form-item>
+        <div class="col-span-12 text-center">
+          <a-button class="bg-aspargus" type="primary">保存更改</a-button>
+        </div>
+      </a-form>
+    </a-card>
   </div>
 </template>
 <script setup>

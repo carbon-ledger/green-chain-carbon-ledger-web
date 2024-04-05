@@ -186,6 +186,11 @@ const router = createRouter({
                     path: '/dashboard/testmanage',
                     name:'DashboardTestManage',
                     component:() => import('@/views/Dashboard/ConsoleTestManage.vue')
+                },
+                {
+                    path: '/dashboard/system-info',
+                    name:'DashboardSystemInfo',
+                    component:() => import('@/views/Dashboard/ConsoleSystemInfo.vue')
                 }
             ]
         },
