@@ -307,7 +307,7 @@ import {
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
 import {
-  roleListVO,
+  searchAllVO,
   userAddVO,
   userBanVO,
   userDeleteForceVO,
@@ -335,7 +335,7 @@ const getUserManageEditVO = reactive(userManageEditVO);
 const getUserBanVO = reactive(userBanVO);
 const getUserDeleteVO = reactive(userDeleteForceVO);
 const getUserResetVO = reactive(userResetVO);
-const getRoleVO = reactive(roleListVO);
+const getRoleVO = reactive(searchAllVO);
 const getSingleUser = ref(singleUserDO);
 const getUser = ref(userListDO);
 const getRoleList = ref(roleListDO);
@@ -385,10 +385,9 @@ function showDialogWithDeleteUser(record) {
   getUserDeleteVO.uuid = record.uuid;
 }
 
+
 /**
  * 封禁用户模态框
- *
- * @param record
  */
 function showDialogWithBanUser() {
   banUserDialog.value = true;

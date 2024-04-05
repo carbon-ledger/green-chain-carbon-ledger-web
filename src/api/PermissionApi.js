@@ -1,7 +1,7 @@
 import {permissionListDO} from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
-import {publicErrorOperate} from "@/assets/js/PublishUtil.js";
+import {publicErrorOperate} from "@/utils/PublishUtil.js";
 
 export async function getPermissionListApi() {
     let returnData = permissionListDO;

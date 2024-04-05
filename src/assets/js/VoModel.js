@@ -77,7 +77,7 @@ export let userResetVO = {
  * 获取角色列表
  * @type {{search: string, limit: string, page: string, type: string, order: string}}
  */
-export let roleListVO = {
+export let searchAllVO = {
     type: 'all',
     search: '',
     limit: '',

@@ -683,6 +683,26 @@ const carbonAdd = (data, organizeUuid) => {
     })
 }
 
+/**
+ * 获取自己组织碳交易发布的信息列表
+ *
+ * @param data
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const tradeSend = (data) => {
+    return axios({
+        url: api + "/trade/send",
+        method: "GET",
+        params: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     userLogin,
@@ -721,5 +741,6 @@ export default {
     emissionsQuota,
     tradeSell,
     carbonOperateList,
-    carbonAdd
+    carbonAdd,
+    tradeSend,
 }

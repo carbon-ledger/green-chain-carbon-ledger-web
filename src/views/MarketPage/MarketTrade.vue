@@ -7,7 +7,7 @@
       </a-typography-title>
       <a-table :columns="columns" :data-source="data">
         <template #headerCell="{ column }">
-          <template v-if="column.key === 'name'">
+          <template v-if="column.key === 'quotaAmounts'">
         <span>
           <SmileOutlined/>
           Name
@@ -22,27 +22,25 @@
             </a>
           </template>
           <template v-else-if="column.key === 'tags'">
-        <span>
-          <a-tag
-              v-for="tag in record.tags"
-              :key="tag"
-              :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-          >
-            {{ tag.toUpperCase() }}
-          </a-tag>
-        </span>
+            <span>
+              <a-tag
+                  v-for="tag in record.tags"
+                  :key="tag"
+                  :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
+              >
+                {{ tag.toUpperCase() }}
+              </a-tag>
+            </span>
           </template>
           <template v-else-if="column.key === 'action'">
-        <span>
-          <a>Invite 一 {{ record.name }}</a>
-          <a-divider type="vertical"/>
-          <a>Delete</a>
-          <a-divider type="vertical"/>
-          <a class="ant-dropdown-link">
-            More actions
-            <DownOutlined/>
-          </a>
-        </span>
+            <span>
+              <a-button type="primary" @click="handleEdit(record)">
+                编辑
+              </a-button>
+              <a-button type="danger" @click="handleDelete(record)">
+                删除
+              </a-button>
+            </span>
           </template>
         </template>
       </a-table>
@@ -50,12 +48,11 @@
         <ToTopOutlined/>
         我发布的
       </a-typography-title>
-      <a-table :columns="columns" :data-source="data">
+      <a-table :columns="columns" :data-source="getOurSend.data">
         <template #headerCell="{ column }">
-          <template v-if="column.key === 'name'">
+          <template v-if="column.key === 'quotaAmount'">
         <span>
-          <SmileOutlined/>
-          Name
+          {{ column.name }}
         </span>
           </template>
         </template>
@@ -66,28 +63,24 @@
               {{ record.name }}
             </a>
           </template>
-          <template v-else-if="column.key === 'tags'">
-        <span>
-          <a-tag
-              v-for="tag in record.tags"
-              :key="tag"
-              :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-          >
-            {{ tag.toUpperCase() }}
-          </a-tag>
-        </span>
+          <template v-else-if="column.key === 'status'">
+            <span>
+              <a-tag
+                  :color="getTagsColor(record.status)"
+              >
+                {{ showTag(record.status) }}
+              </a-tag>
+            </span>
           </template>
           <template v-else-if="column.key === 'action'">
-        <span>
-          <a>Invite 一 {{ record.name }}</a>
-          <a-divider type="vertical"/>
-          <a>Delete</a>
-          <a-divider type="vertical"/>
-          <a class="ant-dropdown-link">
-            More actions
-            <DownOutlined/>
-          </a>
-        </span>
+            <span v-if="record.status !== 'active' && record.status !== 'completed'">
+              <a-button type="text" class="text-aspargus">
+              编辑
+              </a-button>
+              <a-button type="text" class="text-aspargus">
+                删除
+              </a-button>
+            </span>
           </template>
         </template>
       </a-table>
@@ -128,7 +121,7 @@
             label="数量"
             name="amount"
         >
-          <a-input v-model:value="sendTradeSell.amount" type="number" step="0.01">
+          <a-input v-model:value="sendTradeSell.amount" step="0.01" type="number">
             <template #suffix>吨</template>
           </a-input>
         </a-form-item>
@@ -138,7 +131,7 @@
             label="单价"
             name="unit"
         >
-          <a-input v-model:value="sendTradeSell.unit" type="number" step="0.01">
+          <a-input v-model:value="sendTradeSell.unit" step="0.01" type="number">
             <template #suffix>元</template>
           </a-input>
         </a-form-item>
@@ -165,22 +158,24 @@
 <script setup>
 import {onMounted, reactive, ref} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {tradeSendDO, userCurrentDO} from "@/assets/js/DoModel.js";
 import {
   AppstoreAddOutlined,
-  DownOutlined,
   ShoppingCartOutlined,
   SmileOutlined,
   TagsOutlined,
   ToTopOutlined
 } from "@ant-design/icons-vue"
 import router from "@/router/index.js";
-import {sendTradeSellVO} from "@/assets/js/VoModel.js";
-import {tradeSellApi} from "@/api/TradeApi.js";
+import {searchAllVO, sendTradeSellVO} from "@/assets/js/VoModel.js";
+import {tradeSellApi, tradeSend} from "@/api/TradeApi.js";
 import {message} from "ant-design-vue";
 
 const getUserAvatar = ref('');
 const getUserProfile = ref(userCurrentDO);
+const getOurSend = ref(tradeSendDO);
+const toSearchSend = reactive(searchAllVO)
+const tagList = ["draft", "pending_review", "active", "completed", "cancelled"]
 // 模态框内容
 const confirmLoading = ref(false);
 const showTradeModal = ref(false);
@@ -189,6 +184,7 @@ const sendTradeSell = reactive(sendTradeSellVO)
 
 onMounted(async _ => {
   getUserProfile.value = await getUserCurrentApi();
+  getOurSend.value = await tradeSend(toSearchSend);
 
   if (getUserProfile.value.output === 'Success') {
     if (getUserProfile.value.data.user.avatar === '') {
@@ -212,6 +208,42 @@ async function consoleTradeSellAdd() {
     } else {
       message.success("交易已发布，请等待审核");
     }
+    getOurSend.value = await tradeSend(toSearchSend);
+    showTradeModal.value = false;
+  }
+}
+
+const showTag = (getThisTag) => {
+  switch (getThisTag) {
+    case 'draft':
+      return '草稿';
+    case 'pending_review':
+      return '待审核';
+    case 'active':
+      return '进行中';
+    case 'completed':
+      return '已完成';
+    case 'cancelled':
+      return '已取消';
+    default:
+      return '进行中';
+  }
+}
+
+const  getTagsColor = (getThisTags) => {
+  switch (getThisTags) {
+    case 'draft':
+      return 'volcano';
+    case 'pending_review':
+      return 'geekblue';
+    case 'active':
+      return 'green';
+    case 'completed':
+      return 'green';
+    case 'cancelled':
+      return 'volcano';
+    default:
+      return 'green';
   }
 }
 </script>
@@ -219,27 +251,22 @@ async function consoleTradeSellAdd() {
 <script>
 const columns = [
   {
-    name: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    name: '碳数量(吨)',
+    dataIndex: 'quotaAmount',
+    key: 'quotaAmount',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+  title: '碳单价(元)',
+    dataIndex: 'pricePerUnit',
+    key: 'pricePerUnit',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: '当前状态',
+    dataIndex: 'status',
+    key: 'status',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-  },
-  {
-    title: 'Action',
+    title: '操作',
     key: 'action',
   },
 ];

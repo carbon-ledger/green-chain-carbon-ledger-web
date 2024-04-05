@@ -8,7 +8,7 @@ import {
 } from "@/assets/js/DoModel.js";
 import request from "@/assets/js/Request.js";
 import router from "@/router/index.js";
-import {publicErrorOperate} from "@/assets/js/PublishUtil.js";
+import {publicErrorOperate} from "@/utils/PublishUtil.js";
 import {message} from "ant-design-vue";
 
 export async function getUserCurrentApi() {

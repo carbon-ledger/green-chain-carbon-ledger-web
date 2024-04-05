@@ -1,7 +1,7 @@
 import request from "@/assets/js/Request.js";
 import {message} from "ant-design-vue";
 import {baseResponse, getRoleCurrentVO, roleEditDO, roleListDO} from "@/assets/js/DoModel.js";
-import {publicErrorOperate} from "@/assets/js/PublishUtil.js";
+import {publicErrorOperate} from "@/utils/PublishUtil.js";
 
 /**
  * 获取角色列表

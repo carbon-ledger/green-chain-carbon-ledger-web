@@ -30,7 +30,7 @@ import DashboardFooter from "@/components/BackComponents/Dashboard/DashboardFoot
 import UserMenuBar from "@/components/BackComponents/User/UserMenuBar.vue";
 import {nextTick, onMounted} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {getUrlRelativePath} from "@/assets/js/ProcessUtil.js";
+import {getUrlRelativePath} from "@/utils/ProcessUtil.js";
 
 onMounted(async _ => {
   await getUserCurrentApi();

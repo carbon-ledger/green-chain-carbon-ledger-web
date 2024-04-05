@@ -38,7 +38,7 @@ import LeftBar from "@/components/BackComponents/Dashboard/DashboardMenuBar.vue"
 import DashboardHeader from "@/components/BackComponents/Dashboard/DashboardHeader.vue";
 import DashboardFooter from "@/components/BackComponents/Dashboard/DashboardFooter.vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {getUrlRelativePath} from "@/assets/js/ProcessUtil.js";
+import {getUrlRelativePath} from "@/utils/ProcessUtil.js";
 import {userCurrentDO} from "@/assets/js/DoModel.js";
 
 const getUserCurrent = ref(userCurrentDO);

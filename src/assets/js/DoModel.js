@@ -423,3 +423,23 @@ export let carbonOperateListDO = {
         }
     ]
 }
+
+export let tradeSendDO = {
+    baseResponse,
+    data: [
+        {
+            organize: {
+                uuid: '',
+                userName: '',
+                realName: '',
+                email: '',
+                phone: '',
+                createdAt: ''
+            },
+            quotaAmount: 0.0,
+            pricePerUnit: 0.0,
+            description: '',
+            status: ''
+        }
+    ]
+}
