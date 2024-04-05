@@ -68,9 +68,9 @@ import {onMounted, reactive, ref} from 'vue';
 import {message} from "ant-design-vue";
 import {KeyOutlined, UserOutlined} from "@ant-design/icons-vue";
 import router from "@/router/index.js";
-import {userLoginVO} from "@/assets/js/VoModel.js";
+import {userLoginVO} from "@/models/VoModel.js";
 import {userLoginApi} from "@/api/AuthApi.js";
-import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {userCurrentDO} from "@/models/DoModel.js";
 import {getUserCurrentApi} from "@/api/UserApi.js";
 
 const loginForm = reactive(userLoginVO);

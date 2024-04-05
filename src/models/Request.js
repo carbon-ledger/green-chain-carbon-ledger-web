@@ -703,6 +703,35 @@ const tradeSend = (data) => {
     })
 }
 
+const tradeReview = () => {
+    return axios({
+        url: api + "/trade/review",
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+const tradeReviewPass = (data) => {
+    return axios({
+        url: api + "/trade/review/" + data.tradeId,
+        method: "PATCH",
+        params: {
+            pass: data.pass
+        },
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     userLogin,
@@ -743,4 +772,6 @@ export default {
     carbonOperateList,
     carbonAdd,
     tradeSend,
+    tradeReview,
+    tradeReviewPass
 }

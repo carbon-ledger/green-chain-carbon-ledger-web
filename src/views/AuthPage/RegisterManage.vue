@@ -118,7 +118,7 @@ import {
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import {message} from "ant-design-vue";
-import {managerUserRegisterVO, sendMailVO} from "@/assets/js/VoModel.js";
+import {managerUserRegisterVO, sendMailVO} from "@/models/VoModel.js";
 import {managerRegisterApi} from "@/api/AuthApi.js";
 import {sendCodeMailApi} from "@/api/MailApi.js";
 

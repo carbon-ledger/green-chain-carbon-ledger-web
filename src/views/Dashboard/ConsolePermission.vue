@@ -28,7 +28,7 @@
 <script setup>
 import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 import {onMounted, ref} from "vue";
-import {permissionListDO} from "@/assets/js/DoModel.js";
+import {permissionListDO} from "@/models/DoModel.js";
 import {getPermissionListApi} from "@/api/PermissionApi.js";
 
 const routes = breadcrumbs;

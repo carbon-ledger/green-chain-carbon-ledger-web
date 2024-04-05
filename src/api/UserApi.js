@@ -5,8 +5,8 @@ import {
     userForceEditDO,
     userForceDeleteDO,
     userListDO, userAddDO
-} from "@/assets/js/DoModel.js";
-import request from "@/assets/js/Request.js";
+} from "@/models/DoModel.js";
+import request from "@/models/Request.js";
 import router from "@/router/index.js";
 import {publicErrorOperate} from "@/utils/PublishUtil.js";
 import {message} from "ant-design-vue";

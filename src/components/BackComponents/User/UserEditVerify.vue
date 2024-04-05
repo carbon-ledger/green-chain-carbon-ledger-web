@@ -135,9 +135,9 @@ import {
 import {onMounted, reactive, ref} from "vue";
 import moment from "moment";
 import {message} from "ant-design-vue";
-import {UserVerifyVO} from "@/assets/js/VoModel.js";
+import {UserVerifyVO} from "@/models/VoModel.js";
 import {reviewGetApi, reviewResendOrganizeApi} from "@/api/ReviewApi.js";
-import {reviewDO} from "@/assets/js/DoModel.js";
+import {reviewDO} from "@/models/DoModel.js";
 
 // 获取表单信息
 const form = reactive(UserVerifyVO)

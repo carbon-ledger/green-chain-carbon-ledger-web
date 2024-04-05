@@ -187,10 +187,10 @@ import {
   ExclamationCircleOutlined
 } from "@ant-design/icons-vue";
 import {onMounted, reactive, ref} from 'vue';
-import {roleAddVO, roleEditVO, searchAllVO} from "@/assets/js/VoModel.js";
+import {roleAddVO, roleEditVO, searchAllVO} from "@/models/VoModel.js";
 import {getRoleListApi, roleAddApi, roleDeleteApi, roleEditApi} from "@/api/RoleApi.js"
 import {getPermissionListApi} from "@/api/PermissionApi.js";
-import {permissionListDO, roleListDO} from "@/assets/js/DoModel.js";
+import {permissionListDO, roleListDO} from "@/models/DoModel.js";
 import {message} from "ant-design-vue";
 import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 

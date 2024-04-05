@@ -1,5 +1,5 @@
-import {baseResponse, userLoginDO, userLoginInfoDO, userRegisterDO} from "@/assets/js/DoModel.js";
-import request from "@/assets/js/Request.js";
+import {baseResponse, userLoginDO, userLoginInfoDO, userRegisterDO} from "@/models/DoModel.js";
+import request from "@/models/Request.js";
 import {publicErrorOperate} from "@/utils/PublishUtil.js";
 import {message} from "ant-design-vue";
 import router from "@/router/index.js";

@@ -158,7 +158,7 @@
 <script setup>
 import {onMounted, reactive, ref} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {tradeSendDO, userCurrentDO} from "@/assets/js/DoModel.js";
+import {tradeDO, userCurrentDO} from "@/models/DoModel.js";
 import {
   AppstoreAddOutlined,
   ShoppingCartOutlined,
@@ -167,13 +167,13 @@ import {
   ToTopOutlined
 } from "@ant-design/icons-vue"
 import router from "@/router/index.js";
-import {searchAllVO, sendTradeSellVO} from "@/assets/js/VoModel.js";
-import {tradeSellApi, tradeSend} from "@/api/TradeApi.js";
+import {searchAllVO, sendTradeSellVO} from "@/models/VoModel.js";
+import {tradeSellApi, tradeSendApi} from "@/api/TradeApi.js";
 import {message} from "ant-design-vue";
 
 const getUserAvatar = ref('');
 const getUserProfile = ref(userCurrentDO);
-const getOurSend = ref(tradeSendDO);
+const getOurSend = ref(tradeDO);
 const toSearchSend = reactive(searchAllVO)
 const tagList = ["draft", "pending_review", "active", "completed", "cancelled"]
 // 模态框内容
@@ -184,7 +184,7 @@ const sendTradeSell = reactive(sendTradeSellVO)
 
 onMounted(async _ => {
   getUserProfile.value = await getUserCurrentApi();
-  getOurSend.value = await tradeSend(toSearchSend);
+  getOurSend.value = await tradeSendApi(toSearchSend);
 
   if (getUserProfile.value.output === 'Success') {
     if (getUserProfile.value.data.user.avatar === '') {
@@ -208,7 +208,7 @@ async function consoleTradeSellAdd() {
     } else {
       message.success("交易已发布，请等待审核");
     }
-    getOurSend.value = await tradeSend(toSearchSend);
+    getOurSend.value = await tradeSendApi(toSearchSend);
     showTradeModal.value = false;
   }
 }

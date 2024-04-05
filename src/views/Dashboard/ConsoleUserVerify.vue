@@ -36,7 +36,7 @@ import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 import moment from "moment";
 import router from "@/router/index.js";
 import {onMounted, ref} from "vue";
-import {reviewListDO} from "@/assets/js/DoModel.js";
+import {reviewListDO} from "@/models/DoModel.js";
 import {getReviewListApi} from "@/api/ReviewApi.js";
 
 /*

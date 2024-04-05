@@ -28,6 +28,12 @@
         <span class="nav-text">配额管理</span>
       </span>
     </a-menu-item>
+    <a-menu-item key="12" @click="router.push({name: 'DashboardTradeManager'})">
+      <span>
+        <ShoppingOutlined />
+        <span class="nav-text">交易审核</span>
+      </span>
+    </a-menu-item>
     <a-sub-menu key="sub1">
       <template #title>
         <span>
@@ -107,7 +113,7 @@ import {
   MoneyCollectOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
-import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {userCurrentDO} from "@/models/DoModel.js";
 import {getUserCurrentApi} from "@/api/UserApi.js";
 
 const selectedKey = ref([""]);
@@ -176,6 +182,10 @@ switch (router.currentRoute.value.name) {
     break
   case "DashboardQuotaManager":
     selectedKey.value = ["11"]
+    openMenuKey.value = [""]
+    break
+  case "DashboardTradeManager":
+    selectedKey.value = ["12"]
     openMenuKey.value = [""]
     break
   default:

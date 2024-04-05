@@ -132,7 +132,7 @@ import {
 import {reactive} from "vue";
 import {message} from "ant-design-vue";
 import moment from "moment";
-import {UserVerifyVO} from "@/assets/js/VoModel.js";
+import {UserVerifyVO} from "@/models/VoModel.js";
 import {reviewAddOrganizeApi} from "@/api/ReviewApi.js";
 
 // 获取表单信息

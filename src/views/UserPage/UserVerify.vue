@@ -43,7 +43,7 @@ import router from "@/router/index.js";
 import EditVerify from "@/components/BackComponents/User/UserEditVerify.vue";
 import {onMounted, ref} from "vue";
 import {reviewGetApi} from "@/api/ReviewApi.js";
-import {organizeReviewDO} from "@/assets/js/DoModel.js";
+import {organizeReviewDO} from "@/models/DoModel.js";
 
 const getVerifyInfoVO = ref(organizeReviewDO);
 const isTheFirst = ref(false);

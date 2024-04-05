@@ -73,9 +73,9 @@
 <script setup>
 import {breadcrumbs} from "@/utils/DashboardBreadCrumb.js";
 import {onMounted, reactive, ref} from "vue";
-import {carbonOperateListDO} from "@/assets/js/DoModel.js";
+import {carbonOperateListDO} from "@/models/DoModel.js";
 import {carbonAdd, carbonOperateList} from "@/api/CarbonApi.js";
-import {sendCreateOrganizeQuotaVO} from "@/assets/js/VoModel.js";
+import {sendCreateOrganizeQuotaVO} from "@/models/VoModel.js";
 import {message} from "ant-design-vue";
 
 const routes = breadcrumbs;

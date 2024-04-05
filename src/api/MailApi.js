@@ -1,5 +1,5 @@
-import {baseResponse} from "@/assets/js/DoModel.js";
-import request from "@/assets/js/Request.js";
+import {baseResponse} from "@/models/DoModel.js";
+import request from "@/models/Request.js";
 import {message} from "ant-design-vue";
 import {publicErrorOperate} from "@/utils/PublishUtil.js";
 

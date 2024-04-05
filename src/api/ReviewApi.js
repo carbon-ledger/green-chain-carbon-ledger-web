@@ -1,5 +1,5 @@
-import {reviewCheckConsoleDO, reviewDO} from "@/assets/js/DoModel.js";
-import request from "@/assets/js/Request.js";
+import {reviewCheckConsoleDO, reviewDO} from "@/models/DoModel.js";
+import request from "@/models/Request.js";
 import {publicErrorOperate} from "@/utils/PublishUtil.js";
 import {message} from "ant-design-vue";
 

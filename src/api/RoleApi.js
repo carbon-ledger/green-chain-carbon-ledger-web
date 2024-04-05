@@ -1,6 +1,6 @@
-import request from "@/assets/js/Request.js";
+import request from "@/models/Request.js";
 import {message} from "ant-design-vue";
-import {baseResponse, getRoleCurrentVO, roleEditDO, roleListDO} from "@/assets/js/DoModel.js";
+import {baseResponse, getRoleCurrentVO, roleEditDO, roleListDO} from "@/models/DoModel.js";
 import {publicErrorOperate} from "@/utils/PublishUtil.js";
 
 /**

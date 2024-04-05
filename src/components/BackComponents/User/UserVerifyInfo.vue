@@ -18,7 +18,7 @@
  */
 import {onMounted, ref} from "vue";
 import {reviewGetApi} from "@/api/ReviewApi.js";
-import {reviewDO} from "@/assets/js/DoModel.js";
+import {reviewDO} from "@/models/DoModel.js";
 
 const getVerifyInfo = ref(reviewDO)
 

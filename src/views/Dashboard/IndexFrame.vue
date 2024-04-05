@@ -39,7 +39,7 @@ import DashboardHeader from "@/components/BackComponents/Dashboard/DashboardHead
 import DashboardFooter from "@/components/BackComponents/Dashboard/DashboardFooter.vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
 import {getUrlRelativePath} from "@/utils/ProcessUtil.js";
-import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {userCurrentDO} from "@/models/DoModel.js";
 
 const getUserCurrent = ref(userCurrentDO);
 

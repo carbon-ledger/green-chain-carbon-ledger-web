@@ -67,7 +67,7 @@
 import {onMounted, ref} from "vue";
 import {DashboardOutlined, MoneyCollectOutlined, FileOutlined, UserOutlined} from "@ant-design/icons-vue"
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {emissionsQuotaDO, userCurrentDO} from "@/assets/js/DoModel.js";
+import {emissionsQuotaDO, userCurrentDO} from "@/models/DoModel.js";
 import {emissionsQuotaApi} from "@/api/CarbonApi.js";
 import router from "@/router/index.js";
 

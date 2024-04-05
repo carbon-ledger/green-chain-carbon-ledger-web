@@ -424,7 +424,7 @@ export let carbonOperateListDO = {
     ]
 }
 
-export let tradeSendDO = {
+export let tradeDO = {
     baseResponse,
     data: [
         {
@@ -436,6 +436,7 @@ export let tradeSendDO = {
                 phone: '',
                 createdAt: ''
             },
+            tradeId: 0,
             quotaAmount: 0.0,
             pricePerUnit: 0.0,
             description: '',

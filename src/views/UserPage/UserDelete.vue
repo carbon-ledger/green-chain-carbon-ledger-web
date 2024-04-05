@@ -92,10 +92,10 @@
 import {onMounted, reactive, ref} from 'vue';
 import {message} from "ant-design-vue";
 import {KeyOutlined, MailOutlined, NumberOutlined} from "@ant-design/icons-vue";
-import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {userCurrentDO} from "@/models/DoModel.js";
 import {getUserCurrentApi} from "@/api/UserApi.js";
 import {sendCodeMailApi} from "@/api/MailApi.js";
-import {sendMailVO, userDeleteVO} from "@/assets/js/VoModel.js";
+import {sendMailVO, userDeleteVO} from "@/models/VoModel.js";
 import {userDeleteApi, userLogoutApi} from "@/api/AuthApi.js";
 
 

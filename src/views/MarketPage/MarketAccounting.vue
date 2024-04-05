@@ -66,7 +66,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {userCurrentDO} from "@/models/DoModel.js";
 import {UserOutlined, EditOutlined, FileOutlined, SmileOutlined, DownOutlined} from "@ant-design/icons-vue"
 import router from "@/router/index.js";
 

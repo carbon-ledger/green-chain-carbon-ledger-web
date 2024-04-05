@@ -314,7 +314,7 @@ import {
   userListVO,
   userManageEditVO,
   userResetVO
-} from "@/assets/js/VoModel.js"
+} from "@/models/VoModel.js"
 import {
   getUserListApi,
   userAddConsoleApi,
@@ -323,7 +323,7 @@ import {
   userForceEditApi,
   userResetPasswordApi
 } from "@/api/UserApi.js";
-import {roleListDO, singleUserDO, userListDO} from "@/assets/js/DoModel.js";
+import {roleListDO, singleUserDO, userListDO} from "@/models/DoModel.js";
 import {getRoleListApi} from "@/api/RoleApi.js";
 import {message, notification} from 'ant-design-vue';
 

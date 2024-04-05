@@ -67,7 +67,7 @@
 <script setup>
 import {KeyOutlined, ToolTwoTone} from "@ant-design/icons-vue";
 import {reactive, ref} from 'vue';
-import {userChangePasswordVO} from "@/assets/js/VoModel.js";
+import {userChangePasswordVO} from "@/models/VoModel.js";
 import {userPasswordChangeApi} from "@/api/AuthApi.js";
 import router from "@/router/index.js";
 import {message} from "ant-design-vue";

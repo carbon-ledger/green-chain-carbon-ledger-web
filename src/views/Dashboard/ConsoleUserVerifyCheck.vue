@@ -81,12 +81,12 @@
  */
 import router from "@/router/index.js";
 import moment from "moment";
-import {api} from "@/assets/js/Request.js";
-import {reviewCheckVO} from "@/assets/js/VoModel.js";
+import {api} from "@/models/Request.js";
+import {reviewCheckVO} from "@/models/VoModel.js";
 import {onMounted, reactive, ref} from "vue";
 import {message} from "ant-design-vue";
 import {reviewCheckOrganizeApi, reviewGetConsoleCheck} from "@/api/ReviewApi.js";
-import {baseResponse, reviewCheckConsoleDO} from "@/assets/js/DoModel.js";
+import {baseResponse, reviewCheckConsoleDO} from "@/models/DoModel.js";
 
 /*
  * 数据初始化区

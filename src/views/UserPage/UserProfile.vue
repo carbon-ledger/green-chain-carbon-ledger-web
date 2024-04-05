@@ -81,7 +81,7 @@ import { KeyOutlined, EditOutlined} from '@ant-design/icons-vue';
 import {onMounted, ref} from "vue";
 import {getPermissionListApi} from "@/api/PermissionApi.js";
 import {roleCurrentApi} from "@/api/RoleApi.js";
-import {getRoleCurrentVO, userCurrentDO, permissionListDO} from "@/assets/js/DoModel.js";
+import {getRoleCurrentVO, userCurrentDO, permissionListDO} from "@/models/DoModel.js";
 import {getUserCurrentApi} from "@/api/UserApi.js";
 
 const dataPermission = ref(permissionListDO);

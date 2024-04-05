@@ -81,9 +81,9 @@
 <script setup>
 import { reactive } from 'vue';
 import {KeyOutlined, MailOutlined, SafetyOutlined} from "@ant-design/icons-vue";
-import request from "@/assets/js/Request.js";
+import request from "@/models/Request.js";
 import {message} from "ant-design-vue";
-import requests from "@/assets/js/Request.js";
+import requests from "@/models/Request.js";
 
 const onFinish = values => {
   console.log('Success:', values);

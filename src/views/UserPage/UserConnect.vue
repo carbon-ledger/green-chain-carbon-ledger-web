@@ -39,7 +39,7 @@
 import {PhoneTwoTone} from "@ant-design/icons-vue";
 import {onMounted, ref} from "vue";
 import {userLoginDeviceApi} from "@/api/AuthApi.js";
-import {userLoginInfoDO} from "@/assets/js/DoModel.js";
+import {userLoginInfoDO} from "@/models/DoModel.js";
 
 const getConnectDevice = ref(userLoginInfoDO);
 

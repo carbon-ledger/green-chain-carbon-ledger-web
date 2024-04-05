@@ -196,6 +196,11 @@ const router = createRouter({
                     path: '/dashboard/quota-manager',
                     name:'DashboardQuotaManager',
                     component:() => import('@/views/Dashboard/ConsoleQuotaAllocation.vue')
+                },
+                {
+                    path: '/dashboard/trade-manager',
+                    name:'DashboardTradeManager',
+                    component:() => import('@/views/Dashboard/ConsoleTradeManager.vue')
                 }
             ]
         },

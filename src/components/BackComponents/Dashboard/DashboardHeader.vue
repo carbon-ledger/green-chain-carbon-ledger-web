@@ -32,7 +32,7 @@ import {LogoutOutlined, SettingOutlined, UserOutlined} from '@ant-design/icons-v
 import {userLogoutApi} from "@/api/AuthApi.js";
 import {onMounted, ref} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {userCurrentDO} from "@/assets/js/DoModel.js";
+import {userCurrentDO} from "@/models/DoModel.js";
 
 const getCurrentUser = ref(userCurrentDO);
 const getUserAvatar = ref('');
