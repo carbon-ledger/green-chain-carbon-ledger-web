@@ -703,6 +703,10 @@ const tradeSend = (data) => {
     })
 }
 
+/**
+ * 获取组织碳交易审核的信息列表
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
 const tradeReview = () => {
     return axios({
         url: api + "/trade/review",
@@ -716,6 +720,12 @@ const tradeReview = () => {
     })
 }
 
+/**
+ * 碳交易的审核通过或者拒绝
+ *
+ * @param data
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
 const tradeReviewPass = (data) => {
     return axios({
         url: api + "/trade/review/" + data.tradeId,
@@ -723,6 +733,78 @@ const tradeReviewPass = (data) => {
         params: {
             pass: data.pass
         },
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取碳交易市场
+ * @param data
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const tradeList = (data) => {
+    return axios({
+        url: api + "/trade/list",
+        method: "GET",
+        params: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 购买碳
+ *
+ * @param tradeId
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const tradeBuy = (tradeId) => {
+    return axios({
+        url: api + "/trade/buy/" + tradeId,
+        method: "PATCH",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取碳交易银行
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getTradeBank = (tradeId) => {
+    return axios({
+        url: api + "/trade/bank",
+        method: "GET",
+        params: {
+            tradeId: tradeId
+        },
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+const getMyBuyTrade = () => {
+    return axios({
+        url: api + "/trade/buy",
+        method: "GET",
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': new Date().getTime(),
@@ -773,5 +855,9 @@ export default {
     carbonAdd,
     tradeSend,
     tradeReview,
-    tradeReviewPass
+    tradeReviewPass,
+    tradeList,
+    tradeBuy,
+    getTradeBank,
+    getMyBuyTrade
 }

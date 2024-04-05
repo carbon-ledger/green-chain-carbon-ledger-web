@@ -440,7 +440,26 @@ export let tradeDO = {
             quotaAmount: 0.0,
             pricePerUnit: 0.0,
             description: '',
+            buyOrganization: '',
             status: ''
         }
     ]
+}
+
+export let tradeBuyOneDO = {
+    baseResponse,
+    data: {
+        organize: {
+            uuid: '',
+            userName: '',
+            realName: '',
+            email: '',
+            phone: '',
+            createdAt: ''
+        },
+        accountOpen: {
+            accountBank: '',
+            accountNumber: ''
+        }
+    }
 }

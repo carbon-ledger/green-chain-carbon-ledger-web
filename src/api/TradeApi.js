@@ -1,4 +1,4 @@
-import {baseResponse, tradeDO} from "@/models/DoModel.js";
+import {baseResponse, tradeBuyOneDO, tradeDO} from "@/models/DoModel.js";
 import request from "@/models/Request.js";
 import {publicErrorOperate} from "@/utils/PublishUtil.js";
 import {message} from "ant-design-vue";
@@ -91,6 +91,98 @@ export async function tradeReviewPassApi(getData) {
         }
     } finally {
         console.debug('[REQUEST] TradeApi[tradeReviewPassApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function tradeListApi(getData) {
+    let returnData = tradeDO;
+    try {
+        const res = await request.tradeList(getData);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] TradeApi[tradeListApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] TradeApi[tradeListAPi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function tradeBuyApi(getData) {
+    let returnData = baseResponse;
+    try {
+        const res = await request.tradeBuy(getData);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] TradeApi[tradeBuyApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] TradeApi[tradeBuyApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function getTradeBankApi(tradeId) {
+    let returnData = tradeBuyOneDO;
+    try {
+        const res = await request.getTradeBank(tradeId);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] TradeApi[getTradeBankApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] TradeApi[getTradeBankApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function getMyBuyTradeApi() {
+    let returnData = tradeDO;
+    try {
+        const res = await request.getMyBuyTrade();
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] TradeApi[getMyBuyTradeApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] TradeApi[getMyBuyTradeApi]: 请求数据\n', returnData);
     }
     return returnData;
 }

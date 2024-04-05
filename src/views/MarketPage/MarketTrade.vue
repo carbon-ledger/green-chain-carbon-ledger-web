@@ -5,7 +5,7 @@
         <TagsOutlined/>
         我的交易
       </a-typography-title>
-      <a-table :columns="columns" :data-source="data">
+      <a-table :columns="columns" :data-source="getOurBuy.data">
         <template #headerCell="{ column }">
           <template v-if="column.key === 'quotaAmounts'">
         <span>
@@ -75,6 +75,14 @@
           <template v-else-if="column.key === 'action'">
             <span v-if="record.status !== 'active' && record.status !== 'completed'">
               <a-button type="text" class="text-aspargus">
+              编辑
+              </a-button>
+              <a-button type="text" class="text-aspargus">
+                删除
+              </a-button>
+            </span>
+            <span v-else>
+              <a-button type="text" class="text-aspargus" disabled>
               编辑
               </a-button>
               <a-button type="text" class="text-aspargus">
@@ -168,12 +176,13 @@ import {
 } from "@ant-design/icons-vue"
 import router from "@/router/index.js";
 import {searchAllVO, sendTradeSellVO} from "@/models/VoModel.js";
-import {tradeSellApi, tradeSendApi} from "@/api/TradeApi.js";
+import {getMyBuyTradeApi, tradeSellApi, tradeSendApi} from "@/api/TradeApi.js";
 import {message} from "ant-design-vue";
 
 const getUserAvatar = ref('');
 const getUserProfile = ref(userCurrentDO);
 const getOurSend = ref(tradeDO);
+const getOurBuy = ref(tradeDO);
 const toSearchSend = reactive(searchAllVO)
 const tagList = ["draft", "pending_review", "active", "completed", "cancelled"]
 // 模态框内容
@@ -185,6 +194,7 @@ const sendTradeSell = reactive(sendTradeSellVO)
 onMounted(async _ => {
   getUserProfile.value = await getUserCurrentApi();
   getOurSend.value = await tradeSendApi(toSearchSend);
+  getOurBuy.value = await getMyBuyTradeApi();
 
   if (getUserProfile.value.output === 'Success') {
     if (getUserProfile.value.data.user.avatar === '') {

@@ -201,7 +201,7 @@ const router = createRouter({
                     path: '/dashboard/trade-manager',
                     name:'DashboardTradeManager',
                     component:() => import('@/views/Dashboard/ConsoleTradeManager.vue')
-                }
+                },
             ]
         },
         {
@@ -229,7 +229,12 @@ const router = createRouter({
                     path: '/market/trade',
                     name: 'MarketTrade',
                     component: () => import('@/views/MarketPage/MarketTrade.vue'),
-                }
+                },
+                {
+                    path: '/market/organize-trade/:tradeId',
+                    name: 'MarketOrganizeTrade',
+                    component: () => import('@/views/MarketPage/MarketOrganizeTrade.vue'),
+                },
             ]
         },
         {
