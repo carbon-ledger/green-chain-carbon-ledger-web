@@ -16,6 +16,18 @@
       <DashboardOutlined/>
       <span class="nav-text">仪表盘</span>
     </a-menu-item>
+    <a-menu-item key="10" @click="router.push({name: 'DashboardVerify'})">
+      <span>
+        <SafetyOutlined/>
+        <span class="nav-text">实名审核</span>
+      </span>
+    </a-menu-item>
+    <a-menu-item key="11" @click="router.push({name: 'DashboardQuotaManager'})">
+      <span>
+        <MoneyCollectOutlined />
+        <span class="nav-text">配额管理</span>
+      </span>
+    </a-menu-item>
     <a-sub-menu key="sub1">
       <template #title>
         <span>
@@ -42,6 +54,12 @@
         </span>
       </a-menu-item>
     </a-sub-menu>
+    <a-menu-item key="8" @click="router.push({name:'DashboardSystemInfo'})">
+        <span>
+          <BarChartOutlined/>
+          <span class="nav-text">系统信息</span>
+        </span>
+    </a-menu-item>
     <a-sub-menu key="sub2">
       <template #title>
         <span>
@@ -68,30 +86,6 @@
         </span>
       </a-menu-item>
     </a-sub-menu>
-    <a-sub-menu key="sub3">
-      <template #title>
-        <span>
-          <BarChartOutlined/>
-          <span>系统分析</span>
-        </span>
-      </template>
-      <a-menu-item key="8" @click="router.push({name:'DashboardSystemInfo'})">
-        <span>
-          <span class="nav-text">系统信息</span>
-        </span>
-      </a-menu-item>
-      <a-menu-item key="9">
-        <span>
-          <span class="nav-text">系统信息获取</span>
-        </span>
-      </a-menu-item>
-    </a-sub-menu>
-    <a-menu-item key="10" @click="router.push('/dashboard/verify')">
-      <span>
-        <SafetyOutlined/>
-        <span class="nav-text">实名审核</span>
-      </span>
-    </a-menu-item>
   </a-menu>
 </template>
 <script setup>
@@ -109,7 +103,8 @@ import {
   UserOutlined,
   UserSwitchOutlined,
   ShoppingOutlined,
-  HomeOutlined
+  HomeOutlined,
+  MoneyCollectOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import {userCurrentDO} from "@/assets/js/DoModel.js";
@@ -157,11 +152,11 @@ switch (router.currentRoute.value.name) {
     break
   case "DashboardVerify":
     selectedKey.value = ["10"]
-    openMenuKey.value = ["sub4"]
+    openMenuKey.value = [""]
     break
   case "DashboardVerifyCheck":
     selectedKey.value = ["10"]
-    openMenuKey.value = ["sub4"]
+    openMenuKey.value = [""]
     break
   case "DashboardWebSetting":
     selectedKey.value = ["5"]
@@ -177,7 +172,11 @@ switch (router.currentRoute.value.name) {
     break
   case "DashboardSystem":
     selectedKey.value = ["8"]
-    openMenuKey.value = ["sub3"]
+    openMenuKey.value = [""]
+    break
+  case "DashboardQuotaManager":
+    selectedKey.value = ["11"]
+    openMenuKey.value = [""]
     break
   default:
     selectedKey.value = ["1"]

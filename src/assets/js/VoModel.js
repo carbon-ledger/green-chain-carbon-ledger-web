@@ -140,3 +140,13 @@ export let sendTradeSellVO = {
     text: '',
     draft: true
 }
+
+/**
+ * 创建组织今年的配额
+ *
+ * @type {{quota: number, status: boolean}}
+ */
+export let sendCreateOrganizeQuotaVO = {
+    quota: 0.000,
+    status: true
+}

@@ -408,3 +408,18 @@ export let emissionsQuotaDO = {
         }
     ]
 }
+
+export let carbonOperateListDO = {
+    baseResponse,
+    data: [
+        {
+            uuid: '',
+            userName: '',
+            realName: '',
+            email: '',
+            phone: '',
+            createdAt: '',
+            updatedAt: ''
+        }
+    ]
+}

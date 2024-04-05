@@ -5,7 +5,7 @@ import axios from "axios";
  *
  * @type {string}
  */
-export const api = 'http://192.168.5.234:8081/api/v1'
+export const api = 'http://localhost:8081/api/v1'
 
 /**
  * 组织账号注册
@@ -566,6 +566,8 @@ const ReviewResendAdmin = (data, checkId) => {
 
 /**
  * 获取审核结果信息
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
  */
 const reviewGet = () => {
     return axios({
@@ -580,6 +582,13 @@ const reviewGet = () => {
     })
 }
 
+/**
+ * 获取审核结果信息, 仅供控制台使用
+ *
+ * @param id
+ * @param type
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
 const reviewGetConsoleCheck = (id, type) => {
     return axios({
         url: api + "/review/check",
@@ -597,6 +606,13 @@ const reviewGetConsoleCheck = (id, type) => {
     })
 }
 
+/**
+ * 获取碳额度
+ *
+ * @param start
+ * @param end
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
 const emissionsQuota = (start, end) => {
     return axios({
         url: api + "/carbon/quota/get",
@@ -617,6 +633,45 @@ const emissionsQuota = (start, end) => {
 const tradeSell = (data) => {
     return axios({
         url: api + "/trade/sell",
+        method: "POST",
+        data: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取几年未分配碳配额的列表
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const carbonOperateList = () => {
+    return axios({
+        url: api + "/carbon/operate/list",
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 添加碳配额，为还未分配的组织进行谈配额的分配操作
+ *
+ * @param data
+ * @param organizeUuid
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const carbonAdd = (data, organizeUuid) => {
+    return axios({
+        url: api + "/carbon/add/" + organizeUuid,
         method: "POST",
         data: data,
         headers: {
@@ -664,5 +719,7 @@ export default {
     userLoginOut,
     reviewGetConsoleCheck,
     emissionsQuota,
-    tradeSell
+    tradeSell,
+    carbonOperateList,
+    carbonAdd
 }

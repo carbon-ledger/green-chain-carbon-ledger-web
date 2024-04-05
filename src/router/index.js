@@ -173,7 +173,7 @@ const router = createRouter({
                     component:() => import('@/views/Dashboard/ConsoleUserVerifyCheck.vue')
                 },
                 {
-                    path: '/dashboard/websetting',
+                    path: '/dashboard/web-setting',
                     name:'DashboardWebSetting',
                     component:() => import('@/views/Dashboard/ConsoleWebSetting.vue')
                 },
@@ -183,7 +183,7 @@ const router = createRouter({
                     component:() => import('@/views/Dashboard/ConsoleCopyRight.vue')
                 },
                 {
-                    path: '/dashboard/testmanage',
+                    path: '/dashboard/test-manage',
                     name:'DashboardTestManage',
                     component:() => import('@/views/Dashboard/ConsoleTestManage.vue')
                 },
@@ -191,6 +191,11 @@ const router = createRouter({
                     path: '/dashboard/system-info',
                     name:'DashboardSystemInfo',
                     component:() => import('@/views/Dashboard/ConsoleSystemInfo.vue')
+                },
+                {
+                    path: '/dashboard/quota-manager',
+                    name:'DashboardQuotaManager',
+                    component:() => import('@/views/Dashboard/ConsoleQuotaAllocation.vue')
                 }
             ]
         },

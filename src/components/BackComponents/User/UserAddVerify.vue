@@ -92,7 +92,8 @@
         label="法人身份证正"
     >
       <input
-          id="file_ledge_front" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
+          id="file_ledge_front"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
           name="file_ledge_front"
           required type="file">
     </a-form-item>
@@ -102,7 +103,8 @@
         label="法人身份证反"
     >
       <input
-          id="file_ledge_back" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
+          id="file_ledge_back"
+          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer"
           name="file_ledge_back"
           required type="file">
     </a-form-item>
@@ -173,18 +175,14 @@ async function upload() {
   // 时间格式化
   form.establishmentDate = moment(form.establishmentDate).format('yyyy-MM-DD');
   // 发送数据
-  setTimeout(async _ => {
-    const getReturnData = await reviewAddOrganizeApi(form);
-    if (getReturnData.output === "Success") {
-      message.success("提交成功");
-    }
-  }, 10);
-  setTimeout(async _ => {
-    clickLocation()
-  }, 500);
+  const getReturnData = await reviewAddOrganizeApi(form);
+  if (getReturnData.output === "Success") {
+    message.success("提交成功");
+    await clickLocation()
+  }
 }
 
-function clickLocation() {
+async function clickLocation() {
   window.location.replace('?edit=false');
 }
 </script>
