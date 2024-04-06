@@ -162,9 +162,9 @@ export let sendAccountingVO = {
     endTime: undefined,
     title: undefined,
     materials: undefined,
-    electricBuy: undefined,
-    electricOutside: undefined,
-    electricExport: undefined,
+    electricBuy: 0.00,
+    electricOutside: 0.00,
+    electricExport: 0.00,
     electricCompany: undefined,
     summary: undefined,
     send: true

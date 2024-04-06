@@ -15,12 +15,11 @@
             :rules="[{ required: true, message: '类型为必填项' }]"
             label="类型"
         >
-          <a-input
-              placeholder="请输入类型"
+          <a-select
               v-model:value="data.name"
-          >
-            <template #suffix/>
-          </a-input>
+              placeholder="请输入类型">
+            <a-select-option v-for="item in getFactorOther.data" :key="item.name" :value="item.name">{{ item.displayName }}</a-select-option>
+          </a-select>
         </a-form-item>
         <!-- 添加期初量 -->
         <a-form-item
@@ -84,10 +83,17 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {carbonSequestrationAreaVO,} from "@/models/VoModel.js";
+import {getTypeDO} from "@/models/DoModel.js";
+import {getFactorOtherApi} from "@/api/CarbonApi.js";
 
 const carbonSequestrationArea = ref(carbonSequestrationAreaVO);
+const getFactorOther = ref(getTypeDO);
+
+onMounted(async _ => {
+  getFactorOther.value = await getFactorOtherApi();
+})
 
 const addCarbonSequestrationArea = _ => carbonSequestrationArea.value.push({
   name: undefined,

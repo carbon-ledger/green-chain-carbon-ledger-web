@@ -116,7 +116,7 @@
 
 <script setup>
 import router from "@/router/index.js";
-import {reactive, ref, watch} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import {
   carbonSequestrationAreaVO,
   courseAreaVO,
@@ -135,9 +135,11 @@ import DefaultArea from "@/components/MarketComponents/DefaultArea.vue";
 import ElectricArea from "@/components/MarketComponents/ElectricArea.vue";
 import {message} from "ant-design-vue";
 import moment from "moment";
+import {createCarbonReportApi, getCarbonItemTypeApi} from "@/api/CarbonApi.js";
+import {getTypeDO} from "@/models/DoModel.js";
 
+// 获取总表单
 const createAccountingForm = reactive(sendAccountingVO);
-
 // 获取每个 form 的内容
 const getMaterialAreaForm = reactive(materialAreaVO);
 const getCourseAreaForm = reactive(courseAreaVO);
@@ -152,11 +154,23 @@ const validDesulfurization = ref(false);
 const validHeat = ref(false);
 const validElectric = ref(false);
 const validDefault = ref(true);
+// 获取选择类型
+const getCarbonType = ref(getTypeDO);
+const getFactorProcess = ref(getTypeDO);
+const getFactorDesulfurization = ref(getTypeDO);
+const getFactorOther = ref(getTypeDO);
+
+onMounted(async _ => {
+  getCarbonType.value = await getCarbonItemTypeApi();
+  getFactorProcess.value = await getCarbonItemTypeApi();
+  getFactorDesulfurization.value = await getCarbonItemTypeApi();
+  getFactorOther.value = await getCarbonItemTypeApi();
+})
 
 /**
  * 提交表单
  */
-function onFinish() {
+async function onFinish() {
   // 检查选择的内容是否正确
   if (createAccountingForm.type === '请选择类型') {
     message.warn("请选择核算模型");
@@ -211,7 +225,11 @@ function onFinish() {
     createAccountingForm.startTime = startTime.format('yyyy-MM-DD');
     createAccountingForm.endTime = endTime.format('yyyy-MM-DD');
     console.debug(createAccountingForm);
-    message.success("提交成功");
+    const getReturnData = await createCarbonReportApi(createAccountingForm);
+    if (getReturnData.output === "Success") {
+      message.success("提交成功");
+      await router.push({name: "MarketAccounting"});
+    }
   } else {
     message.warn("请选择时间范围");
   }

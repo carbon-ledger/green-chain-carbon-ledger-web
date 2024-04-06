@@ -463,3 +463,13 @@ export let tradeBuyOneDO = {
         }
     }
 }
+
+export let getTypeDO = {
+    baseResponse,
+    data: [
+        {
+            name: undefined,
+            displayName: undefined
+        }
+    ]
+}

@@ -15,12 +15,11 @@
             :rules="[{ required: true, message: '类型为必填项' }]"
             label="类型"
         >
-          <a-input
+          <a-select
               v-model:value="data.name"
-              placeholder="请输入类型"
-          >
-            <template #suffix/>
-          </a-input>
+              placeholder="请输入类型">
+            <a-select-option v-for="item in getFactorProcess.data" :key="item.name" :value="item.name">{{ item.displayName }}</a-select-option>
+          </a-select>
         </a-form-item>
         <!-- 添加购入量 -->
         <a-form-item
@@ -116,10 +115,17 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {courseAreaVO} from "@/models/VoModel.js";
+import {getTypeDO} from "@/models/DoModel.js";
+import {getFactorProcessApi} from "@/api/CarbonApi.js";
 
 const courseArea = ref(courseAreaVO);
+const getFactorProcess = ref(getTypeDO);
+
+onMounted(async _ => {
+  getFactorProcess.value = await getFactorProcessApi();
+})
 
 const addCourseArea = _ => courseArea.value.push({
   name: undefined,

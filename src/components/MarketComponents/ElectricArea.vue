@@ -11,13 +11,11 @@
           label="电力公司"
           name="electricCompany"
       >
-        <a-input
+        <a-select
             v-model:value="electric.electricCompany"
-            placeholder="请选择电力公司"
-            style="width: 100%"
-        >
-          <template #suffix/>
-        </a-input>
+            placeholder="请输入类型">
+          <a-select-option v-for="item in getFactorOther.data" :key="item.name" :value="item.name">{{ item.displayName }}</a-select-option>
+        </a-select>
       </a-form-item>
       <!-- 添加购入量 -->
       <a-form-item
@@ -71,8 +69,24 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {sendAccountingVO} from "@/models/VoModel.js";
+import {getTypeDO} from "@/models/DoModel.js";
+import {getFactorOtherApi} from "@/api/CarbonApi.js";
 
 const electric = ref(sendAccountingVO);
+const getFactorOther = ref(getTypeDO);
+
+onMounted(async _ => {
+  const res = await getFactorOtherApi();
+  if (res.output === "Success") {
+    for (let i = 0; i < res.data.length; i++) {
+      if (res.data[i].name.search(/electric/) === -1) {
+        res.data.splice(i, 1);
+        i = i - 1;
+      }
+    }
+    getFactorOther.value = res;
+  }
+})
 </script>

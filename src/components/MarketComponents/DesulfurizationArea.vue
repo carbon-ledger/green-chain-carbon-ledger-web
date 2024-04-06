@@ -15,12 +15,11 @@
             :rules="[{ required: true, message: '类型为必填项' }]"
             label="类型"
         >
-          <a-input
+          <a-select
               v-model:value="data.name"
-              placeholder="请输入类型"
-          >
-            <template #suffix/>
-          </a-input>
+              placeholder="请输入类型">
+            <a-select-option v-for="item in getFactorDesulfurization.data" :key="item.name" :value="item.name">{{ item.displayName }} - <span class="text-beaver">{{ item.name }}</span></a-select-option>
+          </a-select>
         </a-form-item>
         <!-- 周期内总消耗量 -->
         <a-form-item
@@ -52,10 +51,17 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {desulfurizationAreaVO} from "@/models/VoModel.js";
+import {getTypeDO} from "@/models/DoModel.js";
+import {getFactorDesulfurizationApi} from "@/api/CarbonApi.js";
 
 const desulfurizationArea = ref(desulfurizationAreaVO);
+const getFactorDesulfurization = ref(getTypeDO);
+
+onMounted(async _ => {
+  getFactorDesulfurization.value = await getFactorDesulfurizationApi();
+})
 
 const addDesulfurizationArea = _ => desulfurizationArea.value.push({
   name: undefined,

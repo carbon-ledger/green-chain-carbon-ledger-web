@@ -880,6 +880,98 @@ const tradeEdit = (data, tradeId) => {
     })
 }
 
+/**
+ * 创建碳报告
+ *
+ * @param data
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const createCarbonReport = (data) => {
+    return axios({
+        url: api + "/carbon/report/create",
+        method: "POST",
+        data: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取碳排放所有产品类型
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getCarbonItemType = () => {
+    return axios({
+        url: api + "/carbon/item/type",
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取过程排放因子
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getFactorProcess = () => {
+    return axios({
+        url: api + "/carbon/factor/process",
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取脱硫排放因子
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getFactorDesulfurization = () => {
+    return axios({
+        url: api + "/carbon/factor/desulfurization",
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取其他排放因子
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getFactorOther = () => {
+    return axios({
+        url: api + "/carbon/factor/other",
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     userLogin,
@@ -928,5 +1020,10 @@ export default {
     getMyBuyTrade,
     tradeSuccess,
     tradeDelete,
-    tradeEdit
+    tradeEdit,
+    createCarbonReport,
+    getCarbonItemType,
+    getFactorProcess,
+    getFactorDesulfurization,
+    getFactorOther
 }

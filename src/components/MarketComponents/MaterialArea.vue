@@ -15,11 +15,11 @@
             :rules="[{ required: true, message: '类型为必填项' }]"
             label="类型"
         >
-          <a-input
+          <a-select
               v-model:value="data.name"
               placeholder="请输入类型">
-            <template #suffix/>
-          </a-input>
+            <a-select-option v-for="item in getCarbonType.data" :key="item.name" :value="item.name">{{ item.displayName }}</a-select-option>
+          </a-select>
         </a-form-item>
         <!-- 添加购入量 -->
         <a-form-item
@@ -116,9 +116,18 @@
 
 <script setup>
 import {materialAreaVO} from "@/models/VoModel.js";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import {getTypeDO} from "@/models/DoModel.js";
+import {getCarbonItemTypeApi} from "@/api/CarbonApi.js";
+
+
 
 const materialsArea = ref(materialAreaVO);
+const getCarbonType = ref(getTypeDO);
+
+onMounted(async _ => {
+  getCarbonType.value = await getCarbonItemTypeApi();
+})
 
 const addMaterialArea = _ => materialsArea.value.push({
   name: undefined,
