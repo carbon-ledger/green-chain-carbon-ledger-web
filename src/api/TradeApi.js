@@ -186,3 +186,72 @@ export async function getMyBuyTradeApi() {
     }
     return returnData;
 }
+
+export async function tradeSuccessApi(tradeId) {
+    let returnData = baseResponse;
+    try {
+        const res = await request.tradeSuccess(tradeId);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] TradeApi[tradeSuccessApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] TradeApi[tradeSuccessApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function tradeDeleteApi(tradeId) {
+    let returnData = baseResponse;
+    try {
+        const res = await request.tradeDelete(tradeId);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] TradeApi[tradeDeleteApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] TradeApi[tradeDeleteApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function tradeEditApi(getData, tradeId) {
+    let returnData = baseResponse;
+    try {
+        const res = await request.tradeEdit(getData, tradeId);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] TradeApi[tradeEditApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] TradeApi[tradeEditApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}

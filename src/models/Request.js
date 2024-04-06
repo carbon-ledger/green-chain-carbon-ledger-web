@@ -801,10 +801,76 @@ const getTradeBank = (tradeId) => {
     })
 }
 
+/**
+ * 获取自己购买的碳交易
+ *
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
 const getMyBuyTrade = () => {
     return axios({
         url: api + "/trade/buy",
         method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 交易完成标记
+ *
+ * @param tradeId
+ */
+const tradeSuccess = (tradeId) => {
+    return axios({
+        url: api + "/trade/check-success",
+        method: "PUT",
+        params: {
+            tradeId: tradeId
+        },
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 删除交易
+ *
+ * @param tradeId
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const tradeDelete = (tradeId) => {
+    return axios({
+        url: api + "/trade/delete/" + tradeId,
+        method: "DELETE",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 编辑交易
+ *
+ * @param data
+ * @param tradeId
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const tradeEdit = (data, tradeId) => {
+    return axios({
+        url: api + "/trade/edit/" + tradeId,
+        method: "PUT",
+        data: data,
         headers: {
             'content-type': 'application/json;charset=utf-8',
             'X-Timestamp': new Date().getTime(),
@@ -859,5 +925,8 @@ export default {
     tradeList,
     tradeBuy,
     getTradeBank,
-    getMyBuyTrade
+    getMyBuyTrade,
+    tradeSuccess,
+    tradeDelete,
+    tradeEdit
 }

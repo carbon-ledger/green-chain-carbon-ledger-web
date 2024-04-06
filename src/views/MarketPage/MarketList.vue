@@ -32,7 +32,7 @@
       <div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 xxl:grid-cols-4 gap-3">
           <a-card v-for="tradeInfo in getTradeWithCompleted" class="shadow h-full" hoverable size="small"
-                  title="锋叶技术（深圳）有限公司">
+                  :title="tradeInfo.organize.realName">
             <template #extra>
               <a-button disabled type="link">已完成</a-button>
             </template>
@@ -103,6 +103,7 @@ const getUserCurrent = ref(userCurrentDO);
 onMounted(async _ => {
   getUserCurrent.value = await getUserCurrentApi();
   getTradeList.value = await tradeListApi(getSearchVO);
+
   // 对获取的内容进行排列排序
   getTradeList.value.data.forEach(it => {
     if (it.status === 'active') {
@@ -111,6 +112,7 @@ onMounted(async _ => {
       getTradeWithCompleted.value.push(it);
     }
   })
+
   const getData = await getUserCurrentApi();
   if (getData.output === 'Success') {
     if (getData.data.user.avatar === '') {

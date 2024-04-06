@@ -82,7 +82,7 @@ export let searchAllVO = {
     search: '',
     limit: '',
     page: '',
-    order: 'asc',
+    order: 'desc',
 }
 
 /**
@@ -105,8 +105,8 @@ export let roleEditVO = {
 }
 
 export let managerUserRegisterVO = {
-    username: '',
-    realname: '',
+    userName: '',
+    realName: '',
     phone: '',
     email: '',
     code: '',

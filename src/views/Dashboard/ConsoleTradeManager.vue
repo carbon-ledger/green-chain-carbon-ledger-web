@@ -25,7 +25,7 @@
                         openModel = true;
                         singleTradeReview = record;
                       }">
-              配额分配
+              审核
             </a-button>
           </template>
         </template>
@@ -34,16 +34,19 @@
   </div>
 
   <template>
-    <a-modal v-model:open="openModel" title="配额管理">
+    <a-modal v-model:open="openModel" title="发布审核">
       <template #footer>
         <a-button key="submit" @click="consoleReviewCheck(singleTradeReview.tradeId, false)" danger>审核拒绝</a-button>
         <a-button key="submit" class="bg-aspargus" type="primary" @click="consoleReviewCheck(singleTradeReview.tradeId, true)">审核通过</a-button>
       </template>
       <div>
-        <a-descriptions bordered>
-          <a-descriptions-item label="碳配额(吨)" :span="2">{{ singleTradeReview.quotaAmount }}</a-descriptions-item>
-          <a-descriptions-item label="单价(元)" :span="2">{{ singleTradeReview.pricePerUnit }}</a-descriptions-item>
-          <a-descriptions-item label="详细描述" :span="4">{{ singleTradeReview.description }}</a-descriptions-item>
+        <a-descriptions bordered class="mb-3">
+          <a-descriptions-item :span="2" label="账户名">{{ singleTradeReview.organize.userName }}</a-descriptions-item>
+          <a-descriptions-item :span="2" label="账户邮箱">{{ singleTradeReview.organize.email }}</a-descriptions-item>
+          <a-descriptions-item :span="4" label="组织账户">{{ singleTradeReview.organize.realName }}</a-descriptions-item>
+          <a-descriptions-item :span="2" label="碳配额(吨)">{{ singleTradeReview.quotaAmount }}</a-descriptions-item>
+          <a-descriptions-item :span="2" label="单价(元)">{{ singleTradeReview.pricePerUnit }}</a-descriptions-item>
+          <a-descriptions-item :span="4" label="详细描述">{{ singleTradeReview.description }}</a-descriptions-item>
         </a-descriptions>
       </div>
     </a-modal>
