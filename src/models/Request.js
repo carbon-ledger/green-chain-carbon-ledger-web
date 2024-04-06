@@ -5,7 +5,7 @@ import axios from "axios";
  *
  * @type {string}
  */
-export const api = 'http://192.168.5.234:8081/api/v1'
+export const api = 'http://localhost:8081/api/v1'
 
 /**
  * 组织账号注册

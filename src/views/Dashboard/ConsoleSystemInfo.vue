@@ -5,15 +5,15 @@
   >
     <a-descriptions-item>
       <div class="text-mount-pink">
-        系统配置允许管理包括服务器信息、链接信息、操作系统版本、安全补丁等，以优化系统性能和提高安全性。
+        展示服务器的相关信息，仅供展示，不可修改。
       </div>
     </a-descriptions-item>
   </a-page-header>
   <div class="grid grid-cols-12 p-3">
     <div class="col-span-12">
-      <a-card class="shadow-lg p-10">
+      <a-card class="shadow-lg">
         <div>
-          <a-descriptions title="服务器信息" bordered>
+          <a-descriptions bordered>
             <a-descriptions-item label="CPU信息" :span="2">
               型号：Intel Xeon E5-2680 v4
               <br />
