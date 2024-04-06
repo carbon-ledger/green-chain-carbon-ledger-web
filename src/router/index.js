@@ -235,6 +235,11 @@ const router = createRouter({
                     name: 'MarketOrganizeTrade',
                     component: () => import('@/views/MarketPage/MarketOrganizeTrade.vue'),
                 },
+                {
+                    path: '/market/accounting/create',
+                    name: 'MarketAccountingCreate',
+                    component: () => import('@/views/MarketPage/MarketCreateAccounting.vue'),
+                },
             ]
         },
         {

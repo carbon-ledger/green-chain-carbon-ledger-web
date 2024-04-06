@@ -150,3 +150,74 @@ export let sendCreateOrganizeQuotaVO = {
     quota: 0.000,
     status: true
 }
+
+/**
+ * 创建组织账单
+ *
+ * @type {{electricExport: string, summary: string, electricCompany: string, electricBuy: string, materials: string, electricOutside: string, startTime: string, endTime: string, type: string, title: string, send: boolean}}
+ */
+export let sendAccountingVO = {
+    type: '请选择类型',
+    startTime: undefined,
+    endTime: undefined,
+    title: undefined,
+    materials: undefined,
+    electricBuy: undefined,
+    electricOutside: undefined,
+    electricExport: undefined,
+    electricCompany: undefined,
+    summary: undefined,
+    send: true
+}
+
+export let materialAreaVO = [
+    {
+        name: undefined,
+        material: {
+            buy: 0.0,
+            openingInv: 0.0,
+            endingInv: 0.0,
+            outside: 0.0,
+            export: 0.0
+        }
+    }
+]
+
+export let courseAreaVO = [
+    {
+        name: undefined,
+        material: {
+            buy: 0.0,
+            openingInv: 0.0,
+            endingInv: 0.0,
+            outside: 0.0,
+            export: 0.0
+        }
+    }
+]
+
+export let carbonSequestrationAreaVO = [
+    {
+        name: undefined,
+        material: {
+            openingInv: 0.0,
+            endingInv: 0.0,
+            export: 0.0
+        }
+    }
+]
+
+export let desulfurizationAreaVO = [
+    {
+        name: undefined,
+        material: {
+            consumption: 0.00
+        }
+    }
+]
+
+export let heatAreaVO = {
+    buy: 0.00,
+    outside: 0.00,
+    export: 0.00
+}

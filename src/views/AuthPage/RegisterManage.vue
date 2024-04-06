@@ -17,9 +17,9 @@
               <a-form-item
                   :rules="[{ required: true, message: '监管用户名不能为空' }]"
                   label="监管用户名"
-                  name="username"
+                  name="userName"
               >
-                <a-input v-model:value="managerRegisterForm.username">
+                <a-input v-model:value="managerRegisterForm.userName">
                   <template #prefix>
                     <UserOutlined class="site-form-item-icon"/>
                   </template>
@@ -28,9 +28,9 @@
               <a-form-item
                   :rules="[{ required: true, message: '监管用户真实姓名不能为空' }]"
                   label="真实姓名"
-                  name="realname"
+                  name="realName"
               >
-                <a-input v-model:value="managerRegisterForm.realname">
+                <a-input v-model:value="managerRegisterForm.realName">
                   <template #prefix>
                     <IdcardOutlined class="site-form-item-icon"/>
                   </template>

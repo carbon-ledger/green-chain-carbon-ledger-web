@@ -52,7 +52,7 @@
       </template>
       <template #actions>
         <span @click="router.push({name: 'MarketDashboard'})"><UserOutlined /> 我的信息</span>
-        <span @click=""><EditOutlined/>  创建核算</span>
+        <span @click="router.push({name: 'MarketAccountingCreate'})"><EditOutlined/>  创建核算</span>
       </template>
       <a-card-meta :description="getUserProfile.data.user.userName" :title="getUserProfile.data.user.realName">
         <template #avatar>
