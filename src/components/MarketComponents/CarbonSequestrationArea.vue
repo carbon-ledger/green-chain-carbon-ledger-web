@@ -60,7 +60,7 @@
             label="外销量"
         >
           <a-input-number
-              v-model:value="data.material.outside"
+              v-model:value="data.material.export"
               :min="0"
               :step="0.01"
               placeholder="请输入外销量"

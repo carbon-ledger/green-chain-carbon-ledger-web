@@ -50,7 +50,6 @@
         </a-form-item>
         <!-- 核算结束时间 -->
         <a-form-item
-            :rules="[{ required: true, message: '结束时间为必填项' }]"
             label="结束时间"
             name="endTime"
         >
@@ -146,6 +145,8 @@ const getCourseAreaForm = reactive(courseAreaVO);
 const getCarbonSequestrationAreaForm = reactive(carbonSequestrationAreaVO);
 const getDesulfurizationAreaForm = reactive(desulfurizationAreaVO);
 const getHeatAreaForm = reactive(heatAreaVO);
+let startTime;
+let endTime;
 // 监听器，监听选择的类型已匹配不同的添加内容的模式
 const validMaterial = ref(false);
 const validCourse = ref(false);
@@ -209,23 +210,45 @@ async function onFinish() {
   }
   // 对数据进行整合
   const createMaterialsData = {
-    materials: getMaterialAreaForm,
-    courses: getCourseAreaForm,
-    carbonSequestration: getCarbonSequestrationAreaForm,
-    desulfurization: getDesulfurizationAreaForm,
-    heat: getHeatAreaForm,
+    materials: null,
+    courses: null,
+    carbonSequestration: null,
+    desulfurization: null,
+    heat: null
   }
+  // 检查数据是否应该被存放
+  if (validMaterial.value) {
+    createMaterialsData.courses = JSON.parse(JSON.stringify(getMaterialAreaForm));
+  }
+  if (validCourse.value) {
+    createMaterialsData.courses = JSON.parse(JSON.stringify(getCourseAreaForm));
+  }
+  if (validCarbonSequestration.value) {
+    createMaterialsData.carbonSequestration = JSON.parse(JSON.stringify(getCarbonSequestrationAreaForm));
+  }
+  if (validDesulfurization.value) {
+    createMaterialsData.desulfurization = JSON.parse(JSON.stringify(getDesulfurizationAreaForm));
+  }
+  if (validHeat.value) {
+    createMaterialsData.heat = [{
+      name: "thermalPower",
+      material: JSON.parse(JSON.stringify(getHeatAreaForm)),
+    }];
+  }
+  console.debug("整合数据：", createMaterialsData);
   // 数据转义 Json 进行存储进入主要数据主要存储
   createAccountingForm.materials = JSON.stringify(createMaterialsData);
-  // 对时间进行处理
-  //对开始时间和结束时间进行格式化，格式化为 yyyy-MM-DD
-  const startTime = moment(createAccountingForm.startTime);
-  const endTime = moment(createAccountingForm.endTime);
+  console.debug("整合数据：", JSON.stringify(createMaterialsData));
+  // 对时间进行处理 对开始时间和结束时间进行格式化，格式化为 yyyy-MM-DD
+  startTime = createAccountingForm.startTime;
+  endTime = createAccountingForm.endTime;
   if (createAccountingForm.startTime !== undefined && createAccountingForm.endTime !== undefined) {
-    createAccountingForm.startTime = startTime.format('yyyy-MM-DD');
-    createAccountingForm.endTime = endTime.format('yyyy-MM-DD');
+    createAccountingForm.startTime = moment(startTime).format("YYYY-MM-DD");
+    createAccountingForm.endTime = moment(endTime).format("YYYY-MM-DD");
     console.debug(createAccountingForm);
     const getReturnData = await createCarbonReportApi(createAccountingForm);
+    createAccountingForm.startTime = startTime;
+    createAccountingForm.endTime = endTime;
     if (getReturnData.output === "Success") {
       message.success("提交成功");
       await router.push({name: "MarketAccounting"});
@@ -233,8 +256,6 @@ async function onFinish() {
   } else {
     message.warn("请选择时间范围");
   }
-  createAccountingForm.startTime = startTime;
-  createAccountingForm.endTime = endTime;
 }
 
 const checkGetMaterialAreaFormHasNullValue = (getValues) => {
