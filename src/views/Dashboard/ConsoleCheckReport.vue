@@ -14,7 +14,7 @@
       <a-table :columns="columns" :data-source="getCarbonReportList.data">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'accountingPeriod'">{{ record.accountingPeriod }}</template>
-          <template v-if="column.key === 'totalEmission'">{{ record.totalEmission }}</template>
+          <template v-if="column.key === 'totalEmission'">{{ record.totalEmission }} 吨</template>
           <template v-if="column.key === 'createdAt'">{{ record.createdAt }}</template>
           <template v-if="column.key === 'action'">
             <a-button class="text-aspargus" type="link"
@@ -30,14 +30,12 @@
 
 <script setup>
 import {onMounted, ref} from "vue";
-import {getCarbonReportDO, tradeDO} from "@/models/DoModel.js";
+import {getCarbonReportDO} from "@/models/DoModel.js";
 import {getCarbonReviewReportApi} from "@/api/CarbonApi.js";
 import router from "@/router/index.js";
 
 const routes = breadcrumbs;
-const openModel = ref(false);
 const getCarbonReportList = ref(getCarbonReportDO);
-const singleTradeReview = ref(tradeDO.data[0]);
 
 
 onMounted(async _ => {

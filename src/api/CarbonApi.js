@@ -3,7 +3,7 @@ import {
     carbonOperateListDO,
     emissionsQuotaDO,
     getCarbonAccountingSingleDO,
-    getCarbonReportDO, getCarbonReportSingleDO,
+    getCarbonReportDO, getCarbonReportMaterialsDO, getCarbonReportSingleDO,
     getTypeDO
 } from "@/models/DoModel.js";
 import request from "@/models/Request.js";
@@ -305,6 +305,29 @@ export async function getCarbonReportMaterialsApi(getData) {
         }
     } finally {
         console.debug('[REQUEST] CarbonApi[getCarbonReportMaterialsApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function checkCarbonReportApi(getData) {
+    let returnData = baseResponse;
+    try {
+        const res = await request.checkCarbonReport(getData);
+        returnData = res.data;
+    } catch (err) {
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                returnData = err.response.data;
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] CarbonApi[checkCarbonReportApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] CarbonApi[checkCarbonReportApi]: 请求数据\n', returnData);
     }
     return returnData;
 }

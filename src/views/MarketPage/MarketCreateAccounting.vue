@@ -114,7 +114,7 @@
 
 <script setup>
 import router from "@/router/index.js";
-import {onMounted, reactive, ref, watch} from "vue";
+import {reactive, ref, watch} from "vue";
 import {
   carbonSequestrationAreaVO,
   courseAreaVO,
@@ -132,8 +132,7 @@ import HeatArea from "@/components/MarketComponents/HeatArea.vue";
 import DefaultArea from "@/components/MarketComponents/DefaultArea.vue";
 import ElectricArea from "@/components/MarketComponents/ElectricArea.vue";
 import {message} from "ant-design-vue";
-import {createCarbonReportApi, getCarbonItemTypeApi} from "@/api/CarbonApi.js";
-import {getTypeDO} from "@/models/DoModel.js";
+import {createCarbonReportApi} from "@/api/CarbonApi.js";
 
 // 获取总表单
 const createAccountingForm = reactive(sendAccountingVO);
@@ -153,18 +152,6 @@ const validDesulfurization = ref(false);
 const validHeat = ref(false);
 const validElectric = ref(false);
 const validDefault = ref(true);
-// 获取选择类型
-const getCarbonType = ref(getTypeDO);
-const getFactorProcess = ref(getTypeDO);
-const getFactorDesulfurization = ref(getTypeDO);
-const getFactorOther = ref(getTypeDO);
-
-onMounted(async _ => {
-  getCarbonType.value = await getCarbonItemTypeApi();
-  getFactorProcess.value = await getCarbonItemTypeApi();
-  getFactorDesulfurization.value = await getCarbonItemTypeApi();
-  getFactorOther.value = await getCarbonItemTypeApi();
-})
 
 /**
  * 提交表单

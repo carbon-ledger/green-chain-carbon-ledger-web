@@ -570,6 +570,23 @@ export let getCarbonReportMaterialsDO = {
                     }
                 }
             ],
+            heats: [
+                {
+                    buy: 0.00,
+                    export: 0.00,
+                    outside: 0.00
+                }
+            ],
+            carbonSequestrations: [
+                {
+                    name: undefined,
+                    material: {
+                        export: 0.00,
+                        endingInv: 0.00,
+                        openingInv: 0.00
+                    }
+                }
+            ],
             desulfurization: [
                 {
                     name: undefined,
@@ -578,8 +595,6 @@ export let getCarbonReportMaterialsDO = {
                     }
                 }
             ],
-            heats: [],
-            carbonSequestrations: []
         },
         electric: {
             electricExport: 0.00,

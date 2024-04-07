@@ -1086,6 +1086,20 @@ const getCarbonReportMaterials = (reportId) => {
     })
 }
 
+const checkCarbonReport = (data) => {
+    return axios({
+        url: api + "/carbon/review/check",
+        method: "PUT",
+        params: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     userLogin,
@@ -1145,5 +1159,6 @@ export default {
     getCarbonAccountingSingle,
     getCarbonReviewReport,
     findUserByUuid,
-    getCarbonReportMaterials
+    getCarbonReportMaterials,
+    checkCarbonReport
 }
