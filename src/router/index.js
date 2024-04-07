@@ -202,7 +202,17 @@ const router = createRouter({
                     name:'DashboardTradeManager',
                     component:() => import('@/views/Dashboard/ConsoleTradeManager.vue')
                 },
-            ]
+                {
+                    path: '/dashboard/check-report',
+                    name:'DashboardCheckReport',
+                    component:() => import('@/views/Dashboard/ConsoleCheckReport.vue')
+                },
+                {
+                    path: '/dashboard/check-report/view/:id',
+                    name:'DashboardCheckReportView',
+                    component:() => import('@/views/Dashboard/ConsoleCheckReportView.vue')
+                },
+           ]
         },
         {
             // 交易市场相关

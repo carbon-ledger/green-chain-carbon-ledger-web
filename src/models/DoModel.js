@@ -526,3 +526,66 @@ export let getCarbonAccountingSingleDO = {
         updatedAt: ''
     }
 }
+
+export let getBackUserDO = {
+    baseResponse,
+    data: {
+        uuid: '',
+        userName: '',
+        nickName: '',
+        realName: '',
+        email: '',
+        phone: '',
+        avatar: '',
+        createdAt: '',
+        updatedAt: ''
+    }
+}
+
+export let getCarbonReportMaterialsDO = {
+    baseResponse,
+    data: {
+        materials: {
+            courses: [
+                {
+                    name: undefined,
+                    material: {
+                        buy: 0.00,
+                        export: 0.00,
+                        outside: 0.00,
+                        endingInv: 0.00,
+                        openingInv: 0.00
+                    }
+                }
+            ],
+            materials: [
+                {
+                    name: undefined,
+                    material: {
+                        buy: 0.00,
+                        export: 0.00,
+                        outside: 0.00,
+                        endingInv: 0.00,
+                        openingInv: 0.00
+                    }
+                }
+            ],
+            desulfurization: [
+                {
+                    name: undefined,
+                    material: {
+                        consumption: 0.00
+                    }
+                }
+            ],
+            heats: [],
+            carbonSequestrations: []
+        },
+        electric: {
+            electricExport: 0.00,
+            electricCompany: undefined,
+            electricBuy: 0.00,
+            electricOutside: 0.00
+        }
+    }
+}

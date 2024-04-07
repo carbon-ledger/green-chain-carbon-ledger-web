@@ -1,24 +1,23 @@
 <template>
-  <div class="col-span-12">
+  <div class="px-3">
     <a-page-header
         title="核算详情"
         sub-title="用于查看此次核算后的详细内容"
-        @back="router.push({name: 'MarketAccounting'})"
+        @back="router.push({name: 'DashboardCheckReport'})"
     />
     <a-card>
       <a-descriptions bordered title="核算报告" class="mb-10">
+        <a-descriptions-item label="账户">{{ getUserInfo.data.userName }}</a-descriptions-item>
+        <a-descriptions-item label="邮箱">{{ getUserInfo.data.email }}</a-descriptions-item>
+        <a-descriptions-item label="组织账户">{{ getUserInfo.data.realName }}</a-descriptions-item>
         <a-descriptions-item label="报告开始时间" span="2">{{ startTime }}</a-descriptions-item>
         <a-descriptions-item label="报告结束时间" span="2">{{ endTime }}</a-descriptions-item>
-        <a-descriptions-item label="报告状态" span="2"><a-badge :status="getBadgeTypeWithReport(getCarbonReportSingle.data.reportStatus)" :text="getBadgeTypeWithReportMessage(getCarbonReportSingle.data.reportStatus)" /></a-descriptions-item>
-        <a-descriptions-item label="核算状态" span="2"><a-badge :status="getBadgeTypeWithAccounting(getCarbonAccountingSingle.data.dataVerificationStatus)" :text="getBadgeTypeWithAccountingMessage(getCarbonAccountingSingle.data.dataVerificationStatus)" /></a-descriptions-item>
         <a-descriptions-item label="报告抬头" span="4">{{ getCarbonReportSingle.data.reportTitle }}</a-descriptions-item>
         <a-descriptions-item label="报告摘要" span="4">{{ getCarbonReportSingle.data.reportSummary }}</a-descriptions-item>
-        <a-descriptions-item label="报告审核人" span="2">{{ getCarbonReportSingle.data.verifierUuid }}</a-descriptions-item>
-        <a-descriptions-item label="报告审核日期" span="2">{{ getCarbonReportSingle.data.verificationDate }}</a-descriptions-item>
         <a-descriptions-item label="报告创建时间" span="2">{{ getCarbonReportSingle.data.createdAt }}</a-descriptions-item>
         <a-descriptions-item label="报告更新时间" span="2">{{ getCarbonReportSingle.data.updatedAt }}</a-descriptions-item>
       </a-descriptions>
-      <a-descriptions bordered title="核算信息">
+      <a-descriptions bordered title="核算信息" class="mb-10">
         <a-descriptions-item label="核算碳排放" span="2">{{ getCarbonAccountingSingle.data.emissionAmount }} 吨</a-descriptions-item>
         <a-descriptions-item label="核算创建时间" span="2">{{ getCarbonAccountingSingle.data.createdAt }}</a-descriptions-item>
         <a-descriptions-item v-if="viewMaterial" label="原料碳排放">{{ parseJson.materials.carbonEmissions }} 吨</a-descriptions-item>
@@ -28,6 +27,20 @@
         <a-descriptions-item v-if="viewElectricity" label="电力碳排放">{{ parseJson.electric.electricEmissions }} 吨</a-descriptions-item>
         <a-descriptions-item v-if="viewHeat" label="热碳排放">{{ parseJson.heat.heatEmissions }} 吨</a-descriptions-item>
       </a-descriptions>
+      <a-descriptions bordered title="原料信息">
+        <a-descriptions-item label="核算碳排放" span="2">{{ getCarbonAccountingSingle.data.emissionAmount }} 吨</a-descriptions-item>
+        <a-descriptions-item label="核算创建时间" span="2">{{ getCarbonAccountingSingle.data.createdAt }}</a-descriptions-item>
+        <a-descriptions-item v-if="viewMaterial" label="原料碳排放">{{ parseJson.materials.carbonEmissions }} 吨</a-descriptions-item>
+        <a-descriptions-item v-if="viewCourse" label="过程碳排放">{{ parseJson.courses.carbonEmissions }} 吨</a-descriptions-item>
+        <a-descriptions-item v-if="viewDesulfurization" label="脱硫碳排放">{{ parseJson.desulfuizations.carbonEmissions }} 吨</a-descriptions-item>
+        <a-descriptions-item v-if="viewCarbonSequestration" label="固碳碳排放">{{ parseJson.carbonSequestrations.carbonEmissions }} 吨</a-descriptions-item>
+        <a-descriptions-item v-if="viewElectricity" label="电力碳排放">{{ parseJson.electric.electricEmissions }} 吨</a-descriptions-item>
+        <a-descriptions-item v-if="viewHeat" label="热碳排放">{{ parseJson.heat.heatEmissions }} 吨</a-descriptions-item>
+      </a-descriptions>
+      <div class="flex justify-center gap-x-3 mt-6">
+        <a-button danger>审核拒绝</a-button>
+        <a-button class="border-aspargus text-aspargus">审核通过</a-button>
+      </div>
     </a-card>
   </div>
 </template>
@@ -36,10 +49,12 @@
 import router from "@/router/index.js";
 import {onMounted, ref, watch} from "vue";
 import {getCarbonAccountingSingleApi, getCarbonReportSingleApi} from "@/api/CarbonApi.js";
-import {getCarbonAccountingSingleDO, getCarbonReportSingleDO} from "@/models/DoModel.js";
+import {getBackUserDO, getCarbonAccountingSingleDO, getCarbonReportSingleDO} from "@/models/DoModel.js";
+import {findUserByUuidApi} from "@/api/UserApi.js";
 
 const getCarbonReportSingle = ref(getCarbonReportSingleDO);
 const getCarbonAccountingSingle = ref(getCarbonAccountingSingleDO);
+const getUserInfo = ref(getBackUserDO);
 const startTime = ref('');
 const endTime = ref('');
 const parseJson = ref('');
@@ -55,6 +70,7 @@ const viewHeat = ref(false);
 onMounted(async _ => {
   getCarbonReportSingle.value = await getCarbonReportSingleApi(router.currentRoute.value.params.id);
   getCarbonAccountingSingle.value = await getCarbonAccountingSingleApi(router.currentRoute.value.params.id);
+  getUserInfo.value = await findUserByUuidApi(getCarbonReportSingle.value.data.organizeUuid);
 
   await disassemblyTimeFrame();
   parseJson.value = JSON.parse(getCarbonAccountingSingle.value.data.emissionVolume);
@@ -62,8 +78,8 @@ onMounted(async _ => {
 
 // 将时间 20240401-20240407 拆解为 2024年04月01日 和 2024年04月07日
 const disassemblyTimeFrame = () => {
-    startTime.value = getCarbonReportSingle.value.data.accountingPeriod.substring(0, 4) + '年' + getCarbonReportSingle.value.data.accountingPeriod.substring(4, 6) + '月' + getCarbonReportSingle.value.data.accountingPeriod.substring(6, 8) + '日';
-    endTime.value = getCarbonReportSingle.value.data.accountingPeriod.substring(9, 13) + '年' + getCarbonReportSingle.value.data.accountingPeriod.substring(13, 15) + '月' + getCarbonReportSingle.value.data.accountingPeriod.substring(15, 17) + '日';
+  startTime.value = getCarbonReportSingle.value.data.accountingPeriod.substring(0, 4) + '年' + getCarbonReportSingle.value.data.accountingPeriod.substring(4, 6) + '月' + getCarbonReportSingle.value.data.accountingPeriod.substring(6, 8) + '日';
+  endTime.value = getCarbonReportSingle.value.data.accountingPeriod.substring(9, 13) + '年' + getCarbonReportSingle.value.data.accountingPeriod.substring(13, 15) + '月' + getCarbonReportSingle.value.data.accountingPeriod.substring(15, 17) + '日';
 }
 
 const getBadgeTypeWithAccounting = (getStatus) => {

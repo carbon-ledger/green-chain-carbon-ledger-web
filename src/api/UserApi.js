@@ -1,10 +1,12 @@
 import {
     baseResponse,
+    getBackUserDO,
+    userAddDO,
     userBanDO,
     userCurrentDO,
-    userForceEditDO,
     userForceDeleteDO,
-    userListDO, userAddDO
+    userForceEditDO,
+    userListDO
 } from "@/models/DoModel.js";
 import request from "@/models/Request.js";
 import router from "@/router/index.js";
@@ -183,6 +185,29 @@ export async function getUserListApi(type, getData) {
         }
     } finally {
         console.debug('[REQUEST] UserApi[getUserListApi]: 请求数据\n', returnData);
+    }
+    return returnData;
+}
+
+export async function findUserByUuidApi(getData) {
+    let returnData = getBackUserDO;
+    try {
+        const res = await request.findUserByUuid(getData);
+        returnData = res.data;
+    } catch (err) {
+        returnData = err.response.data;
+        if (err.response && err.response.data) {
+            if (!await publicErrorOperate(err)) {
+                switch (err.response.data.output) {
+                    default:
+                        message.warn(err.response.data.message);
+                }
+            }
+        } else {
+            console.warn("[REQUEST] UserApi[findUserByUuidApi]: 无法找到 response 体");
+        }
+    } finally {
+        console.debug('[REQUEST] UserApi[findUserByUuidApi]: 请求数据\n', returnData);
     }
     return returnData;
 }

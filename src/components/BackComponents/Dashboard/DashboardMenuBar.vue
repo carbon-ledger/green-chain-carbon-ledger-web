@@ -34,6 +34,12 @@
         <span class="nav-text">交易审核</span>
       </span>
     </a-menu-item>
+    <a-menu-item key="13" @click="router.push({name: 'DashboardCheckReport'})">
+      <span>
+        <FileProtectOutlined />
+        <span class="nav-text">报告审核</span>
+      </span>
+    </a-menu-item>
     <a-sub-menu key="sub1">
       <template #title>
         <span>
@@ -110,7 +116,8 @@ import {
   UserSwitchOutlined,
   ShoppingOutlined,
   HomeOutlined,
-  MoneyCollectOutlined
+  MoneyCollectOutlined,
+  FileProtectOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import {userCurrentDO} from "@/models/DoModel.js";
@@ -188,6 +195,15 @@ switch (router.currentRoute.value.name) {
     selectedKey.value = ["12"]
     openMenuKey.value = [""]
     break
+  case "DashboardCheckReport":
+    selectedKey.value = ["13"]
+    openMenuKey.value = [""]
+    break
+  case "DashboardCheckReportView":
+    selectedKey.value = ["13"]
+    openMenuKey.value = [""]
+    break
+
   default:
     selectedKey.value = ["1"]
 }
