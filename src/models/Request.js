@@ -972,6 +972,64 @@ const getFactorOther = () => {
     })
 }
 
+/**
+ * 获取碳排放报告
+ *
+ * @param data
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getCarbonReport = (data) => {
+    return axios({
+        url: api + "/carbon/report/get",
+        method: "GET",
+        params: data,
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取单个碳排放报告
+ *
+ * @param reportId
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getCarbonReportSingle = reportId => {
+    return axios({
+        url: api + "/carbon/report/get/" + reportId,
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
+/**
+ * 获取单个碳排放核算
+ *
+ * @param reportId
+ * @returns {Promise<AxiosResponse<any>> | *}
+ */
+const getCarbonAccountingSingle = reportId => {
+    return axios({
+        url: api + "/carbon/accounting/get/" + reportId,
+        method: "GET",
+        headers: {
+            'content-type': 'application/json;charset=utf-8',
+            'X-Timestamp': new Date().getTime(),
+            'Authorization': localStorage.getItem("AuthorizationToken"),
+            'X-Auth-UUID': localStorage.getItem("X-Auth-UUID"),
+        }
+    })
+}
+
 export default {
     OrganizeRegister,
     userLogin,
@@ -1025,5 +1083,8 @@ export default {
     getCarbonItemType,
     getFactorProcess,
     getFactorDesulfurization,
-    getFactorOther
+    getFactorOther,
+    getCarbonReport,
+    getCarbonReportSingle,
+    getCarbonAccountingSingle
 }

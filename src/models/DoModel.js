@@ -473,3 +473,56 @@ export let getTypeDO = {
         }
     ]
 }
+
+export let getCarbonReportDO = {
+    baseResponse,
+    data: [
+        {
+            id: 0,
+            organizeUuid: '',
+            accountingPeriod: '',
+            totalEmission: 0.00,
+            reportStatus: '',
+            listOfReports: [''],
+            createdAt: '',
+            updatedAt: ''
+        }
+    ]
+}
+
+export let getCarbonReportSingleDO = {
+    baseResponse,
+    data: {
+        id: 0,
+        organizeUuid: '',
+        reportTitle: '',
+        reportType: '',
+        accountingPeriod: '',
+        totalEmission: 0.00,
+        reportStatus: '',
+        verifierUuid: '',
+        verificationDate: '',
+        reportSummary: '',
+        listOfReports: '',
+        createdAt: '',
+        updatedAt: ''
+    }
+}
+
+export let getCarbonAccountingSingleDO = {
+    baseResponse,
+    data: {
+        id: 0,
+        organizeUuid: '',
+        reportId: 0,
+        emissionType: '',
+        emissionVolume: '',
+        emissionAmount: 0.00,
+        accountingPeriod: '',
+        dataVerificationStatus: '',
+        verifierUuid: '',
+        verificationNotes: '',
+        createdAt: '',
+        updatedAt: ''
+    }
+}

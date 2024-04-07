@@ -240,6 +240,11 @@ const router = createRouter({
                     name: 'MarketAccountingCreate',
                     component: () => import('@/views/MarketPage/MarketCreateAccounting.vue'),
                 },
+                {
+                    path: '/market/accounting/check/:id',
+                    name: 'MarketCheckAccounting',
+                    component: () => import('@/views/MarketPage/MarketCheckAccounting.vue'),
+                },
             ]
         },
         {

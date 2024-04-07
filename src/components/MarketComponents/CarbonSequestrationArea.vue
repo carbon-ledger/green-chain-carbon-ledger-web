@@ -55,7 +55,7 @@
         </a-form-item>
         <!-- 添加外销量 -->
         <a-form-item
-            :name="[index, 'material', 'outside']"
+            :name="[index, 'material', 'export']"
             :rules="[{ required: true, message: '外销量为必填项' }]"
             label="外销量"
         >

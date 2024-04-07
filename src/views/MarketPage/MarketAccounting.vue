@@ -1,48 +1,41 @@
 <template>
   <div class="col-span-9">
     <a-card class="shadow-lg grid gap-3">
-      <a-typography-title :level="3"><FileOutlined /> 核算信息</a-typography-title>
-      <a-table :columns="columns" :data-source="data">
-        <template #headerCell="{ column }">
-          <template v-if="column.key === 'name'">
-        <span>
-          <SmileOutlined />
-          Name
-        </span>
+      <div v-if="getCarbonReport.data !== undefined">
+        <a-typography-title :level="3"><FileOutlined /> 核算信息</a-typography-title>
+        <a-table :columns="columns" :data-source="getCarbonReport.data">
+          <template #headerCell="{ column }">
+            <template v-if="column.key === 'accountingPeriod'">
+              核算周期
+            </template>
           </template>
-        </template>
 
-        <template #bodyCell="{ column, record }">
-          <template v-if="column.key === 'name'">
-            <a>
-              {{ record.name }}
-            </a>
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'accountingPeriod'">
+              {{ record.accountingPeriod }}
+            </template>
+            <template v-else-if="column.key === 'totalEmission'">
+              {{ record.totalEmission }} 吨
+            </template>
+            <template v-else-if="column.key === 'reportStatus'">
+              <a-tag :color="getTagColor(record.reportStatus)">{{ getTagName(record.reportStatus) }}</a-tag>
+            </template>
+            <template v-else-if="column.key === 'action'">
+              <a-button class="text-aspargus" type="text" @click="router.push({name: 'MarketCheckAccounting', params: {id: record.id}})">详情</a-button>
+            </template>
           </template>
-          <template v-else-if="column.key === 'tags'">
-        <span>
-          <a-tag
-              v-for="tag in record.tags"
-              :key="tag"
-              :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-          >
-            {{ tag.toUpperCase() }}
-          </a-tag>
-        </span>
+        </a-table>
+      </div>
+      <div class="flex justify-center my-10" v-else>
+        <a-empty
+            class="text-center"
+        >
+          <template #description>
+            还找不到您的核算信息，要不还是创建一个吧～
           </template>
-          <template v-else-if="column.key === 'action'">
-        <span>
-          <a>Invite 一 {{ record.name }}</a>
-          <a-divider type="vertical" />
-          <a>Delete</a>
-          <a-divider type="vertical" />
-          <a class="ant-dropdown-link">
-            More actions
-            <DownOutlined />
-          </a>
-        </span>
-          </template>
-        </template>
-      </a-table>
+          <a-button type="primary" class="bg-aspargus" @click="router.replace({name: 'MarketAccountingCreate', replace: true})">创建核算信息</a-button>
+        </a-empty>
+      </div>
     </a-card>
   </div>
   <div class="col-span-3">
@@ -52,7 +45,7 @@
       </template>
       <template #actions>
         <span @click="router.push({name: 'MarketDashboard'})"><UserOutlined /> 我的信息</span>
-        <span @click="router.push({name: 'MarketAccountingCreate'})"><EditOutlined/>  创建核算</span>
+        <span @click="router.replace({name: 'MarketAccountingCreate', replace: true})"><EditOutlined/>  创建核算</span>
       </template>
       <a-card-meta :description="getUserProfile.data.user.userName" :title="getUserProfile.data.user.realName">
         <template #avatar>
@@ -64,17 +57,23 @@
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import {getUserCurrentApi} from "@/api/UserApi.js";
-import {userCurrentDO} from "@/models/DoModel.js";
-import {UserOutlined, EditOutlined, FileOutlined, SmileOutlined, DownOutlined} from "@ant-design/icons-vue"
+import {getCarbonReportDO, userCurrentDO} from "@/models/DoModel.js";
+import {UserOutlined, EditOutlined, FileOutlined} from "@ant-design/icons-vue"
 import router from "@/router/index.js";
+import {getCarbonReportApi} from "@/api/CarbonApi.js";
+import {searchAllVO} from "@/models/VoModel.js";
+import moment from "moment";
 
 const getUserAvatar = ref('');
 const getUserProfile = ref(userCurrentDO);
+const getCarbonReport = ref(getCarbonReportDO);
+const sendSelect = reactive(searchAllVO);
 
 onMounted(async _ => {
   getUserProfile.value = await getUserCurrentApi();
+  getCarbonReport.value = await getCarbonReportApi(sendSelect);
 
   if (getUserProfile.value.output === 'Success') {
     if (getUserProfile.value.data.user.avatar === '') {
@@ -84,56 +83,66 @@ onMounted(async _ => {
     }
   }
 });
+
+const getTagName = (status) => {
+  switch (status) {
+    case 'draft':
+      return "草稿";
+    case 'pending_review':
+      return "审核";
+    case 'approved':
+      return "通过";
+    case 'rejected':
+      return "拒绝";
+  }
+}
+
+const getTagColor = (status) => {
+  switch (status) {
+    case 'draft':
+      return "blue";
+    case 'pending_review':
+      return "orange";
+    case 'approved':
+      return "green";
+    case 'rejected':
+      return "red";
+  }
+}
+
+watch(getCarbonReport , async _ => {
+  // 对时间进行处理
+  getCarbonReport.value.data.forEach(item => {
+    item.createdAt = moment(item.createdAt).format("yyyy年MM月DD日");
+  });
+});
 </script>
 
 <script>
 const columns = [
   {
-    name: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    name: '核算周期',
+    dataIndex: 'accountingPeriod',
+    key: 'accountingPeriod',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: '总排放量',
+    dataIndex: 'totalEmission',
+    key: 'totalEmission',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: '状态',
+    dataIndex: 'reportStatus',
+    key: 'reportStatus',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
+    title: '创建时间',
+    key: 'createdAt',
+    dataIndex: 'createdAt',
   },
   {
-    title: 'Action',
+    title: '操作',
     key: 'action',
-  },
-];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
   },
 ];
 </script>

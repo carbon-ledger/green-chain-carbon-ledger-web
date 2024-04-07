@@ -37,12 +37,11 @@
         <a-form-item/>
         <!-- 核算开始时间 -->
         <a-form-item
-            :rules="[{ required: true, message: '开始时间为必填项' }]"
-            label="开始时间"
+            label="&nbsp;&nbsp;&nbsp;开始时间"
             name="startTime"
         >
           <a-date-picker
-              v-model:value="createAccountingForm.startTime"
+              v-model:value="startTime"
               name="startTime"
               placeholder="请选择开始时间"
               style="width: 100%"
@@ -50,11 +49,11 @@
         </a-form-item>
         <!-- 核算结束时间 -->
         <a-form-item
-            label="结束时间"
+            label="&nbsp;&nbsp;&nbsp;结束时间"
             name="endTime"
         >
           <a-date-picker
-              v-model:value="createAccountingForm.endTime"
+              v-model:value="endTime"
               placeholder="请选择结束时间"
               style="width: 100%"
           />
@@ -133,7 +132,6 @@ import HeatArea from "@/components/MarketComponents/HeatArea.vue";
 import DefaultArea from "@/components/MarketComponents/DefaultArea.vue";
 import ElectricArea from "@/components/MarketComponents/ElectricArea.vue";
 import {message} from "ant-design-vue";
-import moment from "moment";
 import {createCarbonReportApi, getCarbonItemTypeApi} from "@/api/CarbonApi.js";
 import {getTypeDO} from "@/models/DoModel.js";
 
@@ -145,10 +143,10 @@ const getCourseAreaForm = reactive(courseAreaVO);
 const getCarbonSequestrationAreaForm = reactive(carbonSequestrationAreaVO);
 const getDesulfurizationAreaForm = reactive(desulfurizationAreaVO);
 const getHeatAreaForm = reactive(heatAreaVO);
-let startTime;
-let endTime;
+const startTime = ref("");
+const endTime = ref("");
 // 监听器，监听选择的类型已匹配不同的添加内容的模式
-const validMaterial = ref(false);
+const validMaterial = ref(true);
 const validCourse = ref(false);
 const validCarbonSequestration = ref(false);
 const validDesulfurization = ref(false);
@@ -172,6 +170,8 @@ onMounted(async _ => {
  * 提交表单
  */
 async function onFinish() {
+  console.log(getMaterialAreaForm)
+  console.log(validMaterial.value)
   // 检查选择的内容是否正确
   if (createAccountingForm.type === '请选择类型') {
     message.warn("请选择核算模型");
@@ -186,13 +186,13 @@ async function onFinish() {
   }
   if (validCourse.value) {
     if (!checkGetCourseAreaFormHasNullValue(getCourseAreaForm)) {
-      message.warn("提交失败，请检查课程消耗是否填写完整");
+      message.warn("提交失败，请检查过程消耗是否填写完整");
       return;
     }
   }
   if (validCarbonSequestration.value) {
     if (!checkGetCarbonSequestrationAreaFormHasNullValue(getCarbonSequestrationAreaForm)) {
-      message.warn("提交失败，请检查碳捕获消耗是否填写完整");
+      message.warn("提交失败，请检查固碳消耗是否填写完整");
       return;
     }
   }
@@ -210,15 +210,15 @@ async function onFinish() {
   }
   // 对数据进行整合
   const createMaterialsData = {
-    materials: null,
-    courses: null,
-    carbonSequestration: null,
-    desulfurization: null,
-    heat: null
+    materials: undefined,
+    courses: undefined,
+    carbonSequestration: undefined,
+    desulfurization: undefined,
+    heat: undefined
   }
   // 检查数据是否应该被存放
   if (validMaterial.value) {
-    createMaterialsData.courses = JSON.parse(JSON.stringify(getMaterialAreaForm));
+    createMaterialsData.materials = JSON.parse(JSON.stringify(getMaterialAreaForm));
   }
   if (validCourse.value) {
     createMaterialsData.courses = JSON.parse(JSON.stringify(getCourseAreaForm));
@@ -230,25 +230,18 @@ async function onFinish() {
     createMaterialsData.desulfurization = JSON.parse(JSON.stringify(getDesulfurizationAreaForm));
   }
   if (validHeat.value) {
-    createMaterialsData.heat = [{
-      name: "thermalPower",
-      material: JSON.parse(JSON.stringify(getHeatAreaForm)),
-    }];
+    createMaterialsData.heat = [JSON.parse(JSON.stringify(getHeatAreaForm))];
   }
   console.debug("整合数据：", createMaterialsData);
   // 数据转义 Json 进行存储进入主要数据主要存储
   createAccountingForm.materials = JSON.stringify(createMaterialsData);
   console.debug("整合数据：", JSON.stringify(createMaterialsData));
   // 对时间进行处理 对开始时间和结束时间进行格式化，格式化为 yyyy-MM-DD
-  startTime = createAccountingForm.startTime;
-  endTime = createAccountingForm.endTime;
+  createAccountingForm.startTime = processingDate(startTime.value);
+  createAccountingForm.endTime = processingDate(endTime.value);
   if (createAccountingForm.startTime !== undefined && createAccountingForm.endTime !== undefined) {
-    createAccountingForm.startTime = moment(startTime).format("YYYY-MM-DD");
-    createAccountingForm.endTime = moment(endTime).format("YYYY-MM-DD");
     console.debug(createAccountingForm);
     const getReturnData = await createCarbonReportApi(createAccountingForm);
-    createAccountingForm.startTime = startTime;
-    createAccountingForm.endTime = endTime;
     if (getReturnData.output === "Success") {
       message.success("提交成功");
       await router.push({name: "MarketAccounting"});
@@ -297,11 +290,25 @@ const checkGetHeatAreaFormHasNullValue = (getValues) => {
   return hasNullValue;
 }
 
+const processingDate = (getDate) => {
+  let month = getDate.month();
+  let day = getDate.date();
+  // 如果月份和日少于 10 天需要补 0
+  if (month < 10) {
+    month = "0" + getDate.month();
+  }
+  if (day < 10) {
+    day = "0" + getDate.date();
+  }
+  return getDate.year() + "-" + month + "-" + day;
+}
+
 /**
  * 监听器，监听选择的类型已匹配不同的添加内容的模式
  */
 watch(createAccountingForm, newValue => {
-  validMaterial.value = false;
+  console.log("[MarketCreateAccounting] 监听到类型变化")
+  validMaterial.value = true;
   validCourse.value = false;
   validCarbonSequestration.value = false;
   validDesulfurization.value = false;
@@ -311,13 +318,11 @@ watch(createAccountingForm, newValue => {
 
   switch (newValue.type) {
     case "steelProduction":
-      validMaterial.value = true;
       validCourse.value = true;
       validCarbonSequestration.value = true;
       validHeat.value = true;
       break;
     case "generateElectricity":
-      validMaterial.value = true;
       validDesulfurization.value = true;
       break;
     default:
