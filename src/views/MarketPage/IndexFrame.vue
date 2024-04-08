@@ -9,6 +9,6 @@
 </template>
 
 <script setup>
-import MarketNavbar from "@/components/BackComponents/Market/MarketNavbar.vue";
+import MarketNavbar from "@/components/MarketComponents/MarketNavbar.vue";
 import DashboardFooter from "@/components/BackComponents/Dashboard/DashboardFooter.vue";
 </script>

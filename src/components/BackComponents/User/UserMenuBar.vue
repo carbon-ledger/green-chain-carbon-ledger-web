@@ -21,7 +21,7 @@ const getItem = (label, key, icon, children, type) => {
 
 const items = reactive([
   getItem('个人信息', '1', () => h(UserOutlined)),
-  getItem('实名审核', '2', () => h(IdcardOutlined)),
+  getItem('实名认证', '2', () => h(IdcardOutlined)),
   getItem('修改密码', '3', () => h(KeyOutlined)),
   getItem('登陆状态', '4', () => h(LinkOutlined)),
   getItem('注销账户', '5', () => h(DeleteOutlined))

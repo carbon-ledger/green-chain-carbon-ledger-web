@@ -19,7 +19,7 @@
                   label="监管用户名"
                   name="userName"
               >
-                <a-input v-model:value="managerRegisterForm.userName">
+                <a-input v-model:value="managerRegisterForm.username">
                   <template #prefix>
                     <UserOutlined class="site-form-item-icon"/>
                   </template>
@@ -30,7 +30,7 @@
                   label="真实姓名"
                   name="realName"
               >
-                <a-input v-model:value="managerRegisterForm.realName">
+                <a-input v-model:value="managerRegisterForm.realname">
                   <template #prefix>
                     <IdcardOutlined class="site-form-item-icon"/>
                   </template>
@@ -90,7 +90,7 @@
                 已有账户?
                 <a class="text-aspargus hover:text-spring" @click="router.push('/auth/userLogin')">登陆</a>
                 或 <a class="text-aspargus hover:text-spring"
-                      @click="router.push('/auth/register/organize')">组织注册</a>
+                      @click="router.push({name: 'OrganizeRegister'})">组织注册</a>
               </div>
               <div class="text-center">
                 <a-button :disabled="false" class="bg-aspargus" html-type="submit" type="primary"
@@ -153,7 +153,7 @@ async function UserRegister() {
     const getReturnData = await managerRegisterApi(managerRegisterForm);
     if (getReturnData.output === "Success") {
       message.success("注册成功，请登录");
-      await router.push({name: 'LoginAccount'});
+      await router.push({name: 'AccountingLogin'});
     }
   } else {
     message.warn("必填项不可缺")

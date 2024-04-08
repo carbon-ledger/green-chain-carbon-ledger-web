@@ -2,7 +2,7 @@
   <nav class="bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl grid grid-cols-12 flex-wrap items-center justify-between mx-auto p-2">
       <div class="col-span-2 flex items-center space-x-3 rtl:space-x-reverse">
-        <img alt="Market Logo" class="h-7 rounded-full" src="@/assets/images/market-logo.png" draggable="false"/>
+        <img alt="Market Logo" class="h-7 rounded-full" src="../../assets/images/market-logo.png" draggable="false"/>
         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">交易核算中心</span>
       </div>
       <div class="col-span-8 flex justify-center w-full gap-6 md:w-auto">
@@ -64,7 +64,7 @@
         </a-dropdown>
       </div>
     </div>
-    <img alt="" src="@/assets/images/market-navbar.png">
+    <img alt="" src="../../assets/images/market-navbar.png">
   </nav>
 </template>
 

@@ -145,7 +145,22 @@ const router = createRouter({
                     path: '/dashboard/console',
                     name: 'DashboardConsole',
                     breadcrumbName: '管理首页',
-                    component: () => import('@/views/Dashboard/ConsoleDashboard.vue')
+                    component: () => import('@/views/Dashboard/Index/ConsoleDashboard.vue')
+                },
+                {
+                    path: '/dashboard/organize',
+                    name: 'DashboardOrganize',
+                    component: () => import('@/views/Dashboard/Index/OrganizeDashboard.vue')
+                },
+                {
+                    path: '/dashboard/admin',
+                    name: 'DashboardAdmin',
+                    component: () => import('@/views/Dashboard/Index/AdminDashboard.vue')
+                },
+                {
+                    path: '/dashboard/default',
+                    name: 'DashboardDefault',
+                    component: () => import('@/views/Dashboard/Index/DefaultDashboard.vue')
                 },
                 {
                     path: '/dashboard/user',
@@ -181,11 +196,6 @@ const router = createRouter({
                     path: '/dashboard/copyright',
                     name:'DashboardCopyRight',
                     component:() => import('@/views/Dashboard/ConsoleCopyRight.vue')
-                },
-                {
-                    path: '/dashboard/test-manage',
-                    name:'DashboardTestManage',
-                    component:() => import('@/views/Dashboard/ConsoleTestManage.vue')
                 },
                 {
                     path: '/dashboard/system-info',

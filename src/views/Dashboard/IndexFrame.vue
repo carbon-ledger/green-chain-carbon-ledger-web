@@ -45,22 +45,20 @@ const getUserCurrent = ref(userCurrentDO);
 
 onMounted(async _ => {
   getUserCurrent.value = await getUserCurrentApi();
-})
 
-nextTick(async _ => {
   if (getUrlRelativePath() === "/dashboard") {
     switch (getUserCurrent.value.data.role) {
       case "console":
         await router.replace({ name: 'DashboardConsole', replace: true })
         break
       case "admin":
-        await router.replace({ name: 'DashboardConsole', replace: true })
+        await router.replace({ name: 'DashboardAdmin', replace: true })
         break
       case "organize":
-        await router.replace({ name: 'DashboardConsole', replace: true })
+        await router.replace({ name: 'DashboardOrganize', replace: true })
         break
       default:
-        await router.replace({ name: 'DashboardConsole', replace: true })
+        await router.replace({ name: 'DashboardDefault', replace: true })
     }
   }
 })

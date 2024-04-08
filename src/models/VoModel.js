@@ -105,8 +105,8 @@ export let roleEditVO = {
 }
 
 export let managerUserRegisterVO = {
-    userName: '',
-    realName: '',
+    username: '',
+    realname: '',
     phone: '',
     email: '',
     code: '',

@@ -103,7 +103,7 @@
                 已有账户?
                 <a class="text-aspargus hover:text-spring" @click="router.push('/auth/userLogin')">登陆</a>
                 或 <a class="text-aspargus hover:text-spring"
-                      @click="router.push('/auth/register/manager')">监管注册</a>
+                      @click="router.push({name: 'ManagerRegister'})">监管注册</a>
               </div>
               <div class="text-center">
                 <a-button :disabled="false" class="bg-aspargus" html-type="submit" type="primary"
@@ -174,7 +174,7 @@ function UserRegister() {
       switch (res.data.output) {
         case "Success":
           message.success('注册成功，请登录');
-          router.push("/auth/userLogin");
+          router.push({name: 'AccountingLogin'});
           break;
         default:
           console.log(res.data.message);

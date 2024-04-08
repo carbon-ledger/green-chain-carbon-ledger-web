@@ -4,11 +4,11 @@
   </div>
   <a-menu v-model:openKeys="openMenuKey" v-model:selectedKeys="selectedKey" mode="inline">
     <a-menu-item key="a" @click="router.replace({name: 'Index', replace: true})">
-      <HomeOutlined />
+      <HomeOutlined/>
       <span class="nav-text">返回主页</span>
     </a-menu-item>
     <a-menu-item key="b" @click="router.replace({name: 'MarketDashboard', replace: true})">
-      <ShoppingOutlined />
+      <ShoppingOutlined/>
       <span class="nav-text">交易核算</span>
     </a-menu-item>
     <hr class="m-3"/>
@@ -16,82 +16,88 @@
       <DashboardOutlined/>
       <span class="nav-text">仪表盘</span>
     </a-menu-item>
-    <a-menu-item key="10" @click="router.push({name: 'DashboardVerify'})">
+    <a-menu-item v-if="checkUserHasPermission('review:getList')" key="10"
+                 @click="router.push({name: 'DashboardVerify'})">
       <span>
         <SafetyOutlined/>
         <span class="nav-text">实名审核</span>
       </span>
     </a-menu-item>
-    <a-menu-item key="11" @click="router.push({name: 'DashboardQuotaManager'})">
+    <a-menu-item v-if="checkUserHasPermission('carbon:getCarbonOperateList')" key="11"
+                 @click="router.push({name: 'DashboardQuotaManager'})">
       <span>
-        <MoneyCollectOutlined />
+        <MoneyCollectOutlined/>
         <span class="nav-text">配额管理</span>
       </span>
     </a-menu-item>
-    <a-menu-item key="12" @click="router.push({name: 'DashboardTradeManager'})">
+    <a-menu-item v-if="checkUserHasPermission('trade:review')" key="12"
+                 @click="router.push({name: 'DashboardTradeManager'})">
       <span>
-        <ShoppingOutlined />
+        <ShoppingOutlined/>
         <span class="nav-text">交易审核</span>
       </span>
     </a-menu-item>
-    <a-menu-item key="13" @click="router.push({name: 'DashboardCheckReport'})">
+    <a-menu-item v-if="checkUserHasPermission('carbon:getCarbonReviewReport')" key="13"
+                 @click="router.push({name: 'DashboardCheckReport'})">
       <span>
-        <FileProtectOutlined />
+        <FileProtectOutlined/>
         <span class="nav-text">报告审核</span>
       </span>
     </a-menu-item>
-    <a-sub-menu key="sub1">
+    <a-sub-menu v-if="checkUserHasPermission('user:getUserList') || checkUserHasPermission('role:getRoleList') || checkUserHasPermission('permission:getPermissionList')"
+                key="sub1">
       <template #title>
         <span>
           <ApartmentOutlined/>
           <span>网站管理</span>
         </span>
       </template>
-      <a-menu-item key="2" @click="router.push({name: 'DashboardUser'})">
+      <a-menu-item v-if="checkUserHasPermission('user:getUserList')" key="2"
+                   @click="router.push({name: 'DashboardUser'})">
         <span>
           <UserOutlined/>
           <span class="nav-text">账户管理</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="3" @click="router.push({name: 'DashboardRole'})">
+      <a-menu-item v-if="checkUserHasPermission('role:getRoleList')" key="3"
+                   @click="router.push({name: 'DashboardRole'})">
         <span>
           <UserSwitchOutlined/>
           <span class="nav-text">角色管理</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="4" @click="router.push({name: 'DashboardPermission'})">
+      <a-menu-item v-if="checkUserHasPermission('permission:getPermissionList')" key="4"
+                   @click="router.push({name: 'DashboardPermission'})">
         <span>
           <KeyOutlined/>
           <span class="nav-text">权限管理</span>
         </span>
       </a-menu-item>
     </a-sub-menu>
-    <a-menu-item key="8" @click="router.push({name:'DashboardSystemInfo'})">
+    <a-menu-item v-if="checkUserHasPermission('system:getSystemInfo')" key="8"
+                 @click="router.push({name:'DashboardSystemInfo'})">
         <span>
           <BarChartOutlined/>
           <span class="nav-text">系统信息</span>
         </span>
     </a-menu-item>
-    <a-sub-menu key="sub2">
+    <a-sub-menu v-if="checkUserHasPermission('system:getWebSetting') || checkUserHasPermission('system:getCopyRight')"
+                key="sub2">
       <template #title>
         <span>
           <SettingOutlined/>
           <span>系统设置</span>
         </span>
       </template>
-      <a-menu-item key="5" @click="router.push({name:'DashboardWebSetting'})">
+      <a-menu-item v-if="checkUserHasPermission('system:getWebSetting')" key="5"
+                   @click="router.push({name:'DashboardWebSetting'})">
         <span>
           <LayoutOutlined/>
           <span class="nav-text">网站设置</span>
         </span>
       </a-menu-item>
-      <a-menu-item key="6" @click="router.push({name:'DashboardTestManage'})">
-        <span>
-          <IssuesCloseOutlined/>
-          <span class="nav-text">测试管理</span>
-        </span>
-      </a-menu-item>
-      <a-menu-item key="7" @click="router.push({name:'DashboardCopyRight'})">
+      <a-menu-item v-if="checkUserHasPermission('system:getCopyRight')" key="7"
+                   @click="router.push({name:'DashboardCopyRight'})">
         <span>
           <CopyrightCircleOutlined/>
           <span class="nav-text">版权页面</span>
@@ -107,17 +113,16 @@ import {
   BarChartOutlined,
   CopyrightCircleOutlined,
   DashboardOutlined,
-  IssuesCloseOutlined,
+  FileProtectOutlined,
+  HomeOutlined,
   KeyOutlined,
   LayoutOutlined,
+  MoneyCollectOutlined,
   SafetyOutlined,
   SettingOutlined,
-  UserOutlined,
-  UserSwitchOutlined,
   ShoppingOutlined,
-  HomeOutlined,
-  MoneyCollectOutlined,
-  FileProtectOutlined
+  UserOutlined,
+  UserSwitchOutlined
 } from '@ant-design/icons-vue';
 import router from "@/router/index.js";
 import {userCurrentDO} from "@/models/DoModel.js";
@@ -134,17 +139,28 @@ onMounted(async _ => {
 function sendTo() {
   switch (getUserCurrent.value.data.role) {
     case "console":
-      router.replace({ name: 'DashboardConsole', replace: true })
+      router.replace({name: 'DashboardConsole', replace: true})
       break
     case "admin":
-      router.replace({ name: 'DashboardConsole', replace: true })
+      router.replace({name: 'DashboardConsole', replace: true})
       break
     case "organize":
-      router.replace({ name: 'DashboardConsole', replace: true })
+      router.replace({name: 'DashboardConsole', replace: true})
       break
     default:
-      router.replace({ name: 'DashboardConsole', replace: true })
+      router.replace({name: 'DashboardConsole', replace: true})
   }
+}
+
+function checkUserHasPermission(permission) {
+  let boolean = false;
+  if (getUserCurrent.value.data.permission.rolePermission.find(item => item === permission)) {
+    boolean = true;
+  }
+  if (getUserCurrent.value.data.permission.userPermission.find(item => item === permission)) {
+    boolean = true;
+  }
+  return boolean;
 }
 
 switch (router.currentRoute.value.name) {
@@ -173,10 +189,6 @@ switch (router.currentRoute.value.name) {
     break
   case "DashboardWebSetting":
     selectedKey.value = ["5"]
-    openMenuKey.value = ["sub2"]
-    break
-  case "DashboardTestManage":
-    selectedKey.value = ["6"]
     openMenuKey.value = ["sub2"]
     break
   case "DashboardCopyRight":
