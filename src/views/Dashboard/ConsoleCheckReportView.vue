@@ -129,23 +129,23 @@
         </a-descriptions-item>
         <a-descriptions-item v-if="viewHeat" label="热源(购入量)" span="1">{{
             getMaterials.data.materials.heats[0].buy
-          }}
+          }} GJ
         </a-descriptions-item>
         <a-descriptions-item v-if="viewHeat" label="热源(生产外)" span="1">
-          {{ getMaterials.data.materials.heats[0].outside }}
+          {{ getMaterials.data.materials.heats[0].outside }} GJ
         </a-descriptions-item>
         <a-descriptions-item v-if="viewHeat" label="热源(外销量)" span="1">{{
             getMaterials.data.materials.heats[0].export
-          }}
+          }} GJ
         </a-descriptions-item>
         <a-descriptions-item v-if="viewElectricity" label="电源(购入量)" span="1">
-          {{ getMaterials.data.electric.electricBuy }}
+          {{ getMaterials.data.electric.electricBuy }} MWh
         </a-descriptions-item>
         <a-descriptions-item v-if="viewElectricity" label="电源(生产外)" span="1">
-          {{ getMaterials.data.electric.electricOutside }}
+          {{ getMaterials.data.electric.electricOutside }} MWh
         </a-descriptions-item>
         <a-descriptions-item v-if="viewElectricity" label="电源(外销量)" span="1">
-          {{ getMaterials.data.electric.electricExport }}
+          {{ getMaterials.data.electric.electricExport }} MWh
         </a-descriptions-item>
         <a-descriptions-item v-if="viewElectricity" label="电源(电力公司)" span="1">
           {{ getFactorOtherName(getMaterials.data.electric.electricCompany) }}

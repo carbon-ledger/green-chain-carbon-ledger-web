@@ -2,7 +2,6 @@ import {baseResponse, userLoginDO, userLoginInfoDO, userRegisterDO} from "@/mode
 import request from "@/models/Request.js";
 import {publicErrorOperate} from "@/utils/PublishUtil.js";
 import {message} from "ant-design-vue";
-import router from "@/router/index.js";
 
 export async function managerRegisterApi(getData) {
     let returnData = userRegisterDO;
@@ -128,12 +127,11 @@ export async function userLogoutApi() {
     try {
         const res = await request.userLoginOut();
         returnData = res.data;
+        window.location.href = "/auth/login";
     } catch (err) {
         if (err.response && err.response.data) {
             if (!await publicErrorOperate(err)) {
-                returnData = err.response.data;
-                await router.replace({name: "AccountLogin", replace: true});
-                switch (err.response.data.output) {
+                returnData = err.response.data;switch (err.response.data.output) {
                     default:
                         message.warn(err.response.data.message);
                 }

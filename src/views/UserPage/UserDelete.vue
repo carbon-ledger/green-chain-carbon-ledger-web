@@ -98,8 +98,6 @@ import {sendCodeMailApi} from "@/api/MailApi.js";
 import {sendMailVO, userDeleteVO} from "@/models/VoModel.js";
 import {userDeleteApi, userLogoutApi} from "@/api/AuthApi.js";
 
-
-const openNoti = ref(false);
 const userDeleteForm = reactive(userDeleteVO)
 const sendCodeDataForm = reactive(sendMailVO);
 const getUserCurrent = ref(userCurrentDO);
@@ -125,9 +123,6 @@ async function handleOk() {
     if (returnDataWithLoginOut.output === "Success") {
       localStorage.removeItem("AuthorizationToken");
       localStorage.removeItem("X-Auth-UUID");
-      setTimeout(() => {
-        window.location.href = "/"
-      }, 1000)
     }
   } else {
     setTimeout(() => {
