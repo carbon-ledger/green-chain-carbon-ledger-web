@@ -77,6 +77,30 @@
       </a-input>
     </a-form-item>
     <a-form-item
+        :rules="[{ required: true, message: '开户银行不可缺少' }]"
+        class="col-span-6"
+        label="开户银行"
+        name="legalRepresentativeId"
+    >
+      <a-input v-model:value="form.accountBank">
+        <template #prefix>
+          <BankOutlined class="site-form-item-icon"/>
+        </template>
+      </a-input>
+    </a-form-item>
+    <a-form-item
+        :rules="[{ required: true, message: '开户账号不可缺少' }]"
+        class="col-span-6"
+        label="开户账号"
+        name="legalRepresentativeId"
+    >
+      <a-input v-model:value="form.accountNumber">
+        <template #prefix>
+          <MoneyCollectOutlined class="site-form-item-icon"/>
+        </template>
+      </a-input>
+    </a-form-item>
+    <a-form-item
         :rules="[{ required: true, message: '组织营业执照不可缺少' }]"
         class="col-span-12"
         label="组织营业执照"
@@ -125,11 +149,13 @@
 
 <script setup>
 import {
-  UserOutlined,
-  NumberOutlined,
-  HomeOutlined,
+  BankOutlined,
   CheckCircleOutlined,
   DollarCircleOutlined,
+  HomeOutlined,
+  MoneyCollectOutlined,
+  NumberOutlined,
+  UserOutlined
 } from "@ant-design/icons-vue";
 
 import {onMounted, reactive, ref} from "vue";

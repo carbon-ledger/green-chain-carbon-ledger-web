@@ -11,6 +11,8 @@ export let UserVerifyVO = {
     establishmentDate: '',
     legalRepresentativeName: '',
     legalRepresentativeId: '',
+    accountBank: '',
+    accountNumber: '',
     legalIdCardFront: '',
     legalIdCardBack: '',
     remark: ''

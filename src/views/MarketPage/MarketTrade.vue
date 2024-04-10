@@ -6,37 +6,38 @@
         <TagsOutlined/>
         我的交易
       </a-typography-title>
-      <a-table :columns="myBuy" :data-source="getOurBuy.data">
-        <template #headerCell="{ column }">
-          <template v-if="column.key === 'quotaAmount'">
+      <div v-if="getOurBuy.data.length">
+        <a-table :columns="myBuy" :data-source="getOurBuy.data">
+          <template #headerCell="{ column }">
+            <template v-if="column.key === 'quotaAmount'">
             <span>
               碳数量(吨)
             </span>
-          </template>
-          <template v-if="column.key === 'totalPrice'">
+            </template>
+            <template v-if="column.key === 'totalPrice'">
             <span>
               {{ column.name }}
             </span>
-          </template>
-          <template v-if="column.key === 'organizeName'">
+            </template>
+            <template v-if="column.key === 'organizeName'">
             <span>
               {{ column.name }}
             </span>
+            </template>
           </template>
-        </template>
 
-        <template #bodyCell="{ column, record }">
-          <template v-if="column.key === 'organizeName'">
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'organizeName'">
             <span>
               {{ record.organize.realName }}
             </span>
-          </template>
-          <template v-if="column.key === 'totalPrice'">
+            </template>
+            <template v-if="column.key === 'totalPrice'">
             <span>
               {{ record.quotaAmount * record.pricePerUnit }}
             </span>
-          </template>
-          <template v-else-if="column.key === 'status'">
+            </template>
+            <template v-else-if="column.key === 'status'">
             <span>
               <a-tag
                   :color="getTagsColor(record.status)"
@@ -44,48 +45,54 @@
                 {{ showTag(record.status) }}
               </a-tag>
             </span>
-          </template>
-          <template v-else-if="column.key === 'action'">
+            </template>
+            <template v-else-if="column.key === 'action'">
             <span v-if="record.status === 'trade'">
-              <a-button class="text-aspargus" type="text" @click="() => router.push({name: 'MarketOrganizeTrade', params: {tradeId: record.tradeId}})">
+              <a-button class="text-aspargus" type="text"
+                        @click="() => router.push({name: 'MarketOrganizeTrade', params: {tradeId: record.tradeId}})">
                 付款
               </a-button>
             </span>
-            <span v-else>
+              <span v-else>
               <a-button class="text-aspargus" type="text" disabled>
                 付款
               </a-button>
             </span>
+            </template>
           </template>
-        </template>
-      </a-table>
+        </a-table>
+      </div>
+      <div v-else>
+        <a-result title="您还没有任何交易"/>
+      </div>
 
       <!-- 我发布的内容 -->
       <a-typography-title :level="3">
         <ToTopOutlined/>
         我发布的
       </a-typography-title>
-      <a-table :columns="mySend" :data-source="getOurSend.data">
-        <template #headerCell="{ column }">
-          <template v-if="column.key === 'quotaAmount'">
+      <div v-if="getOurSend.data.length">
+        <a-table :columns="mySend" :data-source="getOurSend.data">
+          <template #headerCell="{ column }">
+            <template v-if="column.key === 'quotaAmount'">
             <span>
               {{ column.name }}
             </span>
-          </template>
-          <template v-if="column.key === 'totalPrice'">
+            </template>
+            <template v-if="column.key === 'totalPrice'">
             <span>
               {{ column.name }}
             </span>
+            </template>
           </template>
-        </template>
 
-        <template #bodyCell="{ column, record }">
-          <template v-if="column.key === 'totalPrice'">
+          <template #bodyCell="{ column, record }">
+            <template v-if="column.key === 'totalPrice'">
             <span>
               {{ record.quotaAmount * record.pricePerUnit }}
             </span>
-          </template>
-          <template v-else-if="column.key === 'status'">
+            </template>
+            <template v-else-if="column.key === 'status'">
             <span>
               <a-tag
                   :color="getTagsColor(record.status)"
@@ -93,8 +100,8 @@
                 {{ showTag(record.status) }}
               </a-tag>
             </span>
-          </template>
-          <template v-else-if="column.key === 'action'">
+            </template>
+            <template v-else-if="column.key === 'action'">
             <span v-if="record.status !== 'trade' && record.status !== 'completed'">
               <span v-if="record.status === 'cancelled'">
                 <a-button class="text-aspargus" type="text" disabled>
@@ -121,17 +128,22 @@
                 </a-button>
               </span>
             </span>
-            <span v-else>
-              <a-button v-if="record.status === 'trade'" class="text-aspargus" type="text" @click="consoleCheckIsCollection(record.tradeId)">
+              <span v-else>
+              <a-button v-if="record.status === 'trade'" class="text-aspargus" type="text"
+                        @click="consoleCheckIsCollection(record.tradeId)">
                 确认收款
               </a-button>
               <a-button v-else class="text-aspargus" type="text" disabled>
                 确认收款
               </a-button>
             </span>
+            </template>
           </template>
-        </template>
-      </a-table>
+        </a-table>
+      </div>
+      <div v-else>
+        <a-result title="您还没有任何发布交易"/>
+      </div>
     </a-card>
   </div>
   <div class="col-span-3">
